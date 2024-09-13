@@ -1,0 +1,100 @@
+import 'package:flutter/material.dart';
+// import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import '../../../../RoutesAndBindings/app_routes.dart';
+import '../../../../constant/AppTextField/app_textfield.dart';
+import '../../../../constant/colors.dart';
+import '../../../../Utils/app_text.dart';
+import '../../../../Utils/text_botton.dart';
+import '../ViewModel/number_verification_view_model.dart';
+// import '../../Email Verification copy/ViewModel/email_verification_view_model.dart';
+
+class NumberConfirmView extends StatelessWidget {
+  NumberConfirmView({super.key});
+  final forgetPassVM = Get.find<NumberVerficationViewModel>();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: const BackButton(
+          color: AppColor.blackColor,
+        ),
+        title: const Text(
+          "Confirm Verification",
+          style: TextStyle(
+            color: AppColor.blackColor,
+          ),
+        ),
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 36.0),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Form(
+                key: forgetPassVM.emailformKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    appText(
+                        title:
+                            "Please enter your Number to \nreceive a verification code.",
+                        context: context,
+                        fontSize: 16,
+                        color: const Color(0xFF6D6E6F),
+                        fontWeight: FontWeight.bold),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    customPhoneNumberTextField(
+                      labal: "Enter your email",
+                      hintText: 'Enter your email',
+                      controller: forgetPassVM.emailController,
+                      textInputType: TextInputType.emailAddress,
+                      suffix: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.record_voice_over),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter valid  phone number';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 80,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: textButton(
+                            onClick: () async {
+                              if (forgetPassVM.emailformKey.currentState!
+                                  .validate()) {
+                                forgetPassVM.emailformKey.currentState?.save();
+
+                                Get.toNamed(AppRoutes.numberOTPView);
+                              } else {}
+                            },
+                            context: context,
+                            title: 'Send',
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 45,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
