@@ -16,6 +16,7 @@ class API {
   static const customerRequestUrl = '$baseURL$secondaryUrl/CustomerRequests/';
   static const allPropertiesUrl = '$baseURL$secondaryUrl/FilteredProperties';
   static const profileDetailUrl = '$baseURL/$secondaryUrl/user-profiles/';
+  static const getFeaturesPakagesUrl = '$baseURL/properties/feature-packages/';
   static const accountDeleteUrl = '$baseURL/accounts/delete-user-profile/';
   static const likePropertyUrl = '$baseURL/$secondaryUrl/LikeOrUnlike/';
   static const isLikedPropertyUrl = '$baseURL/$secondaryUrl/isLiked/';
@@ -31,4 +32,12 @@ class API {
   static const forgetPasswordUrl = '$mainUrl/forget-password';
   //--------vender-----------//
   static const venregisterUrl = '$baseURL/accounts/vendors';
+}
+
+class BaseUrl {
+  static const baseURL = "https://propertier-p2wwcx3okq-em.a.run.app/";
+}
+
+class Finance {
+  static const creatIntention = '${BaseUrl.baseURL}/finance/paymob-intention/';
 }

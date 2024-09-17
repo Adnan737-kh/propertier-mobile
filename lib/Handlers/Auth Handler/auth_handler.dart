@@ -6,7 +6,8 @@ import '../../App/Auth/Login/Services/login_services.dart';
 import '../../App/Auth/Service/auth_service.dart';
 
 class AuthHandler {
-  static Future<bool> signInHandler(AuthHandlerEnum type) async {
+  static Future<bool> signInHandler(AuthHandlerEnum type,
+      {bool isLogin = false}) async {
     bool isSuccess = false;
     try {
       if (type == AuthHandlerEnum.google) {
@@ -14,7 +15,10 @@ class AuthHandler {
         if (user?.credential != null) {
           var token = await user?.user!.getIdToken();
           await LoginServices()
-              .loginUser(context: Get.context!, password: token ?? '')
+              .loginUser(
+                  context: Get.context!,
+                  password: token ?? '',
+                  isLogin: isLogin)
               .then((value) {
             if (value != null) {
               AuthService().registerUser(value, "");
@@ -33,7 +37,8 @@ class AuthHandler {
           var token = await user?.user!.getIdToken();
 
           await LoginServices()
-              .loginUser(context: Get.context!, password: token!)
+              .loginUser(
+                  context: Get.context!, password: token!, isLogin: isLogin)
               .then((value) {
             if (value != null) {
               AuthService().registerUser(value, "");
@@ -79,10 +84,14 @@ class AuthHandler {
       String email, String password) async {
     var user = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password);
-    if (user.credential != null) {
+    if (user.user != null) {
       var token = await user.user!.getIdToken();
       await LoginServices()
-          .loginUser(context: Get.context!, email: email, password: token ?? '')
+          .loginUser(
+              context: Get.context!,
+              email: email,
+              isLogin: true,
+              password: token ?? '')
           .then((value) {
         if (value != null) {
           AuthService().registerUser(value, "");

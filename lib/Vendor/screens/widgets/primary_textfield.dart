@@ -6,20 +6,23 @@ class PrimaryTextField extends StatelessWidget {
   final String text;
   final TextInputType? keyboardType;
   final String headertext;
-   final ValueChanged<String>? onChanged;
+  final ValueChanged<String>? onChanged;
   final bool obsecure;
-    final bool obscureText;
+  final bool obscureText;
   final TextEditingController controller;
 
-  const PrimaryTextField(
-      {super.key,
-       this.prefixIcon,
-      required this.controller,
-      required this.headertext,
-      required this.text,
-       this.obscureText = false,
-      this.suffixIcon,
-      this.obsecure = false, this.keyboardType, this.onChanged, });
+  const PrimaryTextField({
+    super.key,
+    this.prefixIcon,
+    required this.controller,
+    required this.headertext,
+    required this.text,
+    this.obscureText = false,
+    this.suffixIcon,
+    this.obsecure = false,
+    this.keyboardType,
+    this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,21 +30,20 @@ class PrimaryTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-           headertext,
-            style: const TextStyle(
-              color: Color(0xFF131A22),
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
+          headertext,
+          style: const TextStyle(
+            color: Color(0xFF131A22),
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
           ),
-          const SizedBox(
-            height: 2,
-          ),
+        ),
+        const SizedBox(
+          height: 2,
+        ),
         TextFormField(
-          
           obscureText: obsecure,
           controller: controller,
-          keyboardType:keyboardType ,
+          keyboardType: keyboardType,
           cursorColor: Colors.black,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(
@@ -56,7 +58,6 @@ class PrimaryTextField extends StatelessWidget {
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
           ),
-
           onChanged: onChanged,
         ),
       ],

@@ -11,6 +11,7 @@ import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
+import '../../../Features/Featured Pakages/Views/featured_pakages_view.dart';
 import '../../../Utils/divider.dart';
 import '../ViewModel/payment_gatewaye_viewmodel.dart';
 
@@ -25,101 +26,103 @@ class PaymentGatwayeView extends GetView<PaymentGatwayeViewModel> {
         child: Padding(
           padding:
               EdgeInsets.symmetric(horizontal: context.getSize.width * 0.036),
-          child: Column(
-            children: [
-              getHeight(context, 0.036),
-              customAppBar(
-                context: context,
-                title: "Feature Ad",
-                onTap: () {
-                  Get.back();
-                },
-              ),
-              getHeight(context, 0.058),
-              selectPaymentMethod(context),
-              getHeight(context, 0.010),
-              divider(context: context, withOpacity: 0.5),
-              getHeight(context, 0.025),
-              selectDurationMethod(context),
-              getHeight(context, 0.025),
-              features(context),
-              getHeight(context, 0.035),
-              customButton(
-                  title: "Submit",
-                  onTap: () async {
-                    try {
-                      if (controller.price != '') {
-                        final price =
-                            (int.parse(controller.price) * 100).toString();
-                        PaymobPakistan.instance
-                            .initialize(
-                          apiKey: _apiKey,
-                          integrationID: 135513,
-                          iFrameID: 52288,
-                          jazzcashIntegrationId: 135516,
-                          easypaisaIntegrationID: 135519,
-                        )
-                            .then((value) async {
-                          PaymentInitializationResult response =
-                              await PaymobPakistan.instance.initializePayment(
-                            currency: "PKR",
-                            amountInCents: price,
-                          );
-                          String authToken = response.authToken;
-                          int orderID = response.orderID;
-                          if (controller.seletedBank == "EasyPaisa") {
-                            PaymobPakistan.instance.makePayment(
-                              context,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                getHeight(context, 0.036),
+                customAppBar(
+                  context: context,
+                  title: "Feature Ad",
+                  onTap: () {
+                    Get.back();
+                  },
+                ),
+                getHeight(context, 0.058),
+                selectPaymentMethod(context),
+                getHeight(context, 0.010),
+                divider(context: context, withOpacity: 0.5),
+                getHeight(context, 0.025),
+                FeaturedPakagesView(),
+                getHeight(context, 0.025),
+                features(context),
+                getHeight(context, 0.035),
+                customButton(
+                    title: "Submit",
+                    onTap: () async {
+                      try {
+                        if (controller.price != '') {
+                          final price =
+                              (int.parse(controller.price) * 100).toString();
+                          PaymobPakistan.instance
+                              .initialize(
+                            apiKey: _apiKey,
+                            integrationID: 135513,
+                            iFrameID: 52288,
+                            jazzcashIntegrationId: 135516,
+                            easypaisaIntegrationID: 135519,
+                          )
+                              .then((value) async {
+                            PaymentInitializationResult response =
+                                await PaymobPakistan.instance.initializePayment(
                               currency: "PKR",
                               amountInCents: price,
-                              paymentType: PaymentType.easypaisa,
-                              authToken: authToken,
-                              orderID: orderID,
                             );
-                          }
-                          if (controller.seletedBank == "JazzCash") {
-                            PaymobPakistan.instance.makePayment(
-                              context,
-                              currency: "PKR",
-                              amountInCents: price,
-                              paymentType: PaymentType.jazzcash,
-                              authToken: authToken,
-                              orderID: orderID,
-                            );
-                          }
-                          if (controller.seletedBank == "Bank") {
-                            PaymobPakistan.instance.makePayment(
-                              context,
-                              currency: "PKR",
-                              amountInCents: price,
-                              paymentType: PaymentType.card,
-                              authToken: authToken,
-                              orderID: orderID,
-                            );
-                          }
-                        });
+                            String authToken = response.authToken;
+                            int orderID = response.orderID;
+                            if (controller.seletedBank == "EasyPaisa") {
+                              PaymobPakistan.instance.makePayment(
+                                context,
+                                currency: "PKR",
+                                amountInCents: price,
+                                paymentType: PaymentType.easypaisa,
+                                authToken: authToken,
+                                orderID: orderID,
+                              );
+                            }
+                            if (controller.seletedBank == "JazzCash") {
+                              PaymobPakistan.instance.makePayment(
+                                context,
+                                currency: "PKR",
+                                amountInCents: price,
+                                paymentType: PaymentType.jazzcash,
+                                authToken: authToken,
+                                orderID: orderID,
+                              );
+                            }
+                            if (controller.seletedBank == "Bank") {
+                              PaymobPakistan.instance.makePayment(
+                                context,
+                                currency: "PKR",
+                                amountInCents: price,
+                                paymentType: PaymentType.card,
+                                authToken: authToken,
+                                orderID: orderID,
+                              );
+                            }
+                          });
+                        }
+                        // PaymentInitializationResult response = await PaymobPakistan.instance.initializePayment(
+
+                        //   currency: "PKR",
+                        //   amountInCents: "500",
+                        // );
+
+                        // String authToken = response.authToken;
+                        // int orderID = response.orderID;
+
+                        // PaymobPakistan.instance.makePayment(context,
+                        //     currency: "PKR",
+                        //     amountInCents: "100",
+                        //     paymentType: PaymentType.jazzcash,
+                        //     authToken: authToken,
+                        //     orderID: orderID,
+                        //     onPayment: (response) => null);
+                      } catch (err) {
+                        rethrow;
                       }
-                      // PaymentInitializationResult response = await PaymobPakistan.instance.initializePayment(
-
-                      //   currency: "PKR",
-                      //   amountInCents: "500",
-                      // );
-
-                      // String authToken = response.authToken;
-                      // int orderID = response.orderID;
-
-                      // PaymobPakistan.instance.makePayment(context,
-                      //     currency: "PKR",
-                      //     amountInCents: "100",
-                      //     paymentType: PaymentType.jazzcash,
-                      //     authToken: authToken,
-                      //     orderID: orderID,
-                      //     onPayment: (response) => null);
-                    } catch (err) {
-                      rethrow;
-                    }
-                  })
-            ],
+                    })
+              ],
+            ),
           ),
         ),
       ),
@@ -175,117 +178,6 @@ class PaymentGatwayeView extends GetView<PaymentGatwayeViewModel> {
         ),
         const Gap(4),
         appText(title: title, context: context, colorOpecity: 0.6),
-      ],
-    );
-  }
-
-  Obx selectDurationMethod(BuildContext context) {
-    return Obx(() => Column(
-          children: [
-            selectDurationAd(
-              context: context,
-              Pkr: "500",
-              days: "7 Days",
-              isVerification: controller.propertyVerification,
-              isVerificationAvil: true,
-              selectDays: controller.selectedDuration == "7 Days",
-              onChangedRadio: (p0) {
-                if (controller.propertyVerification) {
-                  controller.onChangePropertyVerification(false);
-                } else {
-                  controller.onChangePropertyVerification(true);
-                }
-              },
-              onChanged: (p0) {
-                controller.onChangeSelectedDuration("7 Days", '500');
-              },
-            ),
-            selectDurationAd(
-              context: context,
-              Pkr: "1000",
-              days: "15 Days",
-              isVerificationAvil: false,
-              selectDays: controller.selectedDuration == "15 Days",
-              onChangedRadio: (p0) {},
-              onChanged: (p0) {
-                controller.onChangeSelectedDuration("15 Days", '1000');
-              },
-            ),
-            selectDurationAd(
-              context: context,
-              Pkr: "1500",
-              days: "1 Month",
-              isVerificationAvil: false,
-              selectDays: controller.selectedDuration == "1 Month",
-              onChangedRadio: (p0) {},
-              onChanged: (p0) {
-                controller.onChangeSelectedDuration("1 Month", '1500');
-              },
-            ),
-          ],
-        ));
-  }
-
-  Column selectDurationAd({
-    required BuildContext context,
-    required String days,
-    required String Pkr,
-    required bool selectDays,
-    required void Function(bool?)? onChanged,
-    required void Function(bool?)? onChangedRadio,
-    bool isVerification = true,
-    required bool isVerificationAvil,
-  }) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Checkbox(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5)),
-                  activeColor: AppColor.buttonColor,
-                  value: selectDays,
-                  onChanged: onChanged,
-                ),
-                const Gap(4),
-                appText(title: days, context: context, colorOpecity: 0.6),
-              ],
-            ),
-            appText(
-                title: "$Pkr PKR",
-                context: context,
-                color: AppColor.facebookColor),
-          ],
-        ),
-        isVerificationAvil
-            ? Row(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  const Gap(40),
-                  Radio(
-                    toggleable: true,
-                    activeColor: AppColor.buttonColor,
-                    value: isVerification,
-                    groupValue: true,
-                    onChanged: onChangedRadio,
-                  ),
-                  // const Gap(4),
-                  Expanded(
-                    child: appText(
-                        title:
-                            "Propertier property evaluation and verification.",
-                        context: context,
-                        colorOpecity: 0.5),
-                  )
-                ],
-              )
-            : const Gap(0),
-        getHeight(context, 0.015),
-        divider(context: context, withOpacity: 0.1)
       ],
     );
   }

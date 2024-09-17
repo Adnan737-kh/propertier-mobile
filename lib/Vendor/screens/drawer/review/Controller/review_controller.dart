@@ -23,7 +23,8 @@ class ReviewController extends GetxController {
     if (vendorUserId != null) {
       try {
         isLoading(true);
-        List<Review> fetchedFeedbacks = await _fetchVendorFeedbacks(vendorUserId);
+        List<Review> fetchedFeedbacks =
+            await _fetchVendorFeedbacks(vendorUserId);
         feedbacks.assignAll(fetchedFeedbacks);
         if (feedbacks.isEmpty) {
           errorMessage('No reviews available');
@@ -41,28 +42,25 @@ class ReviewController extends GetxController {
     }
   }
 
-Future<List<Review>> _fetchVendorFeedbacks(String vendorUserId) async {
-  final response = await http.get(
-    Uri.parse('https://propertier-p2wwcx3okq-em.a.run.app/services/vendor-feedbacks/$vendorUserId'),
-  );
+  Future<List<Review>> _fetchVendorFeedbacks(String vendorUserId) async {
+    final response = await http.get(
+      Uri.parse(
+          'https://propertier-p2wwcx3okq-em.a.run.app/services/vendor-feedbacks/$vendorUserId'),
+    );
 
-  print('Response status: ${response.statusCode}');
-  print('Response body: ${response.body}'); // Log the response body
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}'); // Log the response body
 
-  if (response.statusCode == 200) {
-    try {
-      List<dynamic> jsonData = json.decode(response.body);
-      if (jsonData is List) {
+    if (response.statusCode == 200) {
+      try {
+        List<dynamic> jsonData = json.decode(response.body);
         return jsonData.map((json) => Review.fromJson(json)).toList();
-      } else {
-        throw Exception('Invalid JSON format');
+      } catch (e) {
+        throw Exception('Error parsing response data: $e');
       }
-    } catch (e) {
-      throw Exception('Error parsing response data: $e');
+    } else {
+      throw Exception(
+          'Failed to load vendor feedbacks, status code: ${response.statusCode}');
     }
-  } else {
-    throw Exception('Failed to load vendor feedbacks, status code: ${response.statusCode}');
   }
-}
-
 }

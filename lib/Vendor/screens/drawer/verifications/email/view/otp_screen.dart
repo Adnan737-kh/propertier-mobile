@@ -37,65 +37,63 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-            Container(
-          width: Get.size.width,
-          height: Get.height * .1,
-          padding: const EdgeInsets.only(top: 36, left: 8),
-          decoration: ShapeDecoration(
-            color: const Color(0xFF131A22),
-            shape: RoundedRectangleBorder(
-              side: BorderSide(
-                width: 1,
-                color: Colors.black.withOpacity(0.05000000074505806),
-              ),
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(40),
-                bottomRight: Radius.circular(40),
-              ),
-            ),
-            shadows: const [
-              BoxShadow(
-                color: Color(0x19000000),
-                blurRadius: 10,
-                offset: Offset(0, 1),
-                spreadRadius: 0,
-              )
-            ],
-          ),
-          child: Row(
-            children: [
-              IconButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                  )),
-              const SizedBox(width: 4),
-              const Text(
-                'Email Verification',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
+          Container(
+              width: Get.size.width,
+              height: Get.height * .1,
+              padding: const EdgeInsets.only(top: 36, left: 8),
+              decoration: ShapeDecoration(
+                color: const Color(0xFF131A22),
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    width: 1,
+                    color: Colors.black.withOpacity(0.05000000074505806),
+                  ),
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(40),
+                    bottomRight: Radius.circular(40),
+                  ),
                 ),
+                shadows: const [
+                  BoxShadow(
+                    color: Color(0x19000000),
+                    blurRadius: 10,
+                    offset: Offset(0, 1),
+                    spreadRadius: 0,
+                  )
+                ],
               ),
-            ],
-          )),
+              child: Row(
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      )),
+                  const SizedBox(width: 4),
+                  const Text(
+                    'Email Verification',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              )),
           const SizedBox(height: 140),
           const Text.rich(
             TextSpan(
               children: [
                 TextSpan(
-                  text:
-                      'Waiting to automatically detect an\nmessage sent to ',
+                  text: 'Waiting to automatically detect an\nmessage sent to ',
                   style: TextStyle(
                     color: Color(0xFF131A22),
                     fontSize: 16,
@@ -153,8 +151,7 @@ class _OtpScreenState extends State<OtpScreen> {
                         color: Colors.black,
                         fontSize: 18,
                       ),
-                      contentPadding:
-                          const EdgeInsets.symmetric(vertical: 8),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 8),
                       focusColor: Colors.grey,
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
@@ -228,12 +225,12 @@ class _OtpScreenState extends State<OtpScreen> {
               // if (isVerifying) {
               //   return; // Do nothing if already verifying
               // }
-            
+
               // setState(() {
               //   loading = true;
               //   isVerifying = true;
               // });
-            
+
               // // Check if any OTP field is empty
               // if (_otpControllers
               //         .any((controller) => controller.text.isEmpty) ||
@@ -255,14 +252,14 @@ class _OtpScreenState extends State<OtpScreen> {
               //       ),
               //     ),
               //   );
-            
+
               //   setState(() {
               //     loading = false;
               //     isVerifying = false;
               //   });
               //   return;
               // }
-            
+
               // try {
               //   String otpCode = _otpControllers
               //       .map((controller) => controller.text)
@@ -272,13 +269,13 @@ class _OtpScreenState extends State<OtpScreen> {
               //     verificationId: verificationId,
               //     smsCode: otpCode,
               //   );
-            
+
               //   // Sign in with the OTP credential
               //   await auth.signInWithCredential(credential);
               //   setState(() {
               //     loading = false;
               //   });
-            
+
               //   // Check if user data exists in Firestore
               //   User? user = auth.currentUser;
               //   DocumentSnapshot userSnapshot = await FirebaseFirestore
@@ -286,7 +283,7 @@ class _OtpScreenState extends State<OtpScreen> {
               //       .collection('users')
               //       .doc(user?.uid)
               //       .get();
-            
+
               //   if (userSnapshot.exists) {
               //     // User data exists, navigate to the home screen
               //     Navigator.push(
@@ -312,7 +309,7 @@ class _OtpScreenState extends State<OtpScreen> {
               //   }
               // } catch (e) {
               //   print(e.toString());
-            
+
               //   if (e is FirebaseAuthException) {
               //     if (e.code == 'invalid-verification-code') {
               //       // Show a dialog for wrong OTP

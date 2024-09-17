@@ -11,9 +11,9 @@ class PrivacyScreen extends StatefulWidget {
 }
 
 class _PrivacyScreenState extends State<PrivacyScreen> {
-  bool isMe=false;
-  bool isEvery=false;
-  bool isprivate=false;
+  bool isMe = false;
+  bool isEvery = false;
+  bool isprivate = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,8 +21,8 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
         children: [
           Container(
               width: Get.size.width,
-               height: Get.height * .124,
-            padding: const EdgeInsets.only(top: 38, left: 8),
+              height: Get.height * .124,
+              padding: const EdgeInsets.only(top: 38, left: 8),
               decoration: ShapeDecoration(
                 color: const Color(0xFF131A22),
                 shape: RoundedRectangleBorder(
@@ -102,7 +102,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                         activeColor: Colors.amber,
                         onChanged: (value) {
                           setState(() {
-                            isprivate=value;
+                            isprivate = value;
                           });
                         },
                       )
@@ -176,8 +176,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                   ),
                 ],
               )),
-
-          Spacer(),
+          const Spacer(),
           Container(
             width: Get.size.width,
             height: 237,
@@ -236,7 +235,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                         // activeColor: Colors.grey,
                         onChanged: (value) {
                           setState(() {
-                            isMe=value;
+                            isMe = value;
                           });
                         },
                       ),
@@ -244,7 +243,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                   ),
                 ),
                 const SizedBox(height: 15),
-                  Container(
+                Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 11, vertical: 10),
                   decoration: ShapeDecoration(
@@ -283,21 +282,16 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                         activeColor: Colors.amber,
                         onChanged: (value) {
                           setState(() {
-                            isEvery=value;
+                            isEvery = value;
                           });
                         },
                       ),
                     ],
                   ),
                 ),
-               
               ],
             ),
           ),
-       
-      
-       
-       
         ],
       ),
     );

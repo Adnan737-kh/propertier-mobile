@@ -45,15 +45,15 @@ class LoginViewModel extends GetxController {
       required String email,
       bool isGoogleLogin = false,
       required String password}) async {
-    changeLoading(isGoogleLogin);
+    isLoading.value = true;
     if (!isValidEmail(email)) {
       toast(title: 'Please Enter valid Email', context: context);
-      changeLoading(true);
+      isLoading.value = false;
       return false;
     }
     bool isDone = false;
     try {
-      changeLoading(true);
+      isLoading.value = true;
       return await AuthHandler.signInWithEmailAndPassword(email, password);
     } catch (e) {
       Get.defaultDialog(
@@ -109,7 +109,7 @@ class LoginViewModel extends GetxController {
                       child: Image.asset(height: 84, Constant.rerdCross))
                 ],
               )));
-      changeLoading(true);
+      isLoading.value = false;
       return isDone;
     }
   }
@@ -120,7 +120,8 @@ class LoginViewModel extends GetxController {
   loginWithGoogle({required BuildContext context}) async {
     isGoogleSigninLoading.value = true;
     try {
-      var isSccuss = await AuthHandler.signInHandler(AuthHandlerEnum.google);
+      var isSccuss = await AuthHandler.signInHandler(AuthHandlerEnum.google,
+          isLogin: true);
       if (isSccuss) {
         Get.offAndToNamed(AppRoutes.navBarView);
       } else {}
@@ -135,7 +136,8 @@ class LoginViewModel extends GetxController {
   loginWithApple({required BuildContext context}) async {
     isLoading.value = true;
     try {
-      var isSccuss = await AuthHandler.signInHandler(AuthHandlerEnum.apple);
+      var isSccuss =
+          await AuthHandler.signInHandler(AuthHandlerEnum.apple, isLogin: true);
       if (isSccuss) {
         Get.offAndToNamed(AppRoutes.navBarView);
       } else {}

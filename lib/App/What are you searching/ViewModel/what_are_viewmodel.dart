@@ -218,33 +218,8 @@ class WhatAreYouSearchViewModel extends GetxController {
   final RxString _currentAddress = ''.obs;
   String get currentAddress => _currentAddress.value;
 
-  Future<void> showProminentDisclosure(BuildContext context) async {
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Location Access Required'),
-          content: const Text(
-            'This app collects location data to enable [feature] even when the app is closed or not in use. This data is used to [explain purpose], and will not be shared with third parties.',
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   Future<void> getLocation(BuildContext context) async {
     // Show prominent disclosure
-    Future.delayed(Durations.long4, () async {
-      await showProminentDisclosure(context);
-    });
 
     // Request permission
     geolocator.LocationPermission permission =

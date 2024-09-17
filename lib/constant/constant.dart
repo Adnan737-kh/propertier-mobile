@@ -52,6 +52,9 @@ class Constant {
   static const architactureDesigner = 'assets/images/archDesigner.png';
   static const logoDesigner = 'assets/images/logoDesigner.png';
   static const sketches = 'assets/images/sketches.png';
+  static const whatAreYouSearchingFor =
+      'assets/images/whatareyousearchingfor.png';
+
   static const filter = "assets/icons/filter.png";
   static const res = "assets/icons/res.png";
   static const com = "assets/icons/com.png";

@@ -26,11 +26,11 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
 
   void updateFeatureDetails() {
     if (isWeek) {
-      featureDuration = formatFeatureDuration(Duration(days: 7));
+      featureDuration = formatFeatureDuration(const Duration(days: 7));
       price = '500 PKR';
       status = 'active';
     } else if (isFifteen) {
-      featureDuration = formatFeatureDuration(Duration(days: 15));
+      featureDuration = formatFeatureDuration(const Duration(days: 15));
       price = '1000 PKR';
       status = 'active';
     } else if (isMonth) {
@@ -283,7 +283,7 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
                 Row(
                   children: [
                     Checkbox(
-                      side: BorderSide(color: Colors.black38),
+                      side: const BorderSide(color: Colors.black38),
                       activeColor: Colors.amber,
                       value: isFifteen,
                       onChanged: (value) {
@@ -324,7 +324,7 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
                 Row(
                   children: [
                     Checkbox(
-                      side: BorderSide(color: Colors.black38),
+                      side: const BorderSide(color: Colors.black38),
                       activeColor: Colors.amber,
                       value: isMonth,
                       onChanged: (value) {

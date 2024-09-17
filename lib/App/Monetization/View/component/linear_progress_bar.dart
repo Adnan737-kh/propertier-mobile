@@ -1,7 +1,4 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:propertier/constant/colors.dart';
 
 class LinearProgressBarPainter extends CustomPainter {
   final double value;

@@ -2,10 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:propertier/App/Home/View/component/carousel_slider_widget.dart';
 import 'package:propertier/App/Home/View/home_view.dart';
 import 'package:propertier/App/Services/Model/services_model.dart';
 import 'package:propertier/App/Services/View/component/services_appbar.dart';
@@ -14,17 +11,11 @@ import 'package:propertier/App/Services/View/component/services_tile.dart';
 import 'package:propertier/App/Services/View/component/services_video_tile.dart';
 import 'package:propertier/App/Services/View/component/top_selling_services_tile.dart';
 import 'package:propertier/App/Services/ViewModel/services_view_model.dart';
-import 'package:propertier/Utils/app_text.dart';
-import 'package:propertier/Utils/appbar.dart';
-import 'package:propertier/Utils/border.dart';
-import 'package:propertier/Utils/box_shadow.dart';
 import 'package:propertier/Utils/grid_title_tile.dart';
 import 'package:propertier/Utils/height_width_box.dart';
-import 'package:propertier/Utils/search_text_field.dart';
 import 'package:propertier/Utils/text_botton.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/constant/colors.dart';
-import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 

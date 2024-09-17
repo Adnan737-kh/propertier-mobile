@@ -131,7 +131,7 @@ class ProfileStatusView extends StatelessWidget {
 
   SizedBox propertiesListView(BuildContext context) {
     return SizedBox(
-      height: context.getSize.height * 0.37,
+      height: context.getSize.height * 0.4,
       width: context.getSize.width,
       child: ListView.builder(
         // reverse: true,

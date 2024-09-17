@@ -33,7 +33,7 @@ class ProfileController extends GetxController {
     if (!_isProfileLoaded) {
       loadProfile();
 
-      String? vendorUserId = (await ApiService().getVendorUserId()) as String?;
+      String? vendorUserId = (await ApiService().getVendorUserId());
 
       if (vendorUserId != null) {
         getFeaturedServices(vendorUserId);
@@ -136,7 +136,7 @@ class ProfileController extends GetxController {
   Future<void> loadProfile() async {
     if (_isProfileLoaded) return; // Return if profile is already loaded
 
-    String? vendorUserId = (await ApiService().getVendorUserId()) as String?;
+    String? vendorUserId = (await ApiService().getVendorUserId());
 
     if (vendorUserId != null) {
       try {

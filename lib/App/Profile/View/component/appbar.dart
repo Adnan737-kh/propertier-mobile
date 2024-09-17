@@ -35,6 +35,7 @@ PreferredSize profileAppBar(BuildContext context, ProfileViewModel viewModel) {
                     width: context.getSize.width,
                     height: context.getSize.height * 0.20,
                     decoration: BoxDecoration(
+                        // border: Border.all(width: 5),
                         boxShadow: [boxShadow()],
                         image: viewModel.profileModel.value.userProfile == null
                             ? null
@@ -193,6 +194,7 @@ PreferredSize profileAppBar(BuildContext context, ProfileViewModel viewModel) {
                         width: 100,
                         height: 100,
                         decoration: BoxDecoration(
+                          border: Border.all(width: 2, color: AppColor.white),
                           shape: BoxShape.circle,
                           image:
                               viewModel.profileModel.value.userProfile == null

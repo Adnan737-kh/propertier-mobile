@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:propertier/App/Analytics/Model/chart_data_model.dart';
 import 'package:propertier/App/Analytics/Model/chart_subtitle_model.dart';
-import 'package:propertier/App/Analytics/View/components/line_chart.dart';
 import 'package:propertier/constant/colors.dart';
 
 class AnalyticsViewModel extends GetxController {

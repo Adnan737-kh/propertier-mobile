@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/App/Details/Model/specific_property_model.dart';
 import 'package:propertier/App/Details/Services/detail_services.dart';
-import 'package:propertier/NetworkServices/network_services.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 class DetailsViewModel extends GetxController {

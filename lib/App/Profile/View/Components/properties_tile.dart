@@ -15,8 +15,10 @@ import 'package:propertier/extensions/area_convert_extension.dart';
 import 'package:propertier/extensions/price_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
+import '../../../../Features/Payment Method/Services/service.dart';
 import '../../../../Model/property.dart';
 import '../../../../extensions/ago_time_converter.dart';
+import '../../Service/profile_service.dart';
 
 Widget propertiesTile(BuildContext context,
     {required Property property, required ProfileViewModel viewModel}) {
@@ -106,7 +108,8 @@ Widget propertiesTile(BuildContext context,
                       fontWeight: FontWeight.w500),
                   InkWell(
                       onTap: () {
-                        Get.toNamed(AppRoutes.paymentGatwayeView);
+                        PaymentApiService()
+                            .payMobIntention("100", "Description");
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(5),
@@ -191,6 +194,25 @@ Widget propertiesTile(BuildContext context,
                 ],
               ),
               getHeight(context, 0.008),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                      color: AppColor.googleColor,
+                      onPressed: () {
+                        viewModel.isLoading.value = true;
+                        ProfileService()
+                            .deleteProperty(
+                                context: context, id: property.id!.toString())
+                            .then((Value) {
+                          viewModel.getProfilePageData(
+                              context: context,
+                              id: property.agent!.id!.toString());
+                        });
+                      },
+                      icon: const Icon(Icons.delete)),
+                ],
+              )
             ],
           ),
         )

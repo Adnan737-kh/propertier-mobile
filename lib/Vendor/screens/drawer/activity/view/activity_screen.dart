@@ -28,7 +28,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
             decoration: const ShapeDecoration(
               color: Color(0xFF131A22),
               shape: RoundedRectangleBorder(
-                borderRadius: const BorderRadius.only(
+                borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(40),
                   bottomRight: Radius.circular(40),
                 ),
@@ -82,12 +82,12 @@ class _ActivityScreenState extends State<ActivityScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
+                SizedBox(
                   height: Get.height * .88,
                   child: ListView.builder(
                     itemCount: 12,
                     shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, index) {
                       return const Column(
                         children: [

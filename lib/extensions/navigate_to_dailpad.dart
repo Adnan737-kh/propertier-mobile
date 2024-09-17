@@ -24,3 +24,9 @@ textMe(String s) async {
     }
   }
 }
+
+navigateToUrl(String s) async {
+  if (await canLaunchUrl(Uri.parse(s))) {
+    await launchUrl(Uri.parse(s));
+  } else {}
+}

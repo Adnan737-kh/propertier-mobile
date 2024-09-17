@@ -9,8 +9,6 @@ import 'package:propertier/Vendor/screens/drawer/verifications/id_card/controlle
 
 import '../../../../dashboard/profile/controller/profile_controller.dart';
 
-
-
 class VerifyIdCardScreen extends StatefulWidget {
   const VerifyIdCardScreen({super.key});
 
@@ -20,7 +18,7 @@ class VerifyIdCardScreen extends StatefulWidget {
 
 class _VerifyIdCardScreenState extends State<VerifyIdCardScreen> {
   DocumentController awardController = Get.put(DocumentController());
-   final ProfileController profileController = Get.put(ProfileController());
+  final ProfileController profileController = Get.put(ProfileController());
   final ImagePicker _picker = ImagePicker();
   XFile? selectedFrontImage;
   XFile? selectedBackImage;
@@ -44,42 +42,42 @@ class _VerifyIdCardScreenState extends State<VerifyIdCardScreen> {
     }
   }
 
-Future<void> _sendCnic() async {
-  if (selectedFrontImage != null && selectedBackImage != null) {
-    final box = GetStorage();
-    String? vendorUserId = box.read('vendorUserId');
+  Future<void> _sendCnic() async {
+    if (selectedFrontImage != null && selectedBackImage != null) {
+      final box = GetStorage();
+      String? vendorUserId = box.read('vendorUserId');
 
-    // Get required fields from the profile controller
-    String firebaseId = profileController.profile.value.firebaseId ?? '';
-    String email = profileController.profile.value.email ?? '';
-    String type = profileController.profile.value.type ?? '';
+      // Get required fields from the profile controller
+      String firebaseId = profileController.profile.value.firebaseId ?? '';
+      String email = profileController.profile.value.email ?? '';
+      String type = profileController.profile.value.type ?? '';
 
-    // Debugging: print to verify if all fields are being retrieved correctly
-    print('Vendor User ID: $vendorUserId');
-    print('Firebase ID: $firebaseId');
-    print('Email: $email');
-    print('Type: $type');
-    
-    if (vendorUserId != null && vendorUserId.isNotEmpty && 
-        firebaseId.isNotEmpty && email.isNotEmpty && type.isNotEmpty) {
-      
-      await awardController.updateCnic(
-        File(selectedFrontImage!.path),
-        File(selectedBackImage!.path),
-        vendorUserId,
-        firebaseId,
-        email,
-        type,
-      );
+      // Debugging: print to verify if all fields are being retrieved correctly
+      print('Vendor User ID: $vendorUserId');
+      print('Firebase ID: $firebaseId');
+      print('Email: $email');
+      print('Type: $type');
+
+      if (vendorUserId != null &&
+          vendorUserId.isNotEmpty &&
+          firebaseId.isNotEmpty &&
+          email.isNotEmpty &&
+          type.isNotEmpty) {
+        await awardController.updateCnic(
+          File(selectedFrontImage!.path),
+          File(selectedBackImage!.path),
+          vendorUserId,
+          firebaseId,
+          email,
+          type,
+        );
+      } else {
+        Get.snackbar('Error', 'Required user information is missing');
+      }
     } else {
-      Get.snackbar('Error', 'Required user information is missing');
+      Get.snackbar('Error', 'No image selected');
     }
-  } else {
-    Get.snackbar('Error', 'No image selected');
   }
-}
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +141,7 @@ Future<void> _sendCnic() async {
               children: [
                 DottedBorder(
                     color: Colors.grey.shade600,
-                    dashPattern: [9, 4],
+                    dashPattern: const [9, 4],
                     child: InkWell(
                       onTap: () {
                         _updateCnicFront();
@@ -156,7 +154,9 @@ Future<void> _sendCnic() async {
                               image: selectedFrontImage == null
                                   ? NetworkImage(
                                       ProfileController()
-                                              .profile.value.cnicFrontUrl ??
+                                              .profile
+                                              .value
+                                              .cnicFrontUrl ??
                                           "https://images.unsplash.com/photo-1719054415148-b83895be5157?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90b3MtZmVlZHw0NHx8fGVufDB8fHx8fA%3D%3D",
                                     )
                                   : FileImage(File(selectedFrontImage!.path))
@@ -181,7 +181,7 @@ Future<void> _sendCnic() async {
                 const SizedBox(height: 35),
                 DottedBorder(
                     color: Colors.grey.shade600,
-                    dashPattern: [9, 4],
+                    dashPattern: const [9, 4],
                     child: InkWell(
                       onTap: () {
                         _updateCnicBack();
@@ -194,7 +194,9 @@ Future<void> _sendCnic() async {
                               image: selectedBackImage == null
                                   ? NetworkImage(
                                       ProfileController()
-                                              .profile.value.cnicBackUrl ??
+                                              .profile
+                                              .value
+                                              .cnicBackUrl ??
                                           "https://images.unsplash.com/photo-1719054415148-b83895be5157?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90b3MtZmVlZHw0NHx8fGVufDB8fHx8fA%3D%3D",
                                     )
                                   : FileImage(File(selectedBackImage!.path))

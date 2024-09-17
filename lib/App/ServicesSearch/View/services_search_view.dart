@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -14,7 +12,6 @@ import 'package:propertier/App/ServicesSearch/ViewModel/services_search_view_mod
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/appbar.dart';
-import 'package:propertier/Utils/box_shadow.dart';
 import 'package:propertier/Utils/divider.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/Utils/search_text_field.dart';

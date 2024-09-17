@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
 
+import '../../../Features/Featured Pakages/Models/featured_pakages/featured_pakages.dart';
+import '../Services/services.dart';
+
 class PaymentGatwayeViewModel extends GetxController {
   final _selectedBank = "EasyPaisa".obs;
 
@@ -7,6 +10,19 @@ class PaymentGatwayeViewModel extends GetxController {
 
   void onChangeBank(String val) {
     _selectedBank.value = val;
+  }
+
+  var _selectedFeatures = const FeaturedPakages().obs;
+
+  Rx<FeaturedPakages> get selectedFeatures => _selectedFeatures;
+
+  set selectedFeatures(value) {
+    _selectedFeatures = value;
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
   }
 
   final _selectedDuration = "7".obs;

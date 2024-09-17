@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:propertier/App/MarketingTeamEarning/View/component/chart_bar.dart';
 import 'package:propertier/Utils/app_text.dart';

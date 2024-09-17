@@ -7,6 +7,7 @@ import 'package:propertier/Utils/divider.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/Utils/textStyle.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/constant/constant.dart';
 
 // ignore: must_be_immutable
 class HomePostsTile extends StatelessWidget {
@@ -17,26 +18,31 @@ class HomePostsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        RichText(
-            text: TextSpan(
-                style: textStyle(
-                    context: context,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500),
-                text: "What are you searching for? ",
-                children: [
-              TextSpan(
-                  style: textStyle(
-                      fontSize: 12,
-                      context: context,
-                      fontWeight: FontWeight.w700,
-                      color: AppColor.greenColor),
-                  text: 'Post Here',
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      Get.toNamed(AppRoutes.whatAreYouSearchingView);
-                    })
-            ])),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: InkWell(
+              onTap: () {
+                Get.toNamed(AppRoutes.whatAreYouSearchingView);
+              },
+              child: Image.asset(Constant.whatAreYouSearchingFor)),
+        ),
+        // RichText(
+        //     text: TextSpan(
+        //         style: textStyle(
+        //             context: context,
+        //             fontSize: 10,
+        //             fontWeight: FontWeight.w500),
+        //         text: "What are you searching for? ",
+        //         children: [
+        //       TextSpan(
+        //           style: textStyle(
+        //               fontSize: 12,
+        //               context: context,
+        //               fontWeight: FontWeight.w700,
+        //               color: AppColor.greenColor),
+        //           text: 'Post Here',
+        //           recognizer: TapGestureRecognizer()..onTap = () {})
+        //     ])),
         getHeight(context, 0.01),
         divider(context: context),
 

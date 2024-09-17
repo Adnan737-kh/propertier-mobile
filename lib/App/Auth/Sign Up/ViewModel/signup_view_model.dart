@@ -3,17 +3,13 @@ import 'dart:convert';
 
 import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 // ignore: depend_on_referenced_packages
 import 'package:geocoding/geocoding.dart' as geocode;
 
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:propertier/App/Auth/Login/Services/login_services.dart';
 
 import 'package:propertier/App/Auth/Sign%20Up/Services/signup_services.dart';
@@ -40,6 +36,7 @@ class SignUpViewModel extends GetxController {
   final locationController = TextEditingController();
   final searchAddressController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  final callecformKey = GlobalKey<FormState>();
 
   var isShowPassword = false.obs;
   var isShowConfirmPassword = false.obs;

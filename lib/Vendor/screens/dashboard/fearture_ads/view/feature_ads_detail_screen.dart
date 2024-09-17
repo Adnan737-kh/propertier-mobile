@@ -23,6 +23,7 @@ class _FeatureAdsDetailScreenState extends State<FeatureAdsDetailScreen> {
     super.initState();
     _initVideoPlayer();
   }
+
   void _initVideoPlayer() {
     final shortVideoUrl = widget.featureAd.vendorService.shortVideoUrl;
     if (shortVideoUrl.isNotEmpty) {

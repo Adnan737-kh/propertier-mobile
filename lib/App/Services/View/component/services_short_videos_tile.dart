@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:propertier/App/Home/ViewModel/home_view_model.dart';
 import 'package:propertier/App/Services/ViewModel/services_view_model.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/border.dart';

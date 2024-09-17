@@ -17,7 +17,7 @@ class _SettingScreenState extends State<SettingScreen> {
         children: [
           Container(
             width: Get.size.width,
-           height: Get.height * .124,
+            height: Get.height * .124,
             padding: const EdgeInsets.only(top: 38, left: 8),
             decoration: ShapeDecoration(
               color: const Color(0xFF131A22),

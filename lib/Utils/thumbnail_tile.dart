@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';

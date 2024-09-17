@@ -33,7 +33,7 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
               decoration: const ShapeDecoration(
                 color: Color(0xFF131A22),
                 shape: RoundedRectangleBorder(
-                  borderRadius: const BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(40),
                     bottomRight: Radius.circular(40),
                   ),

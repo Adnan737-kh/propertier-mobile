@@ -92,8 +92,8 @@
 //                                               createdAt: ,
 //                                               id: ,
 //                                               updatedAt: ,
-//                                               vendor: 
-                                            
+//                                               vendor:
+
 //                                             ) ;
 //                                             awardController.addService(awardModel);
 //                                           }, child: Text('Add'))
@@ -506,11 +506,10 @@
 //                           ),
 //                         ),
 //                       ),
-                      
+
 //     );
 //   }
 
-  
 //   void _showDeleteDialog(BuildContext context, int serviceId) {
 //     showDialog(
 //       context: context,

@@ -21,8 +21,6 @@ import 'package:propertier/constant/toast.dart';
 
 // import 'package:speech_to_text/speech_to_text.dart' as stt;
 
-
-
 class SignUpViewModel extends GetxController {
   final usernameController = TextEditingController();
   final userNumberController = TextEditingController();
@@ -281,7 +279,7 @@ class SignUpViewModel extends GetxController {
               firebaseID: user.uid,
               phoneNumber: user.phoneNumber ?? "");
           if (isSuccessData != null) {
-            await AuthService().registerUser(isSuccessData as UserLoginModel, user.email!).then(
+            await AuthService().registerUser(isSuccessData, user.email!).then(
               (value) {
                 isGoogleSigninLoading.value = false;
                 toast(title: "Success in signup", context: context);

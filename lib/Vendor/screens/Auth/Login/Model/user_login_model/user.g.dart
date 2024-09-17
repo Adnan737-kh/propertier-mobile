@@ -1,4 +1,10 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
 part of 'user.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
 
 User _$UserFromJson(Map<String, dynamic> json) => User(
       id: (json['id'] as num?)?.toInt(),
@@ -71,15 +77,16 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       incorporateDocumentUrl: json['incorporate_document_url'] as String?,
       soleProprietorDocumentUrl:
           json['sole_proprietor_document_url'] as String?,
-      notificationsEnabled: json['notifications_enabled'] is bool
-          ? json['notifications_enabled'] as bool?
-          : null,
-      groups: (json['groups'] as List<dynamic>?)?.map((e) => e as int).toList(),
-      userPermissions: (json['user_permissions'] as List<dynamic>?)
-          ?.map((e) => e as int)
+      notificationsEnabled: json['notifications_enabled'] as bool?,
+      groups: (json['groups'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
           .toList(),
-      followers:
-          (json['followers'] as List<dynamic>?)?.map((e) => e as int).toList(),
+      userPermissions: (json['user_permissions'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toList(),
+      followers: (json['followers'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toList(),
       likes: (json['likes'] as List<dynamic>?)
           ?.map((e) => (e as num).toInt())
           .toList(),

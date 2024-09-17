@@ -3,31 +3,31 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class FacebookLoginServices {
   Future signInWithFacebook() async {
-    Map<String, dynamic>? _userData;
-    AccessToken _accessToken;
-    bool _checking = true;
+    Map<String, dynamic>? userData0;
+    AccessToken accessToken0;
+    bool checking = true;
     final accessToken = await FacebookAuth.instance.accessToken;
     // final LoginResult loginResult = await FacebookAuth.instance.login();
-    _checking = false;
+    checking = false;
     if (accessToken != null) {
       print("AccessTOken ${accessToken.toJson()}");
       final data = await FacebookAuth.instance.getUserData();
-      _accessToken = accessToken;
-      _userData = data;
+      accessToken0 = accessToken;
+      userData0 = data;
     } else {
       final LoginResult result = await FacebookAuth.instance.login();
 
       if (result.status == LoginStatus.success) {
-        _accessToken = result.accessToken!;
+        accessToken0 = result.accessToken!;
 
         final userData = await FacebookAuth.instance.getUserData();
-        _userData = userData;
+        userData0 = userData;
       } else {
         print(result.status);
         print(result.message);
       }
 
-      _checking = false;
+      checking = false;
     }
 
     // final OAuthCredential facebookAuthCredential =

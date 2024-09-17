@@ -23,7 +23,6 @@ import 'package:propertier/extensions/size_extension.dart';
 // import '../../../../Utils/height_width_box.dart';
 import '../../Components/social_links.dart';
 
-
 class SignUpView extends StatelessWidget {
   SignUpView({super.key});
   final signupVM = Get.find<SignUpViewModel>();
@@ -49,8 +48,6 @@ class SignUpView extends StatelessWidget {
                       title: 'Sign Up',
                       onTap: () {
                         Get.back();
-                        
-                   
                       }),
                   getHeight(context, 0.069),
                   Align(alignment: Alignment.center, child: logoTile(context)),

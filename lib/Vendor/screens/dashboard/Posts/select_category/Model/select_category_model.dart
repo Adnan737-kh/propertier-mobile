@@ -1,6 +1,7 @@
 class ParentService {
   final String parentServiceName;
-  final List<Subservice> subservices; // Assuming subservices are part of ParentService
+  final List<Subservice>
+      subservices; // Assuming subservices are part of ParentService
 
   ParentService({
     required this.parentServiceName,
@@ -20,7 +21,8 @@ class ParentService {
   Map<String, dynamic> toJson() {
     return {
       'parent_service_name': parentServiceName,
-      'subservices': subservices.map((subservice) => subservice.toJson()).toList(),
+      'subservices':
+          subservices.map((subservice) => subservice.toJson()).toList(),
     };
   }
 
@@ -32,7 +34,7 @@ class ParentService {
 
 class Subservice {
   final String title;
-  final String parentServiceName; 
+  final String parentServiceName;
 
   Subservice({
     required this.title,

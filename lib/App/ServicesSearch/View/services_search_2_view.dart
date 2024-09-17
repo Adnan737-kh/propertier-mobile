@@ -1,24 +1,18 @@
-import 'dart:collection';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:propertier/App/Services/Model/services_model.dart';
-import 'package:propertier/App/ServicesMap/View/services_map_view.dart';
 import 'package:propertier/App/ServicesSearch/View/component/accept_reject_button.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/appbar.dart';
 import 'package:propertier/Utils/border.dart';
 import 'package:propertier/Utils/box_shadow.dart';
-import 'package:propertier/Utils/divider.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/Utils/scrollableText.dart';
 import 'package:propertier/Utils/textStyle.dart';
-import 'package:propertier/Utils/text_botton.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/font_size_extension.dart';

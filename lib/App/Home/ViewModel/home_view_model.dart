@@ -34,7 +34,7 @@ class HomeViewModel extends GetxController {
   List<String> tabList = <String>[
     'Commerical',
     'Residential',
-    'Services',
+    // 'Services',
   ];
   TextEditingController searchController = TextEditingController();
   PageController pageController = PageController(initialPage: 0);

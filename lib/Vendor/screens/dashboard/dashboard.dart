@@ -15,7 +15,7 @@ import 'package:propertier/Vendor/screens/widgets/drawer_widget.dart';
 import 'package:propertier/constant/colors.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({Key? key}) : super(key: key);
+  const Dashboard({super.key});
 
   @override
   State<Dashboard> createState() => _DashboardState();

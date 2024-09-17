@@ -29,7 +29,6 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
       // appBar: AppBar(
       //   backgroundColor: const Color(0xFF131A22),
       //   iconTheme: const IconThemeData(color: Colors.white, size: 29),
@@ -48,9 +47,7 @@ class _HomeScreenState extends State<HomeScreen>
       //     )
       //   ],
       // ),
-   
 
-      
       body: Column(
         children: [
           Container(
@@ -284,7 +281,7 @@ class _HomeScreenState extends State<HomeScreen>
                                         children: [
                                           InkWell(
                                             onTap: () {
-                                              Get.to(() => ChatScreen());
+                                              Get.to(() => const ChatScreen());
                                             },
                                             child: Container(
                                               padding:
@@ -350,7 +347,7 @@ class _HomeScreenState extends State<HomeScreen>
                     width: 200,
                     height: 200,
                     decoration: ShapeDecoration(
-                      color:const Color.fromARGB(255, 160, 158, 158),
+                      color: const Color.fromARGB(255, 160, 158, 158),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),

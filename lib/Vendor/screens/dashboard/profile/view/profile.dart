@@ -109,7 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                                 ),
                               ],
                               image: const DecorationImage(
-                                  image: const NetworkImage(
+                                  image: NetworkImage(
                                       "https://images.unsplash.com/photo-1719054415148-b83895be5157?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90b3MtZmVlZHw0NHx8fGVufDB8fHx8fA%3D%3D"),
                                   fit: BoxFit.cover)),
                         ),
@@ -303,7 +303,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                           ),
                         )
                       ]),
-                  Container(
+                  SizedBox(
                     height: Get.height * .45,
                     child: TabBarView(controller: tabController, children: [
                       SingleChildScrollView(
@@ -575,17 +575,11 @@ class _ProfileScreenState extends State<ProfileScreen>
                                                 Expanded(
                                                   child: InkWell(
                                                     onTap: () {
-                                                      if (service != null) {
-                                                        Get.to(() =>
-                                                            ServiceAdsDetailScreen(
-                                                                service:
-                                                                    service));
-                                                        print('Detail tapped');
-                                                      } else {
-                                                        print(
-                                                            'Service is null');
-                                                        // Optionally show a message to the user if service is null
-                                                      }
+                                                      Get.to(() =>
+                                                          ServiceAdsDetailScreen(
+                                                              service:
+                                                                  service));
+                                                      print('Detail tapped');
                                                     },
                                                     child: Container(
                                                       height: 22,
@@ -652,7 +646,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                               ),
                               profileController.isLoading.value
                                   ? const CircularProgressIndicator()
-                                  : Container(
+                                  : SizedBox(
                                       height: Get.height * .3,
                                       child: GridView.builder(
                                         padding: EdgeInsets.zero,
@@ -685,10 +679,9 @@ class _ProfileScreenState extends State<ProfileScreen>
                                                     ClipRRect(
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              5), 
+                                                              5),
                                                       child: Container(
-                                                        height:
-                                                            200, 
+                                                        height: 200,
                                                         decoration:
                                                             BoxDecoration(
                                                           image:
@@ -1265,7 +1258,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                               ),
                               profileController.isLoading.value
                                   ? const CircularProgressIndicator()
-                                  : Container(
+                                  : SizedBox(
                                       height: Get.height * .3,
                                       child: GridView.builder(
                                         padding: EdgeInsets.zero,

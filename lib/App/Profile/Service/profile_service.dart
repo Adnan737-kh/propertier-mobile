@@ -33,4 +33,35 @@ class ProfileService {
     }
     return profileDetailModel;
   }
+
+  Future<bool> deleteProperty({
+    required BuildContext context,
+    required String id,
+  }) async {
+    var isSuccess = false;
+    try {
+      final response =
+          await http.delete(Uri.parse("${API.uploadPropertyUrl}/$id/"));
+      if (response.statusCode == 204) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: appText(
+                title: "Property Deleted",
+                context: context,
+                color: AppColor.white)));
+        isSuccess = true;
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: appText(
+                title: response.body.toString(),
+                context: context,
+                color: AppColor.white)));
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: appText(
+            title: e.toString(), context: context, color: AppColor.white),
+      ));
+    }
+    return isSuccess;
+  }
 }

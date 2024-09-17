@@ -204,7 +204,6 @@
 // // 	}
 // // }
 class ProfileModel {
-  
   int? id;
   bool? isSuperuser;
   String? firebaseId;
@@ -374,18 +373,22 @@ class ProfileModel {
     profilePictureVerified = json['profile_picture_verified'];
     shopVisitingCardVerified = json['shop_visiting_card_verified'];
     emailVerified = json['email_verified'];
-    certificateOfIncorporationVerified = json['certificate_of_incorporation_verified'];
-    artificialOfAssociationVerified = json['artificial_of_association_verified'];
+    certificateOfIncorporationVerified =
+        json['certificate_of_incorporation_verified'];
+    artificialOfAssociationVerified =
+        json['artificial_of_association_verified'];
     memberOfAssociationVerified = json['member_of_association_verified'];
     incorporateDocumentVerified = json['incorporate_document_verified'];
-    solePropertiierDocumentVerified = json['sole_propertiier_document_verified'];
+    solePropertiierDocumentVerified =
+        json['sole_propertiier_document_verified'];
 
-    followers = json['followers'] != null ? List<int>.from(json['followers']) : [];
+    followers =
+        json['followers'] != null ? List<int>.from(json['followers']) : [];
     likes = json['likes'] != null ? List<int>.from(json['likes']) : [];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['is_superuser'] = isSuperuser;
     data['firebase_id'] = firebaseId;
@@ -436,11 +439,14 @@ class ProfileModel {
     data['profile_picture_verified'] = profilePictureVerified;
     data['shop_visiting_card_verified'] = shopVisitingCardVerified;
     data['email_verified'] = emailVerified;
-    data['certificate_of_incorporation_verified'] = certificateOfIncorporationVerified;
-    data['artificial_of_association_verified'] = artificialOfAssociationVerified;
+    data['certificate_of_incorporation_verified'] =
+        certificateOfIncorporationVerified;
+    data['artificial_of_association_verified'] =
+        artificialOfAssociationVerified;
     data['member_of_association_verified'] = memberOfAssociationVerified;
     data['incorporate_document_verified'] = incorporateDocumentVerified;
-    data['sole_propertiier_document_verified'] = solePropertiierDocumentVerified;
+    data['sole_propertiier_document_verified'] =
+        solePropertiierDocumentVerified;
 
     data['followers'] = followers;
     data['likes'] = likes;

@@ -57,7 +57,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>This app require access for camera usage</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app needs access to location when open.</string>
+	<string>This app requires access to your location while in use to enhance your user experience.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app require access for photo library usage</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

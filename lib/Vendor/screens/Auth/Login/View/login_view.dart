@@ -24,7 +24,6 @@ import 'package:propertier/extensions/size_extension.dart';
 // import '../../../../Utils/app_text.dart';
 import '../../Components/social_links.dart';
 
-
 class LoginView extends StatelessWidget {
   LoginView({super.key});
   final loginVM = Get.find<LoginViewModel>();
@@ -247,7 +246,6 @@ class LoginView extends StatelessWidget {
                                     fontSize: 14),
                                 text: ' Sign Up',
                                 recognizer: TapGestureRecognizer()
-                             
                                   ..onTap = () {
                                     Get.put(SignUpViewModel());
                                     Get.to(() => Get.put(SignUpView()));

@@ -1,9 +1,4 @@
-import 'dart:io';
-
 import 'package:get/get.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:propertier/App/PropertiesAndShortVideo/Model/detail_model.dart';
-import 'package:propertier/NetworkServices/network_services.dart';
 
 class VideoDetailViewModel extends GetxController {
   final RxBool _isLoading = false.obs;

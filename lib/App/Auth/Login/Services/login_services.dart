@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:propertier/App/Auth/Login/View/component/does_not_exist_dialog.dart';
 import 'package:propertier/Network/api_urls.dart';
+import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/constant/colors.dart';
 
@@ -15,6 +16,7 @@ class LoginServices {
   Future<UserLoginModel?> loginUser({
     String? email,
     BuildContext? context,
+    bool isLogin = false,
     required String password,
   }) async {
     try {
@@ -37,11 +39,16 @@ class LoginServices {
           return UserLoginModel.fromJson(decodedData);
         }
       } else if (response.statusCode == 404) {
-        ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-            content: appText(
-                title: 'User not exist',
-                context: Get.context!,
-                color: AppColor.white)));
+        if (isLogin) {
+          ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
+              content: appText(
+                  title: 'User not exist',
+                  context: Get.context!,
+                  color: AppColor.white)));
+        } else {
+          Get.toNamed(AppRoutes.collectInfoProfile);
+        }
+
         return null;
       } else {
         ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(

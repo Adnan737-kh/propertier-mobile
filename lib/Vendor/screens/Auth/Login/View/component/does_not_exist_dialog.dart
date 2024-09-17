@@ -41,21 +41,21 @@ doesNotExist({required BuildContext context, required String subtitle}) {
                           fontWeight: FontWeight.w600,
                           title: 'Oops !',
                           context: context,
-                          color: Color(0xffD13135),
+                          color: const Color(0xffD13135),
                           fontSize: 17),
                       getHeight(context, 0.01),
                       appText(
                           fontWeight: FontWeight.w600,
-                          color: Color(0xff00060E),
+                          color: const Color(0xff00060E),
                           title: subtitle,
                           context: context),
-                      Spacer(),
+                      const Spacer(),
                       textButton(
                           context: context,
                           title: 'Try Again',
                           textFontSize: 20,
                           textColor: Colors.white,
-                          buttonColor: Color(0xffD13135),
+                          buttonColor: const Color(0xffD13135),
                           onClick: () {
                             Get.back();
                           })

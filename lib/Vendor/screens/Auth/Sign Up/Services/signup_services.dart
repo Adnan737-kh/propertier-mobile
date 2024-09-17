@@ -36,7 +36,7 @@ class SignupServices {
     }
 
     // If user doesn't exist, proceed with registration
-    UserLoginModel signupResponseModel = UserLoginModel();
+    UserLoginModel signupResponseModel = const UserLoginModel();
     final Map<String, dynamic> data = {
       "name": name,
       "email": email!.toLowerCase(),

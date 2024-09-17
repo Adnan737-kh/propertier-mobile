@@ -259,7 +259,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => Center(child: CircularProgressIndicator()),
+      builder: (context) => const Center(child: CircularProgressIndicator()),
     );
 
     await controller.fetchParentServices();
@@ -284,16 +284,16 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 context: context,
                 barrierDismissible: false,
                 builder: (context) =>
-                    Center(child: CircularProgressIndicator()),
+                    const Center(child: CircularProgressIndicator()),
               );
 
               print('Selected Category: $category');
               await controller.fetchTitlesForParentService(category);
               print('Fetched Titles for $category:');
 
-              controller.titles.forEach((titleModel) {
+              for (var titleModel in controller.titles) {
                 print('Title: ${titleModel.title}, ID: ${titleModel.id}');
-              });
+              }
 
               setState(() {
                 parentId = controller.selectedParentServiceId.value;

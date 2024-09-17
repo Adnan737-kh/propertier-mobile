@@ -114,7 +114,7 @@ class CollectInfo extends StatelessWidget {
           : Scaffold(
               resizeToAvoidBottomInset: true,
               body: Form(
-                key: signupVM.formKey,
+                key: signupVM.callecformKey,
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 36.0),
@@ -258,22 +258,20 @@ class CollectInfo extends StatelessWidget {
                                               fontSize: 14,
                                               fontWeight: FontWeight.bold,
                                               onTap: () async {
-                                                if (signupVM
-                                                        .formKey.currentState!
+                                                if (signupVM.callecformKey
+                                                        .currentState!
                                                         .validate() &&
                                                     signupVM.userNumberController
                                                             .text !=
                                                         "") {
-                                                  if (await _showPrivacyPolicyDialog()) {
-                                                    signupVM
-                                                        .formKey.currentState
-                                                        ?.save();
+                                                  signupVM.callecformKey
+                                                      .currentState
+                                                      ?.save();
 
-                                                    signupVM.sendOTPtoEmail(
-                                                        email: signupVM
-                                                            .userEmailController
-                                                            .text);
-                                                  }
+                                                  signupVM.sendOTPtoEmail(
+                                                      email: signupVM
+                                                          .userEmailController
+                                                          .text);
                                                 } else if (signupVM
                                                     .userNumberController
                                                     .text
