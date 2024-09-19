@@ -108,8 +108,7 @@ Widget propertiesTile(BuildContext context,
                       fontWeight: FontWeight.w500),
                   InkWell(
                       onTap: () {
-                        PaymentApiService()
-                            .payMobIntention("100", "Description");
+                        PaymentApiService().payMobIntention("1", "Description");
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(5),

@@ -2,9 +2,12 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:propertier/Network/api_urls.dart';
 
 import '../../../extensions/navigate_to_dailpad.dart';
+import '../Sockets/sockets.dart';
+import '../Views/payment_view.dart';
 
 class PaymentApiService {
   final Dio _dio = Dio();
@@ -28,7 +31,13 @@ class PaymentApiService {
         "payment_methods": "card, easypaisa, jazzcash"
       });
       if (response.statusCode == 200) {
-        navigateToUrl(response.data["redirect_url"]);
+        // navigateToUrl(response.data["redirect_url"]);
+
+        PaymentStatusSocketService()
+            .connect("${Finance.paymentStatusSocket}7/");
+        Get.to(() => PaymentView(
+              urls: response.data["redirect_url"],
+            ));
         return true;
       } else {
         return false;

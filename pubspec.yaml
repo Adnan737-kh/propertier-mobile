@@ -20,7 +20,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.9.0+19 #Android
 
 environment:
-  sdk: ">=3.0.0 <3.22.3"
+  sdk: ">=3.0.0 <3.24.3"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -110,7 +110,11 @@ dependencies:
   smooth_page_indicator: ^1.2.0+3
   dio: ^5.7.0
   web_socket_channel: ^3.0.1
-
+  webview_flutter: ^4.9.0
+  # flutter_inappwebview: ^6.0.0
+  flutter_lints: ^3.0.2
+  flutter_launcher_icons: ^0.13.1
+  geocoding: ^3.0.0
 
  
 
@@ -119,9 +123,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^3.0.2
-  flutter_launcher_icons: ^0.13.1
-  geocoding: ^3.0.0
+ 
 
 
 

@@ -1,6 +1,8 @@
 class API {
   static const mainUrl = "https://www.propertier.com.pk/api/v1";
   static const baseURL = "https://propertier-p2wwcx3okq-em.a.run.app/";
+  static const baseWebSocketURL = "ws://propertier-p2wwcx3okq-em.a.run.app/";
+
   // static const baseURL = "http://127.0.0.1:8000/"; //localhost
   static const secondaryUrl = "api/mob/v1";
 
@@ -36,8 +38,11 @@ class API {
 
 class BaseUrl {
   static const baseURL = "https://propertier-p2wwcx3okq-em.a.run.app/";
+  static const baseWebSocketURL = "ws://propertier-p2wwcx3okq-em.a.run.app/";
 }
 
 class Finance {
   static const creatIntention = '${BaseUrl.baseURL}/finance/paymob-intention/';
+  static const paymentStatusSocket =
+      '${BaseUrl.baseWebSocketURL}/ws/finance/payment-status/';
 }

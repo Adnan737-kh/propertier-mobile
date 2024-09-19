@@ -612,7 +612,7 @@ packages:
     source: hosted
     version: "6.0.0"
   flutter_launcher_icons:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_launcher_icons
       sha256: "526faf84284b86a4cb36d20a5e45147747b7563d921373d4ee0559c54fcdbcea"
@@ -620,7 +620,7 @@ packages:
     source: hosted
     version: "0.13.1"
   flutter_lints:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_lints
       sha256: "9e8c3858111da373efc5aa341de011d9bd23e2c5c5e0c62bccf32438e192d7b1"
@@ -779,7 +779,7 @@ packages:
     source: hosted
     version: "3.0.1"
   geocoding:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: geocoding
       sha256: d580c801cba9386b4fac5047c4c785a4e19554f46be42f4f5e5b7deacd088a66
@@ -2064,13 +2064,13 @@ packages:
     source: hosted
     version: "3.0.1"
   webview_flutter:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: webview_flutter
-      sha256: "6869c8786d179f929144b4a1f86e09ac0eddfe475984951ea6c634774c16b522"
+      sha256: ec81f57aa1611f8ebecf1d2259da4ef052281cb5ad624131c93546c79ccc7736
       url: "https://pub.dev"
     source: hosted
-    version: "4.8.0"
+    version: "4.9.0"
   webview_flutter_android:
     dependency: transitive
     description:
@@ -2091,10 +2091,10 @@ packages:
     dependency: transitive
     description:
       name: webview_flutter_wkwebview
-      sha256: "9c62cc46fa4f2d41e10ab81014c1de470a6c6f26051a2de32111b2ee55287feb"
+      sha256: "1942a12224ab31e9508cf00c0c6347b931b023b8a4f0811e5dec3b06f94f117d"
       url: "https://pub.dev"
     source: hosted
-    version: "3.14.0"
+    version: "3.15.0"
   win32:
     dependency: transitive
     description:
@@ -2152,5 +2152,5 @@ packages:
     source: hosted
     version: "3.0.2"
 sdks:
-  dart: ">=3.5.0-259.0.dev <3.22.3"
-  flutter: ">=3.22.0"
+  dart: ">=3.5.0 <3.24.3"
+  flutter: ">=3.24.0"
