@@ -1,12 +1,9 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/App/Home/ViewModel/home_view_model.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/Utils/divider.dart';
 import 'package:propertier/Utils/height_width_box.dart';
-import 'package:propertier/Utils/textStyle.dart';
-import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
 
 // ignore: must_be_immutable

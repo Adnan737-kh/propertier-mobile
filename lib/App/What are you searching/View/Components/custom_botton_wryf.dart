@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:propertier/Utils/app_text.dart';
+import 'package:propertier/Utils/box_shadow.dart';
 
 import '../../../../constant/colors.dart';
 
@@ -30,10 +31,10 @@ Widget customButton(
       height: height,
       width: width,
       decoration: BoxDecoration(
-        color: buttonColor,
-        border: Border.all(color: borderColor),
-        borderRadius: BorderRadius.circular(radius),
-      ),
+          color: buttonColor,
+          border: Border.all(color: borderColor),
+          borderRadius: BorderRadius.circular(radius),
+          boxShadow: [boxShadow()]),
       child: Center(
         child: Row(
           mainAxisSize: MainAxisSize.min,

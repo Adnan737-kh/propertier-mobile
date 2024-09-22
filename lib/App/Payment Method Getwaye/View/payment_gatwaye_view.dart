@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:paymob_pakistan/paymob_payment.dart';
+import 'package:get_storage/get_storage.dart';
+// import 'package:paymob_pakistan/paymob_payment.dart';
 import 'package:propertier/App/What%20are%20you%20searching/View/Components/custom_botton_wryf.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/appbar.dart';
@@ -12,13 +13,16 @@ import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 import '../../../Features/Featured Pakages/Views/featured_pakages_view.dart';
-import '../../../Utils/divider.dart';
+// import '../../../Utils/divider.dart';
+import '../../../Features/Payment Method/Services/service.dart';
+import '../../../Features/Payment Method/Sockets/sockets.dart';
+import '../../../Network/api_urls.dart';
 import '../ViewModel/payment_gatewaye_viewmodel.dart';
 
 class PaymentGatwayeView extends GetView<PaymentGatwayeViewModel> {
   const PaymentGatwayeView({super.key});
-  static const _apiKey =
-      'ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TWpjNU5UVXNJbTVoYldVaU9pSnBibWwwYVdGc0luMC5EdGF6UFRDQmFfNnJHVUJNcTNJSnMtTFRoRzNGejJGcUpjZDkycVRHVXRlTHl2cjFOSnVBV2huSURWSmpzQU9tMVd0WEdxMDBReDBXcjd3dDBkTU9HUQ==';
+  // static const _apiKey =
+  //     'ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TWpjNU5UVXNJbTVoYldVaU9pSnBibWwwYVdGc0luMC5EdGF6UFRDQmFfNnJHVUJNcTNJSnMtTFRoRzNGejJGcUpjZDkycVRHVXRlTHl2cjFOSnVBV2huSURWSmpzQU9tMVd0WEdxMDBReDBXcjd3dDBkTU9HUQ==';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,138 +36,73 @@ class PaymentGatwayeView extends GetView<PaymentGatwayeViewModel> {
                 getHeight(context, 0.036),
                 customAppBar(
                   context: context,
-                  title: "Feature Ad",
+                  title: "Select Ad Duration Pakage ",
                   onTap: () {
                     Get.back();
                   },
                 ),
-                getHeight(context, 0.058),
-                selectPaymentMethod(context),
-                getHeight(context, 0.010),
-                divider(context: context, withOpacity: 0.5),
+                // getHeight(context, 0.058),
+                // selectPaymentMethod(context),
+                // getHeight(context, 0.010),
+                // divider(context: context, withOpacity: 0.5),
                 getHeight(context, 0.025),
                 FeaturedPakagesView(),
                 getHeight(context, 0.025),
                 features(context),
                 getHeight(context, 0.035),
-                customButton(
-                    title: "Submit",
-                    onTap: () async {
-                      try {
-                        if (controller.price != '') {
-                          final price =
-                              (int.parse(controller.price) * 100).toString();
-                          PaymobPakistan.instance
-                              .initialize(
-                            apiKey: _apiKey,
-                            integrationID: 135513,
-                            iFrameID: 52288,
-                            jazzcashIntegrationId: 135516,
-                            easypaisaIntegrationID: 135519,
-                          )
-                              .then((value) async {
-                            PaymentInitializationResult response =
-                                await PaymobPakistan.instance.initializePayment(
-                              currency: "PKR",
-                              amountInCents: price,
-                            );
-                            String authToken = response.authToken;
-                            int orderID = response.orderID;
-                            if (controller.seletedBank == "EasyPaisa") {
-                              PaymobPakistan.instance.makePayment(
-                                context,
-                                currency: "PKR",
-                                amountInCents: price,
-                                paymentType: PaymentType.easypaisa,
-                                authToken: authToken,
-                                orderID: orderID,
-                              );
-                            }
-                            if (controller.seletedBank == "JazzCash") {
-                              PaymobPakistan.instance.makePayment(
-                                context,
-                                currency: "PKR",
-                                amountInCents: price,
-                                paymentType: PaymentType.jazzcash,
-                                authToken: authToken,
-                                orderID: orderID,
-                              );
-                            }
-                            if (controller.seletedBank == "Bank") {
-                              PaymobPakistan.instance.makePayment(
-                                context,
-                                currency: "PKR",
-                                amountInCents: price,
-                                paymentType: PaymentType.card,
-                                authToken: authToken,
-                                orderID: orderID,
-                              );
-                            }
-                          });
-                        }
-                        // PaymentInitializationResult response = await PaymobPakistan.instance.initializePayment(
-
-                        //   currency: "PKR",
-                        //   amountInCents: "500",
-                        // );
-
-                        // String authToken = response.authToken;
-                        // int orderID = response.orderID;
-
-                        // PaymobPakistan.instance.makePayment(context,
-                        //     currency: "PKR",
-                        //     amountInCents: "100",
-                        //     paymentType: PaymentType.jazzcash,
-                        //     authToken: authToken,
-                        //     orderID: orderID,
-                        //     onPayment: (response) => null);
-                      } catch (err) {
-                        rethrow;
-                      }
-                    })
               ],
             ),
           ),
         ),
       ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: customButton(
+            title: "Submit",
+            onTap: () async {
+              PaymentStatusSocketService().connect(
+                  "${Finance.paymentStatusSocket}${GetStorage().read("id").toString()}/");
+              // PaymentApiService().payMobIntention("1", "ABCD");
+            }),
+      ),
     );
   }
 
-  Obx features(BuildContext context) {
-    return Obx(() => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            appText(
-                title: "Get your Ad Featured:",
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                context: context),
-            radioOfFeaturebtns(
-              context,
-              "Reach up to 10x more buyers.",
-              controller.tenXMoreBuyers,
-              (p0) {
-                controller.onChangeTenXMoreBuyers(p0!);
-              },
-            ),
-            radioOfFeaturebtns(
-              context,
-              "Show your Ad in top position.",
-              controller.adOnTopPostion,
-              (p0) {
-                controller.onChangeAdOnTopPostion(p0!);
-              },
-            ),
-            radioOfFeaturebtns(
-              context,
-              "Get noticed with a Feature Ad tag.",
-              controller.featureAdTag,
-              (p0) {
-                controller.onChangeFeatureAdTag(p0!);
-              },
-            ),
-          ],
-        ));
+  Column features(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        appText(
+            title: "Get your Ad Featured:",
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            context: context),
+        radioOfFeaturebtns(
+          context,
+          "Reach up to 10x more buyers.",
+          true,
+          (p0) {
+            // controller.onChangeTenXMoreBuyers(p0!);
+          },
+        ),
+        radioOfFeaturebtns(
+          context,
+          "Show your Ad in top position.",
+          true,
+          (p0) {
+            // controller.onChangeAdOnTopPostion(p0!);
+          },
+        ),
+        radioOfFeaturebtns(
+          context,
+          "Get noticed with a Feature Ad tag.",
+          true,
+          (p0) {
+            // controller.onChangeFeatureAdTag(p0!);
+          },
+        ),
+      ],
+    );
   }
 
   Row radioOfFeaturebtns(BuildContext context, String title, bool isSelect,

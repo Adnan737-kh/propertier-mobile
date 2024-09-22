@@ -81,6 +81,7 @@ abstract class AppRoutes {
   static const paymentGatwayeView = '/paymentGatwayeView';
   static const serviceProviderProfile = '/serviceProviderProfile';
   static const collectInfoProfile = '/collectInfoProfile';
+  static const selectFeaturedtype = '/selectFeaturedtype';
 
   //----------vender------------//
 

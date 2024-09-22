@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+// import 'package:json_serializable/type_helper.dart';
 import 'package:propertier/Features/Featured%20Pakages/Controller/featured_pakages_controller.dart';
+import 'package:propertier/Features/SelectFeatuedType/Controller/select_featued_type_controller.dart';
 import 'package:propertier/Utils/Shimmer/shimmer_effect.dart';
 
 import '../../../Utils/app_text.dart';
@@ -11,10 +13,11 @@ import '../../../constant/colors.dart';
 
 // ignore: must_be_immutable
 class FeaturedPakagesView extends StatelessWidget {
-  FeaturedPakagesView({super.key, this.onChanged, this.selectedIndex = 0});
-  void Function(bool?)? onChanged;
-  int selectedIndex;
+  FeaturedPakagesView({super.key});
+
+  var selectedIndex = 0.obs;
   final controller = Get.put(FeaturedPakagesController());
+
   @override
   Widget build(BuildContext context) {
     return selectDurationMethod(context);
@@ -38,25 +41,84 @@ class FeaturedPakagesView extends StatelessWidget {
         : Column(
             children:
                 List.generate(controller.featuredPakages.length, (int index) {
-            return controller.featuredPakages[index].status == "active"
-                ? selectDurationAd(
-                    context: context,
-                    Pkr: controller.featuredPakages[index].price!,
-                    days: controller.featuredPakages[index].title!,
-                    isVerification: false,
-                    isVerificationAvil: false,
-                    selectDays: false,
-                    onChangedRadio: (p0) {},
-                    onChanged: (p0) {},
-                  )
-                : const Gap(0);
+            if (controller.featuredPakages[index].status == "active") {
+              if (Get.find<SelectFeatuedTypeController>()
+                          .selectedFeaturedType
+                          .value ==
+                      'Feature Ad' &&
+                  controller.featuredPakages[index].priorityType == 'normal') {
+                return selectDurationAd(
+                  context: context,
+                  dueration: formatDaysOnlyFromString(
+                      controller.featuredPakages[index].featureDuration!),
+                  pkr: controller.featuredPakages[index].price!,
+                  days: controller.featuredPakages[index].title!,
+                  isVerification: false,
+                  isVerificationAvil: false,
+                  selectDays: selectedIndex.value == index,
+                  onChangedRadio: (p0) {},
+                  onChanged: (v) {
+                    selectedIndex.value = index;
+                    controller.selectedFeaturedPakages.value =
+                        controller.featuredPakages[index];
+                  },
+                );
+              } else if (Get.find<SelectFeatuedTypeController>()
+                          .selectedFeaturedType
+                          .value ==
+                      'Blazing Ad' &&
+                  controller.featuredPakages[index].priorityType == 'blazing') {
+                return selectDurationAd(
+                  context: context,
+                  dueration: formatDaysOnlyFromString(
+                      controller.featuredPakages[index].featureDuration!),
+                  pkr: controller.featuredPakages[index].price!,
+                  days: controller.featuredPakages[index].title!,
+                  isVerification: false,
+                  isVerificationAvil: false,
+                  selectDays: selectedIndex.value == index,
+                  onChangedRadio: (p0) {},
+                  onChanged: (v) {
+                    selectedIndex.value = index;
+                    controller.selectedFeaturedPakages.value =
+                        controller.featuredPakages[index];
+                  },
+                );
+              } else if (Get.find<SelectFeatuedTypeController>()
+                          .selectedFeaturedType
+                          .value ==
+                      'Banner Ad' &&
+                  controller.featuredPakages[index].priorityType == 'slider') {
+                return selectDurationAd(
+                  context: context,
+                  dueration: formatDaysOnlyFromString(
+                      controller.featuredPakages[index].featureDuration!),
+                  pkr: controller.featuredPakages[index].price!,
+                  days: controller.featuredPakages[index].title!,
+                  isVerification: false,
+                  isVerificationAvil: false,
+                  selectDays: selectedIndex.value == index,
+                  onChangedRadio: (p0) {},
+                  onChanged: (v) {
+                    selectedIndex.value = index;
+                    controller.selectedFeaturedPakages.value =
+                        controller.featuredPakages[index];
+                  },
+                );
+              } else {
+                return const Gap(0);
+              }
+            } else {
+              return const Gap(0);
+            }
           })));
   }
 
   Column selectDurationAd({
     required BuildContext context,
     required String days,
-    required String Pkr,
+    required String pkr,
+    required String dueration,
     required bool selectDays,
     required void Function(bool?)? onChanged,
     required void Function(bool?)? onChangedRadio,
@@ -82,38 +144,37 @@ class FeaturedPakagesView extends StatelessWidget {
               ],
             ),
             appText(
-                title: "$Pkr PKR",
+                title: "$pkr PKR",
                 context: context,
                 color: AppColor.facebookColor),
           ],
         ),
-        isVerificationAvil
-            ? Row(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  const Gap(40),
-                  Radio(
-                    toggleable: true,
-                    activeColor: AppColor.buttonColor,
-                    value: isVerification,
-                    groupValue: true,
-                    onChanged: onChangedRadio,
-                  ),
-                  // const Gap(4),
-                  Expanded(
-                    child: appText(
-                        title:
-                            "Propertier property evaluation and verification.",
-                        context: context,
-                        colorOpecity: 0.5),
-                  )
-                ],
-              )
-            : const Gap(0),
+        Row(
+          // mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            const Gap(50),
+            appText(
+                title: "For Duration : $dueration Days",
+                context: context,
+                colorOpecity: 0.5)
+          ],
+        ),
         getHeight(context, 0.015),
         divider(context: context, withOpacity: 0.1)
       ],
     );
+  }
+
+  String formatDaysOnlyFromString(String durationString) {
+    // Split the string based on spaces and colons
+    List<String> parts = durationString.split(' ');
+
+    // Extract the number of days
+    String days = parts[0]; // The first part contains the number of days
+
+    // Format the string as "days 00:00:00"
+    String formattedTime = "$days";
+    return formattedTime;
   }
 }

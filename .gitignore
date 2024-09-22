@@ -324,3 +324,28 @@ assets/logo/logo1.svg
 .dart_tool/package_config_subset
 .dart_tool/package_config.json
 .dart_tool/version
+.dart_tool/build/generated/propertier/lib/Features/Featured Pakages/Models/featured_pakages/featured_pakages.json_serializable.g.part
+.dart_tool/build/generated/propertier/lib/Features/Payment Method/Sockets/Model/payment_socket_model/payment_socket_model.json_serializable.g.part
+.dart_tool/build/generated/propertier/lib/Features/Payment Method/Sockets/Model/payment_socket_model/transaction.json_serializable.g.part
+.dart_tool/build/generated/web_socket/lib/io_web_socket.dart.transitive_digest
+.dart_tool/build/generated/web_socket/lib/web_socket.dart.transitive_digest
+.dart_tool/build/generated/web_socket_channel/lib/io.dart.transitive_digest
+.dart_tool/build/generated/web_socket_channel/lib/web_socket_channel.dart.transitive_digest
+.dart_tool/flutter_build/74beaacff7f607017406d309989765a4/.filecache
+.dart_tool/flutter_build/74beaacff7f607017406d309989765a4/app.dill
+.dart_tool/flutter_build/74beaacff7f607017406d309989765a4/debug_android_application.stamp
+.dart_tool/flutter_build/74beaacff7f607017406d309989765a4/flutter_assets.d
+.dart_tool/flutter_build/74beaacff7f607017406d309989765a4/gen_dart_plugin_registrant.stamp
+.dart_tool/flutter_build/74beaacff7f607017406d309989765a4/gen_l10n_inputs_and_outputs.json
+.dart_tool/flutter_build/74beaacff7f607017406d309989765a4/gen_localizations.d
+.dart_tool/flutter_build/74beaacff7f607017406d309989765a4/gen_localizations.stamp
+.dart_tool/flutter_build/74beaacff7f607017406d309989765a4/kernel_snapshot_native_assets.stamp
+.dart_tool/flutter_build/74beaacff7f607017406d309989765a4/kernel_snapshot_program.d
+.dart_tool/flutter_build/74beaacff7f607017406d309989765a4/kernel_snapshot_program.stamp
+.dart_tool/flutter_build/74beaacff7f607017406d309989765a4/kernel_snapshot.stamp
+.dart_tool/flutter_build/74beaacff7f607017406d309989765a4/native_assets.d
+.dart_tool/flutter_build/74beaacff7f607017406d309989765a4/native_assets.dill
+.dart_tool/flutter_build/74beaacff7f607017406d309989765a4/native_assets.stamp
+.dart_tool/flutter_build/74beaacff7f607017406d309989765a4/native_assets.yaml
+.dart_tool/flutter_build/74beaacff7f607017406d309989765a4/outputs.json
+.dart_tool/flutter_build/74beaacff7f607017406d309989765a4/program.dill

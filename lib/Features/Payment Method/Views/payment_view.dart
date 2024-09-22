@@ -5,9 +5,9 @@ import 'package:propertier/constant/colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class PaymentView extends StatefulWidget {
-  PaymentView({super.key, required this.urls});
+  const PaymentView({super.key, required this.urls});
 
-  String urls;
+  final String urls;
 
   @override
   State<PaymentView> createState() => _PaymentViewState();
@@ -51,12 +51,12 @@ class _PaymentViewState extends State<PaymentView> {
           statusBarColor: AppColor.white),
       child: SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            foregroundColor: AppColor.white,
-            title: const Text("Payment View"),
-            centerTitle: true,
-            backgroundColor: AppColor.secondaryColor,
-          ),
+          // appBar: AppBar(
+          //   foregroundColor: AppColor.white,
+          //   title: const Text("Payment View"),
+          //   centerTitle: true,
+          //   backgroundColor: AppColor.secondaryColor,
+          // ),
           body: WebViewWidget(
             controller: webViewController,
           ),

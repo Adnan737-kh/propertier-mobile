@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 import '../../../Features/Featured Pakages/Models/featured_pakages/featured_pakages.dart';
-import '../Services/services.dart';
+// import '../Services/services.dart';
 
 class PaymentGatwayeViewModel extends GetxController {
   final _selectedBank = "EasyPaisa".obs;
@@ -20,14 +20,9 @@ class PaymentGatwayeViewModel extends GetxController {
     _selectedFeatures = value;
   }
 
-  @override
-  void onInit() async {
-    super.onInit();
-  }
-
   final _selectedDuration = "7".obs;
   get selectedDuration => _selectedDuration.value;
-  final _price = "10".obs;
+  final _price = "1".obs;
   get price => _price.value;
 
   void onChangeSelectedDuration(String val, String rp) {
@@ -61,5 +56,59 @@ class PaymentGatwayeViewModel extends GetxController {
 
   void onChangeFeatureAdTag(bool val) {
     _isFeatureAdTag.value = val;
+  }
+
+  void onSubmit() {
+    //  if (controller.price != '') {
+    //                       final price =
+    //                           (int.parse(controller.price) * 100).toString();
+    //                       PaymobPakistan.instance
+    //                           .initialize(
+    //                         apiKey: _apiKey,
+    //                         integrationID: 135513,
+    //                         iFrameID: 52288,
+    //                         jazzcashIntegrationId: 135516,
+    //                         easypaisaIntegrationID: 135519,
+    //                       )
+    //                           .then((value) async {
+    //                         PaymentInitializationResult response =
+    //                             await PaymobPakistan.instance.initializePayment(
+    //                           currency: "PKR",
+    //                           amountInCents: price,
+    //                         );
+    //                         String authToken = response.authToken;
+    //                         int orderID = response.orderID;
+    //                         if (controller.seletedBank == "EasyPaisa") {
+    //                           PaymobPakistan.instance.makePayment(
+    //                             context,
+    //                             currency: "PKR",
+    //                             amountInCents: price,
+    //                             paymentType: PaymentType.easypaisa,
+    //                             authToken: authToken,
+    //                             orderID: orderID,
+    //                           );
+    //                         }
+    //                         if (controller.seletedBank == "JazzCash") {
+    //                           PaymobPakistan.instance.makePayment(
+    //                             context,
+    //                             currency: "PKR",
+    //                             amountInCents: price,
+    //                             paymentType: PaymentType.jazzcash,
+    //                             authToken: authToken,
+    //                             orderID: orderID,
+    //                           );
+    //                         }
+    //                         if (controller.seletedBank == "Bank") {
+    //                           PaymobPakistan.instance.makePayment(
+    //                             context,
+    //                             currency: "PKR",
+    //                             amountInCents: price,
+    //                             paymentType: PaymentType.card,
+    //                             authToken: authToken,
+    //                             orderID: orderID,
+    //                           );
+    //                         }
+    //                       });
+    //                     }
   }
 }

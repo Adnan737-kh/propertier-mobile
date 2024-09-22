@@ -20,6 +20,14 @@ class FeaturedPakagesController extends GetxController {
     _featuredPakages = value;
   }
 
+  var _selectFeatuedPakage = const FeaturedPakages().obs;
+
+  Rx<FeaturedPakages> get selectedFeaturedPakages => _selectFeatuedPakage;
+
+  set selectedFeaturedPakages(value) {
+    _selectFeatuedPakage = value;
+  }
+
   @override
   void onInit() async {
     isLoading(true);

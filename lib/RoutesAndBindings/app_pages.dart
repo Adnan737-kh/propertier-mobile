@@ -126,6 +126,8 @@ import 'package:propertier/App/onBoarding/ViewModel/onboarding_view_model.dart';
 import 'package:propertier/App/NavBar/View/nav_bar_view.dart';
 
 import 'package:propertier/App/Player/View/player_view.dart';
+import 'package:propertier/Features/SelectFeatuedType/Controller/select_featued_type_controller.dart';
+import 'package:propertier/Features/SelectFeatuedType/Views/select_featured_type_view.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 
 import '../App/Auth/Create User/Views/collect_info.dart';
@@ -727,6 +729,20 @@ class AppPages {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => SignUpViewModel());
         })),
+    GetPage(
+        name: AppRoutes.selectFeaturedtype,
+        transition: Transition.rightToLeftWithFade,
+        page: () => const SelectFeaturedTypeView(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => SelectFeatuedTypeController());
+        })),
+    // GetPage(
+    //     name: AppRoutes.selectFeaturedtype,
+    //     transition: Transition.rightToLeftWithFade,
+    //     page: () => SelectFeaturedTypeView(),
+    //     binding: BindingsBuilder(() {
+    //       Get.lazyPut(() => SelectFeatuedTypeController());
+    //     })),
     //!!--------------------------Vender-----------------------------!!//
     GetPage(
         name: AppRoutes.vendordashborad,

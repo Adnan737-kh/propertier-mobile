@@ -43,6 +43,8 @@ class BaseUrl {
 
 class Finance {
   static const creatIntention = '${BaseUrl.baseURL}/finance/paymob-intention/';
+  static const creatIntentionTest =
+      '${BaseUrl.baseURL}/finance/test-paymob-intention/';
   static const paymentStatusSocket =
       '${BaseUrl.baseWebSocketURL}/ws/finance/payment-status/';
 }

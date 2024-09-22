@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:propertier/App/Profile/View/component/about_tile.dart';
@@ -71,6 +72,37 @@ class ProfileStatusView extends StatelessWidget {
                                   ""
                               : ""),
                       getHeight(context, 0.015),
+                      Container(
+                        padding: EdgeInsets.all(8),
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                          color: AppColor.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: const [
+                            // boxShadow(),
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            features(context),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    Get.toNamed(AppRoutes.selectFeaturedtype);
+                                  },
+                                  child: appText(
+                                      fontSize: 18,
+                                      color: AppColor.facebookColor,
+                                      title: "Click here ",
+                                      context: context),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                       rewardsAndAppricationTile(context, viewModel),
                       getHeight(context, 0.015),
                       profileInformationTile(
@@ -129,9 +161,63 @@ class ProfileStatusView extends StatelessWidget {
     );
   }
 
+  Column features(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        appText(
+            title: "Get your Ad Featured:",
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            context: context),
+        radioOfFeaturebtns(
+          context,
+          "Reach up to 10x more buyers.",
+          true,
+          (p0) {
+            // controller.onChangeTenXMoreBuyers(p0!);
+          },
+        ),
+        radioOfFeaturebtns(
+          context,
+          "Show your Ad in top position.",
+          true,
+          (p0) {
+            // controller.onChangeAdOnTopPostion(p0!);
+          },
+        ),
+        radioOfFeaturebtns(
+          context,
+          "Get noticed with a Feature Ad tag.",
+          true,
+          (p0) {
+            // controller.onChangeFeatureAdTag(p0!);
+          },
+        ),
+      ],
+    );
+  }
+
+  Row radioOfFeaturebtns(BuildContext context, String title, bool isSelect,
+      void Function(bool?)? onChanged) {
+    return Row(
+      children: [
+        Checkbox(
+          shape: const CircleBorder(),
+          activeColor: AppColor.facebookColor,
+          value: isSelect,
+          onChanged: onChanged,
+        ),
+        const Gap(4),
+        appText(
+            title: title, fontSize: 16, context: context, colorOpecity: 0.6),
+      ],
+    );
+  }
+
   SizedBox propertiesListView(BuildContext context) {
     return SizedBox(
-      height: context.getSize.height * 0.4,
+      height: 380,
       width: context.getSize.width,
       child: ListView.builder(
         // reverse: true,
