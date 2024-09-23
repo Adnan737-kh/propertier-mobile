@@ -732,7 +732,7 @@ class AppPages {
     GetPage(
         name: AppRoutes.selectFeaturedtype,
         transition: Transition.rightToLeftWithFade,
-        page: () => const SelectFeaturedTypeView(),
+        page: () => SelectFeaturedTypeView(),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => SelectFeatuedTypeController());
         })),

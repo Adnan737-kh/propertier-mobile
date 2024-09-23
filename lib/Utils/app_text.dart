@@ -12,6 +12,7 @@ Text appText({
   TextOverflow? overflow,
   double colorOpecity = 1.0,
   String fontFamily = 'Rubik',
+  TextStyle? style,
   FontWeight fontWeight = FontWeight.normal,
   int? maxLines,
 }) {
@@ -20,12 +21,13 @@ Text appText({
     textAlign: textAlign,
     overflow: overflow,
     maxLines: maxLines,
-    style: TextStyle(
-      decoration: textDecoration,
-      fontSize: context.fontSize(fontSize),
-      fontFamily: fontFamily,
-      fontWeight: fontWeight,
-      color: color.withOpacity(colorOpecity),
-    ),
+    style: style ??
+        TextStyle(
+          decoration: textDecoration,
+          fontSize: context.fontSize(fontSize),
+          fontFamily: fontFamily,
+          fontWeight: fontWeight,
+          color: color.withOpacity(colorOpecity),
+        ),
   );
 }

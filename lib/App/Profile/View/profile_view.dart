@@ -73,7 +73,7 @@ class ProfileStatusView extends StatelessWidget {
                               : ""),
                       getHeight(context, 0.015),
                       Container(
-                        padding: EdgeInsets.all(8),
+                        padding: EdgeInsets.all(16),
                         margin: const EdgeInsets.symmetric(vertical: 10),
                         decoration: BoxDecoration(
                           color: AppColor.white,
@@ -210,7 +210,7 @@ class ProfileStatusView extends StatelessWidget {
         ),
         const Gap(4),
         appText(
-            title: title, fontSize: 16, context: context, colorOpecity: 0.6),
+            title: title, fontSize: 14, context: context, colorOpecity: 0.6),
       ],
     );
   }
@@ -220,7 +220,6 @@ class ProfileStatusView extends StatelessWidget {
       height: 380,
       width: context.getSize.width,
       child: ListView.builder(
-        // reverse: true,
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemCount: viewModel.profileModel.value.properties != null

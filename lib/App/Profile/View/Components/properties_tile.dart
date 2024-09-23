@@ -19,7 +19,10 @@ import '../../../../extensions/ago_time_converter.dart';
 import '../../Service/profile_service.dart';
 
 Container propertiesTile(BuildContext context,
-    {required Property property, required ProfileViewModel viewModel}) {
+    {required Property property,
+    bool isItFromFeatured = false,
+    void Function()? onFeaturedClick,
+    required ProfileViewModel viewModel}) {
   return Container(
     padding: const EdgeInsets.only(left: 3, right: 3, top: 3),
     margin: EdgeInsets.symmetric(
@@ -105,22 +108,21 @@ Container propertiesTile(BuildContext context,
                       colorOpecity: 0.7,
                       fontSize: 10,
                       fontWeight: FontWeight.w500),
-                  InkWell(
-                      onTap: () {
-                        Get.toNamed(AppRoutes.paymentGatwayeView);
-                        // PaymentApiService().payMobIntention("1", "Description");
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: appText(
-                            title: "Feature Ad",
-                            context: context,
-                            textDecoration: TextDecoration.underline,
-                            color: AppColor.greenColor,
-                            // colorOpecity: ,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500),
-                      ))
+                  isItFromFeatured
+                      ? InkWell(
+                          onTap: onFeaturedClick,
+                          child: Padding(
+                            padding: const EdgeInsets.all(5),
+                            child: appText(
+                                title: "Click to Feature Ad",
+                                context: context,
+                                textDecoration: TextDecoration.underline,
+                                color: AppColor.greenColor,
+                                // colorOpecity: ,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w500),
+                          ))
+                      : const Gap(0)
                 ],
               ),
               getHeight(context, 0.008),
@@ -197,68 +199,74 @@ Container propertiesTile(BuildContext context,
             ],
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: TextButton.icon(
-                  style: ButtonStyle(
-                      backgroundColor:
-                          WidgetStatePropertyAll(AppColor.googleColor)),
-                  // color: AppColor.googleColor,
-                  label: appText(
-                      title: "Delete", color: AppColor.white, context: context),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Confirm Deletion'),
-                          content: Text(
-                              'Are you sure you want to delete this property?'),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                // Cancel action
-                                Navigator.of(context).pop(); // Close the dialog
-                              },
-                              child: Text('Cancel'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                // Proceed with delete action
-                                Navigator.of(context).pop(); // Close the dialog
-                                viewModel.isLoading.value = true;
-                                ProfileService()
-                                    .deleteProperty(
-                                        context: context,
-                                        id: property.id!.toString())
-                                    .whenComplete(() {
-                                  viewModel.getProfilePageData(
-                                    context: context,
-                                    id: property.agent!.id!.toString(),
-                                  );
-                                });
-                              },
-                              child: const Text('Delete'),
-                              style: TextButton.styleFrom(
-                                  backgroundColor: AppColor.googleColor,
-                                  foregroundColor: AppColor.white
-                                  // primary: Colors.red, // Make the Delete button red
+        isItFromFeatured
+            ? const Gap(0)
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: TextButton.icon(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                WidgetStatePropertyAll(AppColor.googleColor)),
+                        // color: AppColor.googleColor,
+                        label: appText(
+                            title: "Delete",
+                            color: AppColor.white,
+                            context: context),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Confirm Deletion'),
+                                content: Text(
+                                    'Are you sure you want to delete this property?'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      // Cancel action
+                                      Navigator.of(context)
+                                          .pop(); // Close the dialog
+                                    },
+                                    child: Text('Cancel'),
                                   ),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.delete,
-                    color: AppColor.white,
-                  )),
-            ),
-          ],
-        )
+                                  TextButton(
+                                    onPressed: () {
+                                      // Proceed with delete action
+                                      Navigator.of(context)
+                                          .pop(); // Close the dialog
+                                      viewModel.isLoading.value = true;
+                                      ProfileService()
+                                          .deleteProperty(
+                                              context: context,
+                                              id: property.id!.toString())
+                                          .whenComplete(() {
+                                        viewModel.getProfilePageData(
+                                          context: context,
+                                          id: property.agent!.id!.toString(),
+                                        );
+                                      });
+                                    },
+                                    child: const Text('Delete'),
+                                    style: TextButton.styleFrom(
+                                        backgroundColor: AppColor.googleColor,
+                                        foregroundColor: AppColor.white
+                                        // primary: Colors.red, // Make the Delete button red
+                                        ),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.delete,
+                          color: AppColor.white,
+                        )),
+                  ),
+                ],
+              )
       ],
     ),
   );

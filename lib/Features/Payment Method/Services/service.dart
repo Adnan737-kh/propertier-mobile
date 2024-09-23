@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:propertier/Network/api_urls.dart';
-
-import '../../../extensions/navigate_to_dailpad.dart';
 import '../Sockets/sockets.dart';
 import '../Views/payment_view.dart';
 
@@ -25,7 +23,7 @@ class PaymentApiService {
     String description,
   ) async {
     try {
-      final response = await _dio.post(Finance.creatIntentionTest, data: {
+      final response = await _dio.post(Finance.creatIntention, data: {
         "user_id": GetStorage().read("id").toString(),
         "amount": amount,
         "description": description,

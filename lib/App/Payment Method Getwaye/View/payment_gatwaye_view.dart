@@ -12,6 +12,7 @@ import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
+import '../../../Features/Featured Pakages/Controller/featured_pakages_controller.dart';
 import '../../../Features/Featured Pakages/Views/featured_pakages_view.dart';
 // import '../../../Utils/divider.dart';
 import '../../../Features/Payment Method/Services/service.dart';
@@ -30,39 +31,49 @@ class PaymentGatwayeView extends GetView<PaymentGatwayeViewModel> {
         child: Padding(
           padding:
               EdgeInsets.symmetric(horizontal: context.getSize.width * 0.036),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                getHeight(context, 0.036),
-                customAppBar(
-                  context: context,
-                  title: "Select Ad Duration Pakage ",
-                  onTap: () {
-                    Get.back();
-                  },
-                ),
-                // getHeight(context, 0.058),
-                // selectPaymentMethod(context),
-                // getHeight(context, 0.010),
-                // divider(context: context, withOpacity: 0.5),
-                getHeight(context, 0.025),
-                FeaturedPakagesView(),
-                getHeight(context, 0.025),
-                features(context),
-                getHeight(context, 0.035),
-              ],
-            ),
+          child: Column(
+            children: [
+              getHeight(context, 0.036),
+              customAppBar(
+                context: context,
+                title: "Select Ad Duration Pakage ",
+                onTap: () {
+                  Get.back();
+                },
+              ),
+              getHeight(context, 0.025),
+              FeaturedPakagesView(),
+              const Spacer(),
+              features(context),
+              getHeight(context, 0.035),
+              Row(
+                children: [
+                  appText(
+                      title: "Total",
+                      style: context.textTheme.titleMedium,
+                      context: context),
+                  const Spacer(),
+                  Obx(() {
+                    return appText(
+                        title:
+                            "${Get.find<FeaturedPakagesController>().selectedFeaturedPakages.value.price ?? ""} PKR",
+                        style: context.textTheme.titleMedium,
+                        context: context);
+                  })
+                ],
+              )
+            ],
           ),
         ),
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
         child: customButton(
-            title: "Submit",
+            title: "Payment",
             onTap: () async {
-              PaymentStatusSocketService().connect(
-                  "${Finance.paymentStatusSocket}${GetStorage().read("id").toString()}/");
-              // PaymentApiService().payMobIntention("1", "ABCD");
+              // PaymentStatusSocketService().connect(
+              //     "${Finance.paymentStatusSocket}${GetStorage().read("id").toString()}/");
+              PaymentApiService().payMobIntention("1", "ABCD");
             }),
       ),
     );

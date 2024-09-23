@@ -38,80 +38,85 @@ class FeaturedPakagesView extends StatelessWidget {
                       )),
                     )),
           )
-        : Column(
-            children:
-                List.generate(controller.featuredPakages.length, (int index) {
-            if (controller.featuredPakages[index].status == "active") {
-              if (Get.find<SelectFeatuedTypeController>()
-                          .selectedFeaturedType
-                          .value ==
-                      'Feature Ad' &&
-                  controller.featuredPakages[index].priorityType == 'normal') {
-                return selectDurationAd(
-                  context: context,
-                  dueration: formatDaysOnlyFromString(
-                      controller.featuredPakages[index].featureDuration!),
-                  pkr: controller.featuredPakages[index].price!,
-                  days: controller.featuredPakages[index].title!,
-                  isVerification: false,
-                  isVerificationAvil: false,
-                  selectDays: selectedIndex.value == index,
-                  onChangedRadio: (p0) {},
-                  onChanged: (v) {
-                    selectedIndex.value = index;
-                    controller.selectedFeaturedPakages.value =
-                        controller.featuredPakages[index];
-                  },
-                );
-              } else if (Get.find<SelectFeatuedTypeController>()
-                          .selectedFeaturedType
-                          .value ==
-                      'Blazing Ad' &&
-                  controller.featuredPakages[index].priorityType == 'blazing') {
-                return selectDurationAd(
-                  context: context,
-                  dueration: formatDaysOnlyFromString(
-                      controller.featuredPakages[index].featureDuration!),
-                  pkr: controller.featuredPakages[index].price!,
-                  days: controller.featuredPakages[index].title!,
-                  isVerification: false,
-                  isVerificationAvil: false,
-                  selectDays: selectedIndex.value == index,
-                  onChangedRadio: (p0) {},
-                  onChanged: (v) {
-                    selectedIndex.value = index;
-                    controller.selectedFeaturedPakages.value =
-                        controller.featuredPakages[index];
-                  },
-                );
-              } else if (Get.find<SelectFeatuedTypeController>()
-                          .selectedFeaturedType
-                          .value ==
-                      'Banner Ad' &&
-                  controller.featuredPakages[index].priorityType == 'slider') {
-                return selectDurationAd(
-                  context: context,
-                  dueration: formatDaysOnlyFromString(
-                      controller.featuredPakages[index].featureDuration!),
-                  pkr: controller.featuredPakages[index].price!,
-                  days: controller.featuredPakages[index].title!,
-                  isVerification: false,
-                  isVerificationAvil: false,
-                  selectDays: selectedIndex.value == index,
-                  onChangedRadio: (p0) {},
-                  onChanged: (v) {
-                    selectedIndex.value = index;
-                    controller.selectedFeaturedPakages.value =
-                        controller.featuredPakages[index];
-                  },
-                );
+        : SingleChildScrollView(
+            child: Column(
+                children: List.generate(controller.featuredPakages.length,
+                    (int index) {
+              if (controller.featuredPakages[index].status == "active") {
+                if (Get.find<SelectFeatuedTypeController>()
+                            .selectedFeaturedType
+                            .value ==
+                        'Feature Ad' &&
+                    controller.featuredPakages[index].priorityType ==
+                        'normal') {
+                  return selectDurationAd(
+                    context: context,
+                    dueration: formatDaysOnlyFromString(
+                        controller.featuredPakages[index].featureDuration!),
+                    pkr: controller.featuredPakages[index].price!,
+                    days: controller.featuredPakages[index].title!,
+                    isVerification: false,
+                    isVerificationAvil: false,
+                    selectDays: selectedIndex.value == index,
+                    onChangedRadio: (p0) {},
+                    onChanged: (v) {
+                      selectedIndex.value = index;
+                      controller.selectedFeaturedPakages.value =
+                          controller.featuredPakages[index];
+                    },
+                  );
+                } else if (Get.find<SelectFeatuedTypeController>()
+                            .selectedFeaturedType
+                            .value ==
+                        'Blazing Ad' &&
+                    controller.featuredPakages[index].priorityType ==
+                        'blazing') {
+                  return selectDurationAd(
+                    context: context,
+                    dueration: formatDaysOnlyFromString(
+                        controller.featuredPakages[index].featureDuration!),
+                    pkr: controller.featuredPakages[index].price!,
+                    days: controller.featuredPakages[index].title!,
+                    isVerification: false,
+                    isVerificationAvil: false,
+                    selectDays: selectedIndex.value == index,
+                    onChangedRadio: (p0) {},
+                    onChanged: (v) {
+                      selectedIndex.value = index;
+                      controller.selectedFeaturedPakages.value =
+                          controller.featuredPakages[index];
+                    },
+                  );
+                } else if (Get.find<SelectFeatuedTypeController>()
+                            .selectedFeaturedType
+                            .value ==
+                        'Banner Ad' &&
+                    controller.featuredPakages[index].priorityType ==
+                        'slider') {
+                  return selectDurationAd(
+                    context: context,
+                    dueration: formatDaysOnlyFromString(
+                        controller.featuredPakages[index].featureDuration!),
+                    pkr: controller.featuredPakages[index].price!,
+                    days: controller.featuredPakages[index].title!,
+                    isVerification: false,
+                    isVerificationAvil: false,
+                    selectDays: selectedIndex.value == index,
+                    onChangedRadio: (p0) {},
+                    onChanged: (v) {
+                      selectedIndex.value = index;
+                      controller.selectedFeaturedPakages.value =
+                          controller.featuredPakages[index];
+                    },
+                  );
+                } else {
+                  return const Gap(0);
+                }
               } else {
                 return const Gap(0);
               }
-            } else {
-              return const Gap(0);
-            }
-          })));
+            })),
+          ));
   }
 
   Column selectDurationAd({

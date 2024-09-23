@@ -6,8 +6,6 @@ import 'package:propertier/Features/SelectFeatuedType/Controller/select_featued_
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-import 'Model/payment_socket_model/payment_socket_model.dart';
-
 class PaymentStatusSocketService {
   late WebSocketChannel _channel;
 
@@ -19,12 +17,15 @@ class PaymentStatusSocketService {
     _channel.stream.listen(
       (message) {
         // Handle incoming messages
+        var json = jsonDecode(message);
         log('Received: $message');
+        String data = message.toString();
+        // var msg = PaymentSocketModel.fromJson();
+        log('just message Received: ${json}');
+        // log('Received: ${msg.message}');
 
-        var msg = PaymentSocketModel.fromJson(jsonDecode(message));
-        log('Received: ${msg.transaction!.status}');
-
-        if (msg.transaction?.status == "completed") {
+        if (json['transaction']['status'] == "completed" ||
+            data.contains('Payment succeeded')) {
           log('WOo YOo');
           postAdData();
         } else {}

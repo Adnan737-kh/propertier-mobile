@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:propertier/Model/property.dart';
 
 class SelectFeatuedTypeController extends GetxController {
-  var _selectedFeaturedType = "Normal".obs;
+  var _selectedFeaturedType = "Feature Ad".obs;
 
   RxString get selectedFeaturedType => _selectedFeaturedType;
 
@@ -16,6 +17,14 @@ class SelectFeatuedTypeController extends GetxController {
 
   set featuredItem(value) {
     _featuredItem = value;
+  }
+
+  var _selectedPropertyID = Property().obs;
+
+  Rx<Property> get selectedPropertyID => _selectedPropertyID;
+
+  set selectedPropertyID(value) {
+    _selectedPropertyID = value;
   }
 
   var featuredItemsList = ['Profile', 'Property'];
