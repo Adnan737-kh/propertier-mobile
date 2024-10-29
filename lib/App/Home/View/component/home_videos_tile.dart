@@ -13,6 +13,7 @@ import 'package:video_thumbnail/video_thumbnail.dart';
 
 import '../../../../Model/property.dart';
 import '../../../../Utils/thumbnail_tile.dart';
+import '../../../Player/YTPlayer.dart';
 // import '../../../Profile/PropertiesAndShortVideo/ViewModel/properties_and_Video_view_model.dart';
 
 // ignore: must_be_immutable
@@ -91,8 +92,9 @@ class HomeVideosTile extends StatelessWidget {
                           ? const SizedBox.shrink()
                           : GestureDetector(
                               onTap: () {
-                                Get.toNamed(AppRoutes.playerView,
-                                    arguments: property.video);
+                                // Get.toNamed(AppRoutes.playerView,
+                                //     arguments: property.video);
+                                Get.to(Ytplayer(), arguments: property.video);
                               },
                               child: VideoThumbnailTile(
                                 videoUrl: property.video!,

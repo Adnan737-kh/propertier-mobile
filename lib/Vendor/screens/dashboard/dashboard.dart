@@ -11,6 +11,9 @@ import 'package:propertier/Vendor/screens/dashboard/fearture_ads/view/feature_ad
 import 'package:propertier/Vendor/screens/dashboard/home/view/home_screen.dart';
 import 'package:propertier/Vendor/screens/dashboard/profile/controller/profile_controller.dart';
 import 'package:propertier/Vendor/screens/dashboard/profile/view/profile.dart';
+import 'package:propertier/Vendor/screens/dashboard/vendorProfile/vendorProfile.dart';
+import 'package:propertier/Vendor/screens/dashboard/vendorProfile/vendorProfileController.dart';
+import 'package:propertier/Vendor/screens/dashboard/vendorProfile/vendorProfileController.dart';
 import 'package:propertier/Vendor/screens/widgets/drawer_widget.dart';
 import 'package:propertier/constant/colors.dart';
 
@@ -24,6 +27,7 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard>
     with AutomaticKeepAliveClientMixin<Dashboard> {
   final ProfileController profileController = Get.put(ProfileController());
+  final VendorProfileController vendorProfileController = Get.put(VendorProfileController());
   int selectedIndex = 0;
   bool isDrawerOpen = false;
 
@@ -86,12 +90,12 @@ class _DashboardState extends State<Dashboard>
               Expanded(
                 child: IndexedStack(
                   index: selectedIndex,
-                  children: const [
+                  children: [
                     HomeScreen(),
                     FeatureAdsScreen(),
                     PostScreen(),
                     EarningScreen(),
-                    ProfileScreen(),
+                    VendorProfile(),
                   ],
                 ),
               ),

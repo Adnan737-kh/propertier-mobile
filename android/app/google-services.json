@@ -82,6 +82,14 @@
           }
         },
         {
+          "client_id": "390128912429-ul62t94n9l3l5k1putrednrcahkohskq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.propertier.propertiercom",
+            "certificate_hash": "1b6c1d410fef528ad434184b6d7f4a9fb0ed292c"
+          }
+        },
+        {
           "client_id": "390128912429-u5jujcp0qoclkbf4s7b2hqtlocm1qrvn.apps.googleusercontent.com",
           "client_type": 3
         }

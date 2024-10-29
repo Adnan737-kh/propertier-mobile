@@ -16,6 +16,7 @@ class ProfileService {
     try {
       final response = await http.get(Uri.parse("${API.profileDetailUrl}$id/"));
       if (response.statusCode == 200) {
+        print("userprofile*${response.body}");
         final decodedJson = jsonDecode(response.body);
         profileDetailModel = ProfileModel.fromJson(decodedJson);
       } else {

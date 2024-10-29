@@ -26,6 +26,7 @@ import 'package:video_thumbnail/video_thumbnail.dart';
 
 import '../../../../Model/property.dart';
 import '../../../../RoutesAndBindings/app_routes.dart';
+import '../../../../Utils/App Ad Mob/app_banner_ads.dart';
 import '../../../../Utils/border.dart';
 import '../../../../Utils/info_tile.dart';
 
@@ -181,6 +182,9 @@ Widget detailTile(BuildContext context,
         getHeight(context, 0.01),
         divider(context: context, color: const Color(0xffCFCFCF)),
         getHeight(context, 0.015),
+        SizedBox(
+            height: 50,
+            child: AppBannerAd()),
         detailsTitle(context: context, title: context.local.detailShortVideo),
         getHeight(context, 0.005),
         dataModel.property!.shortVideo != null

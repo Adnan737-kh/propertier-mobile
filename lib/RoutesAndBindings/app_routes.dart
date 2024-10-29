@@ -86,4 +86,6 @@ abstract class AppRoutes {
   //----------vender------------//
 
   static const vendordashborad = '/dashboard';
+  static const signupvendor = '/signupVendor';
+
 }

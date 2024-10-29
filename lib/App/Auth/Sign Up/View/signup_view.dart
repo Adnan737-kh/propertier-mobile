@@ -303,7 +303,7 @@ class SignUpView extends StatelessWidget {
                                                   }
                                                 },
                                                 icondata: Bootstrap.google,
-                                                title: 'Sign In with Google',
+                                                title: 'Sign Up with Google',
                                                 buttonColor:
                                                     AppColor.googleColor),
                                           ),
@@ -326,7 +326,7 @@ class SignUpView extends StatelessWidget {
                                         },
                                         icondata: Bootstrap.apple,
                                         // iconColor: AppColor.googleColor,
-                                        title: 'Sign in with Apple',
+                                        title: 'Sign Up with Apple',
                                         buttonColor: AppColor.appleColor
                                         // textColor: AppColor.,
                                         ),

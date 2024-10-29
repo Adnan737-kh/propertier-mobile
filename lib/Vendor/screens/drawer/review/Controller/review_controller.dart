@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:propertier/Network/api_urls.dart';
 import 'package:propertier/Vendor/screens/drawer/review/Model/review_model.dart';
 
 class ReviewController extends GetxController {
@@ -45,7 +46,7 @@ class ReviewController extends GetxController {
   Future<List<Review>> _fetchVendorFeedbacks(String vendorUserId) async {
     final response = await http.get(
       Uri.parse(
-          'https://propertier-p2wwcx3okq-em.a.run.app/services/vendor-feedbacks/$vendorUserId'),
+          '${API.baseURL}/services/vendor-feedbacks/$vendorUserId'),
     );
 
     print('Response status: ${response.statusCode}');

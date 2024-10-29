@@ -59,7 +59,7 @@ class AddPropertiesServices {
       final uri = Uri.parse('${API.uploadPropertyUrl}/');
 
       // Create the Multipart request
-      var request = MultipartRequest(
+      var request = MultipartRequest( 
         'POST',
         uri,
         onProgress: (int bytes, int total) {

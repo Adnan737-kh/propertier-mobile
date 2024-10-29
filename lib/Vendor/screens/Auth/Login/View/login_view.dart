@@ -247,8 +247,8 @@ class LoginView extends StatelessWidget {
                                 text: ' Sign Up',
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
-                                    Get.put(SignUpViewModel());
-                                    Get.to(() => Get.put(SignUpView()));
+                                    Get.put(SignUpViewModelVendor());
+                                    Get.to(() => Get.put(SignUpViewVendor()));
                                     // Get.toNamed(AppRoutes.signUpView);
                                   })
                           ])),

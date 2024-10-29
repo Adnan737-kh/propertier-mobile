@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:propertier/App/Home/View/component/comercial_view.dart';
 import 'package:propertier/App/Home/View/component/top_widget_with_appbar.dart';
 import 'package:propertier/App/Home/ViewModel/home_view_model.dart';
+import 'package:propertier/Utils/App%20Ad%20Mob/app_banner_ads.dart';
+import 'package:propertier/Utils/App%20Ad%20Mob/app_interstitial_ads.dart';
 import 'package:propertier/Utils/border.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
@@ -52,7 +54,7 @@ class HomeView extends StatelessWidget {
                     automaticallyImplyLeading: false,
                     expandedHeight: Platform.isAndroid
                         ? context.isPhone
-                            ? context.getSize.height * (0.45 - 0.030)
+                            ? context.getSize.height * (0.55 - 0.030)
                             : context.getSize.height * (0.4 - 0.030)
                         : context.isPhone
                             ? context.getSize.height * (0.48 - 0.030)
@@ -62,6 +64,7 @@ class HomeView extends StatelessWidget {
                           homeAppBar(viewModel: viewModel, context: context),
                     ),
                   ),
+
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:propertier/Network/api_urls.dart';
 import 'package:propertier/Vendor/screens/dashboard/Posts/add_post/Model/title_model.dart';
 
 class SelectCategoryController extends GetxController {
@@ -13,7 +14,7 @@ class SelectCategoryController extends GetxController {
   var errorMessage = RxnString();
 
   final String apiUrl =
-      'https://propertier-p2wwcx3okq-em.a.run.app/services/services/';
+      '${API.baseURL}/services/services/';
 
   Future<void> fetchParentServices() async {
     try {

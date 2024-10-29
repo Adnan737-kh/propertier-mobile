@@ -44,10 +44,11 @@ class _ProfileScreenState extends State<ProfileScreen>
       profileController.getServices(vendorUserId);
       profileController.getFeaturedServices(vendorUserId);
       profileController.getAwards(vendorUserId);
-    } else {
-      profileController.errorMessage.value =
-          'Vendor ID is not available or login form vednor side';
     }
+    // else {
+    //   profileController.errorMessage.value =
+    //       'Vendor ID is not available or login form vednor side';
+    // }
   }
 
   String getElapsedTime(DateTime createdAt) {

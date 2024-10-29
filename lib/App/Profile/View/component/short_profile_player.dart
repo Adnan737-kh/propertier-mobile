@@ -10,7 +10,6 @@ import 'package:propertier/constant/colors.dart';
 import 'package:propertier/extensions/size_extension.dart';
 import 'package:propertier/extensions/tags_remove_extension.dart';
 import 'package:video_player/video_player.dart';
-
 import '../../../../Model/property.dart';
 import '../../../../RoutesAndBindings/app_routes.dart';
 import '../../../../Utils/app_text.dart';
@@ -159,8 +158,7 @@ class _ShortVideoPLayerWidgetState extends State<ShortVideoPLayerWidget> {
                   !_isPlaying.value
                       ? const SizedBox.shrink()
                       : Positioned(
-                          bottom:
-                              context.getSize.height * widget.positionBottom,
+                          bottom: context.getSize.height * widget.positionBottom,
                           left: context.getSize.width * widget.positionLeft,
                           right: context.getSize.width * widget.positionRight,
                           child: Column(

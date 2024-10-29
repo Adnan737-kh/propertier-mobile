@@ -16,6 +16,8 @@ class HomeServices {
     HomeModel homeModel = HomeModel();
     try {
       final response = await http.get(Uri.parse(API.homeDataUrl));
+      print("home data response: ${response.statusCode}");
+      print("home data response: ${response.body}");
       if (response.statusCode == 200) {
         final decodedJson = jsonDecode(response.body);
 

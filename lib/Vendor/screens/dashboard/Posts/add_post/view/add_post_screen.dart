@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -53,7 +54,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
     String? vendorUserId = box.read('vendorUserId');
 
     if (vendorUserId == null) {
-      Get.snackbar('Error', 'Vendor ID could not be retrieved.');
+      Fluttertoast.showToast(msg: 'Vendor ID could not be retrieved.');
       return;
     }
     // print('Vendor ID retrieved: $vendorUserId');

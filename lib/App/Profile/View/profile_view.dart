@@ -14,7 +14,6 @@ import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
-
 import '../../../RoutesAndBindings/app_routes.dart';
 import '../../../Utils/app_text.dart';
 import '../../Home/View/home_view.dart';
@@ -95,7 +94,7 @@ class ProfileStatusView extends StatelessWidget {
                                   child: appText(
                                       fontSize: 18,
                                       color: AppColor.facebookColor,
-                                      title: "Click here ",
+                                      title: "Click here",
                                       context: context),
                                 ),
                               ],

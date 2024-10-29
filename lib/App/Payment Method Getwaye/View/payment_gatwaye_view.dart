@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:propertier/App/Payment%20Method%20Getwaye/Services/services.dart';
 // import 'package:paymob_pakistan/paymob_payment.dart';
 import 'package:propertier/App/What%20are%20you%20searching/View/Components/custom_botton_wryf.dart';
 import 'package:propertier/Utils/app_text.dart';
@@ -68,13 +69,44 @@ class PaymentGatwayeView extends GetView<PaymentGatwayeViewModel> {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: customButton(
-            title: "Payment",
+        child: Obx(()=> customButton(
+            title: controller.isLoading.value? "Loading...": "Payment",
             onTap: () async {
               // PaymentStatusSocketService().connect(
               //     "${Finance.paymentStatusSocket}${GetStorage().read("id").toString()}/");
-              PaymentApiService().payMobIntention("1", "ABCD");
-            }),
+              // PaymentApiService().payMobIntention("1", "ABCD");
+              try{
+                if(controller.isLoading.value){
+                  return;
+                }
+                String? featureId = Get.find<FeaturedPakagesController>().selectedFeaturedPakages.value.id.toString();
+                print(featureId);
+                print(controller.propertyId);
+                if(featureId == null || featureId == "" || controller.propertyId == null || controller.propertyId == ""){
+                  Get.rawSnackbar(message: 'Please Select Package and Property');
+                  return;
+                }
+                controller.isLoading.value = true;
+                print(controller.featuredItem);
+                bool res = false;
+                if(controller.featuredItem == "Profile"){
+                  res = await FeaturedService().buyFeaturedProfileAd(GetStorage().read("id").toString(), featureId, "active", controller.image!);
+                }
+                else{
+                  res = await FeaturedService().buyFeaturedAd(featureId, controller.propertyId, "active", controller.image);
+                }
+                controller.isLoading.value = false;
+                if(res){
+                  Get.rawSnackbar(message: 'Featured Ad Purchased Successfully.');
+                }
+                else{
+                  Get.rawSnackbar(message: 'Could not succeed!');
+                }
+              }
+              catch(e){
+                print("error: $e");
+              }
+            })),
       ),
     );
   }

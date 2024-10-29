@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:ndialog/ndialog.dart';
+import 'package:propertier/Network/api_urls.dart';
 import 'package:propertier/Vendor/screens/drawer/verifications/success_screen.dart';
 
 import '../../../../dashboard/profile/controller/profile_controller.dart';
@@ -79,7 +80,7 @@ class DocumentController extends GetxController {
   //     var request = http.MultipartRequest(
   //       'PUT',
   //       Uri.parse(
-  //           'https://propertier-p2wwcx3okq-em.a.run.app//accounts/vendors/${13}/'),
+  //           '${Api.baseUrl}//accounts/vendors/${13}/'),
   //     )..files.add(await http.MultipartFile.fromPath(
   //         AwardController.profile.value.cnicFrontUrl.toString(),
   //         cnicFront.path));
@@ -109,7 +110,7 @@ class DocumentController extends GetxController {
       var request = http.MultipartRequest(
           'PUT',
           Uri.parse(
-              'https://propertier-p2wwcx3okq-em.a.run.app/accounts/vendors/$vendorUserId/'))
+              '${API.baseURL}/accounts/vendors/$vendorUserId/'))
         ..fields['firebase_id'] = firebaseId
         ..fields['email'] = email
         ..fields['type'] = type
@@ -145,7 +146,7 @@ class DocumentController extends GetxController {
       var request = http.MultipartRequest(
         'PUT',
         Uri.parse(
-            'https://propertier-p2wwcx3okq-em.a.run.app/accounts/vendors/$vendorUserId/'),
+            '${API.baseURL}/accounts/vendors/$vendorUserId/'),
       )
         ..fields['firebase_id'] = firebaseId
         ..fields['email'] = email

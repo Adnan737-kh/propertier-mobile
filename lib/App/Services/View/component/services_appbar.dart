@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:propertier/App/Auth/Login/Model/user_login_model/user_login_model.dart';
 import 'package:propertier/App/Home/View/component/carousel_slider_widget.dart';
 import 'package:propertier/App/Services/ViewModel/services_view_model.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
@@ -68,10 +70,17 @@ PreferredSize servciesAppBar(BuildContext context,
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      var currentUser = await AuthService().getCurrentUser();
+                      UserLoginModel? currentUser = await AuthService().getCurrentUser();
+                      print(currentUser?.users?.first.type);
                       if (currentUser != null) {
-                        print(currentUser.toJson().toString());
-                        Get.toNamed(AppRoutes.vendordashborad);
+                        for(User user in currentUser.users??[]){
+                          if(user.type == "vendor"){
+                            Get.toNamed(AppRoutes.vendordashborad);
+                            return;
+                          }
+                        }
+                        Fluttertoast.showToast(msg: "You don't have vendor account");
+                        Get.toNamed(AppRoutes.signupvendor);
                       } else {
                         Get.toNamed(AppRoutes.loginView);
                       }

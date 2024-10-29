@@ -34,7 +34,7 @@ class HomeViewModel extends GetxController {
   List<String> tabList = <String>[
     'Commerical',
     'Residential',
-    // 'Services',
+    'Services',
   ];
   TextEditingController searchController = TextEditingController();
   PageController pageController = PageController(initialPage: 0);
@@ -155,7 +155,7 @@ class HomeViewModel extends GetxController {
 
   RxBool isHomeDataAvailable = false.obs;
 
-  Rx<HomeModel> homeModel = HomeModel().obs;
+  Rx<HomeModel>  homeModel = HomeModel().obs;
   Future<HomeModel> getHomePageData({required BuildContext context}) async {
     final result = await HomeServices().getHomeData(context: context);
     if (result.data != null) {

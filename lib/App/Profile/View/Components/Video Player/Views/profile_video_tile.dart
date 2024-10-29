@@ -75,10 +75,11 @@ class ProfileVideosTile extends StatelessWidget {
                             Property property = listOfProperties[index];
                             return property.video == null
                                 ? const SizedBox.shrink()
-                                : GestureDetector(
+                                :
+                            GestureDetector(
                                     onTap: () {
-                                      Get.toNamed(AppRoutes.playerView,
-                                          arguments: property.video);
+                                      // Get.toNamed(AppRoutes.playerView,
+                                      //     arguments: property.video);
                                     },
                                     child: VideoThumbnailTile(
                                       videoUrl: property.video!,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:propertier/App/Profile/View/component/ShortVideoPlayer/VideoPlayerScreen.dart';
 // import 'package:propertier/App/Profile/Model/profile_model.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/border.dart';
@@ -15,6 +16,7 @@ import 'package:video_thumbnail/video_thumbnail.dart';
 
 import '../../../../Model/property.dart';
 import '../../../../RoutesAndBindings/app_routes.dart';
+import '../../../../Utils/App Ad Mob/app_interstitial_ads.dart';
 
 // ignore: must_be_immutable
 class ProfileShortVideosTile extends StatelessWidget {
@@ -89,12 +91,20 @@ class ProfileShortVideosTile extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return newShortVideoList[index].shortVideo != null
                         ? GestureDetector(
-                            onTap: () {
-                              Get.toNamed(AppRoutes.shortVideoProfileView,
-                                  arguments: {
-                                    "ListOfVideos": newShortVideoList,
-                                    "property": newShortVideoList[index]
-                                  });
+                            onTap: () async{
+                              // await loadAndShowInterstitialAd();
+                              // Get.toNamed(AppRoutes.shortVideoProfileView,
+                              //     arguments: {
+                              //       "ListOfVideos": newShortVideoList,
+                              //       "property": newShortVideoList[index]
+                              //     });
+                              // List<String> urls = [];
+                              // for(Property p in newShortVideoList){
+                              //   if(p.shortVideo != null && p.shortVideo != ""){
+                              //     urls.add(p.shortVideo!);
+                              //   }
+                              // }
+                              Get.to(VideoPlayerScreen(properties: newShortVideoList, property: newShortVideoList[index], ));
                             },
                             child: FutureBuilder<String?>(
                               future:

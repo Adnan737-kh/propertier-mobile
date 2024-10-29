@@ -21,6 +21,7 @@ import '../../Service/profile_service.dart';
 Container propertiesTile(BuildContext context,
     {required Property property,
     bool isItFromFeatured = false,
+      bool isItSelected = false,
     void Function()? onFeaturedClick,
     required ProfileViewModel viewModel}) {
   return Container(
@@ -99,33 +100,37 @@ Container propertiesTile(BuildContext context,
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  appText(
-                      title: getTimeAgo(property.createdAt!),
-                      context: context,
-                      colorOpecity: 0.7,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w500),
-                  isItFromFeatured
-                      ? InkWell(
-                          onTap: onFeaturedClick,
-                          child: Padding(
-                            padding: const EdgeInsets.all(5),
-                            child: appText(
-                                title: "Click to Feature Ad",
-                                context: context,
-                                textDecoration: TextDecoration.underline,
-                                color: AppColor.greenColor,
-                                // colorOpecity: ,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500),
-                          ))
-                      : const Gap(0)
-                ],
-              ),
+              isItFromFeatured
+                  ?
+                  InkWell(
+                    onTap: onFeaturedClick,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: appText(
+                              title: "Click to Feature Ad",
+                              context: context,
+                              textDecoration: TextDecoration.underline,
+                              color: AppColor.greenColor,
+                              // colorOpecity: ,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        Icon(Icons.add,color: AppColor.greenColor,)
+                      ],
+                    ),
+                  )
+                  : const Gap(0),
               getHeight(context, 0.008),
+              appText(
+                  title: getTimeAgo(property.createdAt!),
+                  context: context,
+                  colorOpecity: 0.7,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500),
+              getHeight(context, 0.005),
               appText(
                   textAlign: TextAlign.left,
                   title: property.title!,

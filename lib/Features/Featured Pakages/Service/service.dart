@@ -15,6 +15,7 @@ class FeaturedPakageService {
       final response = await http.get(Uri.parse(API.getFeaturesPakagesUrl));
       if (response.statusCode == 200) {
         final decodedJson = jsonDecode(response.body);
+        print(decodedJson);
         profileDetailModel = decodedJson
             .map((jsonItem) =>
                 FeaturedPakages.fromJson(jsonItem as Map<String, dynamic>))

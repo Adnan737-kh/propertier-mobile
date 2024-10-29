@@ -27,6 +27,10 @@ class LoginServices {
           "Authorization": "Bearer $password"
         },
       );
+      print(API.userInfoUrl);
+      print("get info response ${response.body}");
+      print("get info response code ${response.statusCode}");
+      print("token ${password}");
 
       if (response.statusCode == 200) {
         final decodedData = jsonDecode(response.body);

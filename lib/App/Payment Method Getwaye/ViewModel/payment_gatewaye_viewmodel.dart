@@ -4,8 +4,25 @@ import '../../../Features/Featured Pakages/Models/featured_pakages/featured_paka
 // import '../Services/services.dart';
 
 class PaymentGatwayeViewModel extends GetxController {
+
   final _selectedBank = "EasyPaisa".obs;
 
+  final data = Get.arguments;
+  late String propertyId;
+  late final String? image;
+  late String featuredItem;
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    propertyId = data['propertyId'];
+    image = data['pickedImage'];
+    featuredItem = data['featuredItem'];
+  }
+
+
+  RxBool isLoading = false.obs;
   get seletedBank => _selectedBank.value;
 
   void onChangeBank(String val) {
@@ -57,6 +74,14 @@ class PaymentGatwayeViewModel extends GetxController {
   void onChangeFeatureAdTag(bool val) {
     _isFeatureAdTag.value = val;
   }
+
+
+
+  Future buyAdPackage()async{
+
+  }
+
+
 
   void onSubmit() {
     //  if (controller.price != '') {

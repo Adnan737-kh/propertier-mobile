@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:propertier/Network/api_urls.dart';
 import 'package:propertier/Vendor/screens/drawer/verifications/success_screen.dart';
 
 class VerifyDocumentController extends GetxController {
@@ -33,7 +34,7 @@ class VerifyDocumentController extends GetxController {
     if (incorporateDocument.value != null &&
         soleProprietorDocument.value != null) {
       var apiUrl =
-          'https://propertier-p2wwcx3okq-em.a.run.app/accounts/vendors/$vendorUserId/';
+          '${API.baseURL}/accounts/vendors/$vendorUserId/';
       var request = http.MultipartRequest('PUT', Uri.parse(apiUrl));
 
       request.fields['firebase_id'] = firebaseId;

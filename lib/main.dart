@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:propertier/App/Language/ViewModel/language_view_model.dart';
 import 'package:propertier/RoutesAndBindings/app_pages.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
@@ -15,9 +16,10 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await MobileAds.instance.initialize();
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+
 
   var initializationSettingsAndroid =
       const AndroidInitializationSettings('@mipmap/ic_launcher');

@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:propertier/Vendor/screens/dashboard/earnings/Model/earning_model.dart';
 
+import '../../../../../Network/api_urls.dart';
+
 class EarningController extends GetxController {
   var isLoading = true.obs;
   var earning = Earning(
@@ -20,7 +22,7 @@ class EarningController extends GetxController {
       isLoading(true);
 
       final response = await http.get(Uri.parse(
-          'https://propertier-p2wwcx3okq-em.a.run.app/finance/wallet-overview/$userId'));
+          '${API.baseURL}/finance/wallet-overview/$userId'));
 
       if (response.statusCode == 200) {
         earning.value = Earning.fromJson(json.decode(response.body));

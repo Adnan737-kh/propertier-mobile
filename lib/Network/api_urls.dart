@@ -1,22 +1,22 @@
 class API {
   static const mainUrl = "https://www.propertier.com.pk/api/v1";
-  static const baseURL = "https://propertier-p2wwcx3okq-em.a.run.app/";
+  // static const baseURL = "https://propertier-p2wwcx3okq-em.a.run.app/";
+  static const baseURL = "https://propertier-cloud-run-882044310734.asia-south2.run.app"; //localhost
   static const baseWebSocketURL = "ws://propertier-p2wwcx3okq-em.a.run.app/";
 
-  // static const baseURL = "http://127.0.0.1:8000/"; //localhost
   static const secondaryUrl = "api/mob/v1";
 
   static const userInfoUrl = "$baseURL/accounts/user-info";
   static const registerUrl = "$baseURL/accounts/customers";
-  static const uploadPropertyUrl = '$baseURL$secondaryUrl/Properties';
+  static const uploadPropertyUrl = '$baseURL/$secondaryUrl/Properties';
   static const uploadPropertyFeaturesUrl =
-      '$baseURL$secondaryUrl/add-features/';
+      '$baseURL/$secondaryUrl/add-features/';
   static const loginUrl = "$mainUrl/login";
 
-  static const homeDataUrl = '$baseURL$secondaryUrl/HomePage';
-  static const propertydetailUrl = '$baseURL$secondaryUrl/GetPropertiesDetail';
-  static const customerRequestUrl = '$baseURL$secondaryUrl/CustomerRequests/';
-  static const allPropertiesUrl = '$baseURL$secondaryUrl/FilteredProperties';
+  static const homeDataUrl = '$baseURL/$secondaryUrl/HomePage';
+  static const propertydetailUrl = '$baseURL/$secondaryUrl/GetPropertiesDetail';
+  static const customerRequestUrl = '$baseURL/$secondaryUrl/CustomerRequests/';
+  static const allPropertiesUrl = '$baseURL/$secondaryUrl/FilteredProperties';
   static const profileDetailUrl = '$baseURL/$secondaryUrl/user-profiles/';
   static const getFeaturesPakagesUrl = '$baseURL/properties/feature-packages/';
   static const accountDeleteUrl = '$baseURL/accounts/delete-user-profile/';
@@ -29,6 +29,7 @@ class API {
   static const uploadAwardUrl = '$mainUrl/upload-award';
   static const addAwardUrl = '$baseURL/$secondaryUrl/Award/';
   static const unlikePropertyUrl = '$mainUrl/unlike-property';
+
   static const demandRequestUrl = '$mainUrl/demand-properties';
   static const featuresUrl = '$baseURL/$secondaryUrl/GetAllFeatures';
   static const forgetPasswordUrl = '$mainUrl/forget-password';
@@ -37,7 +38,8 @@ class API {
 }
 
 class BaseUrl {
-  static const baseURL = "https://propertier-p2wwcx3okq-em.a.run.app/";
+  // static const baseURL = "https://propertier-p2wwcx3okq-em.a.run.app/";
+  static const baseURL = "http://13.201.188.247:8000";
   static const baseWebSocketURL = "ws://propertier-p2wwcx3okq-em.a.run.app/";
 }
 
@@ -55,4 +57,6 @@ class CreateFeatureAd {
       '${BaseUrl.baseURL}/finance/test-paymob-intention/';
   static const paymentStatusSocket =
       '${BaseUrl.baseWebSocketURL}/ws/finance/payment-status/';
+  static const createFeaturedProperty = '${BaseUrl.baseURL}/properties/featured-properties/';
+  static const createFeaturedProfile = '${BaseUrl.baseURL}/properties/featured-profiles/';
 }

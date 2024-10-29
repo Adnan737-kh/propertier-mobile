@@ -13,6 +13,7 @@ import 'package:propertier/App/Profile/View/Edit%20Profile/services/edit_profile
 import 'package:propertier/App/Profile/ViewModel/profile_view_model.dart';
 import 'package:propertier/App/What%20are%20you%20searching/ViewModel/what_are_viewmodel.dart';
 import 'package:http/http.dart' as http;
+import 'package:propertier/constant/constant.dart';
 
 import '../../../../Auth/Login/Services/login_services.dart';
 import '../../../../Auth/Service/google_sigin_services.dart';
@@ -192,7 +193,7 @@ class EditProfileViewModel extends GetxController {
 
   Future<void> searchPlaces(String input,
       {bool isCurrentLocation = false}) async {
-    const apiKey = 'AIzaSyC0EAVt8egPftM2_zHoEl6mev3go1NLmx8';
+    const apiKey = Constant.google_api_key;
     const endpoint =
         'https://maps.googleapis.com/maps/api/place/autocomplete/json';
     final url = '$endpoint?input=$input&key=$apiKey';

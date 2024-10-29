@@ -15,6 +15,7 @@ import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
+import '../../../../Utils/App Ad Mob/app_banner_ads.dart';
 import '../../../NavBar/ViewModel/navbar_view_model.dart';
 
 PreferredSize homeAppBar(
@@ -131,9 +132,12 @@ PreferredSize homeAppBar(
               )
             ],
           ),
-
           getHeight(context, 0.01),
           CarouselSliderWidget(),
+          SizedBox(
+            height: 50,
+              width: Get.width,
+              child: AppBannerAd()),
           getHeight(context, 0.010),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,

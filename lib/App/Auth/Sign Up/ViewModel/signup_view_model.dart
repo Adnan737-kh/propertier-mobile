@@ -28,6 +28,7 @@ import '../../../../constant/colors.dart';
 import '../../Service/auth_service.dart';
 
 class SignUpViewModel extends GetxController {
+  String? isVendor = Get.arguments;
   final usernameController = TextEditingController();
   final userNumberController = TextEditingController();
   final userEmailController = TextEditingController();
@@ -238,7 +239,7 @@ class SignUpViewModel extends GetxController {
     bool isDone = false;
     try {
       isLoading(true);
-      return await AuthHandler.signUpWithEmailAndPassword(email, password);
+      return await AuthHandler.signUpWithEmailAndPassword(email, password, isVendor);
     } catch (e) {
       isLoading(false);
 
@@ -354,6 +355,8 @@ class SignUpViewModel extends GetxController {
     final url = '$endpoint?input=$input&key=$apiKey';
 
     final response = await http.get(Uri.parse(url));
+    print("******* $apiKey");
+    print(response.body);
     if (response.statusCode == 200) {
       print(response.statusCode);
       final data = json.decode(response.body);

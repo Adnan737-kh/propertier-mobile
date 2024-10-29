@@ -1,0 +1,1 @@
+ C:\\Users\\Zain\\Documents\\PROPERTIER\ Work\\propertier_app_production\\.dart_tool\\flutter_build\\31bfe9d4a7d2b38e6e419b3dd9a90b4e\\native_assets.yaml: 

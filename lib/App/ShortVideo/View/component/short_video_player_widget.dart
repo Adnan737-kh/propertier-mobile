@@ -11,7 +11,6 @@ import 'package:propertier/constant/colors.dart';
 import 'package:propertier/extensions/size_extension.dart';
 import 'package:propertier/extensions/tags_remove_extension.dart';
 import 'package:video_player/video_player.dart';
-
 import '../../../../Model/property.dart';
 import '../../../../RoutesAndBindings/app_routes.dart';
 import '../../../../Utils/app_text.dart';
@@ -459,7 +458,8 @@ class _ShortVideoPLayerWidgetState extends State<ShortVideoPLayerWidget> {
               ],
             );
           } else {
-            return const LoadingView();
+            return SizedBox();
+            // return const LoadingView();
           }
         });
   }

@@ -28,6 +28,7 @@ class _PLayerViewState extends State<PLayerView> {
     // VideoPlayerController.networkUrl(
     //     Uri.parse( widget.videoUrl));
 
+
     // _chewieController = ChewieController(
     //   // useRootNavigator: false,
     //   // allowFullScreen: true,

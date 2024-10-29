@@ -162,36 +162,36 @@ class LoginViewModel extends GetxController {
           Get.offAllNamed(AppRoutes.vendordashborad);
           Get.put(ProfileController());
         } else if (user != null) {
-          final isSuccessData = await SignupServices().signupUserData(
-              context: Get.context!,
-              address: '',
-              pinCode: '',
-              name: result.user!.displayName,
-              email: result.user!.email,
-              profilePicUrl: result.user!.photoURL ?? "",
-              firebaseID: result.user!.uid,
-              phoneNumber: result.user!.phoneNumber ?? "");
-          if (isSuccessData != null) {
-            await AuthService()
-                .registerUser(isSuccessData, result.user!.email!)
-                .then(
-              (value) {
-                isGoogleSigninLoading.value = false;
-                toast(title: "Success in signup", context: context);
-                Get.put(ProfileController());
-                Get.offAndToNamed(AppRoutes.vendordashborad);
-                Get.put(ProfileController());
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        LoginView(), // Replace with your new page class
-                  ),
-                );
-              },
-            );
-          } else {
-            toast(title: "Signup not successful", context: Get.context!);
-          }
+          // final isSuccessData = await SignupServices().signupUserData(
+          //     context: Get.context!,
+          //     address: '',
+          //     pinCode: '',
+          //     name: result.user!.displayName,
+          //     email: result.user!.email!,
+          //     profilePicUrl: result.user!.photoURL ?? "",
+          //     firebaseID: result.user!.uid,
+          //     phoneNumber: result.user!.phoneNumber ?? "");
+          // if (isSuccessData != null) {
+            // await AuthService()
+            //     .registerUser(isSuccessData, result.user!.email!)
+            //     .then(
+            //   (value) {
+            //     isGoogleSigninLoading.value = false;
+            //     toast(title: "Success in signup", context: context);
+            //     Get.put(ProfileController());
+            //     Get.offAndToNamed(AppRoutes.vendordashborad);
+            //     Get.put(ProfileController());
+            //     Navigator.of(context).pushReplacement(
+            //       MaterialPageRoute(
+            //         builder: (context) =>
+            //             LoginView(), // Replace with your new page class
+            //       ),
+            //     );
+            //   },
+            // );
+          // } else {
+          //   toast(title: "Signup not successful", context: Get.context!);
+          // }
           isGoogleSigninLoading.value = false;
         }
       } else {

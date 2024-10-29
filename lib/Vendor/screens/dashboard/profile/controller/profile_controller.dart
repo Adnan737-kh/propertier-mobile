@@ -9,6 +9,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:ndialog/ndialog.dart';
+import 'package:propertier/Network/api_urls.dart';
 import 'package:propertier/Vendor/helpers/api_service.dart';
 import 'package:propertier/Vendor/screens/dashboard/fearture_ads/Model/feature_model.dart';
 import 'package:propertier/Vendor/screens/dashboard/profile/model/award_model.dart';
@@ -95,7 +96,7 @@ class ProfileController extends GetxController {
       var request = http.MultipartRequest(
         'POST',
         Uri.parse(
-            'https://propertier-p2wwcx3okq-em.a.run.app/services/vendor-awards/'),
+            '${API.baseURL}/services/vendor-awards/'),
       );
       request.fields['vendor_id'] = awardModel.vendorId;
 
@@ -169,12 +170,12 @@ class ProfileController extends GetxController {
     try {
       var response = await http.put(
         Uri.parse(
-            'https://propertier-p2wwcx3okq-em.a.run.app/accounts/vendors/$vendorUserId'),
+            '${API.baseURL}/accounts/vendors/$vendorUserId'),
         headers: {'Content-Type': 'application/json'},
         body: json.encode(profileModel.toJson()),
       );
       print(
-          'https://propertier-p2wwcx3okq-em.a.run.app/accounts/vendors/$vendorUserId');
+          '${API.baseURL}/accounts/vendors/$vendorUserId');
       if (response.statusCode == 200) {
         profile(profileModel);
         Get.snackbar('Success', 'Profile updated successfully');
@@ -296,7 +297,7 @@ class ProfileController extends GetxController {
       var request = http.MultipartRequest(
         'PUT',
         Uri.parse(
-            'https://propertier-p2wwcx3okq-em.a.run.app/accounts/vendors/$vendorUserId'),
+            '${API.baseURL}/accounts/vendors/$vendorUserId'),
       )
         ..fields['firebase_id'] = profileModel.firebaseId!
         ..fields['email'] = profileModel.email!
@@ -336,7 +337,7 @@ class ProfileController extends GetxController {
       var request = http.MultipartRequest(
         'PUT',
         Uri.parse(
-            'https://propertier-p2wwcx3okq-em.a.run.app//accounts/vendors'),
+            '${API.baseURL}//accounts/vendors'),
       )..files.add(
           await http.MultipartFile.fromPath('profile_picture', imageFile.path));
 
@@ -366,7 +367,7 @@ class ProfileController extends GetxController {
       var request = http.MultipartRequest(
         'PUT',
         Uri.parse(
-            'https://propertier-p2wwcx3okq-em.a.run.app//accounts/vendors'),
+            '${API.baseURL}//accounts/vendors'),
       )..files.add(
           await http.MultipartFile.fromPath('cover_photo', imageFile.path));
 

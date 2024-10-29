@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
+import 'package:propertier/Network/api_urls.dart';
 import 'package:propertier/Vendor/screens/Auth/Service/auth_service.dart';
 import 'package:propertier/Vendor/screens/dashboard/fearture_ads/Model/feature_model.dart';
 import 'package:propertier/Vendor/screens/dashboard/profile/model/award_model.dart';
@@ -40,10 +40,11 @@ class ApiService {
     }
   }
 
+
   Future<ProfileModel> fetchProfile(String vendorUserId) async {
     try {
       final String apiUrl =
-          'https://propertier-p2wwcx3okq-em.a.run.app/accounts/vendors/$vendorUserId';
+          '${API.baseURL}/accounts/vendors/$vendorUserId';
 
       final response =
           await http.get(Uri.parse(apiUrl), headers: <String, String>{
@@ -77,7 +78,7 @@ class ApiService {
 
   Future<List<AwardModel>> getAwards(String vendorUserId) async {
     String url =
-        'https://propertier-p2wwcx3okq-em.a.run.app/services/awards-for-vendor/$vendorUserId';
+        '${API.baseURL}/services/awards-for-vendor/$vendorUserId';
     print(url);
     final response = await http.get(
       Uri.parse(url),
@@ -96,7 +97,7 @@ class ApiService {
 
   Future<List<ServiceModel>> getServices(String vendorUserId) async {
     String url =
-        'https://propertier-p2wwcx3okq-em.a.run.app/services/services-for-vendor/$vendorUserId';
+        '${API.baseURL}/services/services-for-vendor/$vendorUserId';
     print('Request URL: $url');
 
     final response = await http.get(
@@ -121,7 +122,7 @@ class ApiService {
 
   Future<List<FeatureAd>> getFeaturedServices(String vendorUserId) async {
     String url =
-        'https://propertier-p2wwcx3okq-em.a.run.app/services/vendor-featured-services/$vendorUserId';
+        '${API.baseURL}/services/vendor-featured-services/$vendorUserId';
 
     try {
       final response = await http.get(Uri.parse(url));
@@ -144,7 +145,7 @@ class ApiService {
   Future<bool> deleteService(int serviceId) async {
     var response = await http.delete(
       Uri.parse(
-          'https://propertier-p2wwcx3okq-em.a.run.app/services/vendor-services/$serviceId/'),
+          '${API.baseURL}/services/vendor-services/$serviceId/'),
       headers: {'Content-Type': 'application/json'},
     );
     if (response.statusCode == 200) {
@@ -158,7 +159,7 @@ class ApiService {
     try {
       var response = await http.delete(
         Uri.parse(
-            'https://propertier-p2wwcx3okq-em.a.run.app/serices/featured-services/$serviceId/'),
+            '${API.baseURL}/serices/featured-services/$serviceId/'),
         headers: {'Content-Type': 'application/json'},
       );
 
@@ -183,7 +184,7 @@ class ApiService {
       var request = http.MultipartRequest(
           'PUT',
           Uri.parse(
-              'https://propertier-p2wwcx3okq-em.a.run.app/accounts/vendors'));
+              '${API.baseURL}/accounts/vendors'));
 
       // No need to add Content-Type header manually
       request.files.add(await http.MultipartFile.fromPath(

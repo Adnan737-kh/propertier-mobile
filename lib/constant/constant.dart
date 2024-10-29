@@ -4,7 +4,8 @@ class Constant {
       "https://propertier.com.pk/storage/property/";
   static const SliderImageUrl = "https://propertier.com.pk/storage/slider/";
   static const userImageUrl = "https://propertier.com.pk/storage/user/";
-  static const google_api_key = "AIzaSyCyp3WhzP32OPjfarqqq7m2NiG_GbhO7hI";
+  // static const google_api_key = "AIzaSyCyp3WhzP32OPjfarqqq7m2NiG_GbhO7hI";
+  static const google_api_key = "AIzaSyDdXj98JXUemYBNQi276mAIcIu8h75pgEY";
   static const dummayImage =
       "https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
   static const galleryImageUrl =

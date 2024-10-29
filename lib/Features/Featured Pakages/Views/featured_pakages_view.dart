@@ -43,6 +43,9 @@ class FeaturedPakagesView extends StatelessWidget {
                 children: List.generate(controller.featuredPakages.length,
                     (int index) {
               if (controller.featuredPakages[index].status == "active") {
+                print(Get.find<SelectFeatuedTypeController>()
+                    .selectedFeaturedType
+                    .value);
                 if (Get.find<SelectFeatuedTypeController>()
                             .selectedFeaturedType
                             .value ==
@@ -65,7 +68,8 @@ class FeaturedPakagesView extends StatelessWidget {
                           controller.featuredPakages[index];
                     },
                   );
-                } else if (Get.find<SelectFeatuedTypeController>()
+                }
+                else if (Get.find<SelectFeatuedTypeController>()
                             .selectedFeaturedType
                             .value ==
                         'Blazing Ad' &&

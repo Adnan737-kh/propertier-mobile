@@ -35,8 +35,8 @@ class PropertiesAndVideoView extends StatelessWidget {
             pinned: true,
             // titleSpacing: 10,
             expandedHeight: Platform.isAndroid
-                ? sizeHeight((0.28 - 0.030), (03 - 0.030))
-                : sizeHeight((0.28 - 0.030), (0.3 - 0.030)),
+                ? sizeHeight((0.33 - 0.030), (03 - 0.030))
+                : sizeHeight((0.33 - 0.030), (0.3 - 0.030)),
             flexibleSpace: FlexibleSpaceBar(
               expandedTitleScale: 1,
               title: Obx(

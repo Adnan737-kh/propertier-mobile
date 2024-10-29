@@ -7,6 +7,7 @@ import 'package:geolocator/geolocator.dart' as geolocator;
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:propertier/App/Auth/Service/auth_service.dart';
+import 'package:propertier/constant/constant.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 import '../../../extensions/list_of_types.dart';
@@ -14,7 +15,9 @@ import '../../Auth/Login/Model/user_login_model/user_login_model.dart';
 import '../services/customer_request_services.dart';
 
 class WhatAreYouSearchViewModel extends GetxController {
-  var priceValue = const SfRangeValues(10.0, 100.0).obs;
+  var priceValue = const SfRangeValues(100000.0, 5000000.0).obs;
+  TextEditingController minPriceC = TextEditingController();
+  TextEditingController maxPriceC = TextEditingController();
   TextEditingController searchAddressTextController = TextEditingController();
   TextEditingController customAreaSizeController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -122,7 +125,7 @@ class WhatAreYouSearchViewModel extends GetxController {
     mapController.animateCamera(CameraUpdate.zoomOut());
   }
 
-  final RxString _selectedPlace = ''.obs;
+  final RxString _selectedPlace = '     '.obs;
   final RxBool _locationLoading = false.obs;
 
   RxBool get locationLoading => _locationLoading;
@@ -305,7 +308,7 @@ class WhatAreYouSearchViewModel extends GetxController {
 
   Future<void> searchPlaces(String input,
       {bool isCurrentLocation = false}) async {
-    const apiKey = 'AIzaSyC0EAVt8egPftM2_zHoEl6mev3go1NLmx8';
+    const apiKey = Constant.google_api_key;
     const endpoint =
         'https://maps.googleapis.com/maps/api/place/autocomplete/json';
     final url = '$endpoint?input=$input&key=$apiKey';

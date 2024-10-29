@@ -8,8 +8,10 @@ import 'package:http/http.dart' as http;
 import 'package:propertier/Vendor/screens/dashboard/Posts/add_post/Model/add_post_model.dart';
 import 'package:propertier/Vendor/screens/dashboard/dashboard.dart';
 
+import '../../../../../../Network/api_urls.dart';
+
 class PostController {
-  final String apiUrl = 'https://propertier-p2wwcx3okq-em.a.run.app/';
+  final String apiUrl = API.baseURL;
 
   Future<void> addPost(
     AddPostModel postModel,

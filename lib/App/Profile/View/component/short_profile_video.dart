@@ -65,7 +65,9 @@ class ShortVideoProfileView extends StatelessWidget {
                     child: child);
               },
               child: ShortVideoPLayerWidget(
-                  index: index, property: newShortVideosList[index]),
+                  index: index,
+                  property: newShortVideosList[index]
+              ),
             );
           }),
     );

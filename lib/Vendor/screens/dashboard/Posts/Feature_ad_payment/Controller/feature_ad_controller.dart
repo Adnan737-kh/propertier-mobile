@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:propertier/Network/api_urls.dart';
 import 'package:propertier/Vendor/screens/dashboard/Posts/Feature_ad_payment/Model/feature_ad_model.dart';
 
 class FeaturePackageController {
-  final String apiUrl = 'https://propertier-p2wwcx3okq-em.a.run.app/';
+  final String apiUrl = API.baseURL;
 
   int? featurePackageId;
 

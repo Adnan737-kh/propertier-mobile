@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:propertier/App/Player/YTPlayer.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
@@ -41,7 +42,8 @@ class _VideoThumbnailTileState extends State<VideoThumbnailTile> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoutes.playerView, arguments: widget.videoUrl);
+        // Get.toNamed(AppRoutes.playerView, arguments: widget.videoUrl);
+        Get.to(Ytplayer(), arguments: widget.videoUrl);
       },
       child: FutureBuilder<String>(
           future: getThumbnail(),

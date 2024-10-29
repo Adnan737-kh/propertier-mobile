@@ -25,6 +25,7 @@ class AuthService {
     await _storage.write('image', user.users!.first.profilePictureUrl);
     await _storage.write('coverImage', user.users!.first.coverPhotoUrl);
     await _storage.write('user', userjson);
+    await _storage.write('user_type', user.users?.first.type);
 
     return;
   }

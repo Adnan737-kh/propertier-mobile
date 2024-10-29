@@ -70,7 +70,8 @@ class SelectFeaturedTypeView extends GetView<SelectFeatuedTypeController> {
                                 context,
                                 controller.featuredItemsList[index],
                                 controller.featuredItem.value ==
-                                    controller.featuredItemsList[index], (v) {
+                                    controller.featuredItemsList[index],
+                                    (v) {
                               if (controller.featuredItemsList[index] ==
                                   'Profile') {
                                 controller.selectedFeaturedType(
@@ -85,6 +86,103 @@ class SelectFeaturedTypeView extends GetView<SelectFeatuedTypeController> {
                           ).toList(),
                         ),
                       ),
+                      Obx(()=> Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(controller.featuredItem.value == 'Property' && controller.selectedPropertyID.value.id == null? "Select Property":controller.featuredItem.value == 'Property' && controller.selectedPropertyID.value.id != null? "Selected Property": ""),
+                          if(controller.featuredItem.value == 'Property')
+                            TextButton(onPressed: (){
+                              Get.to(FullScreenProperties());
+                            }, child: Text("View All",style: TextStyle(
+                              color: AppColor.blueColor
+                            ),),)
+                        ],
+                      )),
+                      Obx(() => controller.featuredItem.value == 'Property'
+                          ? controller.selectedPropertyID.value.id == null
+                          ? propertiesListView(context)
+                          : Container(
+                        width: context.width,
+                        padding:
+                        EdgeInsets.all(context.getSize.width * 0.036),
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                          color: AppColor.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            boxShadow(),
+                          ],
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          appText(
+                                              title: "Title ",
+                                              style: context
+                                                  .textTheme.titleSmall,
+                                              context: context),
+                                          const Gap(3),
+                                          appText(
+                                              title:
+                                              " ${controller.selectedPropertyID.value.title!}",
+                                              style: context
+                                                  .textTheme.bodySmall,
+                                              context: context),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  const Gap(5),
+                                  divider(
+                                      context: context, withOpacity: 0.2),
+                                  const Gap(5),
+                                  Row(
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          appText(
+                                              title: "Description ",
+                                              style: context
+                                                  .textTheme.titleSmall,
+                                              context: context),
+                                          const Gap(3),
+                                          appText(
+                                              title:
+                                              " ${controller.selectedPropertyID.value.description!}",
+                                              style: context
+                                                  .textTheme.bodySmall,
+                                              context: context),
+                                        ],
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                            const Gap(10),
+                            IconButton(
+                                onPressed: () {
+                                  controller.selectedPropertyID.value =
+                                      Property();
+                                },
+                                icon: const Icon(
+                                  color: AppColor.googleColor,
+                                  Icons.delete,
+                                ))
+                          ],
+                        ),
+                      )
+                          : const Gap(0))
                     ],
                   ),
                 ),
@@ -146,92 +244,6 @@ class SelectFeaturedTypeView extends GetView<SelectFeatuedTypeController> {
                         },
                       )
                     : const Gap(0)),
-
-                Obx(() => controller.featuredItem.value == 'Property'
-                    ? controller.selectedPropertyID.value.id == null
-                        ? propertiesListView(context)
-                        : Container(
-                            width: context.width,
-                            padding:
-                                EdgeInsets.all(context.getSize.width * 0.036),
-                            margin: const EdgeInsets.symmetric(vertical: 10),
-                            decoration: BoxDecoration(
-                              color: AppColor.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                boxShadow(),
-                              ],
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              appText(
-                                                  title: "Title ",
-                                                  style: context
-                                                      .textTheme.titleSmall,
-                                                  context: context),
-                                              const Gap(3),
-                                              appText(
-                                                  title:
-                                                      " ${controller.selectedPropertyID.value.title!}",
-                                                  style: context
-                                                      .textTheme.bodySmall,
-                                                  context: context),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      const Gap(5),
-                                      divider(
-                                          context: context, withOpacity: 0.2),
-                                      const Gap(5),
-                                      Row(
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              appText(
-                                                  title: "Description ",
-                                                  style: context
-                                                      .textTheme.titleSmall,
-                                                  context: context),
-                                              const Gap(3),
-                                              appText(
-                                                  title:
-                                                      " ${controller.selectedPropertyID.value.description!}",
-                                                  style: context
-                                                      .textTheme.bodySmall,
-                                                  context: context),
-                                            ],
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                const Gap(10),
-                                IconButton(
-                                    onPressed: () {
-                                      controller.selectedPropertyID.value =
-                                          Property();
-                                    },
-                                    icon: const Icon(
-                                      color: AppColor.googleColor,
-                                      Icons.delete,
-                                    ))
-                              ],
-                            ),
-                          )
-                    : const Gap(0))
               ],
             ),
           ),
@@ -241,17 +253,28 @@ class SelectFeaturedTypeView extends GetView<SelectFeatuedTypeController> {
           child: customButton(
               title: "Next",
               onTap: () async {
+                print(controller.selectedPropertyID.value.id.toString());
+                print(controller.pickedImage);
                 if (controller.featuredTypeList[2] ==
                     controller.selectedFeaturedType.value) {
                   if (controller.pickedImage != '') {
-                    Get.toNamed(AppRoutes.paymentGatwayeView);
+                    String propertyId = controller.selectedPropertyID.value.id.toString();
+                    Get.toNamed(AppRoutes.paymentGatwayeView, arguments: {
+                      "propertyId": propertyId,
+                      "pickedImage": controller.pickedImage,
+                      "featuredItem": controller.featuredItem.value
+                    });
                   } else {
                     Get.rawSnackbar(message: 'Please Upload Banner');
                   }
                 } else if (controller.featuredItemsList[1] ==
                     controller.featuredItem.value) {
                   if (controller.selectedPropertyID.value.id != null) {
-                    Get.toNamed(AppRoutes.paymentGatwayeView);
+                    Get.toNamed(AppRoutes.paymentGatwayeView,arguments: {
+                      "propertyId": controller.selectedPropertyID.value.id.toString(),
+                      "pickedImage": controller.pickedImage,
+                      "featuredItem": controller.featuredItem.value
+                    });
                   } else {
                     Get.rawSnackbar(message: 'Please Select Property');
                   }
@@ -356,3 +379,52 @@ Widget iDUploadTile({
     ),
   );
 }
+
+
+class FullScreenProperties extends StatelessWidget {
+  const FullScreenProperties({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = Get.find<ProfileViewModel>();
+    final controller = Get.find<SelectFeatuedTypeController>();
+    return Scaffold(
+      backgroundColor: AppColor.white,
+      body: Column(
+        children: [
+          getHeight(context, 0.046),
+          customAppBar(
+            context: context,
+            title: "Select Property",
+            onTap: () {
+              Get.back();
+            },
+          ),
+          getHeight(context, 0.036),
+          Expanded(child: ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            itemCount: viewModel.profileModel.value.properties != null
+                ? viewModel.profileModel.value.properties!.isNotEmpty
+                ? viewModel.profileModel.value.properties!.length <= 5
+                ? viewModel.profileModel.value.properties!.length
+                : 10
+                : 0
+                : 0,
+            itemBuilder: (context, index) {
+              return propertiesTile(context, viewModel: viewModel,
+                  onFeaturedClick: () {
+                    controller.selectedPropertyID.value =
+                    viewModel.profileModel.value.properties![index];
+                    Get.back();
+                  },
+                  isItFromFeatured: true,
+                  property: viewModel.profileModel.value.properties![index]);
+            },
+          ))
+        ],
+      )
+    );
+  }
+}
+

@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-// import 'package:propertier/App/Home/Model/home_model.dart';
 import 'package:propertier/App/Home/ViewModel/home_view_model.dart';
 import 'package:propertier/App/ShortVideo/View/component/short_video_player_widget.dart';
-
 import 'package:propertier/App/ShortVideo/ViewModel/short_video_view_model.dart';
-
 import 'package:propertier/constant/colors.dart';
 import 'package:video_player/video_player.dart';
-
 import '../../../Model/property.dart';
+
 
 // ignore: must_be_immutable
 class ShortVideoView extends StatefulWidget {

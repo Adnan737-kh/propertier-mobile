@@ -86,6 +86,7 @@ class AuthHandler {
         .signInWithEmailAndPassword(email: email, password: password);
     if (user.user != null) {
       var token = await user.user!.getIdToken();
+      print("here is the token: $token");
       await LoginServices()
           .loginUser(
               context: Get.context!,
@@ -94,6 +95,7 @@ class AuthHandler {
               password: token ?? '')
           .then((value) {
         if (value != null) {
+          print("here is value: ${value.users?.first.toJson()}");
           AuthService().registerUser(value, "");
         } else {
           return false;
@@ -106,7 +108,28 @@ class AuthHandler {
   }
 
   static Future<bool> signUpWithEmailAndPassword(
-      String email, String password) async {
+      String email, String password, String? isVendor) async {
+    // if(isVendor == "vendor"){
+    //   User? user = FirebaseAuth.instance.currentUser;
+    //   if(user != null){
+    //     var token = await user.getIdToken();
+    //     asdf
+    //     await LoginServices()
+    //         .loginUser(context: Get.context!, email: email, password: token ?? '')
+    //         .then((value) {
+    //       if (value != null) {
+    //         AuthService().registerUser(value, "");
+    //       } else {
+    //         return false;
+    //       }
+    //     });
+    //     return true;
+    //   }
+    //   else{
+    //     return false;
+    //   }
+    //
+    // }
     var user = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password);
     if (user.user != null) {

@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:propertier/App/Home/ViewModel/home_view_model.dart';
+import 'package:propertier/Utils/App%20Ad%20Mob/app_interstitial_ads.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/border.dart';
 import 'package:propertier/Utils/height_width_box.dart';
@@ -14,6 +15,7 @@ import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 import '../../../../Model/property.dart';
+import '../../../Profile/View/component/ShortVideoPlayer/VideoPlayerScreen.dart';
 
 // ignore: must_be_immutable
 class ShortVideosTile extends StatelessWidget {
@@ -25,7 +27,7 @@ class ShortVideosTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Property> newShortVideoList = shortVidoesList;
-    // print("new ShortVideo List ${newShortVideoList.length}");
+    print("new ShortVideo List ${newShortVideoList.length}");
     List<Property> shortVideos = [];
     if (viewModel.isSale.value == true) {
       shortVideos = newShortVideoList
@@ -76,7 +78,7 @@ class ShortVideosTile extends StatelessWidget {
           ),
         ),
         getHeight(context, 0.011),
-        listShortVideos(context, shortVideos)
+        listShortVideos(context, newShortVideoList)
       ],
     );
   }
@@ -100,12 +102,11 @@ class ShortVideosTile extends StatelessWidget {
               itemCount: shortVideos.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                    onTap: () {
-                      // Get.toNamed(
-                      //   AppRoutes.shortVideoView,
-                      // );
-                      Get.toNamed(AppRoutes.shortVideoView,
-                          arguments: shortVideos[index]);
+                    onTap: () async{
+                      await loadAndShowInterstitialAd();
+                      // Get.toNamed(AppRoutes.shortVideoView,
+                      //     arguments: shortVideos[index]);
+                      Get.to(VideoPlayerScreen(properties: [], property: shortVideos[index]));
                     },
                     child: ShortVideoThumbnail(
                       property: shortVideos[index],

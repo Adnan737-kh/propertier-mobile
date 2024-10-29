@@ -386,9 +386,9 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
                   ),
                   SfRangeSlider(
                     min: 0.0,
-                    max: 1000.0,
+                    max: 10000000.0,
                     values: viewModel.priceValue.value,
-                    interval: 100,
+                    interval: 5000000,
                     stepSize: 1,
                     // showTicks: true,
                     // showLabels: true,
@@ -397,30 +397,103 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
                     minorTicksPerInterval: 1,
                     onChanged: (SfRangeValues values) {
                       controller.priceValue.value = values;
+                      controller.minPriceC.text = values.start.toString();
+                      controller.maxPriceC.text = values.end.toString();
                     },
                   ),
                   getHeight(context, 0.015),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      textIconButton(
-                        width: 100,
-                        height: 60,
-                        fontSize: 12,
-                        title:
-                            "Min ${viewModel.priceValue.value.start.toString().substring(0, viewModel.priceValue.value.start.toString().indexOf("."))}K",
-                        onTap: () {},
+                      Expanded(
+                        child: TextFormField(
+                          controller: controller.minPriceC,
+                          keyboardType: TextInputType.number,
+                          onChanged: (v){
+                            controller.priceValue.value = SfRangeValues(double.parse(v), controller.priceValue.value.end);
+                          },
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,  // White background
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey,   // Same grey color when unfocused
+                                width: 1.0,           // 1 width border
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey,   // Same grey color when focused
+                                width: 1.0,           // 1 width border
+                              ),
+                            ),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey,   // Grey color
+                                width: 1.0,           // 1 width border
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                      textIconButton(
-                        width: 100,
-                        fontSize: 12,
-                        height: 60,
-                        title:
-                            "Mix ${viewModel.priceValue.value.end.toString().substring(0, viewModel.priceValue.value.end.toString().indexOf("."))}K",
-                        onTap: () {},
+                      SizedBox(width: 10,),
+                      Expanded(
+                        child: TextFormField(
+                          controller: controller.maxPriceC,
+                          keyboardType: TextInputType.number,
+                          onChanged: (v){
+                            controller.priceValue.value = SfRangeValues(controller.priceValue.value.start, double.parse(v));
+                          },
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,  // White background
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey,   // Same grey color when unfocused
+                                width: 0.5           // 1 width border
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey,   // Same grey color when focused
+                                width: 1.0,           // 1 width border
+                              ),
+                            ),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey,   // Grey color
+                                width: 0.5,           // 1 width border
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
+
                     ],
                   ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     textIconButton(
+                  //       width: 150,
+                  //       height: 60,
+                  //
+                  //       fontSize: 12,
+                  //       title:
+                  //           // "Min ${viewModel.priceValue.value.start.toString().substring(0, viewModel.priceValue.value.start.toString().indexOf("."))}K",
+                  //       "Min ${viewModel.priceValue.value.start.round()}",
+                  //       onTap: () {},
+                  //     ),
+                  //     textIconButton(
+                  //       width: 150,
+                  //       fontSize: 12,
+                  //       height: 60,
+                  //       title:
+                  //           // "Max ${viewModel.priceValue.value.end.toString().substring(0, viewModel.priceValue.value.end.toString().indexOf("."))}K",
+                  //       "Max ${viewModel.priceValue.value.end.round()}",
+                  //       onTap: () {},
+                  //     ),
+                  //   ],
+                  // ),
                   getHeight(context, 0.015),
                   customButton(
                       height: 38,
@@ -694,6 +767,7 @@ class SelectLocation extends StatelessWidget {
   final WhatAreYouSearchViewModel viewModel;
   @override
   Widget build(BuildContext context) {
+    final FocusNode _focusNode = FocusNode();
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -719,6 +793,7 @@ class SelectLocation extends StatelessWidget {
                       height: 54,
                       width: context.width * 0.688,
                       child: TextFormField(
+                        focusNode: _focusNode,
                         controller: viewModel.searchAddressTextController,
                         style: textStyle(context: context, fontSize: 12),
                         decoration: InputDecoration(
@@ -804,7 +879,9 @@ class SelectLocation extends StatelessWidget {
                     ? Obx(() => loctionTile(
                           context: context,
                           tile: viewModel.selectedPlace,
-                          onTap: () async {},
+                          onTap: () async {
+                            FocusScope.of(context).requestFocus(_focusNode);
+                          },
                         ))
                     : const SizedBox(),
                 getHeight(context, 0.020),

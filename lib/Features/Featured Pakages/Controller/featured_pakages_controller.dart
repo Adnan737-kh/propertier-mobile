@@ -35,6 +35,7 @@ class FeaturedPakagesController extends GetxController {
     for (var pakage in sfeaturedPakages) {
       _featuredPakages.add(pakage);
     }
+    print(_featuredPakages.length);
     isLoading(false);
     super.onInit();
   }
