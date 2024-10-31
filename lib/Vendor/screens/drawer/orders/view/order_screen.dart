@@ -56,6 +56,7 @@ class _OrderScreenState extends State<OrderScreen>
                 dividerColor: Colors.transparent,
                 labelPadding: EdgeInsets.zero,
                 controller: tabController,
+             
                 tabs: [
                   Text(
                     'All',

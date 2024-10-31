@@ -134,7 +134,7 @@ class _VerifyDocumentScreenState extends State<VerifyDocumentScreen> {
                   child: DottedBorder(
                     color: Colors.grey.shade600,
                     dashPattern: const [9, 4],
-                    child: SizedBox(
+                    child: Container(
                       height: Get.height * .2,
                       width: Get.width * .8,
                       child: selectedIncorporationImage == null
@@ -186,7 +186,7 @@ class _VerifyDocumentScreenState extends State<VerifyDocumentScreen> {
                   child: DottedBorder(
                     color: Colors.grey.shade600,
                     dashPattern: const [9, 4],
-                    child: SizedBox(
+                    child: Container(
                       height: Get.height * .2,
                       width: Get.width * .8,
                       child: selectedSoleProprietorImage == null

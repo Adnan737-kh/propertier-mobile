@@ -34,7 +34,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
               decoration: const ShapeDecoration(
                 color: Color(0xFF131A22),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(40),
                     bottomRight: Radius.circular(40),
                   ),
@@ -127,7 +127,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                         const SizedBox(width: 192),
                         InkWell(
                           onTap: () {
-                            Get.to(() => const ChangeLanguageScreen());
+                            Get.to(()=>ChangeLanguageScreen());
                           },
                           child: const Text(
                             'Change',

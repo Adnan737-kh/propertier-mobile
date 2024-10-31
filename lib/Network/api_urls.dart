@@ -2,15 +2,15 @@ class API {
   static const mainUrl = "https://www.propertier.com.pk/api/v1";
   // static const baseURL = "https://propertier-p2wwcx3okq-em.a.run.app/";
   static const baseURL = "https://propertier-cloud-run-882044310734.asia-south2.run.app"; //localhost
-  static const baseWebSocketURL = "ws://propertier-p2wwcx3okq-em.a.run.app/";
+  // static const baseWebSocketURL = "ws://propertier-p2wwcx3okq-em.a.run.app/";
+  static const baseWebSocketURL = "ws://propertier-cloud-run-882044310734.asia-south2.run.app/";
 
   static const secondaryUrl = "api/mob/v1";
 
   static const userInfoUrl = "$baseURL/accounts/user-info";
   static const registerUrl = "$baseURL/accounts/customers";
   static const uploadPropertyUrl = '$baseURL/$secondaryUrl/Properties';
-  static const uploadPropertyFeaturesUrl =
-      '$baseURL/$secondaryUrl/add-features/';
+  static const uploadPropertyFeaturesUrl = '$baseURL/$secondaryUrl/add-features/';
   static const loginUrl = "$mainUrl/login";
 
   static const homeDataUrl = '$baseURL/$secondaryUrl/HomePage';
@@ -33,8 +33,31 @@ class API {
   static const demandRequestUrl = '$mainUrl/demand-properties';
   static const featuresUrl = '$baseURL/$secondaryUrl/GetAllFeatures';
   static const forgetPasswordUrl = '$mainUrl/forget-password';
-  //--------vender-----------//
+
+  //------------------------------------------------------vender-----------------------------------------------------------------------------//
   static const venregisterUrl = '$baseURL/accounts/vendors';
+  static const fetchProfile = '$baseURL/accounts/vendors';
+  static const updateUserProfile = '$baseURL/accounts/vendors';
+  static const updateCoverPicture = '$baseURL/accounts/vendors';
+  static const addAwards = '$baseURL/services/vendor-awards/';
+  static const getAwards = '$baseURL/services/awards-for-vendor';
+  static const getServices = '$baseURL/services/services-for-vendor';
+  static const getFeaturedServices = '$baseURL/services/vendor-featured-services';
+  static const deleteServices = '$baseURL/services/vendor-services';
+  static const deleteFeaturedService= '$baseURL/services/featured-services';
+  static const deleteAward = '$baseURL/services/vendor-awards';
+  static const uploadCnicImages = '$baseURL/accounts/vendors';
+  static const fetchEarningData = '$baseURL/services/vendor';
+  static const postWithoutFeaturePackage = '$baseURL/services/vendor-services/';
+  static const postWithFeaturePackage = '$baseURL/services/featured-services/';
+  static const submitFeaturePackage = '$baseURL/services/feature-packages/';
+  static const fetchParentServices = '$baseURL/services/services/';
+  static const fetchVendorFeedbacks = '$baseURL/services/vendor-feedbacks';
+  static const uploadDocuments = '$baseURL/accounts/vendors'; //cnic and otherdocuments
+  static const incoProDocuments = '$baseURL/accounts/vendors'; //Incorporation and Proprietor Documents
+
+  static const socketSubservice = '$baseURL/services/service';
+  static const fixedServices = '$baseURL/services/fixed-services/';
 }
 
 class BaseUrl {

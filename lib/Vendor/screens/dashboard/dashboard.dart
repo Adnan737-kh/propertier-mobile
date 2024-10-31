@@ -11,23 +11,20 @@ import 'package:propertier/Vendor/screens/dashboard/fearture_ads/view/feature_ad
 import 'package:propertier/Vendor/screens/dashboard/home/view/home_screen.dart';
 import 'package:propertier/Vendor/screens/dashboard/profile/controller/profile_controller.dart';
 import 'package:propertier/Vendor/screens/dashboard/profile/view/profile.dart';
-import 'package:propertier/Vendor/screens/dashboard/vendorProfile/vendorProfile.dart';
-import 'package:propertier/Vendor/screens/dashboard/vendorProfile/vendorProfileController.dart';
-import 'package:propertier/Vendor/screens/dashboard/vendorProfile/vendorProfileController.dart';
 import 'package:propertier/Vendor/screens/widgets/drawer_widget.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/constant/constant.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({super.key});
+  const Dashboard({Key? key}) : super(key: key);
 
   @override
-  State<Dashboard> createState() => _DashboardState();
+  State<Dashboard> createState() => DashboardState();
 }
 
-class _DashboardState extends State<Dashboard>
+class DashboardState extends State<Dashboard>
     with AutomaticKeepAliveClientMixin<Dashboard> {
   final ProfileController profileController = Get.put(ProfileController());
-  final VendorProfileController vendorProfileController = Get.put(VendorProfileController());
   int selectedIndex = 0;
   bool isDrawerOpen = false;
 
@@ -91,11 +88,17 @@ class _DashboardState extends State<Dashboard>
                 child: IndexedStack(
                   index: selectedIndex,
                   children: [
-                    HomeScreen(),
-                    FeatureAdsScreen(),
-                    PostScreen(),
-                    EarningScreen(),
-                    VendorProfile(),
+                    const HomeScreen(),
+                    const FeatureAdsScreen(),
+                    const PostScreen(),
+                    const EarningScreen(),
+                    ProfileScreen(
+                      onViewAllTap: () {
+                        setState(() {
+                          selectedIndex = 1; // Navigate to Feature Ads
+                        });
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -110,7 +113,7 @@ class _DashboardState extends State<Dashboard>
               items: [
                 CurvedNavigationBarItem(
                   child: SvgPicture.asset(
-                    'assets/vendor_assets/home.svg',
+                   Constant.vendorhomeIcon,
                   ),
                   label: selectedIndex == 0 ? '' : 'Requests',
                   labelStyle: const TextStyle(
@@ -120,7 +123,7 @@ class _DashboardState extends State<Dashboard>
                   ),
                 ),
                 CurvedNavigationBarItem(
-                  child: Image.asset('assets/vendor_assets/earning.png'),
+                  child: Image.asset(Constant.vendorFeturedadIcon),
                   label: selectedIndex == 1 ? '' : 'Feature Ads',
                   labelStyle: const TextStyle(
                     color: Color(0xFF131A22),
@@ -130,7 +133,7 @@ class _DashboardState extends State<Dashboard>
                 ),
                 CurvedNavigationBarItem(
                   child: SvgPicture.asset(
-                    'assets/vendor_assets/add.svg',
+                    Constant.vendoraddpostIcon,
                   ),
                   label: selectedIndex == 2 ? '' : 'Post Add',
                   labelStyle: const TextStyle(
@@ -140,7 +143,7 @@ class _DashboardState extends State<Dashboard>
                   ),
                 ),
                 CurvedNavigationBarItem(
-                  child: SvgPicture.asset('assets/vendor_assets/amount.svg'),
+                  child: SvgPicture.asset(Constant.vendorearningIcon),
                   label: selectedIndex == 3 ? '' : 'Earnings',
                   labelStyle: const TextStyle(
                     color: Color(0xFF131A22),
@@ -150,7 +153,7 @@ class _DashboardState extends State<Dashboard>
                 ),
                 CurvedNavigationBarItem(
                   child: SvgPicture.asset(
-                    'assets/vendor_assets/profile.svg',
+                    Constant.vendorprofileIcon,
                   ),
                   label: selectedIndex == 4 ? '' : 'Profile',
                   labelStyle: const TextStyle(
@@ -183,7 +186,20 @@ class _DashboardState extends State<Dashboard>
                   color: Colors.black.withOpacity(0.5),
                   child: Stack(
                     children: [
-                      const DrawerWidget(),
+                      Positioned(
+                        top: 0,
+                        bottom: 0,
+                        left: 0,
+                        right: 100,
+                        child: DrawerWidget(
+                          onToggleDrawer: toggleDrawer,
+                          onItemSelected: (index) {
+                            setState(() {
+                              selectedIndex = index;
+                            });
+                          },
+                        ),
+                      ),
                       Positioned(
                         top: 0,
                         left: 0,

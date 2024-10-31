@@ -1,15 +1,15 @@
-import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:http/http.dart' as http;
-import 'package:propertier/Network/api_urls.dart';
+import 'package:propertier/Vendor/helpers/api_service.dart';
 import 'package:propertier/Vendor/screens/drawer/review/Model/review_model.dart';
+
 
 class ReviewController extends GetxController {
   var feedbacks = <Review>[].obs;
   var isLoading = true.obs;
   var errorMessage = ''.obs;
+
+  final ApiService apiService = ApiService();  // Create an instance of ApiService
 
   @override
   void onInit() {
@@ -24,8 +24,7 @@ class ReviewController extends GetxController {
     if (vendorUserId != null) {
       try {
         isLoading(true);
-        List<Review> fetchedFeedbacks =
-            await _fetchVendorFeedbacks(vendorUserId);
+        List<Review> fetchedFeedbacks = await apiService.fetchVendorFeedbacks(vendorUserId);  // Use ApiService
         feedbacks.assignAll(fetchedFeedbacks);
         if (feedbacks.isEmpty) {
           errorMessage('No reviews available');
@@ -40,28 +39,6 @@ class ReviewController extends GetxController {
     } else {
       errorMessage("Vendor User ID not found");
       isLoading(false);
-    }
-  }
-
-  Future<List<Review>> _fetchVendorFeedbacks(String vendorUserId) async {
-    final response = await http.get(
-      Uri.parse(
-          '${API.baseURL}/services/vendor-feedbacks/$vendorUserId'),
-    );
-
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}'); // Log the response body
-
-    if (response.statusCode == 200) {
-      try {
-        List<dynamic> jsonData = json.decode(response.body);
-        return jsonData.map((json) => Review.fromJson(json)).toList();
-      } catch (e) {
-        throw Exception('Error parsing response data: $e');
-      }
-    } else {
-      throw Exception(
-          'Failed to load vendor feedbacks, status code: ${response.statusCode}');
     }
   }
 }

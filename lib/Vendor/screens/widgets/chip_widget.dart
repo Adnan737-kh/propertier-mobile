@@ -18,24 +18,24 @@ class ChipWidget extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        decoration: ShapeDecoration(
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            side: BorderSide(
-              width: 1,
-              color: Colors.black.withOpacity(0.05000000074505806),
-            ),
-            borderRadius: BorderRadius.circular(2),
-          ),
-        ),
-        margin: const EdgeInsets.only(right: 8, bottom: 8),
+             decoration: ShapeDecoration(
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          width: 1,
+                          color: Colors.black.withOpacity(0.05000000074505806),
+                        ),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+        margin: EdgeInsets.only(right: 8, bottom: 8),
         child: Text(
           text,
-          style: const TextStyle(
-            color: Color(0xFF131A22),
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-          ),
+           style: TextStyle(
+    color: Color(0xFF131A22),
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+  ),
         ),
       ),
     );

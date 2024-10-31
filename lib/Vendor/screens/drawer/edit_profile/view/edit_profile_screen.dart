@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:propertier/Vendor/screens/dashboard/profile/controller/profile_controller.dart';
+import 'package:propertier/Vendor/screens/dashboard/profile/model/profile_model.dart';
 import 'package:propertier/Vendor/screens/widgets/primary_textfield.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -25,7 +26,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   late TextEditingController addressController;
 
   final ProfileController profileController = Get.put(ProfileController());
-
+  late String vendorUserId;
+  ProfileModel? originalProfile;
   bool _obscurePassword = true;
 
   void _togglePasswordVisibility() {
@@ -51,8 +53,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void initState() {
     profileController.loadProfile();
     super.initState();
+    final box = GetStorage();
+    vendorUserId = box.read('vendorUserId') ?? '';
+
+    // print('Vendor User ID: $vendorUserId');
+
+    originalProfile = profileController.profile.value.copyWith();
     addressController =
         TextEditingController(text: profileController.profile.value.address);
+    phoneController = TextEditingController(
+        text: profileController.profile.value.phoneNumber);
   }
 
   final ImagePicker _picker = ImagePicker();
@@ -67,16 +77,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Future<void> _updateCoverPicture() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
-      await profileController.updateCoverPicture(File(image.path));
+      profileController.selectedCoverPhotoPath.value = image.path;
+
+      final pngPath = await _convertToPng(image);
+      await profileController.updateCoverPicture(vendorUserId, File(pngPath));
+
+      profileController.profile.update((profile) {
+        profile?.coverPhotoUrl = pngPath;
+      });
     }
   }
-// Future<void> _updateCoverPicture() async {
-//   final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-//   if (image != null) {
-//     final String pngPath = await _convertToPng(image);
-//     await profileController.updateCoverPicture(File(pngPath));
-//   }
-// }
 
   Future<String> _convertToPng(XFile pickedFile) async {
     final directory = await getTemporaryDirectory();
@@ -102,43 +112,58 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               clipBehavior: Clip.none,
               children: [
                 Container(
-                    height: Get.height * .16,
-                    width: Get.size.width,
-                    decoration: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          width: 1,
-                          color: Colors.black.withOpacity(0.05000000074505806),
-                        ),
-                        borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(40),
-                          bottomRight: Radius.circular(40),
-                        ),
+                  height: Get.height * .16,
+                  width: Get.size.width,
+                  decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                        width: 1,
+                        color: Colors.black.withOpacity(0.05000000074505806),
                       ),
-                      shadows: const [
-                        BoxShadow(
-                          color: Color(0x19000000),
-                          blurRadius: 10,
-                          offset: Offset(0, 1),
-                          spreadRadius: 0,
-                        )
-                      ],
-                    ),
-                    child: ClipRRect(
                       borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(40),
                         bottomRight: Radius.circular(40),
                       ),
-                      child: InkWell(
-                          onTap: () {
-                            _updateCoverPicture();
-                          },
-                          child: Image.network(
-                            profileController.profile.value.coverPhotoUrl ??
-                                'https://images.unsplash.com/photo-1719054415148-b83895be5157?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90b3MtZmVlZHw0NHx8fGVufDB8fHx8fA%3D%3D',
-                            fit: BoxFit.cover,
-                          )),
-                    )),
+                    ),
+                    shadows: const [
+                      BoxShadow(
+                        color: Color(0x19000000),
+                        blurRadius: 10,
+                        offset: Offset(0, 1),
+                        spreadRadius: 0,
+                      )
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(40),
+                      bottomRight: Radius.circular(40),
+                    ),
+                    child: InkWell(
+                      onTap: () {
+                        _updateCoverPicture();
+                      },
+                      child: Obx(() {
+                        return profileController
+                                .selectedCoverPhotoPath.isNotEmpty
+                            ? Image.file(
+                                File(profileController
+                                    .selectedCoverPhotoPath.value),
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                                height: 200,
+                              )
+                            : Image.network(
+                                profileController.profile.value.coverPhotoUrl ??
+                                    'https://images.unsplash.com/photo-1719054415148-b83895be5157?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90b3MtZmVlZHw0NHx8fGVufDB8fHx8fA%3D%3D',
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                                height: 200,
+                              );
+                      }),
+                    ),
+                  ),
+                ),
                 Positioned(
                     top: 22,
                     left: 6,
@@ -410,12 +435,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       Icons.edit,
                       color: Colors.blue,
                     ),
-                    // suffixIcon: IconButton(
-                    //   icon: Icon(
-                    //     _obscurePassword ? Icons.visibility : Icons.visibility_off,
-                    //   ),
-                    //   onPressed: _togglePasswordVisibility,
-                    // ),
                   ),
                   const SizedBox(height: 19),
                   PrimaryTextField(
@@ -435,14 +454,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   SingleChildScrollView(
                     child: InkWell(
                       onTap: () async {
-                        final box = GetStorage(); // Initialize GetStorage
-                        String vendorUserId = box.read(
-                            'vendorUserId'); // Read vendorUserId from storage
+                        final currentProfile = profileController.profile.value;
 
-                        profileController.updateUserProfile(
+                        // Check if there are any changes to be updated
+                        if (currentProfile.name == originalProfile?.name &&
+                            currentProfile.phoneNumber ==
+                                originalProfile?.phoneNumber &&
+                            currentProfile.address ==
+                                originalProfile?.address &&
+                            currentProfile.email == originalProfile?.email) {
+                          Get.snackbar('Info', 'Nothing to update');
+                          return;
+                        }
+
+                        // Call the update function correctly
+                        await profileController.updateUserProfile(
                           vendorUserId,
-                          profileController.profile.value,
-                          context,
+                          currentProfile, // Pass the profile model
+                          profileController, // Pass the controller directly, no casting
+                          context, // Pass the build context directly, no casting
                         );
                       },
                       child: Container(

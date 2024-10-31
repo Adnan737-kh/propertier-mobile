@@ -44,7 +44,7 @@ class _SettingScreenState extends State<SettingScreen> {
               children: [
                 IconButton(
                   onPressed: () {
-                    Navigator.of(context).pop(); // Alternative to Get.back()
+                    Get.back(); // Alternative to Get.back()
                   },
                   icon: const Icon(
                     Icons.arrow_back,

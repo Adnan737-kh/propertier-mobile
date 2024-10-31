@@ -1,4 +1,5 @@
 class ServiceModel {
+  int? id;
   Service? service;
   bool? isFeatured;
   String? title;
@@ -13,6 +14,7 @@ class ServiceModel {
   List<int>? selectedSubServices;
 
   ServiceModel({
+    this.id,  
     this.service,
     this.isFeatured,
     this.title,
@@ -28,28 +30,25 @@ class ServiceModel {
   });
 
   ServiceModel.fromJson(Map<String, dynamic> json) {
-    service =
-        json['service'] != null ? Service.fromJson(json['service']) : null;
+    id = json['id']; 
+    service = json['service'] != null ? Service.fromJson(json['service']) : null;
     isFeatured = json['is_featured'];
     title = json['title'];
-    imageUrls =
-        json['image_urls'] != null ? List<String>.from(json['image_urls']) : [];
+    imageUrls = json['image_urls'] != null ? List<String>.from(json['image_urls']) : [];
     videoUrl = json['video_url'];
     shortVideoUrl = json['short_video_url'];
     likes = json['likes'];
     fixedPrice = json['fixed_price'];
     visitingCharges = json['visiting_charges'];
-    createdAt =
-        json['created_at'] != null ? DateTime.parse(json['created_at']) : null;
-    updatedAt =
-        json['updated_at'] != null ? DateTime.parse(json['updated_at']) : null;
-    selectedSubServices = json['selected_sub_services'] != null
-        ? List<int>.from(json['selected_sub_services'])
-        : [];
+    createdAt = json['created_at'] != null ? DateTime.parse(json['created_at']) : null;
+    updatedAt = json['updated_at'] != null ? DateTime.parse(json['updated_at']) : null;
+    selectedSubServices = json['selected_sub_services'] != null ? List<int>.from(json['selected_sub_services']) : [];
   }
+
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;  
     if (service != null) {
       data['service'] = service!.toJson();
     }

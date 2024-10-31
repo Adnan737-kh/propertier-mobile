@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -54,7 +53,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
     String? vendorUserId = box.read('vendorUserId');
 
     if (vendorUserId == null) {
-      Fluttertoast.showToast(msg: 'Vendor ID could not be retrieved.');
+      Get.snackbar('Error', 'Vendor ID could not be retrieved.');
       return;
     }
     // print('Vendor ID retrieved: $vendorUserId');
@@ -260,7 +259,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => const Center(child: CircularProgressIndicator()),
+      builder: (context) => Center(child: CircularProgressIndicator()),
     );
 
     await controller.fetchParentServices();
@@ -285,16 +284,16 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 context: context,
                 barrierDismissible: false,
                 builder: (context) =>
-                    const Center(child: CircularProgressIndicator()),
+                    Center(child: CircularProgressIndicator()),
               );
 
               print('Selected Category: $category');
               await controller.fetchTitlesForParentService(category);
               print('Fetched Titles for $category:');
 
-              for (var titleModel in controller.titles) {
+              controller.titles.forEach((titleModel) {
                 print('Title: ${titleModel.title}, ID: ${titleModel.id}');
-              }
+              });
 
               setState(() {
                 parentId = controller.selectedParentServiceId.value;
@@ -326,7 +325,19 @@ class _AddPostScreenState extends State<AddPostScreen> {
         ),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () async {
+              //  final box = GetStorage();
+              // final featurePackageId = box.read('featurePackageId');
+
+              // if(featurePackageId !=null){
+              //    final GetStorage _storage = GetStorage();
+              // await _storage.remove('featurePackageId');
+              // print("fetaure id remmove form local storgae");
+              
+              // }else{
+              //   print("No fetaure id ");
+              // } 
+            },
             child: const Text(
               'Done',
               style: TextStyle(

@@ -2,20 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
-import 'package:intl/intl.dart';
-import 'package:propertier/Vendor/screens/Auth/EditVendorProfile/View/EditVendorProfile.dart';
+import 'package:propertier/App/Services/Model/FixedServicesModel.dart';
+import 'package:propertier/RoutesAndBindings/app_routes.dart';
+import 'package:propertier/Utils/app_text.dart';
+import 'package:propertier/Utils/border.dart';
+import 'package:propertier/Utils/box_shadow.dart';
+import 'package:propertier/Utils/height_width_box.dart';
+import 'package:propertier/constant/colors.dart';
+import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/size_extension.dart';
-import '../../../../App/Auth/Login/Model/user_login_model/user_login_model.dart';
-import '../../../../Utils/app_text.dart';
-import '../../../../Utils/border.dart';
-import '../../../../Utils/box_shadow.dart';
-import '../../../../Utils/divider.dart';
-import '../../../../Utils/height_width_box.dart';
-import '../../../../constant/colors.dart';
-import '../../../../constant/constant.dart';
 
 
-PreferredSize vendorProfileAppBar(BuildContext context, User user) {
+PreferredSize ServiceAppBar(BuildContext context, FixedServicesModel service) {
   return PreferredSize(
       preferredSize: Size(context.getSize.width, context.getSize.height * 3),
       child: FittedBox(
@@ -26,7 +24,7 @@ PreferredSize vendorProfileAppBar(BuildContext context, User user) {
               children: [
                 InstaImageViewer(
                   imageUrl:
-                  user.coverPhotoUrl??
+                  service.imageUrls?.first??
                       Constant.dumyImage2,
                   child: Container(
                     alignment: Alignment.topCenter,
@@ -39,8 +37,10 @@ PreferredSize vendorProfileAppBar(BuildContext context, User user) {
                     decoration: BoxDecoration(
                       // border: Border.all(width: 5),
                         boxShadow: [boxShadow()],
-                        image: DecorationImage(
-                            image: NetworkImage(user.profilePictureUrl ??
+                        image: service.imageUrls?.first == null
+                            ? null
+                            : DecorationImage(
+                            image: NetworkImage(service.imageUrls?.first ??
                                 Constant.dumyImage2),
                             fit: BoxFit.cover)),
                     child: Row(
@@ -77,7 +77,7 @@ PreferredSize vendorProfileAppBar(BuildContext context, User user) {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           appText(
-                              title: user.name??"",
+                              title: service.title ??"",
                               context: context,
                               fontSize: 14,
                               fontWeight: FontWeight.w600),
@@ -106,7 +106,7 @@ PreferredSize vendorProfileAppBar(BuildContext context, User user) {
                           //     context: context),
                           appText(
                               colorOpecity: 0.6,
-                              title: 'Vendor',
+                              title: service.service?.title??"",
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
                               context: context),
@@ -117,7 +117,7 @@ PreferredSize vendorProfileAppBar(BuildContext context, User user) {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           appText(
-                            title: '2K',
+                            title: "Rs${service.fixedPrice??""}",
                             fontSize: 10,
                             fontWeight: FontWeight.w600,
                             color: const Color(0xffB8B8B8),
@@ -140,10 +140,16 @@ PreferredSize vendorProfileAppBar(BuildContext context, User user) {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           appText(
-                              title: 'Following',
+                              title: 'Likes',
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
                               colorOpecity: 0.6,
+                              context: context),
+                          appText(
+                              color: const Color(0xffB8B8B8),
+                              title: service.likes?.toString()??"",
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
                               context: context),
                         ],
                       ),
@@ -162,10 +168,7 @@ PreferredSize vendorProfileAppBar(BuildContext context, User user) {
                   alignment: Alignment.bottomRight,
                   children: [
                     InstaImageViewer(
-                      imageUrl: user.profilePictureUrl ==
-                          null
-                          ? Constant.dummayImage
-                          : user.profilePictureUrl!,
+                      imageUrl: service.vendor?.profilePictureUrl??Constant.dumyImage2,
                       child: Container(
                         width: 100,
                         height: 100,
@@ -173,16 +176,18 @@ PreferredSize vendorProfileAppBar(BuildContext context, User user) {
                           border: Border.all(width: 2, color: AppColor.white),
                           shape: BoxShape.circle,
                           image:
-                          DecorationImage(
-                              image: NetworkImage(user.profilePictureUrl??Constant.dummayImage),
+                          service.vendor?.profilePictureUrl == null
+                              ? null
+                              : DecorationImage(
+                              image: NetworkImage(service.vendor?.profilePictureUrl ?? Constant.dumyImage2
+                                  ),
                               fit: BoxFit.cover),
                         ),
                       ),
                     ),
                     InkWell(
                       onTap: () {
-                        // Get.toNamed(AppRoutes.editProfileView);
-                        Get.to(Editvendorprofile(), arguments: user);
+                        Get.toNamed(AppRoutes.editProfileView);
                       },
                       child: Container(
                         padding: const EdgeInsets.all(5),
@@ -203,95 +208,5 @@ PreferredSize vendorProfileAppBar(BuildContext context, User user) {
             )
           ],
         ),
-      ));
-}
-
-
-Widget vendorProfileInformationTile(BuildContext context, User user) {
-  return Column(
-    children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          appText(
-            colorOpecity: 0.6,
-            title: 'Phone Number',
-            context: context,
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-          ),
-          textBox(
-            context,
-            user.phoneNumberCountryCode! + user.phoneNumber!,
-          )
-        ],
-      ),
-      getHeight(context, 0.004),
-      divider(context: context),
-      getHeight(context, 0.004),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          appText(
-            colorOpecity: 0.6,
-            title: 'Email',
-            context: context,
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-          ),
-          textBox(context, user.email != null ? user.email.toString() : "")
-        ],
-      ),
-      getHeight(context, 0.004),
-      divider(context: context),
-      getHeight(context, 0.004),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          appText(
-            colorOpecity: 0.6,
-            title: 'Address',
-            context: context,
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-          ),
-          textBox(context, user.address.toString() ?? ""),
-        ],
-      ),
-      getHeight(context, 0.004),
-      divider(context: context),
-      getHeight(context, 0.004),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          appText(
-            colorOpecity: 0.6,
-            title: 'Since',
-            context: context,
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-          ),
-          textBox(
-              context,
-              user.createdAt != null
-                  ? DateFormat.yMMMMd()
-                  .format(DateTime.parse(user.createdAt!.toString()))
-                  : ""),
-        ],
-      ),
-    ],
-  );
-}
-
-SizedBox textBox(BuildContext context, String text) {
-  return SizedBox(
-      width: context.getSize.width * 0.5,
-      child: appText(
-        textAlign: TextAlign.right,
-        colorOpecity: 0.5,
-        title: text,
-        context: context,
-        fontSize: 12,
-        fontWeight: FontWeight.normal,
       ));
 }

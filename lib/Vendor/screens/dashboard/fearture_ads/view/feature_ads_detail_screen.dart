@@ -116,7 +116,7 @@ class _FeatureAdsDetailScreenState extends State<FeatureAdsDetailScreen> {
                   children: [
                     InkWell(
                       onTap: () {
-                        Get.back();
+                        Get.back(); 
                       },
                       child: Container(
                         height: 30,

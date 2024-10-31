@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:propertier/App/Home/View/home_view.dart';
+import 'package:propertier/App/ServiceDetail/View/service_view.dart';
+import 'package:propertier/App/Services/Model/FixedServicesModel.dart';
 import 'package:propertier/App/Services/Model/services_model.dart';
 import 'package:propertier/App/Services/View/component/services_appbar.dart';
 import 'package:propertier/App/Services/View/component/services_short_videos_tile.dart';
@@ -21,7 +23,7 @@ import 'package:propertier/extensions/size_extension.dart';
 
 class ServciesView extends StatelessWidget {
   ServciesView({super.key});
-  final viewModel = Get.find<ServicesViewModel>();
+  final viewModel = Get.put(ServicesViewModel());
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -96,56 +98,74 @@ class ServciesView extends StatelessWidget {
                                 onClick: () {}),
                             getHeight(context, 0.015),
                             gridTitleTile(context,
-                                title: context.local.topSellingServices,
+                                title: context.local.fixedPriceServices,
                                 callBack: () {
-                              Get.toNamed(AppRoutes.propertiesAndVideoView,
-                                  arguments:
-                                      PoropertiesAndVideoEnum.topselling);
+                              // Get.toNamed(AppRoutes.propertiesAndVideoView,
+                              //     arguments:
+                              //         PoropertiesAndVideoEnum.topselling);
                             }, fontSize: 14),
                             getHeight(context, 0.008),
-                            GridView.builder(
-                                shrinkWrap: true,
-                                padding: const EdgeInsets.all(0),
-                                physics: const NeverScrollableScrollPhysics(),
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 3,
-                                        mainAxisExtent:
+                            FutureBuilder(
+                                future: viewModel.getFixedServices(context),
+                                builder: (context, snapshot){
+                                  if(snapshot.connectionState == ConnectionState.waiting){
+                                    return const Center(
+                                      child: CircularProgressIndicator(
+                                        color: AppColor.buttonColor,
+                                      ),
+                                    );
+                                  }
+                                  if(snapshot.connectionState == ConnectionState.done){
+                                    List<FixedServicesModel> services = snapshot.data??[];
+                                    return GridView.builder(
+                                        shrinkWrap: true,
+                                        padding: const EdgeInsets.all(0),
+                                        physics: const NeverScrollableScrollPhysics(),
+                                        gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 3,
+                                            mainAxisExtent:
                                             context.getSize.height * 0.18,
-                                        crossAxisSpacing:
+                                            crossAxisSpacing:
                                             context.getSize.width * 0.016),
-                                itemCount: viewModel.topSellingList.length,
-                                itemBuilder: (context, index) {
-                                  ServicesModel services =
-                                      viewModel.topSellingList[index];
-                                  return topSellingServices1(context, services,
-                                      onClick: () {});
-                                }),
-                            getHeight(context, 0.015),
-                            gridTitleTile(context,
-                                title: context.local.topSellingServices,
-                                callBack: () {},
-                                fontSize: 14),
-                            getHeight(context, 0.008),
+                                        itemCount: services.length,
+                                        itemBuilder: (context, index) {
+                                          FixedServicesModel service = services[index];
+                                          return fixedPriceServicesBox(context, service,
+                                              onClick: () {
+                                            Get.toNamed(AppRoutes.serviceDetail, arguments: service);
+                                              });
+                                        });
+                                  }
+                                  return SizedBox();
+                                }
+                            ),
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: context.getSize.height * 0.2,
-                        width: context.getSize.width,
-                        child: ListView.builder(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: context.getSize.width * 0.082),
-                            shrinkWrap: true,
-                            itemCount: viewModel.topSellingList.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              ServicesModel services =
-                                  viewModel.topSellingList[index];
-                              return topSellingServices2(context, services,
-                                  onClick: () {});
-                            }),
-                      ),
+                      // getHeight(context, 0.015),
+                      // gridTitleTile(context,
+                      //     title: context.local.topSellingServices,
+                      //     callBack: () {},
+                      //     fontSize: 14),
+                      // getHeight(context, 0.008),
+                      // SizedBox(
+                      //   height: context.getSize.height * 0.2,
+                      //   width: context.getSize.width,
+                      //   child: ListView.builder(
+                      //       padding: EdgeInsets.symmetric(
+                      //           horizontal: context.getSize.width * 0.082),
+                      //       shrinkWrap: true,
+                      //       itemCount: viewModel.topSellingList.length,
+                      //       scrollDirection: Axis.horizontal,
+                      //       itemBuilder: (context, index) {
+                      //         ServicesModel services =
+                      //             viewModel.topSellingList[index];
+                      //         return topSellingServices2(context, services,
+                      //             onClick: () {}
+                      //         );
+                      //       }),
+                      // ),
                       getHeight(context, 0.015),
                       Padding(
                         padding: EdgeInsets.symmetric(

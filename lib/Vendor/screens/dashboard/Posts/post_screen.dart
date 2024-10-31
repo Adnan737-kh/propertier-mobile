@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/Vendor/screens/dashboard/Posts/add_post/view/add_post_screen.dart';
+import 'package:propertier/constant/constant.dart';
 
 class PostScreen extends StatefulWidget {
   const PostScreen({super.key});
@@ -20,7 +21,7 @@ class _PostScreenState extends State<PostScreen> {
             height: Get.height * .08,
           ),
           Image.asset(
-            'assets/vendor_assets/logo.png',
+            Constant.appLogo,
             height: Get.height * .06,
           ),
           SizedBox(

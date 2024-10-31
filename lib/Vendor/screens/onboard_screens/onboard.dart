@@ -31,6 +31,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                 children: [
                   //Indicator
                   SmoothPageIndicator(
+                    
                     controller: pageController,
                     count: controller.items.length,
                     onDotClicked: (index) => pageController.animateToPage(index,
@@ -96,7 +97,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                     Container(
                       height: Get.height * .6,
                       width: Get.size.width,
-                      decoration: const BoxDecoration(),
+                      decoration: BoxDecoration(),
                       child: Image.asset(
                         controller.items[index].image,
                         // height: Get.height * .64,
@@ -111,7 +112,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                       //       duration: const Duration(milliseconds: 600),
                       //       curve: Curves.easeIn);
                       //   }
-
+                      
                       // },
                       child: Container(
                         width: Get.width * .5,
@@ -134,17 +135,18 @@ class _OnboardingViewState extends State<OnboardingView> {
                         ),
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 18,
                     ),
                     Text(
                       controller.items[index].descriptions,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: Color(0xB2131A22),
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
+                    
                   ],
                 ),
               );
@@ -154,6 +156,6 @@ class _OnboardingViewState extends State<OnboardingView> {
   }
 
   Widget getStarted() {
-    return const SizedBox();
+    return SizedBox();
   }
 }

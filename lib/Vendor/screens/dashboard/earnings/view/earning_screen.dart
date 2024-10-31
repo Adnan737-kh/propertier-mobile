@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:propertier/Vendor/screens/dashboard/earnings/Controller/earning_controller.dart';
 
 import '../../../widgets/tabbar_item.dart';
@@ -16,6 +17,7 @@ class _EarningScreenState extends State<EarningScreen>
     with SingleTickerProviderStateMixin {
   final EarningController earningController = Get.put(EarningController());
   late TabController tabController;
+  late String vendorUserId;
 
   @override
   void initState() {
@@ -24,10 +26,16 @@ class _EarningScreenState extends State<EarningScreen>
     tabController.addListener(() {
       setState(() {});
     });
-    earningController
-        .fetchEarningData(40); // Replace 40 with the actual user ID
-  }
 
+    final box = GetStorage();
+    vendorUserId = box.read('vendorUserId') ?? '';
+    if (vendorUserId.isNotEmpty) {
+      earningController.fetchEarningData(vendorUserId);
+    } else {
+      Get.snackbar('Error', 'Vendor ID is not available');
+    }
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,7 +115,7 @@ class _EarningScreenState extends State<EarningScreen>
                               ),
                               const SizedBox(height: 2),
                               Text(
-                                '${earnings.totalIncome}',
+                                '${earnings.monthlyEarning}',
                                 style: const TextStyle(
                                   color: Color(0xFF131A22),
                                   fontSize: 20,

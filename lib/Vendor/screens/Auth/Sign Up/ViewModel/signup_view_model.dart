@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,37 +12,37 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
 import 'package:propertier/App/What%20are%20you%20searching/ViewModel/what_are_viewmodel.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
-import 'package:propertier/Utils/AppImagePicker.dart';
+import 'package:propertier/Vendor/screens/Auth/Login/Model/user_login_model/user_login_model.dart';
 import 'package:propertier/Vendor/screens/Auth/Service/auth_service.dart';
 import 'package:propertier/Vendor/screens/Auth/Sign%20Up/Services/signup_services.dart';
-import 'package:propertier/constant/constant.dart';
 import 'package:propertier/constant/toast.dart';
 
 // import 'package:speech_to_text/speech_to_text.dart' as stt;
 
-class SignUpViewModelVendor extends GetxController {
+
+
+class SignUpViewModel extends GetxController {
   final usernameController = TextEditingController();
   final userNumberController = TextEditingController();
   final userEmailController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  final passwordController = TextEditingController();
   final locationController = TextEditingController();
   final searchAddressController = TextEditingController();
-  final noteC = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
-
-  RxString cnicFrontPath = "".obs;
-  RxString cnicBackPath = "".obs;
-
-
+  var isShowPassword = false.obs;
+  var isShowConfirmPassword = false.obs;
 
   RxBool isKeyboard = false.obs;
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    // _speech = stt.SpeechToText();
+    // _initSpeechRecognizer();
   }
 
   @override
@@ -51,6 +50,10 @@ class SignUpViewModelVendor extends GetxController {
     userEmailController.dispose();
     userNumberController.dispose();
     usernameController.dispose();
+    passwordController.dispose();
+    // _idleTimer?.cancel();
+
+    confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -74,19 +77,22 @@ class SignUpViewModelVendor extends GetxController {
 
   Future<bool> signupUser({
     String? name,
-    required String email,
+    String? email,
     String? phoneNumber,
-    required String pinCode,
+    String? password,
+    String? pinCode,
+    String? confirmPassword,
     required BuildContext context,
-    required String address,
-    required String cnicFront,
-    required String cnicBack,
+    String? address,
     bool isGoogleLogin = false,
   }) async {
     try {
       changeLoading(isGoogleLogin);
-      String? uid = FirebaseAuth.instance.currentUser?.uid;
-      if(uid == null) return false;
+      final firebaseSignup = await _auth.createUserWithEmailAndPassword(
+          email: email!, password: password!);
+      print("Firebase ID ${firebaseSignup.user!.uid}");
+      bool isDone = false;
+      if (firebaseSignup.user != null) {
         final result = await SignupServices().signupUserData(
             context: context,
             address: address,
@@ -95,22 +101,77 @@ class SignUpViewModelVendor extends GetxController {
             longitude: _longitude.toString(),
             name: name,
             email: email,
-            firebaseID: uid,
-            phoneNumber: phoneNumber,
-        cnicFront: cnicFront,
-        cnicBack: cnicBack);
+            firebaseID: firebaseSignup.user!.uid,
+            phoneNumber: phoneNumber);
         print("Data is Here $result");
-        // await AuthService().registerUser(result!, "");
-      return result;
+        await AuthService().registerUser(result!, password);
+        isDone = true;
+      }
+      return isDone;
     } catch (e) {
       // toast(title: 'User already register with this email', context: context);
       return false;
     }
   }
 
-  Future<File?> pickImage(BuildContext context)async{
-    return await showOption(context);
+  // late stt.SpeechToText _speech;
+
+  // // ignore: unused_field
+  // final bool _speechEnabled = false;
+  // final RxBool _isListening = false.obs;
+  // bool get isListening => _isListening.value;
+  // final RxString _lastWords = ''.obs;
+  // String get lastWord => _lastWords.value;
+
+  void _initSpeechRecognizer() async {
+    // bool available = await _speech.initialize(
+    //   onError: (error) => print('Error: $error'),
+    // );
+    // if (available) {
+    //   _isListening.value = false;
+    // } else {
+    //   print('The user has denied the use of speech recognition.');
+    // }
   }
+
+  void startListening({required int textFieldNo}) async {
+    // try {
+    //   await _speech.listen(
+    //     onResult: (result) {
+    //       print("Start Listing");
+    //       print(result.recognizedWords);
+    //       if (_lastWords != result.recognizedWords) {
+    //         _lastWords.value = result.recognizedWords;
+    //         _resetIdleTimer(_lastWords.value, textFieldNo);
+
+    //         print('Recognized Text: ${_lastWords.value}');
+    //       }
+    //     },
+    //   );
+    // } catch (e) {
+    //   print('Error starting listening: $e');
+    // }
+  }
+
+  // Timer? _idleTimer;
+
+  // void _resetIdleTimer(String msg, int fieldNo) {
+  //   _idleTimer?.cancel();
+  //   _idleTimer = Timer(const Duration(seconds: 1), () {
+  //     debugPrint(_lastWords.toString());
+  //     if (_lastWords != '') {
+  //       if (fieldNo == 0) {
+  //         usernameController.text = msg;
+  //       }
+  //       if (fieldNo == 1) {
+  //         userEmailController.text = msg;
+  //       }
+  //     }
+  //     //  stopListening();
+  //     // initSpeech();
+  //     // startListening();
+  //   });
+  // }
 
   RxString verfID = ''.obs;
   // final _auth = FirebaseAuth.instance;
@@ -158,7 +219,7 @@ class SignUpViewModelVendor extends GetxController {
 
   Future<void> searchPlaces(String input,
       {bool isCurrentLocation = false}) async {
-    const apiKey = Constant.google_api_key;
+    const apiKey = 'AIzaSyC0EAVt8egPftM2_zHoEl6mev3go1NLmx8';
     const endpoint =
         'https://maps.googleapis.com/maps/api/place/autocomplete/json';
     final url = '$endpoint?input=$input&key=$apiKey';
@@ -210,27 +271,26 @@ class SignUpViewModelVendor extends GetxController {
         // print("User Credential: $user");
         // toast(title: "User Credential: $user", context: context);
         if (user != null) {
-          // final isSuccessData = await SignupServices().signupUserData(
-          //     context: context,
-          //     address: '',
-          //     pinCode: '',
-          //     name: user.displayName,
-          //     email: user.email!,
-          //     profilePicUrl: user.photoURL ?? "",
-          //     firebaseID: user.uid,
-          //     phoneNumber: user.phoneNumber ?? "",
-          // );
-          // if (isSuccessData != null) {
-            // await AuthService().registerUser(isSuccessData, user.email!).then(
-            //   (value) {
-            //     isGoogleSigninLoading.value = false;
-            //     toast(title: "Success in signup", context: context);
-            //     Get.offAndToNamed(AppRoutes.navBarView);
-            //   },
-            // );
-          // } else {
-          //   toast(title: "Signup not successful", context: Get.context!);
-          // }
+          final isSuccessData = await SignupServices().signupUserData(
+              context: context,
+              address: '',
+              pinCode: '',
+              name: user.displayName,
+              email: user.email,
+              profilePicUrl: user.photoURL ?? "",
+              firebaseID: user.uid,
+              phoneNumber: user.phoneNumber ?? "");
+          if (isSuccessData != null) {
+            await AuthService().registerUser(isSuccessData as UserLoginModel, user.email!).then(
+              (value) {
+                isGoogleSigninLoading.value = false;
+                toast(title: "Success in signup", context: context);
+                Get.offAndToNamed(AppRoutes.navBarView);
+              },
+            );
+          } else {
+            toast(title: "Signup not successful", context: Get.context!);
+          }
         } else {
           toast(title: "User sign-in failed", context: Get.context!);
 

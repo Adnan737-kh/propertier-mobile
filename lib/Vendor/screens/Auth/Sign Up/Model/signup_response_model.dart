@@ -5,8 +5,8 @@ SignupResponseModel signupResponseModelFromJson(String str) =>
 
 String signupResponseModelToJson(SignupResponseModel data) =>
     json.encode(data.toJson());
-
 class SignupResponseModel {
+
   int? id;
   dynamic lastLogin;
   bool? isSuperuser;
@@ -68,6 +68,7 @@ class SignupResponseModel {
   String? soleProprietorDocumentUrl; // New field
   List<int>? groups;
   List<int>? userPermissions;
+
 
   SignupResponseModel({
     this.id,
@@ -190,24 +191,18 @@ class SignupResponseModel {
         profilePictureVerified: json["profile_picture_verified"],
         shopVisitingCardVerified: json["shop_visiting_card_verified"],
         emailVerified: json["email_verified"],
-        certificateOfIncorporationVerified:
-            json["certificate_of_incorporation_verified"],
-        artificialOfAssociationVerified:
-            json["artificial_of_association_verified"],
+        certificateOfIncorporationVerified: json["certificate_of_incorporation_verified"],
+        artificialOfAssociationVerified: json["artificial_of_association_verified"],
         memberOfAssociationVerified: json["member_of_association_verified"],
         incorporateDocumentVerified: json["incorporate_document_verified"],
-        soleProprietorDocumentVerified:
-            json["sole_proprietor_document_verified"],
+        soleProprietorDocumentVerified: json["sole_proprietor_document_verified"],
         letterHeadUrl: json["letter_head_url"], // New field
         shopVisitingCardUrl: json["shop_visiting_card_url"], // New field
-        certificateOfIncorporationUrl:
-            json["certificate_of_incorporation_url"], // New field
-        artificialOfAssociationUrl:
-            json["artificial_of_association_url"], // New field
+        certificateOfIncorporationUrl: json["certificate_of_incorporation_url"], // New field
+        artificialOfAssociationUrl: json["artificial_of_association_url"], // New field
         memberOfAssociationUrl: json["member_of_association_url"], // New field
         incorporateDocumentUrl: json["incorporate_document_url"], // New field
-        soleProprietorDocumentUrl:
-            json["sole_proprietor_document_url"], // New field
+        soleProprietorDocumentUrl: json["sole_proprietor_document_url"], // New field
         groups: json["groups"] == null
             ? []
             : List<int>.from(json["groups"]!.map((x) => x)),
@@ -266,18 +261,15 @@ class SignupResponseModel {
         "profile_picture_verified": profilePictureVerified,
         "shop_visiting_card_verified": shopVisitingCardVerified,
         "email_verified": emailVerified,
-        "certificate_of_incorporation_verified":
-            certificateOfIncorporationVerified,
+        "certificate_of_incorporation_verified": certificateOfIncorporationVerified,
         "artificial_of_association_verified": artificialOfAssociationVerified,
         "member_of_association_verified": memberOfAssociationVerified,
         "incorporate_document_verified": incorporateDocumentVerified,
         "sole_proprietor_document_verified": soleProprietorDocumentVerified,
         "letter_head_url": letterHeadUrl, // New field
         "shop_visiting_card_url": shopVisitingCardUrl, // New field
-        "certificate_of_incorporation_url":
-            certificateOfIncorporationUrl, // New field
-        "artificial_of_association_url":
-            artificialOfAssociationUrl, // New field
+        "certificate_of_incorporation_url": certificateOfIncorporationUrl, // New field
+        "artificial_of_association_url": artificialOfAssociationUrl, // New field
         "member_of_association_url": memberOfAssociationUrl, // New field
         "incorporate_document_url": incorporateDocumentUrl, // New field
         "sole_proprietor_document_url": soleProprietorDocumentUrl, // New field
@@ -287,6 +279,7 @@ class SignupResponseModel {
             : List<int>.from(userPermissions!.map((x) => x)),
       };
 }
+
 
 class NotificationsEnabled {
   NotificationsEnabled();

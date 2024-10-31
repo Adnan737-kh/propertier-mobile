@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/Vendor/screens/dashboard/Posts/Feature_ad_payment/Controller/feature_ad_controller.dart';
 import 'package:propertier/Vendor/screens/dashboard/Posts/Feature_ad_payment/Model/feature_ad_model.dart';
-
-import '../../../../widgets/round_checkbox.dart';
+import 'package:propertier/Vendor/screens/widgets/round_checkbox.dart';
 
 class FeatureAdPaymentScreen extends StatefulWidget {
   const FeatureAdPaymentScreen({super.key});
@@ -17,6 +16,9 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
   bool isWeek = false;
   bool isFifteen = false;
   bool isMonth = false;
+  bool isEasyPaisaSelected = false;
+  bool isJazzCashSelected = false;
+  bool isBankSelected = false;
 
   String featureDuration = '';
   String price = '';
@@ -26,11 +28,11 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
 
   void updateFeatureDetails() {
     if (isWeek) {
-      featureDuration = formatFeatureDuration(const Duration(days: 7));
+      featureDuration = formatFeatureDuration(Duration(days: 7));
       price = '500 PKR';
       status = 'active';
     } else if (isFifteen) {
-      featureDuration = formatFeatureDuration(const Duration(days: 15));
+      featureDuration = formatFeatureDuration(Duration(days: 15));
       price = '1000 PKR';
       status = 'active';
     } else if (isMonth) {
@@ -50,7 +52,6 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
     int minutes = duration.inMinutes.remainder(60);
     int seconds = duration.inSeconds.remainder(60);
 
-    // Format the duration as [DD] [HH:[MM:]]ss[.uuuuuu]
     String formattedDuration = '${days.toString().padLeft(2, '0')} '
         '${hours.toString().padLeft(2, '0')}:'
         '${minutes.toString().padLeft(2, '0')}:'
@@ -60,6 +61,16 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
   }
 
   void submitFeaturePackage() {
+    if (!isWeek && !isFifteen && !isMonth) {
+      Get.snackbar('Error', 'Please select a plan.');
+      return;
+    }
+
+    if (!isEasyPaisaSelected && !isJazzCashSelected && !isBankSelected) {
+      Get.snackbar('Error', 'Please select a payment method.');
+      return;
+    }
+
     final featurePackage = Featureadd(
       featureDuration: featureDuration,
       price: int.parse(price.replaceAll(' PKR', '')), // Convert price to int
@@ -70,6 +81,7 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
     );
 
     _controller.submitFeaturePackage(featurePackage);
+    Get.back();
   }
 
   @override
@@ -91,9 +103,7 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(
-              height: 14,
-            ),
+            const SizedBox(height: 14),
             const Text(
               'Payment Method',
               style: TextStyle(
@@ -106,101 +116,127 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  width: 83,
-                  height: 86,
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      side:
-                          const BorderSide(width: 1, color: Color(0xFF41A2FB)),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset('assets/easy.png'),
-                      const SizedBox(height: 4.60),
-                      const Text(
-                        'easypaisa',
-                        style: TextStyle(
-                          color: Color(0xFF41A1FB),
-                          fontSize: 10.35,
-                          fontWeight: FontWeight.w400,
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isEasyPaisaSelected = true;
+                      isJazzCashSelected = isBankSelected = false;
+                    });
+                  },
+                  child: Container(
+                    width: 83,
+                    height: 86,
+                    decoration: ShapeDecoration(
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          width: isEasyPaisaSelected ? 2 : 1,
+                          color: isEasyPaisaSelected
+                              ? Color(0xFF41A2FB)
+                              : Color(0xFFF3F3F3),
                         ),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                    ],
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('assets/easy.png'),
+                        const SizedBox(height: 4.60),
+                        const Text(
+                          'easypaisa',
+                          style: TextStyle(
+                            color: Color(0xFF41A1FB),
+                            fontSize: 10.35,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                const SizedBox(width: 25),
-                Container(
-                  width: 83.33,
-                  height: 87.36,
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      side:
-                          const BorderSide(width: 2, color: Color(0xFFF3F3F3)),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset('assets/jazz.png'),
-                      const SizedBox(height: 4.75),
-                      const Text(
-                        'Jazz Cash',
-                        style: TextStyle(
-                          color: Color(0xFF737B8B),
-                          fontSize: 10.68,
-                          fontWeight: FontWeight.w400,
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isJazzCashSelected = true;
+                      isEasyPaisaSelected = isBankSelected = false;
+                    });
+                  },
+                  child: Container(
+                    width: 83.33,
+                    height: 87.36,
+                    decoration: ShapeDecoration(
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          width: isJazzCashSelected ? 2 : 1,
+                          color: isJazzCashSelected
+                              ? Color(0xFF41A2FB)
+                              : Color(0xFFF3F3F3),
                         ),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                    ],
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('assets/jazz.png'),
+                        const SizedBox(height: 4.75),
+                        const Text(
+                          'Jazz Cash',
+                          style: TextStyle(
+                            color: Color(0xFF737B8B),
+                            fontSize: 10.68,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                const SizedBox(width: 25),
-                Container(
-                  width: 83.33,
-                  height: 87.36,
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      side:
-                          const BorderSide(width: 2, color: Color(0xFFF3F3F3)),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: const Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(Icons.account_balance),
-                      SizedBox(height: 4.75),
-                      Text(
-                        'Bank',
-                        style: TextStyle(
-                          color: Color(0xFF737B8B),
-                          fontSize: 10.68,
-                          fontWeight: FontWeight.w400,
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isBankSelected = true;
+                      isEasyPaisaSelected = isJazzCashSelected = false;
+                    });
+                  },
+                  child: Container(
+                    width: 83.33,
+                    height: 87.36,
+                    decoration: ShapeDecoration(
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          width: isBankSelected ? 2 : 1,
+                          color: isBankSelected
+                              ? Color(0xFF41A2FB)
+                              : Color(0xFFF3F3F3),
                         ),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                    ],
+                    ),
+                    child: const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.account_balance),
+                        SizedBox(height: 4.75),
+                        Text(
+                          'Bank',
+                          style: TextStyle(
+                            color: Color(0xFF737B8B),
+                            fontSize: 10.68,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(
-              height: 4,
-            ),
-            Divider(
-              color: Colors.grey.shade300,
-            ),
+            const SizedBox(height: 10),
+            Divider(color: Colors.grey.shade300),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -283,7 +319,7 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
                 Row(
                   children: [
                     Checkbox(
-                      side: const BorderSide(color: Colors.black38),
+                      side: BorderSide(color: Colors.black38),
                       activeColor: Colors.amber,
                       value: isFifteen,
                       onChanged: (value) {
@@ -324,7 +360,7 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
                 Row(
                   children: [
                     Checkbox(
-                      side: const BorderSide(color: Colors.black38),
+                      side: BorderSide(color: Colors.black38),
                       activeColor: Colors.amber,
                       value: isMonth,
                       onChanged: (value) {
@@ -486,10 +522,9 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              child: GestureDetector(
+              child: InkWell(
                 onTap: () {
                   submitFeaturePackage();
-                  Get.back();
                 },
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,

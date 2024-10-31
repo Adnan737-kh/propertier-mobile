@@ -109,6 +109,9 @@ class AppLocalizationsUr extends AppLocalizations {
   String get topSellingServices => 'Top Selling Services';
 
   @override
+  String get fixedPriceServices => 'Fixed Price Services';
+
+  @override
   String get videos => 'Videos';
 
   @override

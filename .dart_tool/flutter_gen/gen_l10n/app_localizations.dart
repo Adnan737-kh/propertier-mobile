@@ -299,6 +299,12 @@ abstract class AppLocalizations {
   /// **'Top Selling Services'**
   String get topSellingServices;
 
+  /// No description provided for @fixedPriceServices.
+  ///
+  /// In en, this message translates to:
+  /// **'Fixed Price Services'**
+  String get fixedPriceServices;
+
   /// No description provided for @videos.
   ///
   /// In en, this message translates to:

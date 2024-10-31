@@ -9,6 +9,8 @@ import 'package:propertier/Vendor/screens/Auth/Login/Model/user_login_model/user
 import 'package:propertier/Vendor/screens/Auth/Login/View/component/does_not_exist_dialog.dart';
 import 'package:propertier/constant/colors.dart';
 
+
+
 class LoginServices {
   Future<UserLoginModel?> loginUser({
     required String email,
@@ -34,7 +36,7 @@ class LoginServices {
 
         if (decodedData['success'] == false) {
           doesNotExist(context: Get.context!, subtitle: decodedData['message']);
-          loginResponseModel = const UserLoginModel();
+          loginResponseModel = UserLoginModel();
         } else {
           loginResponseModel = UserLoginModel.fromJson(decodedData);
         }
@@ -48,7 +50,7 @@ class LoginServices {
             color: AppColor.white,
           ),
         ));
-        loginResponseModel = const UserLoginModel();
+        loginResponseModel = UserLoginModel();
       }
       return loginResponseModel;
     } catch (e) {
@@ -56,11 +58,13 @@ class LoginServices {
       ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
         content: appText(
           title: 'Something went wrong. Error: ${e.toString()}',
+      
           context: Get.context!,
           color: AppColor.white,
         ),
+       
       ));
-      return const UserLoginModel();
+      return UserLoginModel();
     }
   }
 }

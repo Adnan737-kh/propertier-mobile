@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:propertier/Utils/appbar.dart';
@@ -24,20 +21,18 @@ import 'package:propertier/extensions/size_extension.dart';
 // import '../../../../constant/colors.dart';
 // import '../../../../constant/constant.dart';
 // import '../../../../Utils/height_width_box.dart';
-import '../../../../../App/Auth/Service/auth_service.dart';
-import '../../../../../App/Auth/Service/google_sigin_services.dart';
-import '../../../../../RoutesAndBindings/app_routes.dart';
-import '../../../../../Utils/app_text.dart';
 import '../../Components/social_links.dart';
 
-class SignUpViewVendor extends StatelessWidget {
-  SignUpViewVendor({super.key});
-  final signupVM = Get.find<SignUpViewModelVendor>();
+
+class SignUpView extends StatelessWidget {
+  SignUpView({super.key});
+  final signupVM = Get.find<SignUpViewModel>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      body: Form(
+      body: Obx(
+        () => Form(
           key: signupVM.formKey,
           child: SingleChildScrollView(
             child: Padding(
@@ -51,21 +46,25 @@ class SignUpViewVendor extends StatelessWidget {
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       context: context,
-                      title: 'Vendor Form',
+                      title: 'Sign Up',
                       onTap: () {
                         Get.back();
+                        
+                   
                       }),
                   getHeight(context, 0.069),
                   Align(alignment: Alignment.center, child: logoTile(context)),
-                  getHeight(context, 0.010),
-                  Align(alignment: Alignment.center, child: Text("Vendor Application Form")),
-                  getHeight(context, 0.080),
+                  getHeight(context, 0.090),
                   customTextField(
                     labal: "Full Name",
                     controller: signupVM.usernameController,
                     hintText: 'Full Name',
                     textInputType: TextInputType.name,
                     suffix: GestureDetector(
+                      onTap: () {
+                        print("Start Listing");
+                        signupVM.startListening(textFieldNo: 0);
+                      },
                       child: Image.asset(
                         Constant.mic,
                         height: context.getSize.height * 0.022,
@@ -88,6 +87,9 @@ class SignUpViewVendor extends StatelessWidget {
                     hintText: 'Enter Your Email',
                     textInputType: TextInputType.emailAddress,
                     suffix: GestureDetector(
+                      onTap: () {
+                        signupVM.startListening(textFieldNo: 1);
+                      },
                       child: Image.asset(
                         Constant.mic,
                         height: context.getSize.height * 0.022,
@@ -154,96 +156,72 @@ class SignUpViewVendor extends StatelessWidget {
                   const SizedBox(
                     height: 12,
                   ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: appText(
-                        title: "ID Card Front Image",
-                        context: context,
-                        fontSize: 14,
-                        color: const Color.fromARGB(196, 141, 142, 143),
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Obx(()=> InkWell(
-                    onTap: ()async{
-                      File? file = await signupVM.pickImage(context);
-                      if(file != null){
-                        signupVM.cnicFrontPath.value = file.path;
-                      }
-                    },
-                    child: signupVM.cnicFrontPath.value == "" ?
-                    Container(
-                      width: Get.width,
-                      height: 150,
-                      decoration: BoxDecoration(
-                          color: AppColor.textColorGrey,
-                          borderRadius: BorderRadius.circular(20)
-                      ),
-                      alignment: Alignment.center,
-                      child: appText(
-                          title: "Tap to pick Image",
-                          context: context,
-                          fontSize: 14,
-                          color: AppColor.primaryColor,
-                          ),
-                    ): ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.file(File(signupVM.cnicFrontPath.value), height: 150,width: Get.width, fit: BoxFit.cover,)),
-                  )
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: appText(
-                        title: "ID Card Back Image",
-                        context: context,
-                        fontSize: 14,
-                        color: const Color.fromARGB(196, 141, 142, 143),
-                      fontWeight: FontWeight.bold
+                  Row(
+                    children: [
+                      Expanded(
+                        child: customTextField(
+                          labal: "Password",
+                          obsecureText: !signupVM.isShowPassword.value,
+                          controller: signupVM.passwordController,
+                          suffix: GestureDetector(
+                              onTap: () {
+                                signupVM.isShowPassword.value =
+                                    !signupVM.isShowPassword.value;
+                              },
+                              child: Icon(
+                                signupVM.isShowPassword.value
+                                    ? Icons.remove_red_eye_outlined
+                                    : Icons.remove_red_eye,
+                                size: context.getSize.width * 0.050,
+                                color: !signupVM.isShowPassword.value
+                                    ? null
+                                    : AppColor.secondaryColor,
+                              )),
+                          hintText: 'Enter your password',
+                          textInputType: TextInputType.text,
+                          textInputAction: TextInputAction.done,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Oops! we could not find matching credentials.';
+                            }
+                            return null;
+                          },
                         ),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Obx(()=> InkWell(
-                    onTap: ()async{
-                      File? file = await signupVM.pickImage(context);
-                      if(file != null){
-                        signupVM.cnicBackPath.value = file.path;
-                      }
-                    },
-                    child: signupVM.cnicBackPath.value == "" ?
-                    Container(
-                      width: Get.width,
-                      height: 150,
-                      decoration: BoxDecoration(
-                          color: AppColor.textColorGrey,
-                          borderRadius: BorderRadius.circular(20)
                       ),
-                      alignment: Alignment.center,
-                      child: appText(
-                          title: "Tap to pick Image",
-                          context: context,
-                          fontSize: 14,
-                          color: AppColor.primaryColor,
+                      getWidth(context, 0.010),
+                      Expanded(
+                        child: customTextField(
+                          labal: "Confirm Password",
+                          obsecureText: !signupVM.isShowConfirmPassword.value,
+                          controller: signupVM.confirmPasswordController,
+                          suffix: GestureDetector(
+                              onTap: () {
+                                signupVM.isShowConfirmPassword.value =
+                                    !signupVM.isShowConfirmPassword.value;
+                              },
+                              child: Icon(
+                                signupVM.isShowConfirmPassword.value
+                                    ? Icons.remove_red_eye_outlined
+                                    : Icons.remove_red_eye,
+                                color: !signupVM.isShowConfirmPassword.value
+                                    ? null
+                                    : AppColor.secondaryColor,
+                              )),
+                          hintText: 'Enter Confirm password',
+                          textInputType: TextInputType.text,
+                          textInputAction: TextInputAction.done,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Oops! we could not find matching credentials.';
+                            } else if (signupVM.passwordController.text !=
+                                signupVM.confirmPasswordController.text) {
+                              return 'Password Mismatch';
+                            } else
+                              return null;
+                          },
+                        ),
                       ),
-                    ): ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.file(File(signupVM.cnicBackPath.value), height: 150,width: Get.width, fit: BoxFit.cover,)),
-                  )
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  customTextField(
-                    labal: "Other Detail",
-                    controller: signupVM.noteC,
-                    hintText: 'Other Detail',
-                    textInputType: TextInputType.text,
+                    ],
                   ),
                   const SizedBox(
                     height: 12,
@@ -268,40 +246,41 @@ class SignUpViewVendor extends StatelessWidget {
                                         signupVM.userNumberController.text !=
                                             "") {
                                       signupVM.formKey.currentState?.save();
+                                      print(signupVM.userNumberController.text);
+                                      // signupVM
+                                      //     .phoneAuthentication(
+                                      //         phone:
+                                      //             "+92${signupVM.userNumberController.text}")
 
+                                      signupVM
+                                          .sendOTPtoEmail(
+                                              email: signupVM
+                                                  .userEmailController.text)
+                                          .whenComplete(() async {
+                                        // final result =
+                                        //     await signupVM.signupUser(
+                                        //         context: context,
+                                        //         name: signupVM
+                                        //             .usernameController.text,
+                                        //         email: signupVM
+                                        //             .userEmailController.text,
+                                        //         phoneNumber: signupVM
+                                        //             .userNumberController.text,
+                                        //         password: signupVM
+                                        //             .passwordController.text,
+                                        //         confirmPassword: signupVM
+                                        //             .confirmPasswordController
+                                        //             .text);
+                                        // if (result == true) {
+                                        //   signupVM.changeLoading(true);
 
-                                      if(signupVM.cnicFrontPath.value == "" || signupVM.cnicBackPath.value == ""){
-                                        Fluttertoast.showToast(msg: "Please Add ID Card Images");
-                                        return;
-                                      }
-
-
-
-
-                                      final result =
-                                      await signupVM.signupUser(
-                                          context: context,
-                                          name: signupVM
-                                              .usernameController.text,
-                                          email: signupVM
-                                              .userEmailController.text,
-                                          pinCode: "+92",
-                                          address: signupVM.locationController.text,
-                                          phoneNumber: signupVM
-                                              .userNumberController.text,
-                                        cnicFront: signupVM.cnicFrontPath.value,
-                                        cnicBack: signupVM.cnicBackPath.value,
-                                          );
-                                      if (result == true) {
-                                        signupVM.changeLoading(true);
-                                        Fluttertoast.showToast(msg: "Congrats, You are now vendor");
-                                        AuthService().logout();
-                                        GoogleSiginServices().logout();
-                                        Get.offAllNamed(AppRoutes.loginView);
-                                      } else if (result == false) {
-                                        signupVM.changeLoading(true);
-                                      }
-
+                                        //   Get.toNamed(
+                                        //     AppRoutes.verifySigninView,
+                                        //   );
+                                        // } else if (result == false) {
+                                        //   signupVM.changeLoading(true);
+                                        // }
+                                      });
                                     } else if (signupVM
                                         .userNumberController.text.isEmpty) {
                                       toast(
@@ -310,7 +289,7 @@ class SignUpViewVendor extends StatelessWidget {
                                     }
                                   },
                                   buttonColor: AppColor.buttonColor,
-                                  title: 'Submit',
+                                  title: 'Sign Up',
                                   textColor: AppColor.blackColor,
                                 ),
                         ),
@@ -322,18 +301,70 @@ class SignUpViewVendor extends StatelessWidget {
                   ),
                   const Divider(),
                   const SizedBox(
+                    height: 12,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Obx(
+                        () => signupVM.isGoogleSigninLoading.value == true
+                            ? const Center(
+                                child: CircularProgressIndicator(
+                                  color: AppColor.googleColor,
+                                ),
+                              )
+                            : Expanded(
+                                child: customTextButton(
+                                    height: 48,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    onTap: () async {
+                                      signupVM.sigupWithGoogle(
+                                          context: context);
+                                    },
+                                    icondata: Bootstrap.google,
+                                    title: 'Sign Up with Google',
+                                    buttonColor: AppColor.googleColor
+                                    // textColor: AppColor.,
+                                    ),
+                              ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: customTextButton(
+                            height: 48,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            onTap: () async {},
+                            icondata: Bootstrap.facebook,
+                            // iconColor: AppColor.googleColor,
+                            title: 'Sign Up with FaceBook',
+                            buttonColor: AppColor.facebookColor
+                            // textColor: AppColor.,
+                            ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
                     height: 15,
                   ),
                   const SocialLinks(),
                   const SizedBox(
                     height: 12,
                   ),
+                  getHeight(context, 0.012),
                 ],
               ),
             ),
           ),
         ),
-
+      ),
     );
   }
 

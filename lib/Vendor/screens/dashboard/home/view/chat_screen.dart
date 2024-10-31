@@ -196,8 +196,8 @@ class _ChatScreenState extends State<ChatScreen> {
                   margin: const EdgeInsets.only(left: 6),
                   child: TextFormField(
                     decoration: InputDecoration(
-                        hintText: 'Type here...',
-                        hintStyle: const TextStyle(fontSize: 14),
+                      hintText: 'Type here...',
+                      hintStyle: const TextStyle(fontSize: 14),
                         contentPadding: const EdgeInsets.symmetric(
                             horizontal: 6, vertical: 7),
                         fillColor: const Color(0xFFF3F3F3),

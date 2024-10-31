@@ -15,7 +15,7 @@ class _SelectActivityScreenState extends State<SelectActivityScreen> {
     return Scaffold(
       body: Column(
         children: [
-          Container(
+         Container(
               width: Get.size.width,
               height: Get.height * .093,
               padding: const EdgeInsets.only(top: 30, left: 8),
@@ -67,7 +67,7 @@ class _SelectActivityScreenState extends State<SelectActivityScreen> {
           VerificationWidget(
             text: 'Your Posts',
             onTap: () {
-              Get.to(() => const ActivityScreen());
+              Get.to(() => ActivityScreen());
             },
           ),
           VerificationWidget(
@@ -80,6 +80,7 @@ class _SelectActivityScreenState extends State<SelectActivityScreen> {
               // Get.to(() => IdCardVerificationScreen());
             },
           ),
+        
         ],
       ),
     );
@@ -105,7 +106,7 @@ class VerificationWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
         decoration: ShapeDecoration(
           shape: RoundedRectangleBorder(
-            side: const BorderSide(width: 1, color: Color(0xFFD1D8E0)),
+            side: BorderSide(width: 1, color: Color(0xFFD1D8E0)),
             borderRadius: BorderRadius.circular(5),
           ),
         ),

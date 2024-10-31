@@ -204,6 +204,7 @@
 // // 	}
 // // }
 class ProfileModel {
+  
   int? id;
   bool? isSuperuser;
   String? firebaseId;
@@ -373,22 +374,18 @@ class ProfileModel {
     profilePictureVerified = json['profile_picture_verified'];
     shopVisitingCardVerified = json['shop_visiting_card_verified'];
     emailVerified = json['email_verified'];
-    certificateOfIncorporationVerified =
-        json['certificate_of_incorporation_verified'];
-    artificialOfAssociationVerified =
-        json['artificial_of_association_verified'];
+    certificateOfIncorporationVerified = json['certificate_of_incorporation_verified'];
+    artificialOfAssociationVerified = json['artificial_of_association_verified'];
     memberOfAssociationVerified = json['member_of_association_verified'];
     incorporateDocumentVerified = json['incorporate_document_verified'];
-    solePropertiierDocumentVerified =
-        json['sole_propertiier_document_verified'];
+    solePropertiierDocumentVerified = json['sole_propertiier_document_verified'];
 
-    followers =
-        json['followers'] != null ? List<int>.from(json['followers']) : [];
+    followers = json['followers'] != null ? List<int>.from(json['followers']) : [];
     likes = json['likes'] != null ? List<int>.from(json['likes']) : [];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = id;
     data['is_superuser'] = isSuperuser;
     data['firebase_id'] = firebaseId;
@@ -439,17 +436,134 @@ class ProfileModel {
     data['profile_picture_verified'] = profilePictureVerified;
     data['shop_visiting_card_verified'] = shopVisitingCardVerified;
     data['email_verified'] = emailVerified;
-    data['certificate_of_incorporation_verified'] =
-        certificateOfIncorporationVerified;
-    data['artificial_of_association_verified'] =
-        artificialOfAssociationVerified;
+    data['certificate_of_incorporation_verified'] = certificateOfIncorporationVerified;
+    data['artificial_of_association_verified'] = artificialOfAssociationVerified;
     data['member_of_association_verified'] = memberOfAssociationVerified;
     data['incorporate_document_verified'] = incorporateDocumentVerified;
-    data['sole_propertiier_document_verified'] =
-        solePropertiierDocumentVerified;
+    data['sole_propertiier_document_verified'] = solePropertiierDocumentVerified;
 
     data['followers'] = followers;
     data['likes'] = likes;
     return data;
+  }
+
+  ProfileModel copyWith({
+    int? id,
+    bool? isSuperuser,
+    String? firebaseId,
+    String? name,
+    String? about,
+    String? phoneNumberCountryCode,
+    String? phoneNumber,
+    String? email,
+    String? profilePictureUrl,
+    String? coverPhotoUrl,
+    String? type,
+    String? accountStatus,
+    bool? isStaff,
+    bool? isActive,
+    String? createdAt,
+    String? updatedAt,
+    String? gender,
+    String? language,
+    String? designation,
+    String? copyaddress,
+    String? latitudePosition,
+    String? longitudePosition,
+    String? profileDescription,
+    String? cnicFrontUrl,
+    String? cnicBackUrl,
+    String? letterHeadUrl,
+    String? shopVisitingCardUrl,
+    String? certificateOfIncorporationUrl,
+    String? artificialOfAssociationUrl,
+    String? memberOfAssociationUrl,
+    String? incorporateDocumentUrl,
+    String? solePropertiierDocumentUrl,
+    String? bankAccountDetails,
+    int? totalIncome,
+    int? monthlyIncome,
+    int? deductions,
+    int? rating,
+    int? visitingCharges,
+    String? availabilityHours,
+    int? level,
+    int? balance,
+    bool? onlineStatus,
+    String? facebookLink,
+    String? instagramLink,
+    String? twitterLink,
+    bool? letterHeadVerified,
+    bool? cnicVerified,
+    bool? profilePictureVerified,
+    bool? shopVisitingCardVerified,
+    bool? emailVerified,
+    bool? certificateOfIncorporationVerified,
+    bool? artificialOfAssociationVerified,
+    bool? memberOfAssociationVerified,
+    bool? incorporateDocumentVerified,
+    bool? solePropertiierDocumentVerified,
+    List<int>? followers,
+    List<int>? likes,
+  }) {
+    return ProfileModel(
+      id: id ?? this.id,
+      isSuperuser: isSuperuser ?? this.isSuperuser,
+      firebaseId: firebaseId ?? this.firebaseId,
+      name: name ?? this.name,
+      about: about ?? this.about,
+      phoneNumberCountryCode: phoneNumberCountryCode ?? this.phoneNumberCountryCode,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      email: email ?? this.email,
+      profilePictureUrl: profilePictureUrl ?? this.profilePictureUrl,
+      coverPhotoUrl: coverPhotoUrl ?? this.coverPhotoUrl,
+      type: type ?? this.type,
+      accountStatus: accountStatus ?? this.accountStatus,
+      isStaff: isStaff ?? this.isStaff,
+      isActive: isActive ?? this.isActive,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      gender: gender ?? this.gender,
+      language: language ?? this.language,
+      designation: designation ?? this.designation,
+      address: copyaddress ?? address,
+      latitudePosition: latitudePosition ?? this.latitudePosition,
+      longitudePosition: longitudePosition ?? this.longitudePosition,
+      profileDescription: profileDescription ?? this.profileDescription,
+      cnicFrontUrl: cnicFrontUrl ?? this.cnicFrontUrl,
+      cnicBackUrl: cnicBackUrl ?? this.cnicBackUrl,
+      letterHeadUrl: letterHeadUrl ?? this.letterHeadUrl,
+      shopVisitingCardUrl: shopVisitingCardUrl ?? this.shopVisitingCardUrl,
+      certificateOfIncorporationUrl: certificateOfIncorporationUrl ?? this.certificateOfIncorporationUrl,
+      artificialOfAssociationUrl: artificialOfAssociationUrl ?? this.artificialOfAssociationUrl,
+      memberOfAssociationUrl: memberOfAssociationUrl ?? this.memberOfAssociationUrl,
+      incorporateDocumentUrl: incorporateDocumentUrl ?? this.incorporateDocumentUrl,
+      solePropertiierDocumentUrl: solePropertiierDocumentUrl ?? this.solePropertiierDocumentUrl,
+      bankAccountDetails: bankAccountDetails ?? this.bankAccountDetails,
+      totalIncome: totalIncome ?? this.totalIncome,
+      monthlyIncome: monthlyIncome ?? this.monthlyIncome,
+      deductions: deductions ?? this.deductions,
+      rating: rating ?? this.rating,
+      visitingCharges: visitingCharges ?? this.visitingCharges,
+      availabilityHours: availabilityHours ?? this.availabilityHours,
+      level: level ?? this.level,
+      balance: balance ?? this.balance,
+      onlineStatus: onlineStatus ?? this.onlineStatus,
+      facebookLink: facebookLink ?? this.facebookLink,
+      instagramLink: instagramLink ?? this.instagramLink,
+      twitterLink: twitterLink ?? this.twitterLink,
+      letterHeadVerified: letterHeadVerified ?? this.letterHeadVerified,
+      cnicVerified: cnicVerified ?? this.cnicVerified,
+      profilePictureVerified: profilePictureVerified ?? this.profilePictureVerified,
+      shopVisitingCardVerified: shopVisitingCardVerified ?? this.shopVisitingCardVerified,
+      emailVerified: emailVerified ?? this.emailVerified,
+      certificateOfIncorporationVerified: certificateOfIncorporationVerified ?? this.certificateOfIncorporationVerified,
+      artificialOfAssociationVerified: artificialOfAssociationVerified ?? this.artificialOfAssociationVerified,
+      memberOfAssociationVerified: memberOfAssociationVerified ?? this.memberOfAssociationVerified,
+      incorporateDocumentVerified: incorporateDocumentVerified ?? this.incorporateDocumentVerified,
+      solePropertiierDocumentVerified: solePropertiierDocumentVerified ?? this.solePropertiierDocumentVerified,
+      followers: followers ?? this.followers,
+      likes: likes ?? this.likes,
+    );
   }
 }

@@ -252,7 +252,7 @@ class LoginResponseModel {
   String? soleProprietorDocumentUrl; // Add if required
   List<int>? groups;
   List<int>? userPermissions;
-
+  
   var firebasePassword;
 
   LoginResponseModel({
@@ -282,41 +282,7 @@ class LoginResponseModel {
     this.longitudePosition,
     this.firebasePassword,
     this.groups,
-    this.userPermissions,
-    required profileDescription,
-    required suspensionDays,
-    required cnicFront,
-    required cnicBack,
-    required totalIncome,
-    required monthlyIncome,
-    required deductions,
-    required visitingCharges,
-    required rating,
-    required availabilityHours,
-    required level,
-    required bankDetails,
-    required balance,
-    required onlineStatus,
-    required instagramLink,
-    required facebookLink,
-    required twitterLink,
-    required cnicVerified,
-    required letterHeadVerified,
-    required shopVisitingCardVerified,
-    required emailVerified,
-    required artificialOfAssociationVerified,
-    required certificateOfIncorporationVerified,
-    required profilePictureVerified,
-    required incorporateDocumentVerified,
-    required memberOfAssociationVerified,
-    required soleProprietorDocumentVerified,
-    required letterHeadUrl,
-    required shopVisitingCardUrl,
-    required certificateOfIncorporationUrl,
-    required artificialOfAssociationUrl,
-    required memberOfAssociationUrl,
-    required incorporateDocumentUrl,
-    required soleProprietorDocumentUrl,
+    this.userPermissions, required profileDescription, required suspensionDays, required cnicFront, required cnicBack, required totalIncome, required monthlyIncome, required deductions, required visitingCharges, required rating, required availabilityHours, required level, required bankDetails, required balance, required onlineStatus, required instagramLink, required facebookLink, required twitterLink, required cnicVerified, required letterHeadVerified, required shopVisitingCardVerified, required emailVerified, required artificialOfAssociationVerified, required certificateOfIncorporationVerified, required profilePictureVerified, required incorporateDocumentVerified, required memberOfAssociationVerified, required soleProprietorDocumentVerified, required letterHeadUrl, required shopVisitingCardUrl, required certificateOfIncorporationUrl, required artificialOfAssociationUrl, required memberOfAssociationUrl, required incorporateDocumentUrl, required soleProprietorDocumentUrl,
   });
 
   factory LoginResponseModel.fromJson(Map<String, dynamic> json) =>
@@ -354,8 +320,7 @@ class LoginResponseModel {
         address: json["address"],
         latitudePosition: json["latitude_position"],
         longitudePosition: json["longitude_position"],
-        profileDescription:
-            json["profile_description"], // Update to profileDescription
+        profileDescription: json["profile_description"], // Update to profileDescription
         cnicFront: json["cnic_front"],
         cnicBack: json["cnic_back"],
         totalIncome: json["total_income"], // Add if required
@@ -363,8 +328,7 @@ class LoginResponseModel {
         deductions: json["deductions"], // Add if required
         rating: json["rating"], // Add if required
         visitingCharges: json["visiting_charges"], // Add if required
-        availabilityHours:
-            json["availability_hours"], // Update to appropriate type
+        availabilityHours: json["availability_hours"], // Update to appropriate type
         level: json["level"], // Add if required
         balance: json["balance"], // Add if required
         bankDetails: json["bank_details"],
@@ -377,26 +341,18 @@ class LoginResponseModel {
         profilePictureVerified: json["profile_picture_verified"],
         shopVisitingCardVerified: json["shop_visiting_card_verified"],
         emailVerified: json["email_verified"],
-        certificateOfIncorporationVerified:
-            json["certificate_of_incorporation_verified"],
-        artificialOfAssociationVerified:
-            json["artificial_of_association_verified"],
+        certificateOfIncorporationVerified: json["certificate_of_incorporation_verified"],
+        artificialOfAssociationVerified: json["artificial_of_association_verified"],
         memberOfAssociationVerified: json["member_of_association_verified"],
         incorporateDocumentVerified: json["incorporate_document_verified"],
-        soleProprietorDocumentVerified:
-            json["sole_proprietor_document_verified"],
+        soleProprietorDocumentVerified: json["sole_proprietor_document_verified"],
         letterHeadUrl: json["letter_head_url"], // Add if required
         shopVisitingCardUrl: json["shop_visiting_card_url"], // Add if required
-        certificateOfIncorporationUrl:
-            json["certificate_of_incorporation_url"], // Add if required
-        artificialOfAssociationUrl:
-            json["artificial_of_association_url"], // Add if required
-        memberOfAssociationUrl:
-            json["member_of_association_url"], // Add if required
-        incorporateDocumentUrl:
-            json["incorporate_document_url"], // Add if required
-        soleProprietorDocumentUrl:
-            json["sole_proprietor_document_url"], // Add if required
+        certificateOfIncorporationUrl: json["certificate_of_incorporation_url"], // Add if required
+        artificialOfAssociationUrl: json["artificial_of_association_url"], // Add if required
+        memberOfAssociationUrl: json["member_of_association_url"], // Add if required
+        incorporateDocumentUrl: json["incorporate_document_url"], // Add if required
+        soleProprietorDocumentUrl: json["sole_proprietor_document_url"], // Add if required
         groups: json["groups"] == null
             ? []
             : List<int>.from(json["groups"]!.map((x) => x)),
@@ -426,15 +382,12 @@ class LoginResponseModel {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
         "gender": gender,
-        "languages": languages == null
-            ? []
-            : List<dynamic>.from(languages!.map((x) => x)),
+        "languages": languages == null ? [] : List<dynamic>.from(languages!.map((x) => x)),
         "designation": designation,
         "address": address,
         "latitude_position": latitudePosition,
         "longitude_position": longitudePosition,
-        "profile_description":
-            profileDescription, // Update to profileDescription
+        "profile_description": profileDescription, // Update to profileDescription
         "cnic_front": cnicFront,
         "cnic_back": cnicBack,
         "total_income": totalIncome, // Add if required
@@ -455,26 +408,19 @@ class LoginResponseModel {
         "profile_picture_verified": profilePictureVerified,
         "shop_visiting_card_verified": shopVisitingCardVerified,
         "email_verified": emailVerified,
-        "certificate_of_incorporation_verified":
-            certificateOfIncorporationVerified,
+        "certificate_of_incorporation_verified": certificateOfIncorporationVerified,
         "artificial_of_association_verified": artificialOfAssociationVerified,
         "member_of_association_verified": memberOfAssociationVerified,
         "incorporate_document_verified": incorporateDocumentVerified,
         "sole_proprietor_document_verified": soleProprietorDocumentVerified,
         "letter_head_url": letterHeadUrl, // Add if required
         "shop_visiting_card_url": shopVisitingCardUrl, // Add if required
-        "certificate_of_incorporation_url":
-            certificateOfIncorporationUrl, // Add if required
-        "artificial_of_association_url":
-            artificialOfAssociationUrl, // Add if required
+        "certificate_of_incorporation_url": certificateOfIncorporationUrl, // Add if required
+        "artificial_of_association_url": artificialOfAssociationUrl, // Add if required
         "member_of_association_url": memberOfAssociationUrl, // Add if required
         "incorporate_document_url": incorporateDocumentUrl, // Add if required
-        "sole_proprietor_document_url":
-            soleProprietorDocumentUrl, // Add if required
-        "groups":
-            groups == null ? [] : List<dynamic>.from(groups!.map((x) => x)),
-        "user_permissions": userPermissions == null
-            ? []
-            : List<dynamic>.from(userPermissions!.map((x) => x)),
+        "sole_proprietor_document_url": soleProprietorDocumentUrl, // Add if required
+        "groups": groups == null ? [] : List<dynamic>.from(groups!.map((x) => x)),
+        "user_permissions": userPermissions == null ? [] : List<dynamic>.from(userPermissions!.map((x) => x)),
       };
 }

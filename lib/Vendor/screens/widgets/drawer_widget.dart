@@ -4,12 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:propertier/Utils/app_text.dart';
+import 'package:propertier/Utils/divider.dart';
 import 'package:propertier/Vendor/screens/Auth/Login/View/login_view.dart';
 import 'package:propertier/Vendor/screens/Auth/Login/ViewModel/login_view_model.dart';
 import 'package:propertier/Vendor/screens/Auth/Service/auth_service.dart';
 import 'package:propertier/Vendor/screens/Auth/Service/google_sigin_services.dart';
 import 'package:propertier/Vendor/screens/dashboard/profile/controller/profile_controller.dart';
-import 'package:propertier/Vendor/screens/dashboard/profile/view/profile.dart';
 import 'package:propertier/Vendor/screens/drawer/activity/view/select_activity_screen.dart';
 import 'package:propertier/Vendor/screens/drawer/edit_profile/view/edit_profile_screen.dart';
 import 'package:propertier/Vendor/screens/drawer/languages/view/language_screen.dart';
@@ -22,11 +22,17 @@ import 'package:propertier/Vendor/screens/drawer/setting/view/setting_screen.dar
 import 'package:propertier/Vendor/screens/drawer/support/view/support_screen.dart';
 import 'package:propertier/Vendor/screens/drawer/verifications/select_verfication_screen.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/constant/constant.dart';
 
 class DrawerWidget extends StatefulWidget {
+  final VoidCallback onToggleDrawer;
+  final Function(int) onItemSelected;
+
   const DrawerWidget({
-    super.key,
-  });
+    Key? key,
+    required this.onToggleDrawer,
+    required this.onItemSelected,
+  }) : super(key: key);
 
   @override
   State<DrawerWidget> createState() => _DrawerWidgetState();
@@ -43,13 +49,13 @@ class _DrawerWidgetState extends State<DrawerWidget> {
 
   double? _rating;
 
-  @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: AppColor.primaryColor,
       child: ListView(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
             child: Row(
               children: [
                 Container(
@@ -74,7 +80,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       Text(
                         profileController.profile.value.name.toString(),
                         style: const TextStyle(
-                          color: Color(0xFF131A22),
+                          color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                           height: 0.07,
@@ -101,215 +107,274 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         ),
                         onRatingUpdate: (rating) async {},
                       ),
-                      const SizedBox(height: 4),
                     ],
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 14),
-
-          // Menu Items
           ListTile(
             leading: SvgPicture.asset(
-              'assets/vendor_assets/profile.svg',
-              color: const Color(0x99131A22),
+              Constant.vendorprofileIcon,
+              color: Colors.white,
               height: 18,
             ),
             title: const Text(
               'Profile',
               style: TextStyle(
-                color: Color(0x99131A22),
+                color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 letterSpacing: 0.14,
               ),
+            ),
+            trailing: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.white,
             ),
             onTap: () {
-              Get.to(() => const ProfileScreen());
+              // Use the passed function to update the selected index and close the drawer
+              widget.onItemSelected(4); // Profile screen index
+              widget.onToggleDrawer(); // Close the drawer
             },
           ),
+          divider(context: context),
           ListTile(
-            leading: SvgPicture.asset('assets/vendor_assets/account.svg'),
-            title: const Text(
-              'Account Status',
-              style: TextStyle(
-                color: Color(0x99131A22),
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                letterSpacing: 0.14,
-              ),
+            leading: SvgPicture.asset(
+              Constant.verifyIcon,
+              color: Colors.white,
             ),
-            onTap: () {},
-          ),
-          ListTile(
-            leading: SvgPicture.asset('assets/vendor_assets/verify.svg'),
             title: const Text(
               'Verification',
               style: TextStyle(
-                color: Color(0x99131A22),
+                color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 letterSpacing: 0.14,
               ),
+            ),
+            trailing: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.white,
             ),
             onTap: () {
               Get.to(() => const SelectVerficationScreen());
             },
           ),
+          divider(context: context),
           ListTile(
-            leading: SvgPicture.asset('assets/vendor_assets/edit.svg'),
+            leading: SvgPicture.asset(Constant.editprofileIcon,
+                color: Colors.white),
             title: const Text(
               'Edit Profile',
               style: TextStyle(
-                color: Color(0x99131A22),
+                color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 letterSpacing: 0.14,
               ),
+            ),
+            trailing: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.white,
             ),
             onTap: () {
               Get.to(() => const EditProfileScreen());
             },
           ),
+          divider(context: context),
           ListTile(
-            leading: SvgPicture.asset('assets/vendor_assets/analytics.svg'),
+            leading: SvgPicture.asset(Constant.analyticsIcon,
+                color: Colors.white),
             title: const Text(
               'Analytics',
               style: TextStyle(
-                color: Color(0x99131A22),
+                color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 letterSpacing: 0.14,
               ),
             ),
+            trailing: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.white,
+            ),
             onTap: () {},
           ),
+          divider(context: context),
           ListTile(
-            leading: SvgPicture.asset('assets/vendor_assets/setting.svg'),
+            leading: SvgPicture.asset(Constant.settingIcon,
+                color: Colors.white),
             title: const Text(
               'Settings',
               style: TextStyle(
-                color: Color(0x99131A22),
+                color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 letterSpacing: 0.14,
               ),
+            ),
+            trailing: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.white,
             ),
             onTap: () {
               Get.to(() => const SettingScreen());
             },
           ),
+          divider(context: context),
           ListTile(
-            leading: SvgPicture.asset('assets/vendor_assets/ads.svg'),
+            leading: SvgPicture.asset(Constant.adsIcon,
+                color: Colors.white),
             title: const Text(
               'Ads',
               style: TextStyle(
-                color: Color(0x99131A22),
+                color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 letterSpacing: 0.14,
               ),
             ),
+            trailing: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.white,
+            ),
             onTap: () {},
           ),
+          divider(context: context),
           ListTile(
-            leading: SvgPicture.asset('assets/vendor_assets/order.svg'),
+            leading: SvgPicture.asset(Constant.orderIcon,
+                color: Colors.white),
             title: const Text(
               'Orders',
               style: TextStyle(
-                color: Color(0x99131A22),
+                color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 letterSpacing: 0.14,
               ),
+            ),
+            trailing: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.white,
             ),
             onTap: () {
               Get.to(() => const OrderScreen());
             },
           ),
+          divider(context: context),
           ListTile(
-            leading: SvgPicture.asset('assets/vendor_assets/review.svg'),
+            leading: SvgPicture.asset(Constant.reviewIcon,
+                color: Colors.white),
             title: const Text(
               'Reviews',
               style: TextStyle(
-                color: Color(0x99131A22),
+                color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 letterSpacing: 0.14,
               ),
+            ),
+            trailing: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.white,
             ),
             onTap: () {
               Get.to(() => const ReviewScreen());
             },
           ),
+          divider(context: context),
           ListTile(
-            leading: SvgPicture.asset('assets/vendor_assets/language.svg'),
+            leading: SvgPicture.asset(Constant.reviewIcon,
+                color: Colors.white),
             title: const Text(
               'Languages',
               style: TextStyle(
-                color: Color(0x99131A22),
+                color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 letterSpacing: 0.14,
               ),
+            ),
+            trailing: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.white,
             ),
             onTap: () {
               Get.to(() => const LanguageScreen());
             },
           ),
+          divider(context: context),
           ListTile(
-            leading: SvgPicture.asset('assets/vendor_assets/privacy.svg'),
+            leading: SvgPicture.asset(Constant.privacyIcon,
+                color: Colors.white),
             title: const Text(
               'Privacy',
               style: TextStyle(
-                color: Color(0x99131A22),
+                color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 letterSpacing: 0.14,
               ),
+            ),
+            trailing: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.white,
             ),
             onTap: () {
               Get.to(() => const PrivacyScreen());
             },
           ),
+          divider(context: context),
           ListTile(
-            leading: SvgPicture.asset('assets/vendor_assets/policy.svg'),
+            leading: SvgPicture.asset(Constant.policyIcon,
+                color: Colors.white),
             title: const Text(
               'Policy',
               style: TextStyle(
-                color: Color(0x99131A22),
+                color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 letterSpacing: 0.14,
               ),
+            ),
+            trailing: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.white,
             ),
             onTap: () {
               Get.to(() => const PolicyScreen());
             },
           ),
+          divider(context: context),
           ListTile(
-            leading: SvgPicture.asset('assets/vendor_assets/support.svg'),
+            leading: SvgPicture.asset(Constant.supportIcon,
+                color: Colors.white),
             title: const Text(
               'Support',
               style: TextStyle(
-                color: Color(0x99131A22),
+                color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 letterSpacing: 0.14,
               ),
             ),
+            trailing: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.white,
+            ),
             onTap: () {
               Get.to(() => const SupportScreen());
             },
           ),
+          divider(context: context),
           ListTile(
-            leading: SvgPicture.asset('assets/vendor_assets/info.svg'),
+            leading: SvgPicture.asset(Constant.infoIcon,
+                color: Colors.white),
             title: const Text(
               'Offered Services',
               style: TextStyle(
-                color: Color(0x99131A22),
+                color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 letterSpacing: 0.14,
@@ -318,13 +383,19 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             onTap: () {
               Get.to(() => const OfferedService());
             },
+            trailing: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.white,
+            ),
           ),
+          divider(context: context),
           ListTile(
-            leading: SvgPicture.asset('assets/vendor_assets/activity.svg'),
+            leading: SvgPicture.asset(Constant.activityIcon,
+                color: Colors.white),
             title: const Text(
               'Activity',
               style: TextStyle(
-                color: Color(0x99131A22),
+                color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 letterSpacing: 0.14,
@@ -333,22 +404,31 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             onTap: () {
               Get.to(() => const SelectActivityScreen());
             },
+            trailing: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.white,
+            ),
           ),
+          divider(context: context),
           ListTile(
-            leading: SvgPicture.asset('assets/vendor_assets/payout.svg'),
+            leading: SvgPicture.asset(Constant.payoutIcon,
+                color: Colors.white),
             title: const Text(
               'Payout',
               style: TextStyle(
-                color: Color(0x99131A22),
+                color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 letterSpacing: 0.14,
               ),
             ),
+            trailing: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.white,
+            ),
             onTap: () {},
           ),
-
-// Logout Button
+          divider(context: context),
           InkWell(
             onTap: () {
               Get.put(LoginViewModel());
@@ -364,26 +444,29 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               width: context.width,
               height: 60,
               padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  color: AppColor.backgroundColor,
-                  borderRadius: BorderRadius.circular(10)),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
                     padding: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
-                        color: AppColor.buttonColor,
-                        borderRadius: BorderRadius.circular(10)),
+                      color: AppColor.buttonColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     child: const Icon(
                       Icons.logout,
                       color: AppColor.backgroundColor,
                     ),
                   ),
                   appText(
-                      title: "Sign Out",
-                      context: context,
-                      fontWeight: FontWeight.bold)
+                    title: "Sign Out",
+                    context: context,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  )
                 ],
               ),
             ),

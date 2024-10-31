@@ -100,7 +100,8 @@ class _ReviewScreenState extends State<ReviewScreen> {
                             vertical: 10,
                           ),
                           padding: const EdgeInsets.only(
-                              left: 2, right: 2, bottom: 8),
+                            left: 2, right: 2, bottom: 8
+                          ),
                           decoration: ShapeDecoration(
                             color: Colors.white,
                             shape: RoundedRectangleBorder(
@@ -114,8 +115,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                               Container(
                                 width: Get.size.width,
                                 height: Get.height * .028,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 4),
+                                padding: const EdgeInsets.symmetric(horizontal: 4),
                                 decoration: const ShapeDecoration(
                                   color: Color(0xFFF0F0F0),
                                   shape: RoundedRectangleBorder(
@@ -127,8 +127,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                                 ),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text.rich(
@@ -143,8 +142,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                                             ),
                                           ),
                                           TextSpan(
-                                            text:
-                                                feedback.customer.id.toString(),
+                                            text: feedback.customer.id.toString(),
                                             style: const TextStyle(
                                               color: Color(0xB2131A22),
                                               fontSize: 9,
@@ -157,8 +155,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                                     ),
                                     const SizedBox(width: 5),
                                     Text(
-                                      feedback.createdAt
-                                          .toString(), // Format this as needed
+                                      feedback.createdAt.toString(), // Format this as needed
                                       textAlign: TextAlign.center,
                                       style: const TextStyle(
                                         color: Color(0xB2131A22),
@@ -171,8 +168,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                               ),
                               const SizedBox(height: 8),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8),
+                                padding: const EdgeInsets.symmetric(horizontal: 8),
                                 child: Column(
                                   children: [
                                     Row(
@@ -186,15 +182,14 @@ class _ReviewScreenState extends State<ReviewScreen> {
                                               height: 44,
                                               decoration: ShapeDecoration(
                                                 image: DecorationImage(
-                                                  image: NetworkImage(feedback
-                                                          .customer
-                                                          .profilePictureUrl ??
-                                                      "https://example.com/default-profile-pic.png"),
+                                                  image: NetworkImage(
+                                                    feedback.customer.profilePictureUrl ??
+                                                        "https://example.com/default-profile-pic.png"
+                                                  ),
                                                   fit: BoxFit.cover,
                                                 ),
                                                 shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
+                                                  borderRadius: BorderRadius.circular(5),
                                                 ),
                                               ),
                                             ),
@@ -216,20 +211,17 @@ class _ReviewScreenState extends State<ReviewScreen> {
                                                 ),
                                                 const SizedBox(height: 2),
                                                 RatingBar.builder(
-                                                  initialRating: feedback.rating
-                                                      .toDouble(),
+                                                  initialRating: feedback.rating.toDouble(),
                                                   minRating: 0,
                                                   direction: Axis.horizontal,
                                                   allowHalfRating: true,
                                                   itemCount: 4,
                                                   itemSize: 14,
-                                                  itemBuilder: (context, _) =>
-                                                      const Icon(
+                                                  itemBuilder: (context, _) => const Icon(
                                                     Icons.star,
                                                     color: Colors.amber,
                                                   ),
-                                                  onRatingUpdate:
-                                                      (rating) async {},
+                                                  onRatingUpdate: (rating) async {},
                                                 ),
                                               ],
                                             ),

@@ -8,128 +8,74 @@ import "package:propertier/Utils/app_text.dart";
 import "package:propertier/Vendor/screens/Auth/Login/Model/user_login_model/user_login_model.dart";
 import "package:propertier/constant/colors.dart";
 
+
+
 class SignupServices {
-  // Future<bool> signupUserData({
-  //   String? name,
-  //   required BuildContext context,
-  //   required String email,
-  //   required String pinCode,
-  //   String? address,
-  //   String? latitude,
-  //   String? longitude,
-  //   required String firebaseID,
-  //   String? profilePicUrl,
-  //   String? phoneNumber,
-  //   required String cnicFront,
-  //   required String cnicBack,
-  // }) async {
-  //
-  //   final Map<String, dynamic> data = {
-  //     "name": name,
-  //     "email": email.toLowerCase(),
-  //     "phone_number_country_code": pinCode,
-  //     "phone_number": phoneNumber,
-  //     "firebase_id": firebaseID,
-  //     "latitude_position": latitude != null ? latitude.substring(0, 9) : "",
-  //     "longitude_position": longitude != null ? longitude.substring(0, 9) : "",
-  //     "address": address,
-  //     "profile_picture_url": profilePicUrl ?? '',
-  //     "type": 'vendor', // Example default value
-  //   };
-  //
-  //   final encodedData = jsonEncode(data);
-  //   print("her is encoded data $encodedData");
-  //   try {
-  //     final response = await http.post(
-  //       Uri.parse("${API.venregisterUrl}/"),
-  //       headers: <String, String>{'Content-Type': 'application/json'},
-  //       body: encodedData,
-  //     );
-  //
-  //     debugPrint("Response Status Code: ${response.statusCode}");
-  //     debugPrint("Response Body: ${response.body}");
-  //
-  //     if (response.statusCode == 201 || response.statusCode == 200) {
-  //       final jsonDecodedData = jsonDecode(response.body);
-  //
-  //       return true;
-  //     } else {
-  //       ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-  //         content: appText(
-  //           title: 'Something went wrong: ${response.body}',
-  //           context: Get.context!,
-  //           color: AppColor.white,
-  //         ),
-  //       ));
-  //       return false;
-  //     }
-  //   } catch (e) {
-  //     ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-  //       content: appText(
-  //         title: 'Something went wrong.',
-  //         context: Get.context!,
-  //         color: AppColor.white,
-  //       ),
-  //     ));
-  //     debugPrint("Error: $e");
-  //     return false;
-  //   }
-  // }
-
-
-  Future<bool> signupUserData({
-    String? name,
+  Future<UserLoginModel?> signupUserData({
+     String? name,
     required BuildContext context,
-    required String email,
-    required String pinCode,
+    String? email,
+    String? pinCode,
     String? address,
     String? latitude,
     String? longitude,
-    required String firebaseID,
+    String? firebaseID,
     String? profilePicUrl,
     String? phoneNumber,
-    required String cnicFront,
-    required String cnicBack,
+    String? type,  // Ensure 'type' matches one of the allowed values
   }) async {
+    // Check if the user already exists
+    final exists = await _checkUserExists(email, firebaseID);
+    if (exists) {
+      ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
+        content: appText(
+          title: 'User with this email and Firebase ID already exists.',
+          context: Get.context!,
+          color: AppColor.white,
+        ),
+      ));
+      return null;
+    }
+
+    // If user doesn't exist, proceed with registration
+    UserLoginModel signupResponseModel = UserLoginModel();
+    final Map<String, dynamic> data = {
+      "name": name,
+      "email": email!.toLowerCase(),
+      "phone_number": phoneNumber,
+      "firebase_id": firebaseID,
+      "latitude_position": latitude != null ? latitude.substring(0, 9) : "",
+      "longitude_position": longitude != null ? longitude.substring(0, 9) : "",
+      "phone_number_country_code": pinCode,
+      "address": address,
+      "profile_picture_url": profilePicUrl ?? '',
+      "type": type ?? 'vendor',  // Example default value
+    };
+
+    final encodedData = jsonEncode(data);
+
     try {
-      // Create a multipart request
-      var request = http.MultipartRequest('POST', Uri.parse("${API.venregisterUrl}/"));
+      final response = await http.post(
+        Uri.parse("${API.venregisterUrl}/"),
+        headers: <String, String>{'Content-Type': 'application/json'},
+        body: encodedData,
+      );
 
-      // Add text fields to the request
-      request.fields['name'] = name ?? '';
-      request.fields['email'] = email.toLowerCase();
-      request.fields['phone_number_country_code'] = pinCode;
-      request.fields['phone_number'] = phoneNumber ?? '';
-      request.fields['firebase_id'] = firebaseID;
-      request.fields['latitude_position'] = latitude != null ? latitude.substring(0, 9) : '';
-      request.fields['longitude_position'] = longitude != null ? longitude.substring(0, 9) : '';
-      request.fields['address'] = address ?? '';
-      request.fields['profile_picture_url'] = profilePicUrl ?? '';
-      request.fields['type'] = 'vendor';
-
-      // Attach the image files to the request
-      request.files.add(await http.MultipartFile.fromPath('cnic_front', cnicFront));
-      request.files.add(await http.MultipartFile.fromPath('cnic_back', cnicBack));
-
-      // Send the request
-      var response = await request.send();
-
-      // Convert the response to a string to check for success
-      var responseString = await response.stream.bytesToString();
       debugPrint("Response Status Code: ${response.statusCode}");
-      debugPrint("Response Body: $responseString");
+      debugPrint("Response Body: ${response.body}");
 
       if (response.statusCode == 201 || response.statusCode == 200) {
-        return true;
+        final jsonDecodedData = jsonDecode(response.body);
+        signupResponseModel = UserLoginModel.fromJson(jsonDecodedData);
       } else {
         ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
           content: appText(
-            title: 'Something went wrong: $responseString',
+            title: 'Something went wrong: ${response.body}',
             context: Get.context!,
             color: AppColor.white,
           ),
         ));
-        return false;
+        return null;
       }
     } catch (e) {
       ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
@@ -140,8 +86,10 @@ class SignupServices {
         ),
       ));
       debugPrint("Error: $e");
-      return false;
+      return null;
     }
+
+    return signupResponseModel;
   }
 
   Future<bool> _checkUserExists(String? email, String? firebaseID) async {
@@ -164,6 +112,4 @@ class SignupServices {
     }
     return false;
   }
-
-  
 }

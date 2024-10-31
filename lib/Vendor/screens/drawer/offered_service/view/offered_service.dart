@@ -182,7 +182,7 @@ class _OfferedServiceState extends State<OfferedService> {
             decoration: const ShapeDecoration(
               color: Color(0xFF131A22),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(40),
                   bottomRight: Radius.circular(40),
                 ),
@@ -242,7 +242,7 @@ class _OfferedServiceState extends State<OfferedService> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                Container(
                   height: Get.height * .6,
                   child: ListView.builder(
                     itemCount: serviceData.length,

@@ -101,8 +101,8 @@ class _FeatureAdsScreenState extends State<FeatureAdsScreen> {
               }
               return ListView.builder(
                 itemCount: profileController.allFeaturedServices.length,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.only(
+                    left: 12, right: 12, top: 8, bottom: 75),
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
                   final featureAd =
@@ -270,7 +270,9 @@ class _FeatureAdsScreenState extends State<FeatureAdsScreen> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      // Implement delete functionality here
+                                      _showDeleteFeatureDialog(
+                                          context, 
+                                          featureAd.id.toInt());
                                     },
                                     child: Container(
                                       width: Get.width * .44,
@@ -339,6 +341,40 @@ class _FeatureAdsScreenState extends State<FeatureAdsScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  void _showDeleteFeatureDialog(BuildContext context, int serviceId) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Deletion'),
+          content: const Text('Are you sure you want to delete this service?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog when canceled
+              },
+            ),
+            TextButton(
+              child: const Text('Delete'),
+              onPressed: () async {
+                Navigator.of(context).pop();
+                await profileController.deleteFeaturedService(serviceId);
+                final box = GetStorage();
+                String? vendorUserId = box.read('vendorUserId');
+                if (vendorUserId != null) {
+                  await profileController.getFeaturedServices(vendorUserId);
+                }
+
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

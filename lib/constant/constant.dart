@@ -112,4 +112,26 @@ class Constant {
   static const appLogoSvg = 'assets/logo/logo1.svg';
   static const closeLogin = 'assets/icons/close2.png';
   static const rerdCross = 'assets/icons/rerdCross.png';
+
+  // -------------------vendor sideIcon-----------------------------
+
+  static const vendorhomeIcon = "assets/vendor_assets/home.svg";
+  static const vendorFeturedadIcon = "assets/vendor_assets/earning.png";
+  static const vendoraddpostIcon = "assets/vendor_assets/add.svg";
+  static const vendorearningIcon = "assets/vendor_assets/amount.svg";
+  static const vendorprofileIcon = "assets/vendor_assets/profile.svg";
+  static const verifyIcon = "assets/vendor_assets/verify.svg";
+  static const editprofileIcon = "assets/vendor_assets/edit.svg";
+  static const analyticsIcon = "assets/vendor_assets/analytics.svg";
+  static const settingIcon = "assets/vendor_assets/setting.svg";
+  static const adsIcon = "assets/vendor_assets/ads.svg";
+  static const orderIcon = "assets/vendor_assets/order.svg";
+  static const reviewIcon = "assets/vendor_assets/review.svg";
+  static const languageIcon = "assets/vendor_assets/language.svg";
+  static const privacyIcon = "assets/vendor_assets/privacy.svg";
+  static const policyIcon = "assets/vendor_assets/policy.svg";
+  static const supportIcon = "assets/vendor_assets/support.svg";
+  static const infoIcon = "assets/vendor_assets/info.svg";
+  static const activityIcon = "assets/vendor_assets/activity.svg";
+  static const payoutIcon = "assets/vendor_assets/payout.svg";
 }

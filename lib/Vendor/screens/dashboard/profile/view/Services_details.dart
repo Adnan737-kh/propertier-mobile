@@ -23,16 +23,17 @@ class _ServiceAdsDetailScreenState extends State<ServiceAdsDetailScreen> {
     _initVideoPlayer();
   }
 
-  void _initVideoPlayer() {
-    final shortVideoUrl = widget.service.shortVideoUrl;
-    if (shortVideoUrl != null && shortVideoUrl.isNotEmpty) {
-      _controller = VideoPlayerController.network(shortVideoUrl)
-        ..initialize().then((_) {
-          setState(() {});
-          _controller?.play();
-        });
-    }
+ void _initVideoPlayer() {
+  final shortVideoUrl = widget.service.shortVideoUrl;
+  if (shortVideoUrl != null && shortVideoUrl.isNotEmpty) {
+    _controller = VideoPlayerController.network(shortVideoUrl)
+      ..initialize().then((_) {
+        setState(() {});
+        _controller?.play();
+      });
   }
+}
+
 
   @override
   void dispose() {

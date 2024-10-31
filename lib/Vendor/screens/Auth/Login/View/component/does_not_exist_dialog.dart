@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/Utils/text_botton.dart';
@@ -39,21 +41,21 @@ doesNotExist({required BuildContext context, required String subtitle}) {
                           fontWeight: FontWeight.w600,
                           title: 'Oops !',
                           context: context,
-                          color: const Color(0xffD13135),
+                          color: Color(0xffD13135),
                           fontSize: 17),
                       getHeight(context, 0.01),
                       appText(
                           fontWeight: FontWeight.w600,
-                          color: const Color(0xff00060E),
+                          color: Color(0xff00060E),
                           title: subtitle,
                           context: context),
-                      const Spacer(),
+                      Spacer(),
                       textButton(
                           context: context,
                           title: 'Try Again',
                           textFontSize: 20,
                           textColor: Colors.white,
-                          buttonColor: const Color(0xffD13135),
+                          buttonColor: Color(0xffD13135),
                           onClick: () {
                             Get.back();
                           })

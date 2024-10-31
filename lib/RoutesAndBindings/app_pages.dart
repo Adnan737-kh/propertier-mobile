@@ -93,6 +93,8 @@ import 'package:propertier/App/Profile/ViewModel/short_video_profile_viewmodel.d
 import 'package:propertier/App/SearchEngine/View/search_engine_view.dart';
 import 'package:propertier/App/SearchEngine/ViewModel/searh_engine_view_model.dart';
 import 'package:propertier/App/Service%20Provider%20Profile/View/service_provider_profile_view.dart';
+import 'package:propertier/App/ServiceDetail/View/service_view.dart';
+import 'package:propertier/App/ServiceDetail/ViewModel/ServiceDetailViewModel.dart';
 
 import 'package:propertier/App/Services/View/services_view.dart';
 import 'package:propertier/App/Services/ViewModel/services_view_model.dart';
@@ -126,10 +128,7 @@ import 'package:propertier/App/onBoarding/ViewModel/onboarding_view_model.dart';
 import 'package:propertier/App/NavBar/View/nav_bar_view.dart';
 
 import 'package:propertier/App/Player/View/player_view.dart';
-import 'package:propertier/Features/SelectFeatuedType/Controller/select_featued_type_controller.dart';
-import 'package:propertier/Features/SelectFeatuedType/Views/select_featured_type_view.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
-import 'package:propertier/Vendor/screens/Auth/Sign%20Up/ViewModel/signup_view_model.dart';
 
 import '../App/Auth/Create User/Views/collect_info.dart';
 import '../App/Auth/Forgotpassword/View/forget_password_view.dart';
@@ -150,7 +149,6 @@ import '../App/PropertiesAndShortVideo/View/properties_and_Video_view.dart';
 import '../App/PropertiesAndShortVideo/ViewModel/properties_and_Video_view_model.dart';
 import '../App/Service Provider Profile/ViewModel/service_provider_profile_viewmodel.dart';
 import '../App/What are you searching/View/what_are_you_search_view.dart';
-import '../Vendor/screens/Auth/Sign Up/View/signup_view.dart';
 import '../Vendor/screens/dashboard/dashboard.dart';
 
 class AppPages {
@@ -732,19 +730,12 @@ class AppPages {
           Get.lazyPut(() => SignUpViewModel());
         })),
     GetPage(
-        name: AppRoutes.selectFeaturedtype,
+        name: AppRoutes.serviceDetail,
         transition: Transition.rightToLeftWithFade,
-        page: () => SelectFeaturedTypeView(),
+        page: () => ServiceDetail(),
         binding: BindingsBuilder(() {
-          Get.lazyPut(() => SelectFeatuedTypeController());
+          Get.lazyPut(() => ServiceDetailViewModel());
         })),
-    // GetPage(
-    //     name: AppRoutes.selectFeaturedtype,
-    //     transition: Transition.rightToLeftWithFade,
-    //     page: () => SelectFeaturedTypeView(),
-    //     binding: BindingsBuilder(() {
-    //       Get.lazyPut(() => SelectFeatuedTypeController());
-    //     })),
     //!!--------------------------Vender-----------------------------!!//
     GetPage(
         name: AppRoutes.vendordashborad,
@@ -752,13 +743,6 @@ class AppPages {
         page: () => const Dashboard(),
         binding: BindingsBuilder(() {
           // Get.lazyPut(() => Dashboard());
-        })),
-    GetPage(
-        name: AppRoutes.signupvendor,
-        transition: Transition.rightToLeftWithFade,
-        page: () => SignUpViewVendor(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => SignUpViewModelVendor());
         })),
     //!!-------------------------------------------------------!!//
   ];

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:propertier/App/Services/Model/FixedServicesModel.dart';
 import 'package:propertier/App/Services/Model/services_model.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/border.dart';
@@ -8,7 +9,7 @@ import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
-Widget topSellingServices1(BuildContext context, ServicesModel services,
+Widget fixedPriceServicesBox(BuildContext context, FixedServicesModel service,
     {required VoidCallback onClick}) {
   return GestureDetector(
     onTap: onClick,
@@ -24,11 +25,11 @@ Widget topSellingServices1(BuildContext context, ServicesModel services,
                 border: border(),
                 boxShadow: [boxShadow()],
                 image: DecorationImage(
-                    image: AssetImage(services.icon), fit: BoxFit.cover)),
+                    image: NetworkImage(service.imageUrls?.first??""), fit: BoxFit.cover)),
           ),
           getHeight(context, 0.008),
           appText(
-              title: services.title,
+              title: service.title??"",
               context: context,
               fontSize: 12,
               fontWeight: FontWeight.w500)

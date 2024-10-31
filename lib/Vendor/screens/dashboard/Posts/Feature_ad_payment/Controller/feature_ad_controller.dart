@@ -1,45 +1,29 @@
-import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:http/http.dart' as http;
-import 'package:propertier/Network/api_urls.dart';
+import 'package:propertier/Vendor/helpers/api_service.dart';
 import 'package:propertier/Vendor/screens/dashboard/Posts/Feature_ad_payment/Model/feature_ad_model.dart';
 
-class FeaturePackageController {
-  final String apiUrl = API.baseURL;
+
+class FeaturePackageController extends GetxController {
+  final ApiService apiService = ApiService(); // Use the ApiService
 
   int? featurePackageId;
 
   Future<void> submitFeaturePackage(Featureadd featurePackage) async {
-    final url = Uri.parse('$apiUrl/services/feature-packages/');
 
-    try {
-      final response = await http.post(
-        url,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(featurePackage.toJson()),
-      );
+    final featurePackageJson = featurePackage.toJson();
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        print('Feature package submitted successfully: ${response.body}');
+    final packageId = await apiService.submitFeaturePackage(featurePackageJson);
 
-        final responseData = jsonDecode(response.body);
-        featurePackageId = responseData['id'];
+    if (packageId != null) {
+      featurePackageId = packageId;
+      print('Feature package ID stored: $featurePackageId');
+      Get.snackbar('Success', 'Feature selected successfully');
 
-        print('Feature package ID stored: $featurePackageId');
-        Get.snackbar('Sucess', 'Feature selected sucessfully');
-
-        final box = GetStorage();
-        box.write('featurePackageId', featurePackageId);
-      } else {
-        print(
-            'Failed to submit feature package: ${response.statusCode} - ${response.body}');
-      }
-    } catch (e) {
-      print('Error submitting feature package: $e');
+      final box = GetStorage();
+      box.write('featurePackageId', featurePackageId);
+    } else {
+      Get.snackbar('Error', 'Failed to select feature package');
     }
   }
 }

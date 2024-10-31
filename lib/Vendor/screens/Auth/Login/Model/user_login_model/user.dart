@@ -115,7 +115,7 @@ class User {
   final List<int>? groups;
   @JsonKey(name: 'user_permissions')
   final List<int>? userPermissions;
-  final List<int>? followers;
+  final  List<int>? followers;
   final List<int>? likes;
 
   const User({
@@ -265,8 +265,7 @@ class User {
       firebaseId: firebaseId ?? this.firebaseId,
       name: name ?? this.name,
       about: about ?? this.about,
-      phoneNumberCountryCode:
-          phoneNumberCountryCode ?? this.phoneNumberCountryCode,
+      phoneNumberCountryCode: phoneNumberCountryCode ?? this.phoneNumberCountryCode,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       email: email ?? this.email,
       identifier: identifier ?? this.identifier,
@@ -303,33 +302,21 @@ class User {
       twitterLink: twitterLink ?? this.twitterLink,
       letterHeadVerified: letterHeadVerified ?? this.letterHeadVerified,
       cnicVerified: cnicVerified ?? this.cnicVerified,
-      profilePictureVerified:
-          profilePictureVerified ?? this.profilePictureVerified,
-      shopVisitingCardVerified:
-          shopVisitingCardVerified ?? this.shopVisitingCardVerified,
+      profilePictureVerified: profilePictureVerified ?? this.profilePictureVerified,
+      shopVisitingCardVerified: shopVisitingCardVerified ?? this.shopVisitingCardVerified,
       emailVerified: emailVerified ?? this.emailVerified,
-      certificateOfIncorporationVerified: certificateOfIncorporationVerified ??
-          this.certificateOfIncorporationVerified,
-      artificialOfAssociationVerified: artificialOfAssociationVerified ??
-          this.artificialOfAssociationVerified,
-      memberOfAssociationVerified:
-          memberOfAssociationVerified ?? this.memberOfAssociationVerified,
-      incorporateDocumentVerified:
-          incorporateDocumentVerified ?? this.incorporateDocumentVerified,
-      soleProprietorDocumentVerified:
-          soleProprietorDocumentVerified ?? this.soleProprietorDocumentVerified,
+      certificateOfIncorporationVerified: certificateOfIncorporationVerified ?? this.certificateOfIncorporationVerified,
+      artificialOfAssociationVerified: artificialOfAssociationVerified ?? this.artificialOfAssociationVerified,
+      memberOfAssociationVerified: memberOfAssociationVerified ?? this.memberOfAssociationVerified,
+      incorporateDocumentVerified: incorporateDocumentVerified ?? this.incorporateDocumentVerified,
+      soleProprietorDocumentVerified: soleProprietorDocumentVerified ?? this.soleProprietorDocumentVerified,
       letterHeadUrl: letterHeadUrl ?? this.letterHeadUrl,
       shopVisitingCardUrl: shopVisitingCardUrl ?? this.shopVisitingCardUrl,
-      certificateOfIncorporationUrl:
-          certificateOfIncorporationUrl ?? this.certificateOfIncorporationUrl,
-      artificialOfAssociationUrl:
-          artificialOfAssociationUrl ?? this.artificialOfAssociationUrl,
-      memberOfAssociationUrl:
-          memberOfAssociationUrl ?? this.memberOfAssociationUrl,
-      incorporateDocumentUrl:
-          incorporateDocumentUrl ?? this.incorporateDocumentUrl,
-      soleProprietorDocumentUrl:
-          soleProprietorDocumentUrl ?? this.soleProprietorDocumentUrl,
+      certificateOfIncorporationUrl: certificateOfIncorporationUrl ?? this.certificateOfIncorporationUrl,
+      artificialOfAssociationUrl: artificialOfAssociationUrl ?? this.artificialOfAssociationUrl,
+      memberOfAssociationUrl: memberOfAssociationUrl ?? this.memberOfAssociationUrl,
+      incorporateDocumentUrl: incorporateDocumentUrl ?? this.incorporateDocumentUrl,
+      soleProprietorDocumentUrl: soleProprietorDocumentUrl ?? this.soleProprietorDocumentUrl,
       notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
       groups: groups ?? this.groups,
       userPermissions: userPermissions ?? this.userPermissions,

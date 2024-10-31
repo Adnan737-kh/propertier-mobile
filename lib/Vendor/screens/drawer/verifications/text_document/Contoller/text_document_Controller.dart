@@ -2,13 +2,14 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:http/http.dart' as http;
-import 'package:propertier/Network/api_urls.dart';
+import 'package:propertier/Vendor/helpers/api_service.dart';
 import 'package:propertier/Vendor/screens/drawer/verifications/success_screen.dart';
 
 class VerifyDocumentController extends GetxController {
   var incorporateDocument = Rxn<File>();
   var soleProprietorDocument = Rxn<File>();
+
+  final ApiService apiService = ApiService();  // Create an instance of ApiService
 
   void setIncorporateDocument(File file) {
     incorporateDocument.value = file;
@@ -33,27 +34,15 @@ class VerifyDocumentController extends GetxController {
 
     if (incorporateDocument.value != null &&
         soleProprietorDocument.value != null) {
-      var apiUrl =
-          '${API.baseURL}/accounts/vendors/$vendorUserId/';
-      var request = http.MultipartRequest('PUT', Uri.parse(apiUrl));
-
-      request.fields['firebase_id'] = firebaseId;
-      request.fields['email'] = email;
-      request.fields['type'] = type;
-
-      request.files.add(await http.MultipartFile.fromPath(
-          'incorporate_document', incorporateDocument.value!.path));
-      request.files.add(await http.MultipartFile.fromPath(
-          'sole_propertiier_document', soleProprietorDocument.value!.path));
-
       try {
-        print(
-            'Sending API request to $apiUrl with fields $firebaseId, $email, $type');
-
-        var streamedResponse = await request.send();
-        var response = await http.Response.fromStream(streamedResponse);
-
-        // print('Received response with status: ${response.statusCode} and body: ${response.body}');
+        var response = await apiService.sendDocuments(
+          vendorUserId: vendorUserId,
+          firebaseId: firebaseId,
+          email: email,
+          type: type,
+          incorporateDocument: incorporateDocument.value!,
+          soleProprietorDocument: soleProprietorDocument.value!,
+        );
 
         if (response.statusCode == 200) {
           Get.snackbar('Success', 'Documents sent successfully.');
