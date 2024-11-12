@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:ndialog/ndialog.dart';
@@ -14,6 +15,9 @@ import 'package:propertier/Vendor/screens/dashboard/profile/model/award_model.da
 import 'package:propertier/Vendor/screens/dashboard/profile/model/service_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../../Network/api_urls.dart';
+import '../../../../../Utils/App Ad Mob/app_interstitial_ads.dart';
+import '../../../drawer/vehicle_list/model/VehicleModel.dart';
 import '../model/profile_model.dart';
 
 class ProfileController extends GetxController {
@@ -43,6 +47,7 @@ class ProfileController extends GetxController {
         print('Vendor User ID is null');
       }
     }
+    loadExpirationDate();
   }
 
   final ApiService apiService = ApiService();
@@ -261,7 +266,7 @@ Future<void> updateUserProfile(String vendorUserId, ProfileModel profileModel, P
         message: const Text('Please wait'));
     progressDialog.show();
      try {
-    await apiService.updateCoverPicture(vendorUserId, imageFile); 
+    await apiService.updateCoverPicture(vendorUserId, imageFile,profile.value.firebaseId!, profile.value.email!);
 
     profile.value = ProfileModel(); 
     _isProfileLoaded = false;       
@@ -276,27 +281,54 @@ Future<void> updateUserProfile(String vendorUserId, ProfileModel profileModel, P
   }
 }
 
+Future<void> updateDrivingLicense(File? front, File? back, String vendorUserId) async {
+    ProgressDialog progressDialog = ProgressDialog(Get.context!,
+        title: const Text('Updating License Picture'),
+        message: const Text('Please wait'));
+    progressDialog.show();
+     try {
+    await apiService.updateDrivingLicense(front, back, vendorUserId, profile.value.firebaseId!, profile.value.email!);
+
+    profile.value = ProfileModel();
+    _isProfileLoaded = false;
+
+    await loadProfile();
+
+    Get.snackbar('Success', 'License picture updated successfully');
+  } catch (e) {
+    Get.snackbar('Error', 'An error occurred while updating the cover picture: $e');
+  } finally {
+     progressDialog.dismiss();
+  }
+}
+
 
 // need to work on this api
 
-  Future<void> updateProfilePicture(File imageFile) async {
+  Future<void> updateProfilePicture(File imageFile, String vendorId) async {
     ProgressDialog progressDialog = ProgressDialog(Get.context!,
         title: const Text('Updating Profile Picture'),
         message: const Text('Please wait'));
     progressDialog.show();
     try {
+      final String apiUrl = '${API.updateUserProfile}/$vendorId/';
       var request = http.MultipartRequest(
         'PUT',
-        Uri.parse(
-            'https://propertier-p2wwcx3okq-em.a.run.app//accounts/vendors'),
+        Uri.parse(apiUrl),
       )..files.add(
           await http.MultipartFile.fromPath('profile_picture', imageFile.path));
 
-      var response = await request.send();
+      request.fields['type'] = "vendor";
+      request.fields['firebase_id'] = profile.value.firebaseId!;
+      request.fields['email'] = profile.value.email!;
 
+      var response = await request.send();
+      print(apiUrl);
+      print(response.statusCode);
       if (response.statusCode == 200) {
         // Handle successful response
         Get.snackbar('Success', 'Profile picture updated successfully');
+        profile.value = ProfileModel();
         loadProfile(); // Reload the profile to update the image
       } else {
         Get.snackbar('Error', 'Failed to update profile picture');
@@ -309,5 +341,42 @@ Future<void> updateUserProfile(String vendorUserId, ProfileModel profileModel, P
     }
   }
 
+
+  Future<List<VehicleModel>> fetchMyVehicles(String vendorId) async {
+    return await apiService.fetchMyVehicles(vendorId);
+  }
+
+
+
+  // *********** License *****************
+  final GetStorage storage = GetStorage();
+  static const String expirationKey = 'licenseExpiration';
+
+  // Rx variable for expiration date
+  Rx<DateTime?> expirationDate = Rx<DateTime?>(null);
+
+  // Load the expiration date from storage
+  void loadExpirationDate() {
+    final storedTime = storage.read(expirationKey);
+    if (storedTime != null) {
+      expirationDate.value = DateTime.parse(storedTime);
+    }
+  }
+
+  // Check if the license has expired
+  bool isLicenseExpired() {
+    if (expirationDate.value == null) return true;
+    return DateTime.now().isAfter(expirationDate.value!);
+  }
+
+  // Renew license by setting a new expiration date
+  void renewLicense() async {
+    await loadAndShowInterstitialAd(flag: true);
+    final newExpiration = DateTime.now().add(Duration(hours: 24));
+    storage.write(expirationKey, newExpiration.toIso8601String());
+    expirationDate.value = newExpiration; // This will automatically update the UI
+  }
+
+  // *********** License *****************
 
 }

@@ -5,7 +5,7 @@ class Bid {
   final String longitude;
   final String description;
   final List<dynamic> imageUrls;
-  final int? amount;
+  final String? amount;
   final String status;
   final String createdAt;
   final String updatedAt;
@@ -39,7 +39,7 @@ class Bid {
       longitude: json['longitude'] ?? '0.0',
       description: json['description'] ?? 'No description',
       imageUrls: json['image_urls'] ?? [],
-      amount: json['amount'] != null ? json['amount'] as int : null,
+      amount: json['amount'] ?? "",
       status: json['status'] ?? 'Unknown status',
       createdAt: json['created_at'] ?? DateTime.now().toString(),
       updatedAt: json['updated_at'] ?? DateTime.now().toString(),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:propertier/Vendor/screens/dashboard/home/Controller/DetailScreenController.dart';
 import 'package:propertier/constant/colors.dart';
 
 class KeypadScreen extends StatefulWidget {
@@ -9,21 +11,21 @@ class KeypadScreen extends StatefulWidget {
 }
 
 class _KeypadScreenState extends State<KeypadScreen> {
-  final TextEditingController _controller = TextEditingController();
+DetailScreenController controller = Get.find();
 
   void _handleNumberInput(String number) {
     setState(() {
-      if (_controller.text == 'Enter amount') {
-        _controller.clear();
+      if (controller.amountC.text == 'Enter amount') {
+        controller.amountC.clear();
       }
-      _controller.text += number; // Append the new number
+      controller.amountC.text += number; // Append the new number
     });
   }
 
   void _handleBackspace() {
     setState(() {
-      if (_controller.text.isNotEmpty) {
-        _controller.text = _controller.text.substring(0, _controller.text.length - 1); // Remove last character
+      if (controller.amountC.text.isNotEmpty) {
+        controller.amountC.text = controller.amountC.text.substring(0, controller.amountC.text.length - 1); // Remove last character
       }
     });
   }
@@ -67,7 +69,7 @@ class _KeypadScreenState extends State<KeypadScreen> {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: TextField(
-                    controller: _controller, // Use the controller
+                    controller: controller.amountC, // Use the controller
                     textAlign: TextAlign.center,
                     keyboardType: TextInputType.none, // Disable keyboard
                     readOnly: true, // Make it read-only
@@ -86,6 +88,7 @@ class _KeypadScreenState extends State<KeypadScreen> {
                     Expanded(
                       child: TextButton(
                         onPressed: () {
+                          controller.amount.value = controller.amountC.text;
                           Navigator.pop(context); // Close keypad
                         },
                         style: TextButton.styleFrom(
@@ -100,6 +103,8 @@ class _KeypadScreenState extends State<KeypadScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           // Save amount here
+                          controller.amount.value = controller.amountC.text;
+                          Navigator.pop(context);
                         },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 9), // Adjusted padding

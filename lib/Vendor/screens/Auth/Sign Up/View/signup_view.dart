@@ -46,7 +46,7 @@ class SignUpView extends StatelessWidget {
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       context: context,
-                      title: 'Sign Up',
+                      title: 'Sign Up vendor',
                       onTap: () {
                         Get.back();
                         

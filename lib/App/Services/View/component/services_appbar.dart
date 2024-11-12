@@ -7,6 +7,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:propertier/App/Auth/Login/Model/user_login_model/user_login_model.dart';
 import 'package:propertier/App/Home/View/component/carousel_slider_widget.dart';
+import 'package:propertier/App/MyServiceOrder/View/MyServiceOrder.dart';
 import 'package:propertier/App/Services/ViewModel/services_view_model.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/Utils/app_text.dart';
@@ -17,7 +18,7 @@ import 'package:propertier/Utils/search_text_field.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/size_extension.dart';
-
+import '../../../../Vendor/screens/Auth/Service/auth_service.dart' as vendorService;
 import '../../../Auth/Service/auth_service.dart';
 import '../../../NavBar/ViewModel/navbar_view_model.dart';
 
@@ -75,12 +76,16 @@ PreferredSize servciesAppBar(BuildContext context,
                       if (currentUser != null) {
                         for(User user in currentUser.users??[]){
                           if(user.type == "vendor"){
+                            GetStorage().write('vendorUserId', user.id);
                             Get.toNamed(AppRoutes.vendordashborad);
                             return;
                           }
                         }
-                        Fluttertoast.showToast(msg: "You don't have vendor account");
-                        Get.toNamed(AppRoutes.signupvendor);
+
+                        Fluttertoast.showToast(msg: "Please Wait..");
+                        String email = currentUser.users!.first.email!;
+                        String firebaseID = currentUser.users!.first.firebaseId!;
+                        vendorService.AuthService().RegisterVendor(email, firebaseID);
                       } else {
                         Get.toNamed(AppRoutes.loginView);
                       }
@@ -113,7 +118,11 @@ PreferredSize servciesAppBar(BuildContext context,
                     fontFamily: 'Rubik',
                     fontWeight: FontWeight.w500,
                   ),
-                  const Icon(Ionicons.cart_outline),
+                  InkWell(
+                    onTap: (){
+                      Get.to(MyServiceOrder());
+                    },
+                      child: Icon(Ionicons.cart_outline)),
                 ],
               ),
               getHeight(context, 0.01),

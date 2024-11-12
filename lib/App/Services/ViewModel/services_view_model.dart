@@ -6,12 +6,15 @@ import 'package:propertier/App/Services/Service/ServicesCore.dart';
 import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/localization_extension.dart';
 
+import '../Model/ServiceDashboardModel.dart';
+
 class ServicesViewModel extends GetxController {
 
  @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    GetServicesDashboard();
   }
   ServicesCore servicesCore = ServicesCore();
 
@@ -39,4 +42,14 @@ class ServicesViewModel extends GetxController {
  Future<List<FixedServicesModel>> getFixedServices(BuildContext context)async{
    return servicesCore.getFixedServices(context: context);
  }
+ Future<List<ParentServicesModel>> getAllParentServices(BuildContext context)async{
+   return servicesCore.getAllParentServices(context: context);
+ }
+
+ Rxn<ServiceDashboardModel> serviceDashboardModel = Rxn<ServiceDashboardModel>();
+
+ Future GetServicesDashboard()async{
+   serviceDashboardModel.value = await servicesCore.ServicesDashboard(context: Get.context!);
+ }
+
 }

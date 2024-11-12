@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:propertier/App/Services/Model/services_model.dart';
+import 'package:propertier/App/ServicesSearch/Service/ServicesSearch_Service.dart';
 import 'package:propertier/App/ServicesSearch/View/component/accept_reject_button.dart';
+import 'package:propertier/App/ServicesSearch/ViewModel/services_search_view_model_2.dart';
+import 'package:propertier/App/ServicesSearch/model/VendorResponseModel.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/appbar.dart';
@@ -19,9 +23,9 @@ import 'package:propertier/extensions/font_size_extension.dart';
 import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
-class ServicesSearch2View extends StatelessWidget {
+
+class ServicesSearch2View extends GetView<ServicesSearhViewModel2> {
   ServicesSearch2View({super.key});
-  ServicesModel servicesModel = Get.arguments;
   @override
   Widget build(BuildContext context) {
     final day = DateFormat.d().format(DateTime.now());
@@ -47,7 +51,7 @@ class ServicesSearch2View extends StatelessWidget {
                       Get.back();
                     }),
                 getHeight(context, 0.09),
-                SvgPicture.asset(servicesModel.icon),
+                // SvgPicture.asset(servicesModel.icon),
                 getHeight(context, 0.01),
                 SizedBox(
                   width: context.getSize.width * 0.7,
@@ -60,12 +64,13 @@ class ServicesSearch2View extends StatelessWidget {
                 ),
                 getHeight(context, 0.015),
                 Expanded(
-                  child: ListView.builder(
+                  child: Obx(() =>ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       padding: const EdgeInsets.all(0),
                       shrinkWrap: true,
-                      itemCount: 9,
+                      itemCount: controller.offers.length,
                       itemBuilder: (context, index) {
+                        VendorOfferModel offer = controller.offers[index];
                         return Container(
                           margin: EdgeInsets.only(
                               bottom: context.getSize.height * 0.015),
@@ -91,34 +96,40 @@ class ServicesSearch2View extends StatelessWidget {
                                     vertical: context.getSize.height * 0.007),
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
-                                    RichText(
-                                        text: TextSpan(
-                                            style: textStyle(
-                                                color: AppColor.blackColor
-                                                    .withOpacity(0.6),
-                                                context: context,
-                                                fontSize: context.fontSize(8),
-                                                fontWeight: FontWeight.w500),
-                                            text:
-                                                "${servicesModel.title} ID:  ",
-                                            children: [
-                                          TextSpan(
-                                              text: '73648A467383',
-                                              style: textStyle(
-                                                  color: AppColor.blackColor
-                                                      .withOpacity(0.5),
-                                                  context: context,
-                                                  fontSize: context.fontSize(8),
-                                                  fontWeight: FontWeight.w400))
-                                        ])),
+                                    // RichText(
+                                    //     text: TextSpan(
+                                    //         style: textStyle(
+                                    //             color: AppColor.blackColor
+                                    //                 .withOpacity(0.6),
+                                    //             context: context,
+                                    //             fontSize: context.fontSize(8),
+                                    //             fontWeight: FontWeight.w500),
+                                    //         text:
+                                    //             "${servicesModel.title} ID:  ",
+                                    //         children: [
+                                    //       TextSpan(
+                                    //           text: '73648A467383',
+                                    //           style: textStyle(
+                                    //               color: AppColor.blackColor
+                                    //                   .withOpacity(0.5),
+                                    //               context: context,
+                                    //               fontSize: context.fontSize(8),
+                                    //               fontWeight: FontWeight.w400))
+                                    //     ])),
                                     appText(
                                         colorOpecity: 0.5,
                                         fontSize: 8,
                                         fontWeight: FontWeight.w400,
                                         title: "$day-$month-$year",
-                                        context: context)
+                                        context: context),
+                                    appText(
+                                      color: offer.bidResponse?.status == "accepted"?AppColor.joinasbtnColor:AppColor.appleColor,
+                                        fontSize: 8,
+                                        fontWeight: FontWeight.w400,
+                                        title: "${offer.bidResponse?.status??"pending."}",
+                                        context: context),
                                   ],
                                 ),
                               ),
@@ -136,23 +147,23 @@ class ServicesSearch2View extends StatelessWidget {
                                     getHeight(context, 0.008),
                                     Row(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       children: [
                                         Row(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                           children: [
-                                            const CircleAvatar(
+                                            CircleAvatar(
                                               radius: 16,
                                               backgroundImage: NetworkImage(
-                                                  Constant.dumyImage2),
+                                                  offer.bidResponse?.vendor?.profilePictureUrl??Constant.dumyImage2),
                                             ),
                                             getWidth(context, 0.01),
                                             Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                               children: [
                                                 scrollableText(
                                                     width: 0.5,
@@ -161,8 +172,9 @@ class ServicesSearch2View extends StatelessWidget {
                                                         context: context,
                                                         fontSize: 12,
                                                         fontWeight:
-                                                            FontWeight.w500),
-                                                    title: 'Maryam Nawaz'),
+                                                        FontWeight.w500),
+                                                    title: offer.bidResponse?.vendor?.name??""
+                                                ),
                                                 getHeight(context, 0.005),
                                                 scrollableText(
                                                     width: 0.5,
@@ -174,9 +186,8 @@ class ServicesSearch2View extends StatelessWidget {
                                                             .blackColor
                                                             .withOpacity(0.7),
                                                         fontWeight:
-                                                            FontWeight.w500),
-                                                    title:
-                                                        'Bahria Town Phase 7 islamabad'),
+                                                        FontWeight.w500),
+                                                    title: offer.bidResponse?.vendor?.address??""),
                                                 getHeight(context, 0.005),
                                                 scrollableText(
                                                     width: 0.5,
@@ -187,27 +198,27 @@ class ServicesSearch2View extends StatelessWidget {
                                                         color: const Color(
                                                             0xffC10C00),
                                                         fontWeight:
-                                                            FontWeight.w500),
-                                                    title: 'PKR 4000'),
+                                                        FontWeight.w500),
+                                                    title: 'PKR ${offer.bidResponse?.amount??""}'),
                                                 getHeight(context, 0.005),
-                                                GestureDetector(
-                                                  onTap: () {},
-                                                  child: Icon(
-                                                    Ionicons.chatbubble_outline,
-                                                    color:
-                                                        const Color(0xff797979),
-                                                    size:
-                                                        context.getSize.height *
-                                                            0.025,
-                                                  ),
-                                                )
+                                                // GestureDetector(
+                                                //   onTap: () {},
+                                                //   child: Icon(
+                                                //     Ionicons.chatbubble_outline,
+                                                //     color:
+                                                //     const Color(0xff797979),
+                                                //     size:
+                                                //     context.getSize.height *
+                                                //         0.025,
+                                                //   ),
+                                                // )
                                               ],
                                             ),
                                           ],
                                         ),
                                         Column(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.start,
+                                          MainAxisAlignment.start,
                                           children: [
                                             acceptRejectButton(
                                                 textColor: AppColor.white,
@@ -216,10 +227,18 @@ class ServicesSearch2View extends StatelessWidget {
                                                 textFontSize: 10,
                                                 context: context,
                                                 title: context.local.accept,
-                                                onClick: () {
-                                                  Get.toNamed(
-                                                      AppRoutes.servicesMapView,
-                                                      arguments: servicesModel);
+                                                onClick: () async{
+                                                  // Get.toNamed(
+                                                  //     AppRoutes.servicesMapView,
+                                                  //     arguments: offer);
+                                                  controller.finalizeBid(context, offer.bidResponse?.id.toString()??"", "accepted", offer.bidResponse?.vendor?.id.toString()??"");
+                                                  bool res = await controller.createOrder(context: context, bidId: offer.bidResponse?.bid.toString()??"", vendorId: offer.bidResponse?.vendor?.id.toString()??"", customerId: GetStorage().read('id').toString(), serviceLocation: "service location", status: "pending", paymentStatus: "pending");
+                                                  if(res){
+                                                    Get.toNamed(
+                                                        AppRoutes.servicesMapView,
+                                                        arguments: offer);
+                                                  }
+
                                                 }),
                                             getHeight(context, 0.008),
                                             acceptRejectButton(
@@ -229,7 +248,9 @@ class ServicesSearch2View extends StatelessWidget {
                                                 textFontSize: 10,
                                                 context: context,
                                                 title: context.local.reject,
-                                                onClick: () {}),
+                                                onClick: () {
+                                                  controller.acceptBid(context, offer.bidResponse?.id.toString()??"", "rejected");
+                                                }),
                                             getHeight(context, 0.01),
                                             appText(
                                                 title: '00:15',
@@ -247,7 +268,7 @@ class ServicesSearch2View extends StatelessWidget {
                             ],
                           ),
                         );
-                      }),
+                      })),
                 )
               ],
             ),

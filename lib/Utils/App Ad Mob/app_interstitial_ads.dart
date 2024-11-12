@@ -9,14 +9,14 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 
 
-Future<bool> loadAndShowInterstitialAd() async {
+Future<bool> loadAndShowInterstitialAd({bool flag = false}) async {
   Completer<bool> completer = Completer<bool>();
   InterstitialAd? _interstitialAd;
 
   // show add randomly
   int num =  getRandomZeroOrOne();
   print("************* $num");
-  if(num == 0){
+  if(num == 0 && flag == false){
     completer.complete(false);
     return completer.future;
   }

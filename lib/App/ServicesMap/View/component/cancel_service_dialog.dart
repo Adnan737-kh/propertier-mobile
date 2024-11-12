@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:propertier/App/ServicesMap/ViewModel/services_map_view_model.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/border.dart';
@@ -9,7 +10,7 @@ import 'package:propertier/constant/colors.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 void showCustomPopup(BuildContext context,
-    {required String serviceName, required ServicesMapViewModel viewModel}) {
+    {required String serviceName, required String id, required ServicesMapViewModel viewModel}) {
   showDialog(
     barrierColor: Colors.transparent,
     barrierDismissible: false,
@@ -31,7 +32,7 @@ void showCustomPopup(BuildContext context,
             insetPadding: EdgeInsets.zero,
             clipBehavior: Clip.antiAliasWithSaveLayer,
             child: GetX<ServicesMapViewModel>(
-                init: ServicesMapViewModel(),
+                init: ServicesMapViewModel(BitmapDescriptor.defaultMarker,),
                 builder: (viewModel) {
                   return Container(
                       decoration: const BoxDecoration(color: AppColor.white),
@@ -118,7 +119,8 @@ void showCustomPopup(BuildContext context,
                               )),
                               Expanded(
                                   child: GestureDetector(
-                                onTap: () {
+                                onTap: () async{
+                                  await viewModel.cancelOrder(id, viewModel.cencelJobIssue[viewModel.selectedCancelIssue]);
                                   hideOpenDialog(context: context);
                                   viewModel.isShowCancelButton(true);
                                   Get.back();

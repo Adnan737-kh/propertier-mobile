@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
+import 'package:ionicons/ionicons.dart';
+import 'package:propertier/App/NearestServiceDetail/ViewModel/NearestServiceDetailViewModel.dart';
 import 'package:propertier/App/Services/Model/FixedServicesModel.dart';
+import 'package:propertier/App/Services/Model/ServiceDashboardModel.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/border.dart';
@@ -13,7 +18,7 @@ import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 
-PreferredSize ServiceAppBar(BuildContext context, FixedServicesModel service) {
+PreferredSize ServiceAppBar(BuildContext context, NearbyServices service) {
   return PreferredSize(
       preferredSize: Size(context.getSize.width, context.getSize.height * 3),
       child: FittedBox(
@@ -209,4 +214,59 @@ PreferredSize ServiceAppBar(BuildContext context, FixedServicesModel service) {
           ],
         ),
       ));
+}
+
+
+
+class UploadWorkPhotosWidget extends StatelessWidget {
+  const UploadWorkPhotosWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GetX<NearestServiceDetailViewModel>(
+        init: NearestServiceDetailViewModel(),
+        builder: (viewModel) {
+          return Wrap(
+            children: List.generate(
+                5,
+                    (index) => GestureDetector(
+                  onTap: index < viewModel.imageFileList.length
+                      ? () {
+                    viewModel.selectedImage(true, index);
+                  }
+                      : () {
+                    viewModel.selectedImage(false, 0);
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(
+                        right: index == 5 - 1
+                            ? 0
+                            : context.getSize.width * 0.016),
+                    height: 32,
+                    width: 32,
+                    decoration: BoxDecoration(
+                        image: index < viewModel.imageFileList.length
+                            ? DecorationImage(
+                            image: FileImage(
+                              File(viewModel.imageFileList[index].path),
+                            ),
+                            fit: BoxFit.cover)
+                            : null,
+                        boxShadow: [boxShadow()],
+                        color: AppColor.white),
+                    child: index < viewModel.imageFileList.length
+                        ? null
+                        : const Center(
+                      child: Icon(
+                        Ionicons.camera_outline,
+                        size: 10,
+                      ),
+                    ),
+                  ),
+                )),
+          );
+        });
+  }
 }

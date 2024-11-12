@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/App/Activity/Searched%20Activity/View/searched_activity_view.dart';
 import 'package:propertier/App/Activity/Searched%20Activity/ViewModel/searched_activity_viewmodel.dart';
@@ -23,6 +24,8 @@ import 'package:propertier/App/MarketingTeamEarning/ViewModel/marketing_team_ear
 import 'package:propertier/App/Monetization/View/monetization_view.dart';
 import 'package:propertier/App/Monetization/ViewModel/monetization_view_model.dart';
 import 'package:propertier/App/NavBar/ViewModel/navbar_view_model.dart';
+import 'package:propertier/App/NearestServiceDetail/View/BidViewScreen.dart';
+import 'package:propertier/App/NearestServiceDetail/ViewModel/BidViewModel.dart';
 import 'package:propertier/App/Offered%20Services/ViewModel/offered_services_viewmodel.dart';
 import 'package:propertier/App/Offered%20Services/Views/offered_services_view.dart';
 import 'package:propertier/App/PayOut/View/pay_out_view.dart';
@@ -93,9 +96,6 @@ import 'package:propertier/App/Profile/ViewModel/short_video_profile_viewmodel.d
 import 'package:propertier/App/SearchEngine/View/search_engine_view.dart';
 import 'package:propertier/App/SearchEngine/ViewModel/searh_engine_view_model.dart';
 import 'package:propertier/App/Service%20Provider%20Profile/View/service_provider_profile_view.dart';
-import 'package:propertier/App/ServiceDetail/View/service_view.dart';
-import 'package:propertier/App/ServiceDetail/ViewModel/ServiceDetailViewModel.dart';
-
 import 'package:propertier/App/Services/View/services_view.dart';
 import 'package:propertier/App/Services/ViewModel/services_view_model.dart';
 import 'package:propertier/App/Rental/View/rental_view.dart';
@@ -118,6 +118,8 @@ import 'package:propertier/App/Settings/View/settings_view.dart';
 import 'package:propertier/App/Settings/ViewModel/settings_view_model.dart';
 import 'package:propertier/App/ShortVideo/View/short_video_view.dart';
 import 'package:propertier/App/ShortVideo/ViewModel/short_video_view_model.dart';
+import 'package:propertier/App/SubServices/View/SubService.dart';
+import 'package:propertier/App/SubServices/ViewModel/SubServiceModel.dart';
 import 'package:propertier/App/Support/Views/support_view.dart';
 import 'package:propertier/App/TeamEarning/View/team_earning_view.dart';
 import 'package:propertier/App/TeamEarning/ViewModel/team_earning_view_model.dart';
@@ -129,9 +131,10 @@ import 'package:propertier/App/NavBar/View/nav_bar_view.dart';
 
 import 'package:propertier/App/Player/View/player_view.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
-
 import '../App/Auth/Create User/Views/collect_info.dart';
 import '../App/Auth/Forgotpassword/View/forget_password_view.dart';
+import '../App/NearestServiceDetail/View/nearest_service_detail.dart';
+import '../App/NearestServiceDetail/ViewModel/NearestServiceDetailViewModel.dart';
 import '../App/Profile/Email Verification/View/email_confrim_view.dart';
 import '../App/Profile/Email Verification/View/email_otp_verify_view.dart';
 import '../App/Profile/Email Verification/View/email_verification_view.dart';
@@ -148,6 +151,7 @@ import '../App/Profile/View/Verification/ViewModel/verification_view_model.dart'
 import '../App/PropertiesAndShortVideo/View/properties_and_Video_view.dart';
 import '../App/PropertiesAndShortVideo/ViewModel/properties_and_Video_view_model.dart';
 import '../App/Service Provider Profile/ViewModel/service_provider_profile_viewmodel.dart';
+import '../App/ServicesSearch/ViewModel/services_search_view_model_2.dart';
 import '../App/What are you searching/View/what_are_you_search_view.dart';
 import '../Vendor/screens/dashboard/dashboard.dart';
 
@@ -571,14 +575,14 @@ class AppPages {
         transition: Transition.rightToLeftWithFade,
         page: () => ServicesSearch2View(),
         binding: BindingsBuilder(() {
-          Get.lazyPut(() => ServicesSearhViewModel());
+          Get.lazyPut(() => ServicesSearhViewModel2());
         })),
     GetPage(
         name: AppRoutes.servicesMapView,
         transition: Transition.rightToLeftWithFade,
         page: () => ServicesMapView(),
         binding: BindingsBuilder(() {
-          Get.lazyPut(() => ServicesMapViewModel());
+          Get.lazyPut(() => ServicesMapViewModel(BitmapDescriptor.defaultMarker,));
         })),
     GetPage(
         name: AppRoutes.supportView,
@@ -730,12 +734,27 @@ class AppPages {
           Get.lazyPut(() => SignUpViewModel());
         })),
     GetPage(
-        name: AppRoutes.serviceDetail,
+        name: AppRoutes.nearesServiceDetail,
         transition: Transition.rightToLeftWithFade,
         page: () => ServiceDetail(),
         binding: BindingsBuilder(() {
-          Get.lazyPut(() => ServiceDetailViewModel());
+          Get.lazyPut(() => NearestServiceDetailViewModel());
         })),
+    GetPage(
+        name: AppRoutes.subServices,
+        transition: Transition.rightToLeftWithFade,
+        page: () => SubService(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => SubServiceViewModel());
+        })),
+    GetPage(
+        name: AppRoutes.BidViewScreen,
+        transition: Transition.rightToLeftWithFade,
+        page: () => BidViewScreen(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => BidViewModel());
+        })),
+
     //!!--------------------------Vender-----------------------------!!//
     GetPage(
         name: AppRoutes.vendordashborad,

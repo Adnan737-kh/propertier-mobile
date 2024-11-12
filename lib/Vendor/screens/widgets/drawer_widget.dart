@@ -24,6 +24,8 @@ import 'package:propertier/Vendor/screens/drawer/verifications/select_verficatio
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
 
+import '../drawer/vehicle_list/VehicleList.dart';
+
 class DrawerWidget extends StatefulWidget {
   final VoidCallback onToggleDrawer;
   final Function(int) onItemSelected;
@@ -180,6 +182,29 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             ),
             onTap: () {
               Get.to(() => const EditProfileScreen());
+            },
+          ),
+          divider(context: context),
+          ListTile(
+            leading: SvgPicture.asset(
+              Constant.verifyIcon,
+              color: Colors.white,
+            ),
+            title: const Text(
+              'My Vehicles',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0.14,
+              ),
+            ),
+            trailing: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.white,
+            ),
+            onTap: () {
+              Get.to(() => const VehicleList());
             },
           ),
           divider(context: context),
@@ -427,6 +452,27 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               color: Colors.white,
             ),
             onTap: () {},
+          ),
+          divider(context: context),
+          ListTile(
+            leading: SvgPicture.asset(Constant.analyticsIcon,
+                color: Colors.white),
+            title: const Text(
+              'Delete Account',
+              style: TextStyle(
+                color: Colors.red,
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0.14,
+              ),
+            ),
+            trailing: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.white,
+            ),
+            onTap: () {
+              AuthService().deleteVender();
+            },
           ),
           divider(context: context),
           InkWell(

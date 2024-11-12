@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 import 'package:propertier/Vendor/screens/dashboard/fearture_ads/view/feature_ads_detail_screen.dart';
 import 'package:propertier/Vendor/screens/dashboard/profile/controller/profile_controller.dart';
 import 'package:propertier/Vendor/screens/dashboard/profile/model/award_model.dart';
 import 'package:propertier/Vendor/screens/dashboard/profile/model/profile_model.dart';
 import 'package:propertier/Vendor/screens/dashboard/profile/view/Services_details.dart';
 import 'package:propertier/Vendor/screens/dashboard/profile/view/about.dart';
+import 'package:propertier/constant/colors.dart';
 
 class ProfileScreen extends StatefulWidget {
    
@@ -249,33 +251,86 @@ class _ProfileScreenState extends State<ProfileScreen>
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    Text(
-                      '( ${profileController.profile.value.designation.toString()} )',
-                      style: const TextStyle(
-                        color: Color(0xFFB8B8B8),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                        color: AppColor.buttonColor,
+                        borderRadius: BorderRadius.circular(10)
+                      ),
+                      padding: EdgeInsets.only(left: 10,right: 10,bottom: 10),
+                      child: Column(
+                        children: [
+                          Align(
+                            alignment: Alignment.center,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                              decoration: BoxDecoration(
+                                color: AppColor.primaryColor,
+                                borderRadius: BorderRadius.only(bottomRight: Radius.circular(20), bottomLeft: Radius.circular(20))
+                              ),
+                              alignment: Alignment.center,
+                              child: Text("License Card",style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold
+                              ),),
+                            ),
+                          ),
+                          SizedBox(height: 10,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("${profileController.profile.value.name}"),
+                              Text(
+                                '${profileController.profile.value.designation??""}',
+                                style: const TextStyle(
+                                  color: Color(0xFFB8B8B8),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10,),
+                          RatingBar.builder(
+                            initialRating:
+                            profileController.profile.value.rating?.toDouble() ??
+                                0,
+                            minRating: 0,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemSize: 20,
+                            itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
+                            itemBuilder: (context, _) => const Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                              size: 26,
+                            ),
+                            onRatingUpdate: (rating) async {},
+                          ),
+                          SizedBox(height: 50,),
+                          Obx(() {
+                            // Use Obx to listen to changes in expirationDate
+                            if (profileController.isLicenseExpired()) {
+                              return ElevatedButton(
+                                onPressed: profileController.renewLicense,
+                                child: Text("Renew License Card"),
+                              );
+                            } else {
+                              return Text(
+                                "License valid until: ${DateFormat('yyyy-MM-dd HH:mm:ss').format(profileController.expirationDate.value!)}",
+                                style: TextStyle(fontSize: 16),
+                              );
+                            }
+                          }),
+                          // ElevatedButton(onPressed: (){
+                          //   profileController.renewLicense();
+                          // }, child: Text("Proceed")),
+                        ],
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    // Rating Bar
-                    RatingBar.builder(
-                      initialRating:
-                          profileController.profile.value.rating?.toDouble() ??
-                              0,
-                      minRating: 0,
-                      direction: Axis.horizontal,
-                      allowHalfRating: true,
-                      itemCount: 5,
-                      itemSize: 20,
-                      itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
-                      itemBuilder: (context, _) => const Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                        size: 26,
-                      ),
-                      onRatingUpdate: (rating) async {},
-                    ),
+
                     const SizedBox(height: 15),
                     // TabBar
                     TabBar(

@@ -4,10 +4,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:propertier/App/Services/Model/FixedServicesModel.dart';
 import 'package:http/http.dart' as http;
+import 'package:propertier/App/Services/Model/service_dashboard.dart';
+import 'package:propertier/App/Services/Model/services_model.dart';
 
 import '../../../Network/api_urls.dart';
 import '../../../Utils/app_text.dart';
 import '../../../constant/colors.dart';
+import '../Model/ServiceDashboardModel.dart';
 
 
 
@@ -15,11 +18,10 @@ class ServicesCore{
 
   Future<List<FixedServicesModel>> getFixedServices({required BuildContext context})async{
     List<FixedServicesModel> services = [];
-    // try{
+    try{
       final response = await http.get(Uri.parse(API.fixedServices));
       if (response.statusCode == 200) {
         final decodedJson = jsonDecode(response.body);
-        // print("home data response: ${decodedJson}");
         for(var data in decodedJson){
           services.add(FixedServicesModel.fromJson(data));
         }
@@ -32,16 +34,79 @@ class ServicesCore{
                 context: context,
                 color: AppColor.white)));
       }
-    // }
-    // catch(e){
-    //   print("error: $e");
-    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    //       content: appText(
-    //           title: e.toString(),
-    //           context: context,
-    //           color: AppColor.white)));
-    // }
+    }
+    catch(e){
+      print("error: $e");
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: appText(
+              title: e.toString(),
+              context: context,
+              color: AppColor.white)));
+    }
 
     return services;
   }
+
+
+
+  Future<List<ParentServicesModel>> getAllParentServices({required BuildContext context})async{
+    List<ParentServicesModel> services = [];
+    try{
+    final response = await http.get(Uri.parse(API.fetchParentServices));
+    if (response.statusCode == 200) {
+      final decodedJson = jsonDecode(response.body);
+      print("home data response: ${decodedJson}");
+      for(var data in decodedJson){
+        services.add(ParentServicesModel.fromJson(data));
+      }
+      return services;
+
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: appText(
+              title: 'Something went wrong.',
+              context: context,
+              color: AppColor.white)));
+    }
+    }
+    catch(e){
+      print("error: $e");
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: appText(
+              title: e.toString(),
+              context: context,
+              color: AppColor.white)));
+    }
+
+    return services;
+  }
+
+
+  Future<ServiceDashboardModel?> ServicesDashboard({required BuildContext context})async{
+    ServiceDashboardModel? model;
+    try{
+      final response = await http.get(Uri.parse(API.serviceMobileDashboard));
+      if (response.statusCode == 200) {
+        final decodedJson = jsonDecode(response.body);
+        model = ServiceDashboardModel.fromJson(decodedJson);
+        return model;
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: appText(
+                title: 'Something went wrong.',
+                context: context,
+                color: AppColor.white)));
+      }
+    }
+    catch(e){
+      print("error: $e");
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: appText(
+              title: e.toString(),
+              context: context,
+              color: AppColor.white)));
+    }
+
+  }
+
 }

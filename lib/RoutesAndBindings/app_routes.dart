@@ -82,7 +82,10 @@ abstract class AppRoutes {
   static const serviceProviderProfile = '/serviceProviderProfile';
   static const collectInfoProfile = '/collectInfoProfile';
   static const selectFeaturedtype = '/selectFeaturedtype';
-  static const serviceDetail = '/serviceDetail';
+  static const nearesServiceDetail = '/nearestServiceDetail';
+  static const subServices = '/subServices';
+  static const BidViewScreen = '/BidViewScreen';
+
 
   //----------vender------------//
 

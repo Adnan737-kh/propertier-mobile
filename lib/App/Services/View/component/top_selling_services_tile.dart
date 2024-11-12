@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:propertier/App/Services/Model/FixedServicesModel.dart';
+import 'package:propertier/App/Services/Model/ServiceDashboardModel.dart';
 import 'package:propertier/App/Services/Model/services_model.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/border.dart';
@@ -8,6 +9,37 @@ import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/size_extension.dart';
+
+
+Widget nearbyServicesBox(BuildContext context, NearbyServices service,
+    {required VoidCallback onClick}) {
+  return GestureDetector(
+    onTap: onClick,
+    child: SizedBox(
+      width: context.getSize.width * 0.3,
+      child: Column(
+        children: [
+          Container(
+            height: 95,
+            width: 95,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: border(),
+                boxShadow: [boxShadow()],
+                image: DecorationImage(
+                    image: NetworkImage(service.imageUrls?.first??""), fit: BoxFit.cover)),
+          ),
+          getHeight(context, 0.008),
+          appText(
+              title: service.title??"",
+              context: context,
+              fontSize: 12,
+              fontWeight: FontWeight.w500)
+        ],
+      ),
+    ),
+  );
+}
 
 Widget fixedPriceServicesBox(BuildContext context, FixedServicesModel service,
     {required VoidCallback onClick}) {

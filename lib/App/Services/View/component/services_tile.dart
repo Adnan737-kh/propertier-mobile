@@ -10,7 +10,7 @@ import 'package:propertier/extensions/size_extension.dart';
 
 Widget servicesTile({
   required VoidCallback onTap,
-  required ServicesModel service,
+  required ParentServicesModel service,
   required BuildContext context,
 }) {
   return GestureDetector(
@@ -24,12 +24,9 @@ Widget servicesTile({
           borderRadius: BorderRadius.circular(10)),
       child: Column(
         children: [
-          SvgPicture.asset(
-            service.icon,
-            height: context.getSize.height * 0.12,
-          ),
+          Image.network(service.imageUrl??"",height: context.getSize.height * 0.12,),
           getHeight(context, 0.005),
-          appText(title: service.title, context: context)
+          appText(title: service.title??"", context: context)
         ],
       ),
     ),

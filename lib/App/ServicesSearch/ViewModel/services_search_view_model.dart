@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:propertier/App/ServicesSearch/Service/ServicesSearch_Service.dart';
+
+import '../../../RoutesAndBindings/app_routes.dart';
+import '../../../Utils/app_text.dart';
+import '../../../constant/colors.dart';
+import '../../Services/Model/services_model.dart';
 
 class ServicesSearhViewModel extends GetxController {
   TextEditingController searchController = TextEditingController();
@@ -31,5 +37,37 @@ class ServicesSearhViewModel extends GetxController {
       }
     }
     print("Length ${imageFileList.length}");
+  }
+
+  Future createBidByCustomer(BuildContext context,ParentServicesModel parentServicesModel, Subservices subservices)async{
+    List<String> imagesPath = [];
+    for(XFile file in imageFileList){
+      imagesPath.add(file.path);
+    }
+    if(imagesPath.isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: appText(
+              title: 'Upload images',
+              context: context,
+              color: AppColor.white)));
+      return;
+    }
+    if(descriptionController.text == ""){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: appText(
+              title: 'Write a description.',
+              context: context,
+              color: AppColor.white)));
+      return;
+    }
+    String? id =  await ServicessearchService().createBidByCustomer(context: context, images: imagesPath, description: descriptionController.text, service: parentServicesModel.id.toString(), subService: subservices.id.toString());
+    if(id != null){
+      Get.toNamed(AppRoutes.servicesSearch2View,
+          arguments: {
+            'id': id,
+            'parentServicesModel': parentServicesModel,
+            'subServices': subservices
+          });
+    }
   }
 }

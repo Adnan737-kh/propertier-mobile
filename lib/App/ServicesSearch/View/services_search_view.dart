@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:propertier/App/Services/Model/services_model.dart';
 import 'package:propertier/App/ServicesSearch/View/component/description_text_field.dart';
@@ -21,10 +23,14 @@ import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
+import '../../../Utils/box_shadow.dart';
+
 class ServicesSearchView extends StatelessWidget {
   ServicesSearchView({super.key});
 
-  ServicesModel service = Get.arguments;
+  ParentServicesModel parentServicesModel = Get.arguments['parentServiceModel'];
+  Subservices subservices = Get.arguments['subService'];
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -84,6 +90,9 @@ class ServicesSearchView extends StatelessWidget {
                             ],
                           )),
                       getHeight(context, 0.015),
+                      parentServicesModel.imageUrl != null?
+                          Image.network(parentServicesModel.imageUrl??Constant.dummayImage,height: 100,
+                            width: 86,):
                       SvgPicture.asset(
                         Constant.servicesSearchIcon,
                         height: 100,
@@ -91,11 +100,117 @@ class ServicesSearchView extends StatelessWidget {
                       ),
                       getHeight(context, 0.01),
                       appText(
-                          title: service.title,
+                          title: parentServicesModel.title??"",
                           fontSize: 18,
                           colorOpecity: 0.6,
                           fontWeight: FontWeight.w500,
                           context: context),
+                      getHeight(context, 0.01),
+                      Column(
+                        children: [
+                          InstaImageViewer(
+                            imageUrl:
+                            subservices.coverImageUrl??
+                                Constant.dumyImage2,
+                            child: Container(
+                              alignment: Alignment.topCenter,
+                              padding: EdgeInsets.only(
+                                  left: 36,
+                                  right: 36,
+                                  top: context.getSize.height * 0.050),
+                              width: context.getSize.width,
+                              height: context.getSize.height * 0.20,
+                              decoration: BoxDecoration(
+                                // border: Border.all(width: 5),
+                                  boxShadow: [boxShadow()],
+                                  image: subservices.coverImageUrl == null
+                                      ? null
+                                      : DecorationImage(
+                                      image: NetworkImage(subservices.coverImageUrl??
+                                          Constant.dumyImage2),
+                                      fit: BoxFit.cover)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const SizedBox.shrink(),
+                                  GestureDetector(
+                                    onTap: () {},
+                                    child: const Icon(
+                                      Icons.share,
+                                      color: AppColor.white,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding:
+                            const EdgeInsets.symmetric(vertical: 10, horizontal: 36),
+                            width: context.getSize.width,
+                            decoration: BoxDecoration(
+                                color: AppColor.white,
+                                boxShadow: [boxShadow()],
+                                borderRadius: const BorderRadius.only(
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10),
+                                )),
+                            // height: context.getSize.height * 0.12,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    appText(
+                                        title: subservices.title ??"",
+                                        context: context,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600),
+                                    getWidth(context, 0.010),
+                                    Container(
+                                      padding: const EdgeInsets.all(5),
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: AppColor.buttonColor),
+                                      child: Icon(
+                                        Icons.check,
+                                        size: context.getSize.width * 0.03,
+                                        color: AppColor.blackColor,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                getHeight(context, 0.010),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: RatingBarIndicator(
+                                    rating: 4,
+                                    unratedColor: AppColor.greenColor,
+                                    itemBuilder: (context, index) => const Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    itemCount: 5,
+                                    itemSize: context.getSize.width * 0.034,
+                                    direction: Axis.horizontal,
+                                  ),
+                                ),
+                                getHeight(context, 0.020),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: appText(
+                                      colorOpecity: 0.6,
+                                      title: subservices.description??"",
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w600,
+                                      context: context),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                       getHeight(context, 0.016),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,8 +271,7 @@ class ServicesSearchView extends StatelessWidget {
                               context: context,
                               title: 'Offer to Plumber',
                               onClick: () {
-                                Get.toNamed(AppRoutes.servicesSearch2View,
-                                    arguments: service);
+                                viewModel.createBidByCustomer(context,parentServicesModel,subservices);
                               })
                         ],
                       )

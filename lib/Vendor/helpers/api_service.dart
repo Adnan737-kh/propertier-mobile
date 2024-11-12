@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 import 'package:propertier/Network/api_urls.dart';
@@ -17,6 +18,7 @@ import 'package:propertier/Vendor/screens/dashboard/profile/model/award_model.da
 import 'package:propertier/Vendor/screens/dashboard/profile/model/profile_model.dart';
 import 'package:propertier/Vendor/screens/dashboard/profile/model/service_model.dart';
 import 'package:propertier/Vendor/screens/drawer/review/Model/review_model.dart';
+import 'package:propertier/Vendor/screens/drawer/vehicle_list/model/VehicleModel.dart';
 
 import '../screens/dashboard/Posts/add_post/Model/add_post_model.dart';
 
@@ -307,7 +309,7 @@ Future<bool> deleteService(int serviceId) async {
     }
   }
 
-Future<void> updateCoverPicture(String vendorUserId, File imageFile) async {
+Future<void> updateCoverPicture(String vendorUserId, File imageFile,String firebaseid, String email) async {
 
      final String apiUrl = '${API.updateCoverPicture}/$vendorUserId/';  
 
@@ -318,6 +320,52 @@ Future<void> updateCoverPicture(String vendorUserId, File imageFile) async {
       )..files.add(
           await http.MultipartFile.fromPath('cover_photo', imageFile.path)
         );
+
+      request.fields['type'] = "vendor";
+      request.fields['firebase_id'] = firebaseid;
+      request.fields['email'] = email;
+
+      var response = await request.send();
+
+      if (response.statusCode != 200) {
+        throw Exception('Failed to update cover picture. Status: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('An error occurred while updating the cover picture: $e');
+    }
+  }
+  Future<void> updateDrivingLicense( File? front, File? back, String vendorUserId, String firebaseid, String email) async {
+
+     final String apiUrl = '${API.updateCoverPicture}/$vendorUserId/';
+
+    try {
+      var request = http.MultipartRequest(
+        'PATCH',
+        Uri.parse(apiUrl),
+      );
+
+      if(front != null){
+        request.files.add(
+          await http.MultipartFile.fromPath(
+            'driving_licence_front',
+            front.path,
+          ),
+        );
+      }
+
+      if(back != null){
+        request.files.add(
+          await http.MultipartFile.fromPath(
+            'driving_licence_back',
+            back.path,
+          ),
+        );
+      }
+
+
+      request.fields['type'] = "vendor";
+      request.fields['firebase_id'] = firebaseid;
+      request.fields['email'] = email;
 
       var response = await request.send();
 
@@ -705,7 +753,87 @@ Future<void> updateCoverPicture(String vendorUserId, File imageFile) async {
     var streamedResponse = await request.send();
     return await http.Response.fromStream(streamedResponse);
   }
-  
+
+
+
+  Future<List<VehicleModel>> fetchMyVehicles(String vendorId) async {
+    List<VehicleModel> vehicles = [];
+    try{
+      final url = Uri.parse("${API.getvendorvehicles}$vendorId/");
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        List<dynamic> data = json.decode(response.body);
+        for(var d in data){
+          VehicleModel vehicleModel = VehicleModel.fromJson(d);
+          // print(vehicleModel.images?.length);
+          vehicles.add(vehicleModel);
+        }
+
+      } else {
+        throw Exception('Failed to load titles for the service');
+      }
+    }
+    catch(e){
+      print("Error ::: $e");
+    }
+
+    return vehicles;
+  }
+
+  Future<http.Response> addVehicle({required String vendorid,required String make, required String model, required String color, required String name, required String capacity, required String fuelType, required String registrationNumber, required String year, required String transmissionType, required List<String> images})async{
+    final String apiUrl = '${API.addvehicles}';
+
+    var request = http.MultipartRequest(
+      'POST',
+      Uri.parse(apiUrl),
+    )
+      ..fields['vendor'] = vendorid
+      ..fields['make'] = make
+      ..fields['model'] = model
+      ..fields['year'] = year
+      ..fields['color'] = color
+      ..fields['registration_number'] = registrationNumber
+      ..fields['owner_name'] = name
+      ..fields['capacity'] = capacity
+      ..fields['fuel_type'] = fuelType
+      ..fields['transmission_type'] = transmissionType;
+
+
+    for(String img in images){
+      request.files.add(
+          await http.MultipartFile.fromPath('images', img));
+    }
+
+    var streamedResponse = await request.send();
+    print(streamedResponse.statusCode);
+    return  await http.Response.fromStream(streamedResponse);
+  }
+
+  Future updateVendorLocation(LatLng latlng, String id)async{
+    try{
+      String url = "${API.updateVendorLocation}$id/";
+      final Map<String, dynamic> data = {
+        "latitude_position": latlng.latitude,
+        "longitude_position": latlng.longitude,
+      };
+
+      final encodedData = jsonEncode(data);
+      print(url);
+
+      final response = await http.put(
+        Uri.parse(url),
+        headers: <String, String>{'Content-Type': 'application/json'},
+        body: encodedData,
+      );
+      print(response.statusCode);
+      print(response.body);
+
+    }
+    catch(e){
+      print(e);
+    }
+  }
 }
 
 

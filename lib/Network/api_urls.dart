@@ -38,6 +38,7 @@ class API {
   static const venregisterUrl = '$baseURL/accounts/vendors';
   static const fetchProfile = '$baseURL/accounts/vendors';
   static const updateUserProfile = '$baseURL/accounts/vendors';
+  static const deleteVendorProfile = '$baseURL/accounts/vendors';
   static const updateCoverPicture = '$baseURL/accounts/vendors';
   static const addAwards = '$baseURL/services/vendor-awards/';
   static const getAwards = '$baseURL/services/awards-for-vendor';
@@ -51,13 +52,27 @@ class API {
   static const postWithoutFeaturePackage = '$baseURL/services/vendor-services/';
   static const postWithFeaturePackage = '$baseURL/services/featured-services/';
   static const submitFeaturePackage = '$baseURL/services/feature-packages/';
-  static const fetchParentServices = '$baseURL/services/services/';
   static const fetchVendorFeedbacks = '$baseURL/services/vendor-feedbacks';
   static const uploadDocuments = '$baseURL/accounts/vendors'; //cnic and otherdocuments
   static const incoProDocuments = '$baseURL/accounts/vendors'; //Incorporation and Proprietor Documents
 
+  // *************  Services *****************
+  static const serviceMobileDashboard = '$baseURL/services/mobile-dashboard/';
   static const socketSubservice = '$baseURL/services/service';
   static const fixedServices = '$baseURL/services/fixed-services/';
+  static const fetchParentServices = '$baseURL/services/services/';
+  static const createBidByCustomer = '$baseURL/services/bids/';
+  static const listenBidByVendor = '${baseWebSocketURL}ws/bid-responses/';
+  static const listenOrderByCustomer = '${baseWebSocketURL}ws/bids/filtered-bids/';
+  static const offerByVendor = '$baseURL/services/bid-responses/';
+  static const getvendorvehicles = '$baseURL/services/transportcars/vendor/';
+  static const addvehicles = '$baseURL/services/transportcars/';
+  static const createOrder = '$baseURL/services/orders/';
+  static const trackVendorLocation = '$baseURL/services/track-vendor-location/';
+  static const updateVendorLocation = '$baseURL/services/update-vendor-location/';
+  static const vendorOrder = '$baseURL/services/vendor-orders/';
+  static const customerOrder = '$baseURL/services/customer-orders/';
+  static const getSubService = '$baseURL/services/sub-services/';
 }
 
 class BaseUrl {

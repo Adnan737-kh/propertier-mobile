@@ -14,15 +14,18 @@ import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
+import '../../ServicesSearch/model/VendorResponseModel.dart';
+
 // ignore: must_be_immutable
 class ServicesMapView extends StatelessWidget {
   ServicesMapView({super.key});
-  ServicesModel service = Get.arguments;
+  VendorOfferModel offer = Get.arguments;
   @override
   Widget build(BuildContext context) {
     return GetX<ServicesMapViewModel>(
-        init: ServicesMapViewModel(),
+        init: ServicesMapViewModel(BitmapDescriptor.defaultMarker,),
         builder: (viewModel) {
+          viewModel.startTracking(offer.bidResponse?.vendor?.id.toString());
           return Scaffold(
             backgroundColor: const Color.fromRGBO(19, 26, 34, 1),
             body: viewModel.showMap == false
@@ -44,32 +47,31 @@ class ServicesMapView extends StatelessWidget {
                         SizedBox(
                           height: context.getSize.height,
                           width: context.getSize.width,
-                          child: GoogleMap(
-                              myLocationButtonEnabled: false,
-                              zoomControlsEnabled: false,
-                              mapType: MapType.normal,
-                              onMapCreated: viewModel.onMapCreated,
-                              markers: {
-                                viewModel.marker1,
-                                Marker(
-                                    markerId: const MarkerId('CurrentMarker'),
-                                    icon: viewModel.currentLocationMarker.value,
-                                    position: LatLng(
-                                        viewModel.currentLocation.altitude,
-                                        viewModel.currentLocation.longitude)),
-                                viewModel.marker2
-                              },
-                              polylines: {
-                                Polyline(
-                                  jointType: JointType.round,
-                                  polylineId: const PolylineId('routes'),
-                                  points: viewModel.polylineCoordinates,
-                                  color: Colors.blue,
-                                  width: 6,
-                                )
-                              },
-                              initialCameraPosition:
-                                  viewModel.initialCameraPosition.value),
+                          child:Obx(()=>  GoogleMap(
+                            initialCameraPosition: CameraPosition(
+                              target: viewModel.markerPosition.value,
+                              zoom: 14.0,
+                            ),
+                            onMapCreated: (GoogleMapController controller) {
+                              viewModel.onMapCreated(controller);
+
+                              // Load custom marker icon after map is created
+                              BitmapDescriptor.fromAssetImage(
+                                ImageConfiguration(size: Size(48, 48)),
+                                'assets/icons/person.png',
+                              ).then((icon) {
+                                viewModel.customIcon = icon;
+                              });
+                            },
+                            markers: {
+                              Marker(
+                                markerId: MarkerId('animated_marker'),
+                                infoWindow: InfoWindow(title: "Vendor Location"),
+                                position: viewModel.markerPosition.value,
+                                // icon: viewModel.customIcon,
+                              ),
+                            },
+                          )),
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
@@ -113,7 +115,7 @@ class ServicesMapView extends StatelessWidget {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               appText(
-                                                  title: "Maryam Nawaz",
+                                                  title: offer.bidResponse?.vendor?.name??"",
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w500,
                                                   context: context),
@@ -155,7 +157,8 @@ class ServicesMapView extends StatelessWidget {
                                   onTap: () {
                                     showCustomPopup(context,
                                         viewModel: viewModel,
-                                        serviceName: service.title);
+                                        serviceName: offer.bidResponse?.vendor?.name??"",
+                                    id: offer.bidResponse?.id.toString()??"");
                                     viewModel.isShowCancelButton(false);
                                   },
                                   child: Container(

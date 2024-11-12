@@ -2,7 +2,9 @@ import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:propertier/App/NavBar/View/nav_bar_view.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/Vendor/screens/dashboard/Posts/post_screen.dart';
@@ -11,6 +13,7 @@ import 'package:propertier/Vendor/screens/dashboard/fearture_ads/view/feature_ad
 import 'package:propertier/Vendor/screens/dashboard/home/view/home_screen.dart';
 import 'package:propertier/Vendor/screens/dashboard/profile/controller/profile_controller.dart';
 import 'package:propertier/Vendor/screens/dashboard/profile/view/profile.dart';
+import 'package:propertier/Vendor/screens/dashboard/viewmodel/DashboardViewModel.dart';
 import 'package:propertier/Vendor/screens/widgets/drawer_widget.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
@@ -40,6 +43,21 @@ class DashboardState extends State<Dashboard>
     });
   }
 
+  final DashboardViewModel dashboardViewModel = Get.put(DashboardViewModel());
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    dashboardViewModel.startLocationLoop();
+  }
+
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    dashboardViewModel.stopLocationLoop();
+  }
   @override
   Widget build(BuildContext context) {
     super.build(context);

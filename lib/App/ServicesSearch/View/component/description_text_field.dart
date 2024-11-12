@@ -5,8 +5,9 @@ import 'package:propertier/extensions/localization_extension.dart';
 
 class DescriptionTextField extends StatelessWidget {
   final TextEditingController descriptionController;
-  DescriptionTextField({super.key, required this.descriptionController});
+  DescriptionTextField({super.key, required this.descriptionController, this.hintText});
   var border = InputBorder.none;
+  String? hintText;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -25,7 +26,7 @@ class DescriptionTextField extends StatelessWidget {
           errorBorder: border,
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-          hintText: context.local.completeDescriptionABoutYourWork,
+          hintText: hintText??context.local.completeDescriptionABoutYourWork,
           hintStyle: textStyle(
               context: context,
               fontSize: 10,

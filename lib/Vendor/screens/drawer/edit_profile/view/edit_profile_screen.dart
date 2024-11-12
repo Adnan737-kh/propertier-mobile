@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -59,10 +58,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     // print('Vendor User ID: $vendorUserId');
 
     originalProfile = profileController.profile.value.copyWith();
-    addressController =
-        TextEditingController(text: profileController.profile.value.address);
-    phoneController = TextEditingController(
-        text: profileController.profile.value.phoneNumber);
+    addressController = TextEditingController(text: profileController.profile.value.address);
+    phoneController = TextEditingController(text: profileController.profile.value.phoneNumber);
   }
 
   final ImagePicker _picker = ImagePicker();
@@ -70,7 +67,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Future<void> _updateProfilePicture() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
-      await profileController.updateProfilePicture(File(image.path));
+      await profileController.updateProfilePicture(File(image.path), vendorUserId);
     }
   }
 
@@ -104,355 +101,428 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Column(
-        children: [
-          Column(children: [
-            Stack(
-              alignment: Alignment.bottomCenter,
-              clipBehavior: Clip.none,
-              children: [
-                Container(
-                  height: Get.height * .16,
-                  width: Get.size.width,
-                  decoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        width: 1,
-                        color: Colors.black.withOpacity(0.05000000074505806),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Column(children: [
+              Stack(
+                alignment: Alignment.bottomCenter,
+                clipBehavior: Clip.none,
+                children: [
+                  Container(
+                    height: Get.height * .16,
+                    width: Get.size.width,
+                    decoration: ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          width: 1,
+                          color: Colors.black.withOpacity(0.05000000074505806),
+                        ),
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(40),
+                          bottomRight: Radius.circular(40),
+                        ),
                       ),
+                      shadows: const [
+                        BoxShadow(
+                          color: Color(0x19000000),
+                          blurRadius: 10,
+                          offset: Offset(0, 1),
+                          spreadRadius: 0,
+                        )
+                      ],
+                    ),
+                    child: ClipRRect(
                       borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(40),
                         bottomRight: Radius.circular(40),
                       ),
-                    ),
-                    shadows: const [
-                      BoxShadow(
-                        color: Color(0x19000000),
-                        blurRadius: 10,
-                        offset: Offset(0, 1),
-                        spreadRadius: 0,
-                      )
-                    ],
-                  ),
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(40),
-                      bottomRight: Radius.circular(40),
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        _updateCoverPicture();
-                      },
-                      child: Obx(() {
-                        return profileController
-                                .selectedCoverPhotoPath.isNotEmpty
-                            ? Image.file(
-                                File(profileController
-                                    .selectedCoverPhotoPath.value),
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                                height: 200,
-                              )
-                            : Image.network(
-                                profileController.profile.value.coverPhotoUrl ??
-                                    'https://images.unsplash.com/photo-1719054415148-b83895be5157?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90b3MtZmVlZHw0NHx8fGVufDB8fHx8fA%3D%3D',
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                                height: 200,
-                              );
-                      }),
-                    ),
-                  ),
-                ),
-                Positioned(
-                    top: 22,
-                    left: 6,
-                    right: 8,
-                    child: Row(children: [
-                      IconButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          icon: const Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                          )),
-                      const Text(
-                        'Edit Profile',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ])),
-                Positioned(
-                  top: 89,
-                  child: Stack(
-                    children: [
-                      InkWell(
+                      child: InkWell(
                         onTap: () {
-                          _updateProfilePicture();
+                          _updateCoverPicture();
                         },
-                        child: Container(
-                          width: 95,
-                          height: 95,
-                          decoration: ShapeDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(profileController
-                                      .profile.value.profilePictureUrl ??
-                                  "https://images.unsplash.com/photo-1719054415148-b83895be5157?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90b3MtZmVlZHw0NHx8fGVufDB8fHx8fA%3D%3D"),
-                              fit: BoxFit.cover,
-                            ),
-                            shape: const OvalBorder(
-                              side: BorderSide(width: 5, color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          profileController.profile.value.followers.toString(),
-                          style: const TextStyle(
-                            color: Color(0xFFFDCD54),
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        const SizedBox(height: 2),
-                        const Text(
-                          'Followers',
-                          style: TextStyle(
-                            color: Color(0x99131A22),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(width: 145),
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          profileController.profile.value.likes.toString(),
-                          style: const TextStyle(
-                            color: Color(0xFFFDCD54),
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        const SizedBox(height: 2),
-                        const Text(
-                          'Likes',
-                          style: TextStyle(
-                            color: Color(0x99131A22),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      profileController.profile.value.name.toString(),
-                      style: const TextStyle(
-                        color: Color(0xFF131A22),
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
+                        child: Obx(() {
+                          return profileController
+                                  .selectedCoverPhotoPath.isNotEmpty
+                              ? Image.file(
+                                  File(profileController
+                                      .selectedCoverPhotoPath.value),
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                  height: 200,
+                                )
+                              : Image.network(
+                                  profileController.profile.value.coverPhotoUrl ??
+                                      'https://images.unsplash.com/photo-1719054415148-b83895be5157?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90b3MtZmVlZHw0NHx8fGVufDB8fHx8fA%3D%3D',
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                  height: 200,
+                                );
+                        }),
                       ),
                     ),
-                    Text(
-                      '( ${profileController.profile.value.designation} )',
-                      style: const TextStyle(
-                        color: Color(0xFFB8B8B8),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 6,
-                ),
-                // RatingBar.builder(
-                //     initialRating:
-                // profileController.profile.value!.name?.toDouble(),
-                // minRating: 0,
-                // direction: Axis.horizontal,
-                // allowHalfRating: true,
-                // itemCount: 5,
-                // itemSize: 20,
-                // itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
-                // itemBuilder: (context, _) => const Icon(
-                //       Icons.star,
-                //       color: Colors.amber,
-                //       size: 26,
-                //     ),
-                // onRatingUpdate: (rating) async {}),
-                const SizedBox(
-                  height: 8,
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  PrimaryTextField(
-                    controller: TextEditingController(
-                        text: profileController.profile.value.name),
-                    headertext: 'Full Name',
-                    text: 'your name',
-                    suffixIcon: const Icon(
-                      Icons.edit,
-                      color: Colors.blue,
-                    ),
-                    onChanged: (value) =>
-                        profileController.profile.value.name = value,
                   ),
-                  const SizedBox(
-                    height: 19,
-                  ),
-                  const Text(
-                    'Phone Number',
-                    style: TextStyle(
-                      color: Color(0xFF131A22),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 2,
-                  ),
-                  TextFormField(
-                    cursorColor: Colors.black,
-                    controller: TextEditingController(
-                        text: profileController.profile.value.phoneNumber),
-                    onChanged: (value) =>
-                        profileController.profile.value.phoneNumber = value,
-                    decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(
-                          vertical: MediaQuery.of(context).size.width * 0.029,
-                        ),
-                        labelStyle: const TextStyle(
-                          fontSize: 16,
-                        ),
-                        hintText: 'your number',
-                        hintStyle: const TextStyle(
-                          color: Color(0xB2131A22),
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        prefixIcon: Container(
-                          padding: const EdgeInsets.only(
-                            top: 11,
-                            right: 9,
-                            left: 2,
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              showCountryPicker(
-                                context: context,
-                                countryListTheme: CountryListThemeData(
-                                  bottomSheetHeight: Get.height * .5,
-                                  inputDecoration: InputDecoration(
-                                    labelText: 'Search',
-                                    hintText: 'Start typing to search',
-                                    prefixIcon: const Icon(Icons.search),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: const Color(0xFF8C98A8)
-                                            .withOpacity(0.2),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                onSelect: (value) {
-                                  setState(() {
-                                    selectedCountry = value;
-                                  });
-                                },
-                              );
+                  Positioned(
+                      top: 22,
+                      left: 6,
+                      right: 8,
+                      child: Row(children: [
+                        IconButton(
+                            onPressed: () {
+                              Get.back();
                             },
-                            child: Text(
-                              "${selectedCountry.flagEmoji} ${selectedCountry.phoneCode}",
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w400,
+                            icon: const Icon(
+                              Icons.arrow_back,
+                              color: Colors.white,
+                            )),
+                        const Text(
+                          'Edit Profile',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ])),
+                  Positioned(
+                    top: 89,
+                    child: Stack(
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            _updateProfilePicture();
+                          },
+                          child: Container(
+                            width: 95,
+                            height: 95,
+                            decoration: ShapeDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(profileController
+                                        .profile.value.profilePictureUrl ??
+                                    "https://images.unsplash.com/photo-1719054415148-b83895be5157?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90b3MtZmVlZHw0NHx8fGVufDB8fHx8fA%3D%3D"),
+                                fit: BoxFit.cover,
+                              ),
+                              shape: const OvalBorder(
+                                side: BorderSide(width: 5, color: Colors.white),
                               ),
                             ),
                           ),
                         ),
-                        suffixIcon: const Icon(
-                          Icons.edit,
-                          color: Colors.blue,
-                        )),
-                    keyboardType: TextInputType.phone,
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            profileController.profile.value.followers.toString(),
+                            style: const TextStyle(
+                              color: Color(0xFFFDCD54),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          const Text(
+                            'Followers',
+                            style: TextStyle(
+                              color: Color(0x99131A22),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(width: 145),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            profileController.profile.value.likes.toString(),
+                            style: const TextStyle(
+                              color: Color(0xFFFDCD54),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          const Text(
+                            'Likes',
+                            style: TextStyle(
+                              color: Color(0x99131A22),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                   const SizedBox(
-                    height: 19,
+                    height: 8,
                   ),
-                  PrimaryTextField(
-                    controller: passwordController,
-                    headertext: 'Password',
-                    text: '24643456',
-                    // obsecure: _obscurePassword,
-                    suffixIcon: const Icon(
-                      Icons.edit,
-                      color: Colors.blue,
-                    ),
-                  ),
-                  const SizedBox(height: 19),
-                  PrimaryTextField(
-                    controller: addressController,
-                    headertext: 'Address',
-                    text: 'Bahria town phase 7 ,lahore',
-                    suffixIcon: const Icon(
-                      Icons.edit,
-                      color: Colors.blue,
-                    ),
-                    onChanged: (value) =>
-                        profileController.profile.value.address = value,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        profileController.profile.value.name.toString(),
+                        style: const TextStyle(
+                          color: Color(0xFF131A22),
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Text(
+                        (profileController.profile.value.drivingLicenseVerified??false) == true? "Verified": "Un-verified",
+                        style:  TextStyle(
+                          color: (profileController.profile.value.drivingLicenseVerified??false) == true? Colors.green: Colors.red,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(
-                    height: 44,
+                    height: 6,
                   ),
-                  SingleChildScrollView(
-                    child: InkWell(
+                  // RatingBar.builder(
+                  //     initialRating:
+                  // profileController.profile.value!.name?.toDouble(),
+                  // minRating: 0,
+                  // direction: Axis.horizontal,
+                  // allowHalfRating: true,
+                  // itemCount: 5,
+                  // itemSize: 20,
+                  // itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
+                  // itemBuilder: (context, _) => const Icon(
+                  //       Icons.star,
+                  //       color: Colors.amber,
+                  //       size: 26,
+                  //     ),
+                  // onRatingUpdate: (rating) async {}),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    PrimaryTextField(
+                      controller: TextEditingController(
+                          text: profileController.profile.value.name),
+                      headertext: 'Full Name',
+                      text: 'your name',
+                      suffixIcon: const Icon(
+                        Icons.edit,
+                        color: Colors.blue,
+                      ),
+                      onChanged: (value) =>
+                          profileController.profile.value.name = value,
+                    ),
+                    const SizedBox(
+                      height: 19,
+                    ),
+                    const Text(
+                      'Phone Number',
+                      style: TextStyle(
+                        color: Color(0xFF131A22),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    TextFormField(
+                      cursorColor: Colors.black,
+                      controller: TextEditingController(
+                          text: profileController.profile.value.phoneNumber),
+                      onChanged: (value) =>
+                          profileController.profile.value.phoneNumber = value,
+                      decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: MediaQuery.of(context).size.width * 0.029,
+                          ),
+                          labelStyle: const TextStyle(
+                            fontSize: 16,
+                          ),
+                          hintText: 'your number',
+                          hintStyle: const TextStyle(
+                            color: Color(0xB2131A22),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          prefixIcon: Container(
+                            padding: const EdgeInsets.only(
+                              top: 11,
+                              right: 9,
+                              left: 2,
+                            ),
+                            child: InkWell(
+                              onTap: () {
+                                showCountryPicker(
+                                  context: context,
+                                  countryListTheme: CountryListThemeData(
+                                    bottomSheetHeight: Get.height * .5,
+                                    inputDecoration: InputDecoration(
+                                      labelText: 'Search',
+                                      hintText: 'Start typing to search',
+                                      prefixIcon: const Icon(Icons.search),
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: const Color(0xFF8C98A8)
+                                              .withOpacity(0.2),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  onSelect: (value) {
+                                    setState(() {
+                                      selectedCountry = value;
+                                    });
+                                  },
+                                );
+                              },
+                              child: Text(
+                                "${selectedCountry.flagEmoji} ${selectedCountry.phoneCode}",
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                          ),
+                          suffixIcon: const Icon(
+                            Icons.edit,
+                            color: Colors.blue,
+                          )),
+                      keyboardType: TextInputType.phone,
+                    ),
+                    const SizedBox(
+                      height: 19,
+                    ),
+                    PrimaryTextField(
+                      controller: passwordController,
+                      headertext: 'Password',
+                      text: '24643456',
+                      // obsecure: _obscurePassword,
+                      suffixIcon: const Icon(
+                        Icons.edit,
+                        color: Colors.blue,
+                      ),
+                    ),
+                    const SizedBox(height: 19),
+                    PrimaryTextField(
+                      controller: addressController,
+                      headertext: 'Address',
+                      text: 'Bahria town phase 7 ,lahore',
+                      suffixIcon: const Icon(
+                        Icons.edit,
+                        color: Colors.blue,
+                      ),
+                      onChanged: (value) =>
+                          profileController.profile.value.address = value,
+                    ),
+                    const SizedBox(height: 19),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Driving License Front",
+                          style: const TextStyle(
+                            color: Color(0xFF131A22),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: ()async{
+                            final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+                            if (image != null) {
+                              profileController.updateDrivingLicense(File(image.path), null, vendorUserId);
+                            }
+                          },
+                          child: (profileController.profile.value.drivingLicenseFrontUrl??"") == ""?
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            width: Get.width,
+                            height: 100,
+                            decoration: BoxDecoration(
+                                color: Colors.grey.withOpacity(0.3),
+                                borderRadius: BorderRadius.circular(10)
+                            ),
+                            alignment: Alignment.center,
+                            child: Text("Upload Image"),
+                          ): Container(
+                              margin: EdgeInsets.symmetric(vertical: 10),
+                              height: 150,
+                              child: Center(child: Image.network(profileController.profile.value.drivingLicenseFrontUrl!))),
+                        )
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Driving License Back",
+                          style: const TextStyle(
+                            color: Color(0xFF131A22),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: ()async{
+                            final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+                            if (image != null) {
+                              profileController.updateDrivingLicense(null,File(image.path), vendorUserId);
+                            }
+                          },
+                          child: (profileController.profile.value.drivingLicenseBackUrl??"") == ""?
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            width: Get.width,
+                            height: 100,
+                            decoration: BoxDecoration(
+                                color: Colors.grey.withOpacity(0.3),
+                                borderRadius: BorderRadius.circular(10)
+                            ),
+                            alignment: Alignment.center,
+                            child: Text("Upload Image"),
+                          ): Container(
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            height: 150,
+                              child: Center(child: Image.network(profileController.profile.value.drivingLicenseBackUrl!))),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 44,
+                    ),
+                    InkWell(
                       onTap: () async {
                         final currentProfile = profileController.profile.value;
 
@@ -496,12 +566,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            )
-          ]),
-        ],
+                  ],
+                ),
+              )
+            ]),
+          ],
+        ),
       ),
     );
   }

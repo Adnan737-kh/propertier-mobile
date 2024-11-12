@@ -1,11 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:propertier/App/Home/View/home_view.dart';
-import 'package:propertier/App/ServiceDetail/View/service_view.dart';
-import 'package:propertier/App/Services/Model/FixedServicesModel.dart';
+import 'package:propertier/App/Services/Model/ServiceDashboardModel.dart';
 import 'package:propertier/App/Services/Model/services_model.dart';
 import 'package:propertier/App/Services/View/component/services_appbar.dart';
 import 'package:propertier/App/Services/View/component/services_short_videos_tile.dart';
@@ -33,6 +30,7 @@ class ServciesView extends StatelessWidget {
           systemNavigationBarIconBrightness: Brightness.dark,
           systemNavigationBarColor: AppColor.backgroundColor),
     );
+    // viewModel.getAllParentServices(context);
     return Scaffold(
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
@@ -68,28 +66,47 @@ class ServciesView extends StatelessWidget {
                             vertical: context.getSize.height * 0.01),
                         child: Column(
                           children: [
-                            GridView.builder(
-                                padding: const EdgeInsets.all(0),
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  mainAxisExtent: context.getSize.height * 0.18,
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 8,
-                                  mainAxisSpacing: 8,
-                                ),
-                                itemCount: viewModel.servciesList.length,
-                                itemBuilder: (context, index) {
-                                  return servicesTile(
-                                    onTap: () {
-                                      Get.toNamed(AppRoutes.servicesSearchView,
-                                          arguments:
-                                              viewModel.servciesList[index]);
-                                    },
-                                    service: viewModel.servciesList[index],
-                                    context: context,
-                                  );
+                            FutureBuilder(
+                                future: viewModel.getAllParentServices(context),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(
+                                        color: AppColor.buttonColor,
+                                      ),
+                                    );
+                                  }
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.done) {
+                                    List<ParentServicesModel> services =
+                                        snapshot.data ?? [];
+                                    return GridView.builder(
+                                        padding: const EdgeInsets.all(0),
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        gridDelegate:
+                                            SliverGridDelegateWithFixedCrossAxisCount(
+                                          mainAxisExtent:
+                                              context.getSize.height * 0.18,
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 8,
+                                          mainAxisSpacing: 8,
+                                        ),
+                                        itemCount: services.length,
+                                        itemBuilder: (context, index) {
+                                          return servicesTile(
+                                            onTap: () {
+                                              Get.toNamed(AppRoutes.subServices,
+                                                  arguments: services[index]);
+                                            },
+                                            service: services[index],
+                                            context: context,
+                                          );
+                                        });
+                                  }
+                                  return SizedBox();
                                 }),
                             getHeight(context, 0.015),
                             textButton(
@@ -98,51 +115,77 @@ class ServciesView extends StatelessWidget {
                                 onClick: () {}),
                             getHeight(context, 0.015),
                             gridTitleTile(context,
-                                title: context.local.fixedPriceServices,
+                                // title: context.local.topSellingServices,
+                                title: "Nearest Services",
                                 callBack: () {
                               // Get.toNamed(AppRoutes.propertiesAndVideoView,
                               //     arguments:
                               //         PoropertiesAndVideoEnum.topselling);
                             }, fontSize: 14),
                             getHeight(context, 0.008),
-                            FutureBuilder(
-                                future: viewModel.getFixedServices(context),
-                                builder: (context, snapshot){
-                                  if(snapshot.connectionState == ConnectionState.waiting){
-                                    return const Center(
-                                      child: CircularProgressIndicator(
-                                        color: AppColor.buttonColor,
-                                      ),
-                                    );
-                                  }
-                                  if(snapshot.connectionState == ConnectionState.done){
-                                    List<FixedServicesModel> services = snapshot.data??[];
-                                    return GridView.builder(
-                                        shrinkWrap: true,
-                                        padding: const EdgeInsets.all(0),
-                                        physics: const NeverScrollableScrollPhysics(),
-                                        gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 3,
-                                            mainAxisExtent:
+                            Obx(() => viewModel.serviceDashboardModel.value != null?
+                            GridView.builder(
+                                shrinkWrap: true,
+                                padding: const EdgeInsets.all(0),
+                                physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                        mainAxisExtent:
                                             context.getSize.height * 0.18,
-                                            crossAxisSpacing:
+                                        crossAxisSpacing:
                                             context.getSize.width * 0.016),
-                                        itemCount: services.length,
-                                        itemBuilder: (context, index) {
-                                          FixedServicesModel service = services[index];
-                                          return fixedPriceServicesBox(context, service,
-                                              onClick: () {
-                                            Get.toNamed(AppRoutes.serviceDetail, arguments: service);
-                                              });
-                                        });
-                                  }
-                                  return SizedBox();
-                                }
-                            ),
+                                itemCount: viewModel.serviceDashboardModel.value
+                                    ?.nearbyServices?.length,
+                                itemBuilder: (context, index) {
+                                  NearbyServices service = viewModel
+                                      .serviceDashboardModel
+                                      .value!
+                                      .nearbyServices![index];
+                                  return nearbyServicesBox(context, service,
+                                      onClick: () {
+                                    Get.toNamed(AppRoutes.nearesServiceDetail,
+                                        arguments: service);
+                                  });
+                                }):SizedBox())
                           ],
                         ),
                       ),
+                      // FutureBuilder(
+                      //     future: viewModel.getFixedServices(context),
+                      //     builder: (context, snapshot){
+                      //       if(snapshot.connectionState == ConnectionState.waiting){
+                      //         return const Center(
+                      //           child: CircularProgressIndicator(
+                      //             color: AppColor.buttonColor,
+                      //           ),
+                      //         );
+                      //       }
+                      //       if(snapshot.connectionState == ConnectionState.done){
+                      //         List<FixedServicesModel> services = snapshot.data??[];
+                      //         return GridView.builder(
+                      //             shrinkWrap: true,
+                      //             padding: const EdgeInsets.all(0),
+                      //             physics: const NeverScrollableScrollPhysics(),
+                      //             gridDelegate:
+                      //             SliverGridDelegateWithFixedCrossAxisCount(
+                      //                 crossAxisCount: 3,
+                      //                 mainAxisExtent:
+                      //                 context.getSize.height * 0.18,
+                      //                 crossAxisSpacing:
+                      //                 context.getSize.width * 0.016),
+                      //             itemCount: services.length,
+                      //             itemBuilder: (context, index) {
+                      //               FixedServicesModel service = services[index];
+                      //               return fixedPriceServicesBox(context, service,
+                      //                   onClick: () {
+                      //                     Get.toNamed(AppRoutes.serviceDetail, arguments: service);
+                      //                   });
+                      //             });
+                      //       }
+                      //       return SizedBox();
+                      //     }
+                      // ),
                       // getHeight(context, 0.015),
                       // gridTitleTile(context,
                       //     title: context.local.topSellingServices,

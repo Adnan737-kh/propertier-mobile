@@ -262,7 +262,9 @@ class ProfileModel {
   bool? solePropertiierDocumentVerified;
   List<int>? followers;
   List<int>? likes;
-
+  String? drivingLicenseFrontUrl;
+  String? drivingLicenseBackUrl;
+  bool? drivingLicenseVerified;
   ProfileModel({
     this.id,
     this.isSuperuser,
@@ -321,6 +323,9 @@ class ProfileModel {
     this.solePropertiierDocumentVerified,
     this.followers,
     this.likes,
+    this.drivingLicenseFrontUrl,
+    this.drivingLicenseBackUrl,
+    this.drivingLicenseVerified
   });
 
   ProfileModel.fromJson(Map<String, dynamic> json) {
@@ -379,9 +384,11 @@ class ProfileModel {
     memberOfAssociationVerified = json['member_of_association_verified'];
     incorporateDocumentVerified = json['incorporate_document_verified'];
     solePropertiierDocumentVerified = json['sole_propertiier_document_verified'];
-
     followers = json['followers'] != null ? List<int>.from(json['followers']) : [];
     likes = json['likes'] != null ? List<int>.from(json['likes']) : [];
+    drivingLicenseFrontUrl = json['driving_licence_front_url'];
+    drivingLicenseBackUrl = json['driving_licence_back_url'];
+    drivingLicenseVerified = json['driving_licence_verified'];
   }
 
   Map<String, dynamic> toJson() {
@@ -444,6 +451,9 @@ class ProfileModel {
 
     data['followers'] = followers;
     data['likes'] = likes;
+    data['driving_licence_front_url'] = drivingLicenseFrontUrl;
+    data['driving_licence_back_url'] = drivingLicenseBackUrl;
+    data['driving_licence_verified'] = drivingLicenseVerified;
     return data;
   }
 
@@ -505,6 +515,9 @@ class ProfileModel {
     bool? solePropertiierDocumentVerified,
     List<int>? followers,
     List<int>? likes,
+    String? drivingLicenseFrontUrl,
+    String? drivingLicenseBackUrl,
+    bool? drivingLicenseVerified,
   }) {
     return ProfileModel(
       id: id ?? this.id,
@@ -564,6 +577,9 @@ class ProfileModel {
       solePropertiierDocumentVerified: solePropertiierDocumentVerified ?? this.solePropertiierDocumentVerified,
       followers: followers ?? this.followers,
       likes: likes ?? this.likes,
+      drivingLicenseFrontUrl: drivingLicenseFrontUrl ?? this.drivingLicenseFrontUrl,
+      drivingLicenseBackUrl: drivingLicenseBackUrl ?? this.drivingLicenseBackUrl,
+      drivingLicenseVerified: drivingLicenseVerified ?? this.drivingLicenseVerified,
     );
   }
 }
