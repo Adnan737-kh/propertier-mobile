@@ -18,7 +18,7 @@ import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 
-PreferredSize ServiceAppBar(BuildContext context, NearbyServices service) {
+PreferredSize ServiceAppBar(BuildContext context, SellingServices service) {
   return PreferredSize(
       preferredSize: Size(context.getSize.width, context.getSize.height * 3),
       child: FittedBox(

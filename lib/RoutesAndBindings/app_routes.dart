@@ -83,8 +83,25 @@ abstract class AppRoutes {
   static const collectInfoProfile = '/collectInfoProfile';
   static const selectFeaturedtype = '/selectFeaturedtype';
   static const nearesServiceDetail = '/nearestServiceDetail';
+  static const ServiceDetail = '/ServiceDetail';
   static const subServices = '/subServices';
   static const BidViewScreen = '/BidViewScreen';
+  static const AllServicesScreen = '/AllServicesScreen';
+  static const VendorWallet = '/VendorWallet';
+  static const AllParentServices = '/AllParentServices';
+  static const ServiceForm = '/ServiceForm';
+  static const VendorForm = '/VendorForm';
+  static const EditVendorForm = '/EditVendorForm';
+  static const TransportServiceForm = '/TransportServiceForm';
+  static const TransportBidDetail = '/TransportBidDetail';
+  static const VendorOffer = '/VendorOffer';
+  static const CustomerWallet = '/CustomerWallet';
+  static const WaterServiceForm = '/WaterServiceForm';
+  static const WaterBidDetail = '/WaterBidDetail';
+  static const PropertyServiceForm = '/PropertyServiceForm';
+  static const PropertyBidDetail = '/PropertyBidDetail';
+  static const HouseWorkForm = '/HouseWorkForm';
+  static const HouseWorkBidDetail = '/HouseWorkBidDetail';
 
 
   //----------vender------------//

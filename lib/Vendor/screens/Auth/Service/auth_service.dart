@@ -55,17 +55,19 @@ class AuthService {
     await _auth.signOut();
   }
 
-  Future RegisterVendor(String email, String firebaseID) async {
+  Future<int?> RegisterVendor(BuildContext context,String email, String firebaseID, String serviceId, String serviceName) async {
     String url = API.venregisterUrl;
 
     final Map<String, dynamic> data = {
       "email": email.toLowerCase(),
       "firebase_id": firebaseID,
-      "type": 'vendor', // Example default value
+      "type": 'vendor',
+      "profession_types": [serviceId, serviceName]
     };
 
     final encodedData = jsonEncode(data);
-
+    print(url);
+    print(encodedData);
     try {
       final response = await http.post(
         Uri.parse("${API.venregisterUrl}/"),
@@ -77,27 +79,25 @@ class AuthService {
       debugPrint("Response Body: ${response.body}");
 
       if (response.statusCode == 201 || response.statusCode == 200) {
-        ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-          content: appText(
-            title: 'Please login again.',
-            context: Get.context!,
-            color: AppColor.white,
-          ),
-        ));
-        AuthService().logout();
-        GoogleSiginServices().logout();
-        Get.offAllNamed(AppRoutes.loginView);
+
+        var decodedData = jsonDecode(response.body);
+        int id = decodedData['id']??-1;
+        print(id);
+        await createWallet(id.toString(), context);
+        return id;
       }
     } catch (e) {
       print(e);
-      ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: appText(
           title: 'Something went wrong: $e',
           context: Get.context!,
           color: AppColor.white,
         ),
       ));
+
     }
+
   }
 
   Future deleteVender() async {
@@ -141,6 +141,37 @@ class AuthService {
         ),
       ));
     }
+  }
+
+  Future createWallet(String id, BuildContext context)async{
+    try{
+
+      var response = await  http.post(Uri.parse(API.createWallet,),
+        body: jsonEncode({
+          'user': id
+        }),
+        headers: <String, String>{'Content-Type': 'application/json'},
+      );
+      print(response.statusCode);
+      print(response.body);
+      if(response.statusCode == 201){
+
+      }
+    }
+    catch(e){
+      print("error create wallet $e");
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: appText(
+        title: 'Please fill this form.',
+        context: Get.context!,
+        color: AppColor.white,
+      ),
+    ));
+    // AuthService().logout();
+    // GoogleSiginServices().logout();
+    // Get.offAllNamed(AppRoutes.loginView);
   }
 }
 

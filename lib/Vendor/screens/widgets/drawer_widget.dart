@@ -3,6 +3,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/divider.dart';
 import 'package:propertier/Vendor/screens/Auth/Login/View/login_view.dart';
@@ -25,6 +27,7 @@ import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
 
 import '../drawer/vehicle_list/VehicleList.dart';
+
 
 class DrawerWidget extends StatefulWidget {
   final VoidCallback onToggleDrawer;
@@ -143,6 +146,55 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           divider(context: context),
           ListTile(
             leading: SvgPicture.asset(
+              Constant.vendorprofileIcon,
+              color: Colors.white,
+              height: 18,
+            ),
+            title: const Text(
+              'Wallet',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0.14,
+              ),
+            ),
+            trailing: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.white,
+            ),
+            onTap: () {
+              widget.onToggleDrawer(); // Close the drawer
+              Get.toNamed(AppRoutes.VendorWallet);
+            },
+          ),
+          ListTile(
+            leading: SvgPicture.asset(
+              Constant.vendorprofileIcon,
+              color: Colors.white,
+              height: 18,
+            ),
+            title: const Text(
+              'Verification Form',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0.14,
+              ),
+            ),
+            trailing: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.white,
+            ),
+            onTap: () {
+              widget.onToggleDrawer(); // Close the drawer
+              Get.toNamed(AppRoutes.VendorForm);
+            },
+          ),
+          divider(context: context),
+          ListTile(
+            leading: SvgPicture.asset(
               Constant.verifyIcon,
               color: Colors.white,
             ),
@@ -185,6 +237,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             },
           ),
           divider(context: context),
+          if(profileController.profile.value.professionTypes != null && profileController.profile.value.professionTypes!.length == 2 && (profileController.profile.value.professionTypes![1] == "Driver" || profileController.profile.value.professionTypes![1] == "Transport"))
           ListTile(
             leading: SvgPicture.asset(
               Constant.verifyIcon,
@@ -471,7 +524,35 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               color: Colors.white,
             ),
             onTap: () {
-              AuthService().deleteVender();
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text("Are you sure?"),
+                    content: const Text(
+                      "All data related to this account will be deleted. This action cannot be undone.",
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Close the dialog
+                        },
+                        child: const Text("Cancel"),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Close the dialog
+                          AuthService().deleteVender();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                        ),
+                        child: const Text("Delete"),
+                      ),
+                    ],
+                  );
+                },
+              );
             },
           ),
           divider(context: context),

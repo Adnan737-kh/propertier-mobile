@@ -54,6 +54,12 @@ Widget customDrawer({required BuildContext context}) {
             ),
             divider(context: context),
             drawerTile(
+              onTap: () => Get.toNamed(AppRoutes.CustomerWallet),
+              context: context,
+              title: "Wallet",
+            ),
+            divider(context: context),
+            drawerTile(
               onTap: () => Get.toNamed(AppRoutes.verificationView),
               context: context,
               title: "Verification",

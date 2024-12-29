@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:propertier/Vendor/screens/dashboard/earnings/Controller/earning_controller.dart';
-
 import '../../../widgets/tabbar_item.dart';
+
 
 class EarningScreen extends StatefulWidget {
   const EarningScreen({super.key});

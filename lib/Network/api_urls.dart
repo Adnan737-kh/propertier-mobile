@@ -73,6 +73,22 @@ class API {
   static const vendorOrder = '$baseURL/services/vendor-orders/';
   static const customerOrder = '$baseURL/services/customer-orders/';
   static const getSubService = '$baseURL/services/sub-services/';
+  static const servicesWithPagination = '$baseURL/services/vendor-services-with-pagination/';
+  static const getServiceForm = '$baseURL/services/get-requirments-by-serviceId/';
+  static const getTransport = '$baseURL/services/get-all-VehicleType/';
+  // static const saveTransportFormField = '$baseURL/services/requirement-values/';
+  static const saveVendorFormField = '$baseURL/services/vendor-requirements/';
+  static const getVendorFormData = '$baseURL/services/get-requirments-by-vendorId/?vendor_id=';
+
+
+  //**************** Finance API ***********************
+  static const createWallet = '$baseURL/finance/user-wallets/';
+  static const topupWallet = '$baseURL/finance/update-wallet/';
+  static const getWallet = '$baseURL/finance/get-user-wallet/';
+  static const walletTestPayment = '$baseURL/finance/test-paymob-intention/';
+  static const walletLivePayment = '$baseURL/finance/paymob-intention/';
+
+
 }
 
 class BaseUrl {

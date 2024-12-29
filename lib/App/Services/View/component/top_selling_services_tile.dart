@@ -10,8 +10,7 @@ import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
-
-Widget nearbyServicesBox(BuildContext context, NearbyServices service,
+Widget ServicesBox(BuildContext context, var service,
     {required VoidCallback onClick}) {
   return GestureDetector(
     onTap: onClick,

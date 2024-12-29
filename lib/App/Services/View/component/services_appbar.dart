@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -19,6 +18,7 @@ import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/size_extension.dart';
 import '../../../../Vendor/screens/Auth/Service/auth_service.dart' as vendorService;
+import '../../../../Vendor/screens/Auth/Service/google_sigin_services.dart';
 import '../../../Auth/Service/auth_service.dart';
 import '../../../NavBar/ViewModel/navbar_view_model.dart';
 
@@ -70,6 +70,14 @@ PreferredSize servciesAppBar(BuildContext context,
                     ),
                   ),
                   ElevatedButton(
+                    // onPressed: () async {
+                    //   await viewModel.openSelectCategoryScreen(context);
+                    //   Get.toNamed(AppRoutes.ServiceForm, arguments: {
+                    //   'vendorId': 46,
+                    //   'serviceId':  viewModel.selectedParentServiceId,
+                    //   'serviceName': viewModel.selectedCategory,
+                    //   });
+                    // },
                     onPressed: () async {
                       UserLoginModel? currentUser = await AuthService().getCurrentUser();
                       print(currentUser?.users?.first.type);
@@ -81,12 +89,37 @@ PreferredSize servciesAppBar(BuildContext context,
                             return;
                           }
                         }
+                        await viewModel.openSelectCategoryScreen(context);
 
-                        Fluttertoast.showToast(msg: "Please Wait..");
+                        print(viewModel.selectedParentServiceId);
+                        print(viewModel.selectedCategory);
+                        if(viewModel.selectedParentServiceId == null || viewModel.selectedCategory == null){
+                          Fluttertoast.showToast(msg: "Please Select a Category");
+                          return;
+                        }
+                        else{
+                          Fluttertoast.showToast(msg: "Please Wait...");
+                        }
                         String email = currentUser.users!.first.email!;
                         String firebaseID = currentUser.users!.first.firebaseId!;
-                        vendorService.AuthService().RegisterVendor(email, firebaseID);
-                      } else {
+                        int? vendorId = await vendorService.AuthService().RegisterVendor(context, email, firebaseID,viewModel.selectedParentServiceId!, viewModel.selectedCategory!);
+                        print("vendor id: $vendorId");
+                        if(vendorId != null){
+                          Get.toNamed(AppRoutes.ServiceForm, arguments: {
+                            'vendorId': vendorId,
+                            'serviceId':  viewModel.selectedParentServiceId,
+                            'serviceName': viewModel.selectedCategory,
+                            'email': currentUser.users!.first.email!,
+                            'firebaseId': currentUser.users!.first.firebaseId!
+                          });
+                        }
+                        else{
+                          AuthService().logout();
+                          GoogleSiginServices().logout();
+                          Get.offAllNamed(AppRoutes.loginView);
+                        }
+                      }
+                      else {
                         Get.toNamed(AppRoutes.loginView);
                       }
                     },

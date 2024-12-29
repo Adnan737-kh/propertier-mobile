@@ -428,7 +428,7 @@ Future<void> updateCoverPicture(String vendorUserId, File imageFile,String fireb
 
   Future<void> postWithFeaturePackage(
     AddPostModel postModel,
-    File selectedImage,
+    List<File> selectedImage,
     File? selectedVideo,
     String vendorUserId,
     String featurePackageId,
@@ -450,15 +450,18 @@ Future<void> updateCoverPicture(String vendorUserId, File imageFile,String fireb
       request.fields['title'] = postModel.title;
       request.fields['visiting_charges'] = postModel.visitingCharges;
       request.fields['fixed_price'] = postModel.fixedPrice;
+      // request.fields['video_url'] = postModel.videoUrl;
 
       for (var service in postModel.selectedSubServices) {
         request.fields['selected_sub_services'] = service;
       }
 
-      request.files.add(await http.MultipartFile.fromPath(
-        'images',
-        selectedImage.path,
-      ));
+      for(File f in selectedImage){
+        request.files.add(await http.MultipartFile.fromPath(
+          'images',
+          f.path,
+        ));
+      }
 
       if (selectedVideo != null) {
         request.files.add(await http.MultipartFile.fromPath(
@@ -469,12 +472,12 @@ Future<void> updateCoverPicture(String vendorUserId, File imageFile,String fireb
 
       var response = await request.send();
       var responseBody = await response.stream.bytesToString();
-
+      print(response.statusCode);
       if (response.statusCode == 200 || response.statusCode == 201) {
         var responseData = jsonDecode(responseBody);
         var vendorServiceId = responseData['id'].toString();
 
-        await callNewApi(vendorServiceId, featurePackageId, selectedImage.path);
+        await callNewApi(vendorServiceId, featurePackageId, selectedImage.first.path);
       } else {
         Get.back();
           Get.snackbar(
@@ -527,7 +530,7 @@ Future<void> updateCoverPicture(String vendorUserId, File imageFile,String fireb
 
   Future<void> postWithoutFeaturePackage(
     AddPostModel postModel,
-    File selectedImage,
+    List<File> selectedImage,
     File? selectedVideo,
     String vendorUserId,
   ) async {
@@ -547,15 +550,18 @@ Future<void> updateCoverPicture(String vendorUserId, File imageFile,String fireb
       request.fields['title'] = postModel.title;
       request.fields['visiting_charges'] = postModel.visitingCharges;
       request.fields['fixed_price'] = postModel.fixedPrice;
+        // request.fields['video_url'] = postModel.videoUrl;
 
       for (var service in postModel.selectedSubServices) {
         request.fields['selected_sub_services'] = service;
       }
 
-      request.files.add(await http.MultipartFile.fromPath(
-        'images',
-        selectedImage.path,
-      ));
+      for(File f in selectedImage){
+        request.files.add(await http.MultipartFile.fromPath(
+          'images',
+          f.path,
+        ));
+      }
 
        if (selectedVideo != null) {
         request.files.add(await http.MultipartFile.fromPath(
@@ -565,6 +571,9 @@ Future<void> updateCoverPicture(String vendorUserId, File imageFile,String fireb
       }
 
       var response = await request.send();
+       var body = await response.stream.bytesToString();
+       print(response.statusCode);
+       print(body);
       Get.back();
       if (response.statusCode == 200 || response.statusCode == 201) {
         print('Post added successfully without feature package');
@@ -612,7 +621,6 @@ Future<void> updateCoverPicture(String vendorUserId, File imageFile,String fireb
   Future<List<dynamic>> fetchParentServices() async {
     final url = Uri.parse(API.fetchParentServices);
     final response = await http.get(url);
-
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
@@ -819,16 +827,12 @@ Future<void> updateCoverPicture(String vendorUserId, File imageFile,String fireb
       };
 
       final encodedData = jsonEncode(data);
-      print(url);
 
       final response = await http.put(
         Uri.parse(url),
         headers: <String, String>{'Content-Type': 'application/json'},
         body: encodedData,
       );
-      print(response.statusCode);
-      print(response.body);
-
     }
     catch(e){
       print(e);

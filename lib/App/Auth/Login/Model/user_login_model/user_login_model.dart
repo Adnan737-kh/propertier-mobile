@@ -61,6 +61,7 @@ class User {
   final List<dynamic>? followers;
   final List<dynamic>? likes;
   final List<dynamic>? erpProjects;
+  List<dynamic>? professionTypes;
 
   User({
     this.id,
@@ -102,6 +103,7 @@ class User {
     this.followers,
     this.likes,
     this.erpProjects,
+    this.professionTypes
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -148,6 +150,7 @@ class User {
       followers: json['followers'] != [] ? null : json['followers'],
       likes: json['likes'] != [] ? null : json['likes'],
       erpProjects: json['erp_projects'] != [] ? null : json['erp_projects'],
+      professionTypes: json['profession_types'] != [] ? null : json['profession_types'],
     );
   }
 
@@ -192,6 +195,7 @@ class User {
       'followers': followers,
       'likes': likes,
       'erp_projects': erpProjects,
+      'profession_types': professionTypes
     };
   }
 }

@@ -38,8 +38,10 @@ class ServicessearchService{
       if(vendorId != null){
         request.fields['vendor'] = vendorId;
       }
+      print(request.fields);
       var response = await request.send();
       print(response.statusCode);
+      print(await response.stream.bytesToString());
       if (response.statusCode == 201) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: appText(

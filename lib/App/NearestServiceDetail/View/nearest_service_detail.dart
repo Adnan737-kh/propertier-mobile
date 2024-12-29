@@ -146,11 +146,20 @@ class ServiceDetail extends GetView<NearestServiceDetailViewModel>{
                                 ),
                               ),
                               getHeight(context, 0.020),
+                              // Align(
+                              //   alignment: Alignment.centerLeft,
+                              //   child: appText(
+                              //       colorOpecity: 0.6,
+                              //       title: controller.nearbyServices.fixedPrice != null ?"Fixed Charges: ${controller.nearbyServices.fixedPrice}":"",
+                              //       fontSize: 10,
+                              //       fontWeight: FontWeight.w600,
+                              //       context: context),
+                              // ),
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: appText(
                                     colorOpecity: 0.6,
-                                    title: controller.nearbyServices.fixedPrice != null ?"fixed Price: ${controller.nearbyServices.fixedPrice}":"",
+                                    title: controller.nearbyServices.visitingCharges != null ?"Visiting Charges:  ${controller.nearbyServices.visitingCharges} Rs":"",
                                     fontSize: 10,
                                     fontWeight: FontWeight.w600,
                                     context: context),

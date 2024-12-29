@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:propertier/App/Auth/Login/Model/login_response_model.dart';
+import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/Vendor/screens/dashboard/home/Controller/home_controller.dart';
 import 'package:propertier/Vendor/screens/dashboard/home/Model/home_model.dart';
 import 'package:propertier/Vendor/screens/dashboard/home/view/detail_screen.dart';
@@ -23,7 +24,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
-    int selectedIndex = 0;
+  int selectedIndex = 0;
   bool isDrawerOpen = false;
   final WebSocketController webSocketController =
       Get.put(WebSocketController());
@@ -36,7 +37,6 @@ class _HomeScreenState extends State<HomeScreen>
       setState(() {});
       isDrawerOpen = !isDrawerOpen;
     });
-
   }
 
   @override
@@ -89,109 +89,118 @@ class _HomeScreenState extends State<HomeScreen>
               ],
             ),
           ),
-        Expanded(
-  child: TabBarView(
-    controller: tabController,
-    children: [
-      // Tab 1
-      Obx(()=> webSocketController.selectedService.value == ""?
-      FutureBuilder(
-          future: webSocketController.getAllParentServices(context),
-          builder: (context, snapshot){
-            if(snapshot.connectionState == ConnectionState.waiting){
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: AppColor.buttonColor,
-                ),
-              );
-            }
-            if(snapshot.connectionState == ConnectionState.done){
-              List<ParentServicesModel> services = snapshot.data??[];
-              return Padding(
-                padding: EdgeInsets.all(10),
-                child: GridView.builder(
-                    padding: const EdgeInsets.all(0),
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    gridDelegate:
-                    SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisExtent: context.getSize.height * 0.18,
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 8,
-                      mainAxisSpacing: 8,
-                    ),
-                    itemCount: services.length,
-                    itemBuilder: (context, index) {
-                      return servicesTile(
-                        onTap: () {
-                          webSocketController.selectedService.value = services[index].id.toString();
-                          print(webSocketController.selectedService.value);
-                          webSocketController.connectToWebSocket();
-                        },
-                        service: services[index],
-                        context: context,
-                      );
-                    }),
-              );
-            }
-            return SizedBox();
-          }
-      )
-          : webSocketController.onlineBids.isNotEmpty
-          ? ListView.builder(
-        itemCount: webSocketController.onlineBids.length,
-        shrinkWrap: true,
-        padding: const EdgeInsets.only(bottom: 60),
-        physics: const BouncingScrollPhysics(),
-        itemBuilder: (context, index) {
-          var bid = webSocketController.onlineBids[index];
-          // Safely access the first selectedSubService if it's not empty
-          String subServiceTitle = bid.selectedSubServices.isNotEmpty
-              ? bid.selectedSubServices.first.title // Access the first sub-service title
-              : 'No sub-service'; // Default message if list is empty
-          return FutureBuilder(future: webSocketController.getUser(bid.customer.toString()),
-              builder: (context, snapshot){
-                if(snapshot.connectionState == ConnectionState.done){
-                  UserData? userData = snapshot.data;
-                  return BidCard(bid, userData, (){
-                    webSocketController.onlineBids.removeWhere((e) => e == bid);
-                  });
-                }
-                return SizedBox();
-              });
-        },
-      )
-          : noDataWidget()),
-      // Tab2
-      Obx(() {
-        var allOfflineBids = webSocketController.offlineBids; // Get all offline bids
-        return allOfflineBids.isNotEmpty
-            ? ListView.builder(
-                itemCount: allOfflineBids.length,
-                shrinkWrap: true,
-                padding: const EdgeInsets.only(bottom: 60),
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  var bid = allOfflineBids[index];
+          Expanded(
+            child: TabBarView(
+              controller: tabController,
+              children: [
+                // Tab 1
+                Obx(() => webSocketController.selectedService.value == ""
+                    ? Center(
+                        child: CircularProgressIndicator(
+                          color: AppColor.buttonColor,
+                        ),
+                      )
+                    // FutureBuilder(
+                    //     future: webSocketController.getAllParentServices(context),
+                    //     builder: (context, snapshot){
+                    //       if(snapshot.connectionState == ConnectionState.waiting){
+                    //         return const Center(
+                    //           child: CircularProgressIndicator(
+                    //             color: AppColor.buttonColor,
+                    //           ),
+                    //         );
+                    //       }
+                    //       if(snapshot.connectionState == ConnectionState.done){
+                    //         List<ParentServicesModel> services = snapshot.data??[];
+                    //         return Padding(
+                    //           padding: EdgeInsets.all(10),
+                    //           child: GridView.builder(
+                    //               padding: const EdgeInsets.all(0),
+                    //               physics: const NeverScrollableScrollPhysics(),
+                    //               shrinkWrap: true,
+                    //               gridDelegate:
+                    //               SliverGridDelegateWithFixedCrossAxisCount(
+                    //                 mainAxisExtent: context.getSize.height * 0.18,
+                    //                 crossAxisCount: 2,
+                    //                 crossAxisSpacing: 8,
+                    //                 mainAxisSpacing: 8,
+                    //               ),
+                    //               itemCount: services.length,
+                    //               itemBuilder: (context, index) {
+                    //                 return servicesTile(
+                    //                   onTap: () {
+                    //                     webSocketController.selectedService.value = services[index].id.toString();
+                    //                     print(webSocketController.selectedService.value);
+                    //                     webSocketController.connectToWebSocket();
+                    //                   },
+                    //                   service: services[index],
+                    //                   context: context,
+                    //                 );
+                    //               }),
+                    //         );
+                    //       }
+                    //       return SizedBox();
+                    //     }
+                    // )
+                    : webSocketController.onlineBids.isNotEmpty
+                        ? ListView.builder(
+                            itemCount: webSocketController.onlineBids.length,
+                            shrinkWrap: true,
+                            padding: const EdgeInsets.only(bottom: 60),
+                            physics: const BouncingScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              var bid = webSocketController.onlineBids[index];
+                              // Safely access the first selectedSubService if it's not empty
+                              String subServiceTitle = bid
+                                      .selectedSubServices.isNotEmpty
+                                  ? bid.selectedSubServices.first
+                                      .title // Access the first sub-service title
+                                  : 'No sub-service'; // Default message if list is empty
+                              return FutureBuilder(
+                                  future: webSocketController
+                                      .getUser(bid.customer.toString()),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.done) {
+                                      UserData? userData = snapshot.data;
+                                      return BidCard(bid, userData, () {
+                                        webSocketController.onlineBids
+                                            .removeWhere((e) => e == bid);
+                                      });
+                                    }
+                                    return SizedBox();
+                                  });
+                            },
+                          )
+                        : noDataWidget()),
+                // Tab2
+                Obx(() {
+                  var allOfflineBids =
+                      webSocketController.offlineBids; // Get all offline bids
+                  return allOfflineBids.isNotEmpty
+                      ? ListView.builder(
+                          itemCount: allOfflineBids.length,
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.only(bottom: 60),
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            var bid = allOfflineBids[index];
 
-                  // Safely access the first selectedSubService if it's not empty
-                  String subServiceTitle = bid.selectedSubServices.isNotEmpty
-                      ? bid.selectedSubServices.first.title // Access the first sub-service title
-                      : 'No sub-service'; // Default message if list is empty
+                            // Safely access the first selectedSubService if it's not empty
+                            String subServiceTitle = bid
+                                    .selectedSubServices.isNotEmpty
+                                ? bid.selectedSubServices.first
+                                    .title // Access the first sub-service title
+                                : 'No sub-service'; // Default message if list is empty
 
-                  return buildBidCard(
-                    subServiceTitle,
-                    bid
-                  );
-                },
-              )
-            : noDataWidget();
-      }),
-    ],
-  ),
-),
-
-
+                            return buildBidCard(subServiceTitle, bid);
+                          },
+                        )
+                      : noDataWidget();
+                }),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -199,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   Widget buildBidCard(
     String parentServiceName,
-      Bid bid,
+    Bid bid,
   ) {
     // Parse the date string (assuming it's in ISO8601 format) and format it to dd-mm-yyyy
     String formattedDate = '';
@@ -310,7 +319,9 @@ class _HomeScreenState extends State<HomeScreen>
                         // Detail button
                         InkWell(
                           onTap: () {
-                            Get.to(() =>  DetailScreen(bid: bid,));
+                            Get.to(() => DetailScreen(
+                                  bid: bid,
+                                ));
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(
@@ -337,7 +348,7 @@ class _HomeScreenState extends State<HomeScreen>
                         const SizedBox(height: 6),
                         // Cancel button
                         InkWell(
-                          onTap: (){
+                          onTap: () {
                             print("lskdjfls");
                           },
                           child: Container(
@@ -372,17 +383,33 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   Widget noDataWidget() {
-    return const Center(
-      child: Text(
-        'No bids available.',
-        style: TextStyle(fontSize: 16, color: Colors.grey),
+    return Center(
+      child: Column(
+        children: [
+          Text(
+            'No bids available.',
+            style: TextStyle(fontSize: 16, color: Colors.grey),
+          ),
+          ElevatedButton(onPressed: (){
+            Get.toNamed(AppRoutes.TransportBidDetail);
+          }, child: Text("View Transport Bid")),
+          ElevatedButton(onPressed: (){
+            Get.toNamed(AppRoutes.WaterBidDetail);
+          }, child: Text("View Water Bid")),
+          ElevatedButton(onPressed: (){
+            Get.toNamed(AppRoutes.PropertyBidDetail);
+          }, child: Text("Property related Bid")),
+          ElevatedButton(onPressed: (){
+            Get.toNamed(AppRoutes.HouseWorkBidDetail);
+          }, child: Text("Domestic Work Bid"))
+        ],
+
       ),
     );
   }
 }
 
-
-Widget BidCard(Bid bid, UserData? userData, Function()? cancelFnc){
+Widget BidCard(Bid bid, UserData? userData, Function()? cancelFnc) {
   String formattedDate = '';
   try {
     DateTime parsedDate = DateTime.parse(bid.createdAt);
@@ -453,7 +480,6 @@ Widget BidCard(Bid bid, UserData? userData, Function()? cancelFnc){
                         borderRadius: BorderRadius.circular(5),
                       ),
                     ),
-
                   ),
                   const SizedBox(width: 6),
                   Expanded(
@@ -461,7 +487,7 @@ Widget BidCard(Bid bid, UserData? userData, Function()? cancelFnc){
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          userData?.name??"",
+                          userData?.name ?? "",
                           style: const TextStyle(
                             color: Color(0xFF131A22),
                             fontSize: 13,
@@ -469,14 +495,14 @@ Widget BidCard(Bid bid, UserData? userData, Function()? cancelFnc){
                           ),
                         ),
                         const SizedBox(height: 5.62),
-                        Text(' ${bid.location??""} ',
+                        Text(' ${bid.location ?? ""} ',
                             style: const TextStyle(
                               color: Color(0xB2131A22),
                               fontSize: 8.99,
                               fontWeight: FontWeight.w500,
                             )),
                         const SizedBox(height: 5.62),
-                        Text('Status: ${bid.status??""}',
+                        Text('Status: ${bid.status ?? ""}',
                             style: const TextStyle(
                               color: Color(0xFF109B0E),
                               fontSize: 8.99,
@@ -492,7 +518,10 @@ Widget BidCard(Bid bid, UserData? userData, Function()? cancelFnc){
                       // Detail button
                       InkWell(
                         onTap: () {
-                          Get.to(() => DetailScreen(bid: bid, userData: userData,));
+                          Get.to(() => DetailScreen(
+                                bid: bid,
+                                userData: userData,
+                              ));
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(

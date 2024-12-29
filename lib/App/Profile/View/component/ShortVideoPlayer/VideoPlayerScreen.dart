@@ -77,7 +77,7 @@ class VideoPlayerScreen extends StatelessWidget {
                             ))
                             : const Gap(0),
                         appText(
-                          title: controller.activeVideoIndex.value< controller.properties.length?controller.properties[controller.activeVideoIndex.value].likes!.toString():"",
+                          title: controller.activeVideoIndex.value< controller.properties.length?controller.properties[controller.activeVideoIndex.value].likes.toString()??"":"",
                             // title: true
                             //     ? controller.isLiked.value.property != null
                             //     ? "${controller.isLiked.value.property!.likes! + controller.liked.value}"
@@ -160,7 +160,7 @@ class VideoPlayerScreen extends StatelessWidget {
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.start,
                                       color: AppColor.white,
-                                      title: controller.activeVideoIndex.value< controller.properties.length? controller.properties[controller.activeVideoIndex.value].title!:"",
+                                      title: controller.activeVideoIndex.value< controller.properties.length? controller.properties[controller.activeVideoIndex.value].title??" ":"",
                                       context: context))
                             ],
                           ),
@@ -175,7 +175,7 @@ class VideoPlayerScreen extends StatelessWidget {
                           color: AppColor.white,
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
-                          title: controller.activeVideoIndex.value< controller.properties.length?controller.properties[controller.activeVideoIndex.value].description!
+                          title: controller.activeVideoIndex.value< controller.properties.length?controller.properties[controller.activeVideoIndex.value].description??""
                               .parseHtmlString():""),
                     ],
                   ),

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,6 +14,13 @@ import 'package:propertier/Vendor/screens/dashboard/Posts/select_category/Contro
 import 'package:propertier/Vendor/screens/dashboard/Posts/select_category/View/select_category.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../../../../../App/Post Add/Add Properties/Components/video_tour.dart';
+import '../../../../../../App/Post Add/Add Properties/Views/add_properties_view.dart';
+import '../../../../../../Utils/app_text.dart';
+import '../../../../../../Utils/height_width_box.dart';
+import '../../../../../../constant/toast.dart';
+import '../../../profile/controller/profile_controller.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 class AddPostScreen extends StatefulWidget {
   const AddPostScreen({super.key});
 
@@ -21,8 +29,28 @@ class AddPostScreen extends StatefulWidget {
 }
 
 class _AddPostScreenState extends State<AddPostScreen> {
+  
+   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadCategory();
+  }
+
+  void loadCategory()async{
+    if(profileController.profile.value.professionTypes != null && profileController.profile.value.professionTypes!.isNotEmpty){
+      String category = profileController.profile.value.professionTypes![1];
+      print(category);
+      await controller.fetchTitlesForParentService(category);
+      setState(() {
+        parentId = profileController.profile.value.professionTypes![0];
+        selectedCategory = category;
+      });
+    }
+  }
   String? parentId;
   String? _selectedItem1;
+   final TextEditingController visitingChargesC = TextEditingController();
   String? _selectedServiceCharge;
   String? selectedCategory;
   TitleModel? _selectedServices;
@@ -36,7 +64,10 @@ class _AddPostScreenState extends State<AddPostScreen> {
   final PostController _postController = PostController();
   final SelectCategoryController controller =
       Get.put(SelectCategoryController());
-
+  final ProfileController profileController = Get.find();
+   bool showVideo = false;
+   final TextEditingController urlController = TextEditingController();
+   var getThumbnail = "";
   @override
   void dispose() {
     _serviceChargesController.dispose();
@@ -47,8 +78,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
     print("Save Post button pressed");
 
     final String title = _titleController.text;
-    final String visitingCharges = _visitingChargesController.text;
-
+    final String visitingCharges = _visitingChargesController.text == "Other"? visitingChargesC.text: _visitingChargesController.text;
+    print(visitingCharges);
     final box = GetStorage();
     String? vendorUserId = box.read('vendorUserId');
 
@@ -69,13 +100,13 @@ class _AddPostScreenState extends State<AddPostScreen> {
       title: title,
       selectedSubServices: [_selectedServices?.id ?? ''],
       images: [],
-      videoUrl: '',
+      videoUrl: urlController.text,
       shortVideo: '',
       visitingCharges: visitingCharges,
       fixedPrice: fixedPriceValue,
     );
 
-    await _postController.addPost(postModel, _selectedImage, _selectedVideo);
+    await _postController.addPost(postModel, images, _selectedVideo);
   }
 
   void _showErrorSnackbar(String message) {
@@ -96,6 +127,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
     if (visitingCharges.isEmpty) {
       _showErrorSnackbar('Please enter visiting Charges');
       return false;
+    }
+    else if(visitingCharges == "Other"){
+      if(visitingChargesC.text == ""){
+        _showErrorSnackbar('Please enter visiting Charges');
+        return false;
+      }
     }
     if (fixedPriceValue.isEmpty) {
       _showErrorSnackbar('No service charges selected or entered');
@@ -123,7 +160,17 @@ class _AddPostScreenState extends State<AddPostScreen> {
     '600',
     '700',
     '800',
-    '900'
+    '900',
+    'Other'
+  ];
+  final List<String> _dropdownItems2 = [
+    '300',
+    '400',
+    '500',
+    '600',
+    '700',
+    '800',
+    '900',
   ];
   File? _selectedVideo;
 
@@ -204,7 +251,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
   }
 
   File? _selectedImage;
-
+  List<File> images = [];
   Future<void> _pickImage() async {
     print("Pick Image function called");
 
@@ -239,6 +286,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
       } else {
         setState(() {
           _selectedImage = File(pickedFile.path);
+          images.add(File(pickedFile.path));
         });
         print("Selected image saved: $_selectedImage");
       }
@@ -250,6 +298,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
   void _deleteImage() {
     setState(() {
       _selectedImage = null;
+      images.removeLast();
     });
   }
 
@@ -379,7 +428,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                     child: TextFormField(
                       cursorColor: Colors.amber,
                       readOnly: true,
-                      onTap: _openSelectCategoryScreen,
+                      // onTap: _openSelectCategoryScreen,
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -387,7 +436,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                           borderRadius: BorderRadius.circular(33),
                           borderSide: const BorderSide(color: Colors.black12),
                         ),
-                        hintText: selectedCategory ?? 'Select category',
+                        hintText: selectedCategory ?? 'Category',
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(33),
                         ),
@@ -397,24 +446,24 @@ class _AddPostScreenState extends State<AddPostScreen> {
                           fontWeight: FontWeight.w400,
                         ),
                         isDense: true,
-                        suffixIcon: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 22,
-                              width: 22,
-                              decoration: const BoxDecoration(
-                                color: Color(0xFFFDCD54),
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Icon(
-                                Icons.arrow_forward_ios,
-                                color: Colors.white,
-                                size: 14,
-                              ),
-                            ),
-                          ],
-                        ),
+                        // suffixIcon: Column(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     Container(
+                        //       height: 22,
+                        //       width: 22,
+                        //       decoration: const BoxDecoration(
+                        //         color: Color(0xFFFDCD54),
+                        //         shape: BoxShape.circle,
+                        //       ),
+                        //       child: const Icon(
+                        //         Icons.arrow_forward_ios,
+                        //         color: Colors.white,
+                        //         size: 14,
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                       ),
                     ),
                   ),
@@ -547,6 +596,39 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   const SizedBox(
                     height: 18,
                   ),
+                  _selectedItem1 == "Other"?
+                  TextFormField(
+                    controller: visitingChargesC,
+                    cursorColor: Colors.amber,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      fillColor: const Color(0x05131A22),
+                      filled: true,
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: MediaQuery.of(context).size.height * 0.020,
+                        horizontal: 8,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(color: Color(0x05131A22)),
+                      ),
+                      hintText: 'Enter Visiting Changes',
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(color: Color(0x05131A22)),
+                      ),
+                      hintStyle: const TextStyle(
+                        color: Color(0x66131A22),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      isDense: true,
+                    ),
+                  )
+                      :SizedBox(),
+                  const SizedBox(
+                    height: 18,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -633,7 +715,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                               fontWeight: FontWeight.w400,
                             ),
                             isExpanded: true,
-                            items: _dropdownItems1
+                            items: _dropdownItems2
                                 .map((item) => DropdownMenuItem<String>(
                                       value: item,
                                       child: Text(item),
@@ -763,28 +845,51 @@ class _AddPostScreenState extends State<AddPostScreen> {
                           ),
                         ),
                         const SizedBox(height: 5),
-                        Container(
+                        SizedBox(
                           height: MediaQuery.of(context).size.height * .2,
-                          decoration: BoxDecoration(
-                            image: _selectedImage != null
-                                ? DecorationImage(
-                                    image: FileImage(_selectedImage!),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: images.map((image) {
+                                return ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: image != null
+                                      ? Image.file(
+                                    image,
+                                    width: 200,
                                     fit: BoxFit.cover,
                                   )
-                                : const DecorationImage(
-                                    image: NetworkImage(
-                                      'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
-                                    ),
+                                      : Image.network(
+                                    'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
                                     fit: BoxFit.cover,
                                   ),
-                            borderRadius: BorderRadius.circular(6),
+                                );
+                              }).toList(),
+                            ),
                           ),
                         ),
+                        // Container(
+                        //   height: MediaQuery.of(context).size.height * .2,
+                        //   decoration: BoxDecoration(
+                        //     image: _selectedImage != null
+                        //         ? DecorationImage(
+                        //             image: FileImage(_selectedImage!),
+                        //             fit: BoxFit.cover,
+                        //           )
+                        //         : const DecorationImage(
+                        //             image: NetworkImage(
+                        //               'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
+                        //             ),
+                        //             fit: BoxFit.cover,
+                        //           ),
+                        //     borderRadius: BorderRadius.circular(6),
+                        //   ),
+                        // ),
                         const SizedBox(height: 14),
                         Row(
                           children: [
                             // Delete Icon
-                            if (_selectedImage != null)
+                            if (images.isNotEmpty)
                               Container(
                                 width: 48,
                                 height: 48,
@@ -833,6 +938,75 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   // const SizedBox(
                   //   height: 44,
                   // ),
+                  const SizedBox(
+                    height: 44,
+                  ),
+                  appText(
+                    title: "Upload Video",
+                    context: context,
+                    fontSize: 18,
+                    fontWeight: FontWeight.normal,
+                  ),
+                  getHeight(context, 0.015),
+                  showVideo
+                      ? AddVideoPlayer(
+                    videoUrl: urlController.text,
+                    thumbnail: getThumbnail,
+                  )
+                      : const Gap(0),
+                  getHeight(context, 0.015),
+                  CustomAddTextfield(
+                    textEditingController: urlController,
+                    border: InputBorder.none,
+                    labelText: "Past Video Url here",
+                    onChanged: (p0) {
+                      try {
+                        // urlController.text="https://www.youtube.com/watch?v=WP0h7utvaUc&ab_channel=MitchKoko";
+                        var videoId = YoutubePlayerController.convertUrlToId(
+                            urlController.text);
+
+                        setState(() {
+                          getThumbnail =
+                              YoutubePlayerController.getThumbnail(videoId: videoId!);
+                        });
+                        // Get.snackbar("Succuss", videoId.toString());
+                        setState(() {
+                          showVideo = true;
+                        });
+                      } catch (e) {
+                        // Get.snackbar("error", e.toString());
+                        toast(title: e.toString(), context: context);
+                      }
+                    },
+                    suffixIcon: IconButton(
+                      onPressed: () async {
+                        try {
+                          // urlController.text="https://www.youtube.com/watch?v=WP0h7utvaUc&ab_channel=MitchKoko";
+                          var videoId = YoutubePlayerController.convertUrlToId(
+                              urlController.text);
+
+                          setState(() {
+                            getThumbnail = YoutubePlayerController.getThumbnail(
+                                videoId: videoId!);
+                          });
+                          // Get.snackbar("Succuss", videoId.toString());
+                          setState(() {
+                            showVideo = true;
+                          });
+                        } catch (e) {
+                          // Get.snackbar("error", e.toString());
+                          toast(title: e.toString(), context: context);
+                        }
+                      },
+                      icon: const Icon(Icons.check),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please Enter Url';
+                      }
+                      return null;
+                    },
+                  ),
                   const SizedBox(
                     height: 44,
                   ),

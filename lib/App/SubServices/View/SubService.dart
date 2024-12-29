@@ -23,7 +23,21 @@ class SubService extends GetView<SubServiceViewModel>{
           color: AppColor.blackColor
         ),),
       ),
-      body: Padding(
+      body: controller.parentServicesModel.subservices == null || controller.parentServicesModel.subservices!.isEmpty?Center(child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("No Service Available"),
+          TextButton(onPressed: (){
+            Get.toNamed(AppRoutes.WaterServiceForm);
+          }, child: Text("Water Provider")),
+          TextButton(onPressed: (){
+            Get.toNamed(AppRoutes.PropertyServiceForm);
+          }, child: Text("Property Related Service")),
+          TextButton(onPressed: (){
+            Get.toNamed(AppRoutes.HouseWorkForm);
+          }, child: Text("Kitchen Expert")),
+        ],
+      ),):Padding(
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: GridView.builder(
             padding: const EdgeInsets.all(0),
@@ -41,11 +55,19 @@ class SubService extends GetView<SubServiceViewModel>{
               Subservices subService = controller.parentServicesModel.subservices![index];
               return GestureDetector(
                 onTap: (){
-                  Get.toNamed(AppRoutes.servicesSearchView,
-                      arguments: {
-                        'parentServiceModel': controller.parentServicesModel,
-                        'subService':subService
-                      });
+                  if(controller.parentServicesModel.title == "Transport"){
+                    Get.toNamed(AppRoutes.TransportServiceForm);
+                  }
+                  else if(controller.parentServicesModel.title == "Water Provider"){
+                    Get.toNamed(AppRoutes.WaterServiceForm);
+                  }
+                  else{
+                    Get.toNamed(AppRoutes.servicesSearchView,
+                        arguments: {
+                          'parentServiceModel': controller.parentServicesModel,
+                          'subService':subService
+                        });
+                  }
                 },
                 child: Container(
                   padding: const EdgeInsets.all(10),

@@ -18,6 +18,9 @@ import 'package:propertier/constant/colors.dart';
 import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
+import '../../../Customer/screens/AllServices/components/serviceTile.dart';
+import '../../Home/View/home_view.dart';
+
 class ServciesView extends StatelessWidget {
   ServciesView({super.key});
   final viewModel = Get.put(ServicesViewModel());
@@ -66,8 +69,156 @@ class ServciesView extends StatelessWidget {
                             vertical: context.getSize.height * 0.01),
                         child: Column(
                           children: [
+                            Obx(() => viewModel.serviceDashboardModel.value !=
+                                    null
+                                ? GridView.builder(
+                                    padding: const EdgeInsets.all(0),
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                      mainAxisExtent:
+                                          context.getSize.height * 0.18,
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing: 8,
+                                      mainAxisSpacing: 8,
+                                    ),
+                                    itemCount: viewModel.serviceDashboardModel
+                                        .value?.randomServices?.length,
+                                    itemBuilder: (context, index) {
+                                      if (viewModel.serviceDashboardModel.value!
+                                              .randomServices ==
+                                          null) return SizedBox();
+                                      return servicesTile(
+                                        onTap: () {
+                                          Get.toNamed(AppRoutes.subServices,
+                                              arguments: viewModel
+                                                  .serviceDashboardModel
+                                                  .value!
+                                                  .randomServices?[index]);
+                                        },
+                                        service: viewModel.serviceDashboardModel
+                                            .value!.randomServices![index],
+                                        context: context,
+                                      );
+                                    })
+                                : SizedBox()),
+                            getHeight(context, 0.015),
+                            textButton(
+                                context: context,
+                                title: 'Other',
+                                onClick: () {
+                                  Get.toNamed(AppRoutes.AllParentServices);
+                                }),
+                            // Nearby Services
+                            getHeight(context, 0.015),
+                            gridTitleTile(context,
+                                // title: context.local.topSellingServices,
+                                title: "Nearest Services", callBack: () {
+                              Get.toNamed(AppRoutes.AllServicesScreen,
+                                  arguments: viewModel.serviceDashboardModel
+                                      .value?.nearbyServices);
+                              // Get.toNamed(AppRoutes.propertiesAndVideoView,
+                              //     arguments:
+                              //         PoropertiesAndVideoEnum.topselling);
+                            }, fontSize: 14),
+                            getHeight(context, 0.008),
+                            Obx(() => viewModel.serviceDashboardModel.value !=
+                                    null
+                                ? GridView.builder(
+                                    shrinkWrap: true,
+                                    padding: const EdgeInsets.all(0),
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 3,
+                                            mainAxisExtent:
+                                                context.getSize.height * 0.18,
+                                            crossAxisSpacing:
+                                                context.getSize.width * 0.016),
+                                    itemCount: viewModel.serviceDashboardModel
+                                        .value?.nearbyServices?.length,
+                                    itemBuilder: (context, index) {
+                                      SellingServices service = viewModel
+                                          .serviceDashboardModel
+                                          .value!
+                                          .nearbyServices![index];
+                                      return ServicesBox(context, service,
+                                          onClick: () {
+                                        Get.toNamed(AppRoutes.ServiceDetail,
+                                            arguments: service);
+                                      });
+                                    })
+                                : SizedBox()),
+                            // Top selling services
+                            getHeight(context, 0.015),
+                            Obx(() => viewModel.serviceDashboardModel.value !=
+                                    null
+                                ? Column(children: [
+                                  if(viewModel
+                                      .serviceDashboardModel
+                                      .value
+                                      !.topsellingServices
+                                      != null && viewModel
+                                      .serviceDashboardModel
+                                      .value
+                                  !.topsellingServices!.isNotEmpty)
+                                    gridTitleTile(context,
+                                        // title: context.local.topSellingServices,
+                                        title: "Top Selling Services",
+                                        callBack: () {
+                                      Get.toNamed(AppRoutes.AllServicesScreen,
+                                          arguments: viewModel
+                                              .serviceDashboardModel
+                                              .value
+                                              ?.topsellingServices);
+
+                                      // Get.toNamed(AppRoutes.propertiesAndVideoView,
+                                      //     arguments:
+                                      //         PoropertiesAndVideoEnum.topselling);
+                                    }, fontSize: 14),
+                                    getHeight(context, 0.008),
+                                    GridView.builder(
+                                        shrinkWrap: true,
+                                        padding: const EdgeInsets.all(0),
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        gridDelegate:
+                                            SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisCount: 3,
+                                                mainAxisExtent:
+                                                    context.getSize.height *
+                                                        0.18,
+                                                crossAxisSpacing:
+                                                    context.getSize.width *
+                                                        0.016),
+                                        itemCount: viewModel
+                                            .serviceDashboardModel
+                                            .value
+                                            ?.topsellingServices
+                                            ?.length,
+                                        itemBuilder: (context, index) {
+                                          SellingServices service = viewModel
+                                              .serviceDashboardModel
+                                              .value!
+                                              .topsellingServices![index];
+                                          return ServicesBox(context, service,
+                                              onClick: () {
+                                            Get.toNamed(AppRoutes.ServiceDetail,
+                                                arguments: service);
+                                          });
+                                        })
+                                  ])
+                                : SizedBox()),
+                            // Random Services
+                            SizedBox(
+                              height: 10,
+                            ),
                             FutureBuilder(
-                                future: viewModel.getAllParentServices(context),
+                                future:
+                                    viewModel.getPaginationServices(context),
                                 builder: (context, snapshot) {
                                   if (snapshot.connectionState ==
                                       ConnectionState.waiting) {
@@ -79,75 +230,37 @@ class ServciesView extends StatelessWidget {
                                   }
                                   if (snapshot.connectionState ==
                                       ConnectionState.done) {
-                                    List<ParentServicesModel> services =
-                                        snapshot.data ?? [];
-                                    return GridView.builder(
-                                        padding: const EdgeInsets.all(0),
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        shrinkWrap: true,
-                                        gridDelegate:
-                                            SliverGridDelegateWithFixedCrossAxisCount(
-                                          mainAxisExtent:
-                                              context.getSize.height * 0.18,
-                                          crossAxisCount: 2,
-                                          crossAxisSpacing: 8,
-                                          mainAxisSpacing: 8,
-                                        ),
-                                        itemCount: services.length,
-                                        itemBuilder: (context, index) {
-                                          return servicesTile(
-                                            onTap: () {
-                                              Get.toNamed(AppRoutes.subServices,
-                                                  arguments: services[index]);
-                                            },
-                                            service: services[index],
-                                            context: context,
-                                          );
-                                        });
+                                    ServicePaginationModel? serviceModel =
+                                        snapshot.data;
+                                    List<SellingServices> services =
+                                        serviceModel?.results ?? [];
+                                    return Column(
+                                      children: [
+                                        gridTitleTile(context,
+                                            // title: context.local.topSellingServices,
+                                            title: "Other Services",
+                                            callBack: () {
+                                          Get.toNamed(
+                                              AppRoutes.AllServicesScreen,
+                                              arguments: services);
+                                        }, fontSize: 14),
+                                        ListView.builder(
+                                            physics: const BouncingScrollPhysics(),
+                                            padding: const EdgeInsets.all(0),
+                                            shrinkWrap: true,
+                                            itemCount: services.length,
+                                            itemBuilder: (context, index) {
+                                              return Padding(
+                                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                                child: serviceTile(context,
+                                                    service: services[index]),
+                                              );
+                                            }),
+                                      ],
+                                    );
                                   }
                                   return SizedBox();
-                                }),
-                            getHeight(context, 0.015),
-                            textButton(
-                                context: context,
-                                title: 'Other',
-                                onClick: () {}),
-                            getHeight(context, 0.015),
-                            gridTitleTile(context,
-                                // title: context.local.topSellingServices,
-                                title: "Nearest Services",
-                                callBack: () {
-                              // Get.toNamed(AppRoutes.propertiesAndVideoView,
-                              //     arguments:
-                              //         PoropertiesAndVideoEnum.topselling);
-                            }, fontSize: 14),
-                            getHeight(context, 0.008),
-                            Obx(() => viewModel.serviceDashboardModel.value != null?
-                            GridView.builder(
-                                shrinkWrap: true,
-                                padding: const EdgeInsets.all(0),
-                                physics: const NeverScrollableScrollPhysics(),
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 3,
-                                        mainAxisExtent:
-                                            context.getSize.height * 0.18,
-                                        crossAxisSpacing:
-                                            context.getSize.width * 0.016),
-                                itemCount: viewModel.serviceDashboardModel.value
-                                    ?.nearbyServices?.length,
-                                itemBuilder: (context, index) {
-                                  NearbyServices service = viewModel
-                                      .serviceDashboardModel
-                                      .value!
-                                      .nearbyServices![index];
-                                  return nearbyServicesBox(context, service,
-                                      onClick: () {
-                                    Get.toNamed(AppRoutes.nearesServiceDetail,
-                                        arguments: service);
-                                  });
-                                }):SizedBox())
+                                })
                           ],
                         ),
                       ),
@@ -210,20 +323,20 @@ class ServciesView extends StatelessWidget {
                       //       }),
                       // ),
                       getHeight(context, 0.015),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: context.getSize.width * 0.09),
-                        child: Column(
-                          children: [
-                            ServicesShortVideoTile(viewModel: viewModel),
-                            getHeight(context, 0.015),
-                            gridTitleTile(context,
-                                title: context.local.videos, callBack: () {}),
-                            getHeight(context, 0.010),
-                            const ServicesVideoTile(),
-                          ],
-                        ),
-                      )
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(
+                      //       horizontal: context.getSize.width * 0.09),
+                      //   child: Column(
+                      //     children: [
+                      //       ServicesShortVideoTile(viewModel: viewModel),
+                      //       getHeight(context, 0.015),
+                      //       gridTitleTile(context,
+                      //           title: context.local.videos, callBack: () {}),
+                      //       getHeight(context, 0.010),
+                      //       const ServicesVideoTile(),
+                      //     ],
+                      //   ),
+                      // )
                     ],
                   ),
                 );

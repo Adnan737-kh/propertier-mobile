@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:propertier/App/Home/Services/home_services.dart';
 import 'package:propertier/App/Services/Service/ServicesCore.dart';
@@ -9,7 +10,8 @@ import 'package:propertier/Vendor/screens/dashboard/home/Service/HomeService.dar
 import 'package:web_socket_channel/web_socket_channel.dart';
 import '../../../../../App/Auth/Login/Model/login_response_model.dart';
 import '../../../../../App/Services/Model/services_model.dart';
-
+import '../../../../helpers/api_service.dart';
+import '../../profile/model/profile_model.dart';
 
 
 class WebSocketController extends GetxController {
@@ -21,7 +23,8 @@ class WebSocketController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    connectToWebSocket(); // Connect to WebSocket on init
+    // connectToWebSocket(); // Connect to WebSocket on init
+    loadProfile();
   }
 
   // Establish WebSocket connection
@@ -75,6 +78,34 @@ class WebSocketController extends GetxController {
 
   Future<UserData?> getUser(String id)async{
     return await Homeservice().getUser(id);
+  }
+
+
+  var profile = ProfileModel();
+
+  Future<void> loadProfile() async {
+
+    String? vendorUserId = (await ApiService().getVendorUserId());
+
+    if (vendorUserId != null) {
+      try {
+        ProfileModel profile = await ApiService().fetchProfile(vendorUserId);
+        this.profile = profile;
+        selectedService.value = profile.professionTypes?[0].toString()??"";
+        if(selectedService.value != ""){
+          connectToWebSocket();
+          Fluttertoast.showToast(msg: "You are live");
+        }
+        else{
+          Fluttertoast.showToast(msg: "Couldn't Get Bids!");
+        }
+
+      } catch (e) {
+        print('Error loading profile: $e');
+      }
+    } else {
+      print('Vendor user ID not found');
+    }
   }
 
   @override

@@ -109,4 +109,33 @@ class ServicesCore{
 
   }
 
+
+  Future<ServicePaginationModel?> ServicesPagination({required BuildContext context})async{
+    ServicePaginationModel? model;
+    try{
+      String url = "${API.servicesWithPagination}?limit=20";
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final decodedJson = jsonDecode(response.body);
+        model = ServicePaginationModel.fromJson(decodedJson);
+        return model;
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: appText(
+                title: 'Something went wrong.',
+                context: context,
+                color: AppColor.white)));
+      }
+    }
+    catch(e){
+      print("error: $e");
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: appText(
+              title: e.toString(),
+              context: context,
+              color: AppColor.white)));
+    }
+    return model;
+  }
+
 }

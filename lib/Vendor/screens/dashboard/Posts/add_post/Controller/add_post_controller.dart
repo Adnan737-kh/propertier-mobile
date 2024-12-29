@@ -1,9 +1,12 @@
 
 import 'dart:io';
 
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:propertier/Vendor/helpers/api_service.dart';
 import 'package:propertier/Vendor/screens/dashboard/Posts/add_post/Model/add_post_model.dart';
+
+import '../../../profile/controller/profile_controller.dart';
 
 
 
@@ -12,7 +15,7 @@ import 'package:propertier/Vendor/screens/dashboard/Posts/add_post/Model/add_pos
 
   Future<void> addPost(
     AddPostModel postModel,
-    File? selectedImage,
+    List<File> selectedImage,
     File? selectedVideo,
   ) async {
     final vendorid = GetStorage();
@@ -23,7 +26,7 @@ import 'package:propertier/Vendor/screens/dashboard/Posts/add_post/Model/add_pos
       return;
     }
 
-    if (selectedImage == null) {
+    if (selectedImage.isEmpty) {
       print("Error: No image selected");
       return;
     }
@@ -38,7 +41,7 @@ import 'package:propertier/Vendor/screens/dashboard/Posts/add_post/Model/add_pos
         selectedImage,
         selectedVideo,
         vendorUserId,
-        featurePackageId.toString(),
+        featurePackageId.toString()
       );
     } else {
       // Call API for post without feature package

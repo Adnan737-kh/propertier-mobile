@@ -25,7 +25,7 @@ class NearestServiceDetailViewModel extends GetxController{
   }
 
 
-  late final NearbyServices nearbyServices;
+  late final SellingServices nearbyServices;
   TextEditingController descriptionController = TextEditingController();
   final ImagePicker imagePicker = ImagePicker();
   RxList<XFile> imageFileList = <XFile>[].obs;

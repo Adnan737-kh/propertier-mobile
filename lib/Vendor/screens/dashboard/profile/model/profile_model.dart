@@ -265,6 +265,7 @@ class ProfileModel {
   String? drivingLicenseFrontUrl;
   String? drivingLicenseBackUrl;
   bool? drivingLicenseVerified;
+  List<String>? professionTypes;
   ProfileModel({
     this.id,
     this.isSuperuser,
@@ -325,7 +326,8 @@ class ProfileModel {
     this.likes,
     this.drivingLicenseFrontUrl,
     this.drivingLicenseBackUrl,
-    this.drivingLicenseVerified
+    this.drivingLicenseVerified,
+    this.professionTypes
   });
 
   ProfileModel.fromJson(Map<String, dynamic> json) {
@@ -389,6 +391,7 @@ class ProfileModel {
     drivingLicenseFrontUrl = json['driving_licence_front_url'];
     drivingLicenseBackUrl = json['driving_licence_back_url'];
     drivingLicenseVerified = json['driving_licence_verified'];
+    professionTypes = json['profession_types'] != null ? List<String>.from(json['profession_types']):[];
   }
 
   Map<String, dynamic> toJson() {
@@ -454,6 +457,7 @@ class ProfileModel {
     data['driving_licence_front_url'] = drivingLicenseFrontUrl;
     data['driving_licence_back_url'] = drivingLicenseBackUrl;
     data['driving_licence_verified'] = drivingLicenseVerified;
+    data['profession_types'] = professionTypes;
     return data;
   }
 
@@ -518,6 +522,7 @@ class ProfileModel {
     String? drivingLicenseFrontUrl,
     String? drivingLicenseBackUrl,
     bool? drivingLicenseVerified,
+    List<String>? professionTypes
   }) {
     return ProfileModel(
       id: id ?? this.id,
@@ -580,6 +585,7 @@ class ProfileModel {
       drivingLicenseFrontUrl: drivingLicenseFrontUrl ?? this.drivingLicenseFrontUrl,
       drivingLicenseBackUrl: drivingLicenseBackUrl ?? this.drivingLicenseBackUrl,
       drivingLicenseVerified: drivingLicenseVerified ?? this.drivingLicenseVerified,
+      professionTypes: professionTypes ?? this.professionTypes,
     );
   }
 }

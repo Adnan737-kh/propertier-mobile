@@ -251,6 +251,27 @@ class _ProfileScreenState extends State<ProfileScreen>
                         fontWeight: FontWeight.w600,
                       ),
                     ),
+                    if(profileController.profile.value.professionTypes != null && profileController.profile.value.professionTypes!.length == 2)
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Icon(Icons.work_history_rounded,color: Color(0xFFFDCD54),),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              child: Text(
+                                profileController.profile.value.professionTypes![1].toString(),
+                                style: const TextStyle(
+                                  color: Color(0xFF131A22),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 20),
                       width: Get.width,

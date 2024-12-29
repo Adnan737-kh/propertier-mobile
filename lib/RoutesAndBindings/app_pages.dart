@@ -130,7 +130,24 @@ import 'package:propertier/App/onBoarding/ViewModel/onboarding_view_model.dart';
 import 'package:propertier/App/NavBar/View/nav_bar_view.dart';
 
 import 'package:propertier/App/Player/View/player_view.dart';
+import 'package:propertier/Customer/screens/AllParentServices/AllParentServicesController.dart';
+import 'package:propertier/Customer/screens/AllServices/AllServicesScreenController.dart';
+import 'package:propertier/Customer/screens/CustomerWallet/CustomerWalletBinding.dart';
+import 'package:propertier/Customer/screens/HouseWorkForm/HouseWorkFormBinding.dart';
+import 'package:propertier/Customer/screens/PropertyServiceForm/PropertyServiceFormBinding.dart';
+import 'package:propertier/Customer/screens/ServiceDetail/ServiceDetailController.dart';
+import 'package:propertier/Customer/screens/TransportServiceForm/TransportServiceFormBinding.dart';
+import 'package:propertier/Customer/screens/VendorOffer/VendorOfferBinding.dart';
+import 'package:propertier/Customer/screens/WaterServiceForm/WaterServiceFormlBinding.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
+import 'package:propertier/Vendor/screens/HouseWorkBidDetail/HouseWorkBidDetailBinding.dart';
+import 'package:propertier/Vendor/screens/PropertyBidDetail/PropertyBidDetailBinding.dart';
+import 'package:propertier/Vendor/screens/ServiceForm/ServiceFormBinding.dart';
+import 'package:propertier/Vendor/screens/TransportBidDetail/TransportBidDetailBinding.dart';
+import 'package:propertier/Vendor/screens/Wallet/VendorWalletBinding.dart';
+import 'package:propertier/Vendor/screens/WaterBidDetail/WaterBidDetailBinding.dart';
+import 'package:propertier/Vendor/screens/drawer/EditVendorForm/EditVendorFormBinding.dart';
+import 'package:propertier/Vendor/screens/drawer/VendorForm/VendorFormBinding.dart';
 import '../App/Auth/Create User/Views/collect_info.dart';
 import '../App/Auth/Forgotpassword/View/forget_password_view.dart';
 import '../App/NearestServiceDetail/View/nearest_service_detail.dart';
@@ -153,8 +170,24 @@ import '../App/PropertiesAndShortVideo/ViewModel/properties_and_Video_view_model
 import '../App/Service Provider Profile/ViewModel/service_provider_profile_viewmodel.dart';
 import '../App/ServicesSearch/ViewModel/services_search_view_model_2.dart';
 import '../App/What are you searching/View/what_are_you_search_view.dart';
+import '../Customer/screens/AllParentServices/AllParentServices.dart';
+import '../Customer/screens/AllServices/AllServicesScreen.dart';
+import '../Customer/screens/CustomerWallet/CustomerWallet.dart';
+import '../Customer/screens/HouseWorkForm/HouseWorkForm.dart';
+import '../Customer/screens/PropertyServiceForm/PropertyServiceForm.dart';
+import '../Customer/screens/TransportServiceForm/TransportServiceForm.dart';
+import '../Customer/screens/VendorOffer/VendorOffer.dart';
+import '../Customer/screens/WaterServiceForm/WaterServiceForm.dart';
+import '../Vendor/screens/HouseWorkBidDetail/HouseWorkBidDetail.dart';
+import '../Vendor/screens/PropertyBidDetail/PropertyBidDetail.dart';
+import '../Vendor/screens/ServiceForm/ServiceForm.dart';
+import '../Vendor/screens/TransportBidDetail/TransportBidDetail.dart';
+import '../Vendor/screens/Wallet/VendorWallet.dart';
+import '../Vendor/screens/WaterBidDetail/WaterBidDetail.dart';
 import '../Vendor/screens/dashboard/dashboard.dart';
-
+import '../Customer/screens/ServiceDetail/ServiceDetail.dart' as sd;
+import '../Vendor/screens/drawer/EditVendorForm/EditVendorForm.dart';
+import '../Vendor/screens/drawer/VendorForm/VendorForm.dart';
 class AppPages {
   static final routes = [
     GetPage(
@@ -754,7 +787,57 @@ class AppPages {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => BidViewModel());
         })),
-
+    GetPage(
+        name: AppRoutes.ServiceDetail,
+        transition: Transition.rightToLeftWithFade,
+        page: () => sd.ServiceDetail(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => ServiceDetailController());
+        })),
+    GetPage(
+        name: AppRoutes.AllServicesScreen,
+        transition: Transition.rightToLeftWithFade,
+        page: () => AllServicesScreen(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => AllServicesScreenController());
+        })),
+    GetPage(
+        name: AppRoutes.AllParentServices,
+        transition: Transition.rightToLeftWithFade,
+        page: () => AllParentServices(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => AllParentServicesController());
+        })),
+    GetPage(
+        name: AppRoutes.VendorOffer,
+        transition: Transition.rightToLeftWithFade,
+        page: () => VendorOffer(),
+        binding: VendorOfferBinding()
+    ),
+    GetPage(
+        name: AppRoutes.CustomerWallet,
+        transition: Transition.rightToLeftWithFade,
+        page: () => CustomerWallet(),
+        binding: CustomerWalletBinding()
+    ),
+    GetPage(
+        name: AppRoutes.WaterServiceForm,
+        transition: Transition.rightToLeftWithFade,
+        page: () => WaterServiceForm(),
+        binding: WaterServiceFormBinding()
+    ),
+    GetPage(
+        name: AppRoutes.PropertyServiceForm,
+        transition: Transition.rightToLeftWithFade,
+        page: () => PropertyServiceForm(),
+        binding: PropertyServiceFormBinding()
+    ),
+    GetPage(
+        name: AppRoutes.HouseWorkForm,
+        transition: Transition.rightToLeftWithFade,
+        page: () => HouseWorkForm(),
+        binding: HouseWorkFormBinding()
+    ),
     //!!--------------------------Vender-----------------------------!!//
     GetPage(
         name: AppRoutes.vendordashborad,
@@ -763,6 +846,60 @@ class AppPages {
         binding: BindingsBuilder(() {
           // Get.lazyPut(() => Dashboard());
         })),
+    GetPage(
+        name: AppRoutes.VendorWallet,
+        transition: Transition.rightToLeftWithFade,
+        page: () => VendorWallet(),
+        binding: VendorWalletBinding()
+    ),
+    GetPage(
+        name: AppRoutes.ServiceForm,
+        transition: Transition.rightToLeftWithFade,
+        page: () => ServiceForm(),
+        binding: ServiceFormBinding()
+    ),
+    GetPage(
+        name: AppRoutes.VendorForm,
+        transition: Transition.rightToLeftWithFade,
+        page: () => VendorForm(),
+        binding: VendorFormBinding()
+    ),
+    GetPage(
+        name: AppRoutes.EditVendorForm,
+        transition: Transition.rightToLeftWithFade,
+        page: () => EditVendorForm(),
+        binding: EditVendorFormBinding()
+    ),
+    GetPage(
+        name: AppRoutes.TransportServiceForm,
+        transition: Transition.rightToLeftWithFade,
+        page: () => TransportServiceForm(),
+        binding: TransportServiceFormBinding()
+    ),
+    GetPage(
+        name: AppRoutes.TransportBidDetail,
+        transition: Transition.rightToLeftWithFade,
+        page: () => TransportBidDetail(),
+        binding: TransportBidDetailBinding()
+    ),
+    GetPage(
+        name: AppRoutes.WaterBidDetail,
+        transition: Transition.rightToLeftWithFade,
+        page: () => WaterBidDetail(),
+        binding: WaterBidDetailBinding()
+    ),
+    GetPage(
+        name: AppRoutes.PropertyBidDetail,
+        transition: Transition.rightToLeftWithFade,
+        page: () => PropertyBidDetail(),
+        binding: PropertyBidDetailBinding()
+    ),
+    GetPage(
+        name: AppRoutes.HouseWorkBidDetail,
+        transition: Transition.rightToLeftWithFade,
+        page: () => HouseWorkBidDetail(),
+        binding: HouseWorkBidDetailBinding()
+    ),
     //!!-------------------------------------------------------!!//
   ];
 }

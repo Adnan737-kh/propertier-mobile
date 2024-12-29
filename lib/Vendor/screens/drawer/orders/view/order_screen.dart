@@ -117,7 +117,9 @@ class _OrderScreenState extends State<OrderScreen>
           Expanded(
               child: TabBarView(controller: tabController, children: [
                 Obx(()=>
-                  ListView.builder(
+            controller.orders.isEmpty ?
+                Center(child: orderCard(OrderModel(id: 1, status: "pending",serviceLocation: "Lahore, Modal Town",totalAmount: "2500", selectedSubServices: [1])),)
+                  :ListView.builder(
                     itemCount: controller.orders.length,
                     itemBuilder: (context, index){
                       OrderModel order = controller.orders[index];
@@ -169,6 +171,7 @@ class _OrderScreenState extends State<OrderScreen>
 
 
   Widget orderCard(OrderModel order){
+    Rxn selectedValue = Rxn();
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       padding: const EdgeInsets.only(left: 2, right: 2, bottom: 8),
@@ -232,7 +235,7 @@ class _OrderScreenState extends State<OrderScreen>
                 ),
                 SizedBox(width: 5),
                 Text(
-                  "${formatDateToStandard(order.createdAt??"")}",
+                  "${formatDateToStandard(order.createdAt)}",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Color(0xB2131A22),
@@ -384,6 +387,26 @@ class _OrderScreenState extends State<OrderScreen>
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              Expanded(
+                child: SizedBox(
+                  height: 40,
+                  child: Obx(()=> DropdownButton<String>(
+                    value: selectedValue.value,
+                    hint: const Text('Update Order Status'),
+                    isExpanded: true, // Ensures dropdown takes full width
+                    items: <String>['Not Started', 'Started', 'Completed', 'Cancel']
+                        .map((String value) => DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    ))
+                        .toList(),
+                    onChanged: (String? newValue) {
+                      selectedValue.value = newValue;
+                    },
+                    style: const TextStyle(fontSize: 14,color: AppColor.blackColor), // Customize text style
+                  )),
+                ),
+              ),
               if(order.status == "pending")
               InkWell(
                 onTap: (){

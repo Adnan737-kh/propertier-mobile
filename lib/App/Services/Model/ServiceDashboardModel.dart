@@ -1,20 +1,31 @@
-class ServiceDashboardModel {
-  List<RandomServices>? randomServices;
-  List<NearbyServices>? nearbyServices;
+import 'package:propertier/App/Services/Model/services_model.dart';
 
-  ServiceDashboardModel({this.randomServices, this.nearbyServices});
+// Model
+class ServiceDashboardModel {
+  List<ParentServicesModel>? randomServices;
+  List<SellingServices>? topsellingServices;
+  List<SellingServices>? nearbyServices;
+
+  ServiceDashboardModel(
+      {this.randomServices, this.topsellingServices, this.nearbyServices});
 
   ServiceDashboardModel.fromJson(Map<String, dynamic> json) {
     if (json['random_services'] != null) {
-      randomServices = <RandomServices>[];
+      randomServices = <ParentServicesModel>[];
       json['random_services'].forEach((v) {
-        randomServices!.add(new RandomServices.fromJson(v));
+        randomServices!.add(new ParentServicesModel.fromJson(v));
+      });
+    }
+    if (json['top_selling_services'] != null) {
+      topsellingServices = <SellingServices>[];
+      json['top_selling_services'].forEach((v) {
+        topsellingServices!.add(new SellingServices.fromJson(v));
       });
     }
     if (json['nearby_services'] != null) {
-      nearbyServices = <NearbyServices>[];
+      nearbyServices = <SellingServices>[];
       json['nearby_services'].forEach((v) {
-        nearbyServices!.add(new NearbyServices.fromJson(v));
+        nearbyServices!.add(new SellingServices.fromJson(v));
       });
     }
   }
@@ -25,6 +36,10 @@ class ServiceDashboardModel {
       data['random_services'] =
           this.randomServices!.map((v) => v.toJson()).toList();
     }
+    if (this.topsellingServices != null) {
+      data['top_selling_services'] =
+          this.topsellingServices!.map((v) => v.toJson()).toList();
+    }
     if (this.nearbyServices != null) {
       data['nearby_services'] =
           this.nearbyServices!.map((v) => v.toJson()).toList();
@@ -33,65 +48,46 @@ class ServiceDashboardModel {
   }
 }
 
-class RandomServices {
-  int? id;
-  List<Subservices>? subservices;
-  String? title;
-  String? description;
-  String? coverImageUrl;
-  String? imageUrl;
-  String? rating;
-  String? createdAt;
-  String? updatedAt;
-  List<int>? vendors;
 
-  RandomServices(
-      {this.id,
-        this.subservices,
-        this.title,
-        this.description,
-        this.coverImageUrl,
-        this.imageUrl,
-        this.rating,
-        this.createdAt,
-        this.updatedAt,
-        this.vendors});
+//Model
+class ServicePaginationModel {
+  int? total;
+  int? page;
+  int? limit;
+  int? totalPages;
+  List<SellingServices>? results;
 
-  RandomServices.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    if (json['subservices'] != null) {
-      subservices = <Subservices>[];
-      json['subservices'].forEach((v) {
-        subservices!.add(new Subservices.fromJson(v));
+  ServicePaginationModel(
+      {this.total, this.page, this.limit, this.totalPages, this.results});
+
+  ServicePaginationModel.fromJson(Map<String, dynamic> json) {
+    total = json['total'];
+    page = json['page'];
+    limit = json['limit'];
+    totalPages = json['total_pages'];
+    if (json['results'] != null) {
+      results = <SellingServices>[];
+      json['results'].forEach((v) {
+        results!.add(new SellingServices.fromJson(v));
       });
     }
-    title = json['title'];
-    description = json['description'];
-    coverImageUrl = json['cover_image_url'];
-    imageUrl = json['image_url'];
-    rating = json['rating'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    vendors = json['vendors'].cast<int>();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    if (this.subservices != null) {
-      data['subservices'] = this.subservices!.map((v) => v.toJson()).toList();
+    data['total'] = this.total;
+    data['page'] = this.page;
+    data['limit'] = this.limit;
+    data['total_pages'] = this.totalPages;
+    if (this.results != null) {
+      data['results'] = this.results!.map((v) => v.toJson()).toList();
     }
-    data['title'] = this.title;
-    data['description'] = this.description;
-    data['cover_image_url'] = this.coverImageUrl;
-    data['image_url'] = this.imageUrl;
-    data['rating'] = this.rating;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['vendors'] = this.vendors;
     return data;
   }
 }
+
+
+
 
 class Subservices {
   int? id;
@@ -142,14 +138,14 @@ class Subservices {
   }
 }
 
-class NearbyServices {
+class SellingServices {
   int? id;
   Vendor? vendor;
   Service? service;
   bool? isFeatured;
   String? title;
   List<String>? imageUrls;
-  Null? videoUrl;
+  String? videoUrl;
   String? shortVideoUrl;
   int? likes;
   String? fixedPrice;
@@ -158,7 +154,7 @@ class NearbyServices {
   String? updatedAt;
   List<int>? selectedSubServices;
 
-  NearbyServices(
+  SellingServices(
       {this.id,
         this.vendor,
         this.service,
@@ -174,7 +170,7 @@ class NearbyServices {
         this.updatedAt,
         this.selectedSubServices});
 
-  NearbyServices.fromJson(Map<String, dynamic> json) {
+  SellingServices.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     vendor =
     json['vendor'] != null ? new Vendor.fromJson(json['vendor']) : null;
@@ -220,7 +216,7 @@ class NearbyServices {
 class Vendor {
   int? id;
   String? name;
-  Null? profilePictureUrl;
+  String? profilePictureUrl;
   String? phoneNumber;
   String? email;
 
