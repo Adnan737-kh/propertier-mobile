@@ -62,14 +62,14 @@ PreferredSize homeAppBar(
                     },
                     child: CircleAvatar(
                         radius: context.isPhone ? 20 : 40,
-                        backgroundImage: NetworkImage(GetStorage()
-                                .read("image") ??
-                            "https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")),
+                        backgroundImage: NetworkImage(viewModel.profileImage ??
+                            "https://images.unsplash.com/photo-1511367461989-f85a21fda167"
+                                "?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 0),
                     child: appText(
-                      title: GetStorage().read("userName") ?? "",
+                      title: viewModel.userName ?? "",
                       context: context,
                       fontSize: 14,
                       fontFamily: 'Rubik',
@@ -117,12 +117,6 @@ PreferredSize homeAppBar(
                   const Gap(30),
                   Row(
                     children: [
-                      // GestureDetector(
-                      //     onTap: () {
-                      //       Get.toNamed(AppRoutes.searchEngineView);
-                      //     },
-                      //     child: const Icon(Ionicons.search)),
-                      // getWidth(context, 0.020),
                       const Icon(Ionicons.cart_outline),
                       getWidth(context, 0.020),
                       const Icon(Icons.favorite_border_outlined)
@@ -137,7 +131,7 @@ PreferredSize homeAppBar(
           SizedBox(
             height: 50,
               width: Get.width,
-              child: AppBannerAd()),
+              child: const AppBannerAd()),
           getHeight(context, 0.010),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -163,7 +157,7 @@ PreferredSize homeAppBar(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 5),
                           decoration: BoxDecoration(
-                              border: viewModel.seletcedTabIndex == index
+                              border: viewModel.selectedTabIndex == index
                                   ? const Border(
                                       bottom: BorderSide(
                                       color: AppColor.buttonColor,
@@ -176,7 +170,7 @@ PreferredSize homeAppBar(
                                 context: context,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
-                                color: viewModel.seletcedTabIndex == index
+                                color: viewModel.selectedTabIndex == index
                                     ? AppColor.buttonColor
                                     : AppColor.primaryColor),
                           ),

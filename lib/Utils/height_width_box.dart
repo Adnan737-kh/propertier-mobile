@@ -16,10 +16,10 @@ getWidth(BuildContext context, double width) {
   );
 }
 
-sizeWidth(double widthofPhone, double widthofIpad) {
+sizeWidth(double widthOfPhone, double widthOfIpad) {
   return Get.context!.isPhone
-      ? Get.context!.width * widthofPhone
-      : Get.context!.width * widthofIpad;
+      ? Get.context!.width * widthOfPhone
+      : Get.context!.width * widthOfIpad;
 }
 
 sizeHeight(double heightOfPhone, double heightOfIpad) {

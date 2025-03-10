@@ -167,7 +167,7 @@ class _ShortVideoThumbnailState extends State<ShortVideoThumbnail> {
             border: border(color: AppColor.buttonColor, width: 1),
             image: DecorationImage(
                 image:
-                    NetworkImage(widget.property.image ?? Constant.dummayImage),
+                    NetworkImage(widget.property.image ?? Constant.dummyImage),
                 fit: BoxFit.cover)),
       ),
     );

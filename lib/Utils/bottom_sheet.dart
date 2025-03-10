@@ -4,7 +4,7 @@ import 'package:propertier/constant/colors.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 typedef OnChange = Function(String);
-showLocationBottonSheet({
+showLocationBottomSheet({
   required BuildContext context,
   required List<String> dataList,
   required String selectedLocation,

@@ -15,32 +15,17 @@ class AuthService {
   final GetStorage _storage = GetStorage();
 
   Future<void> registerUser(UserLoginModel user, String password) async {
-    // final hashedPassword =
-    //     password; // Implement secure hashing (explained earlier)
-
-    var userjson = user.toJson();
-    log(userjson.toString());
+    var userJson = user.toJson();
+    log(userJson.toString());
     await _storage.write('id', user.users!.first.id);
     await _storage.write('userName', user.users!.first.name);
     await _storage.write('image', user.users!.first.profilePictureUrl);
     await _storage.write('coverImage', user.users!.first.coverPhotoUrl);
-    await _storage.write('user', userjson);
+    await _storage.write('user', userJson);
     await _storage.write('user_type', user.users?.first.type);
 
     return;
   }
-
-  // Future<UserData?> loginUser(String username, String password) async {
-  //   final storedUser = _storage.read('user');
-  //   if (storedUser != null) {
-  //     final UserData user = UserData.fromJson(storedUser);
-  //     final enteredHash = password;
-  //     if (enteredHash == user.hashedPassword) {
-  //       return user;
-  //     }
-  //   }
-  //   return null; // Login failed
-  // }
 
   Future<UserLoginModel?> getCurrentUser() async {
     final storedUser = _storage.read('user');
@@ -59,17 +44,4 @@ class AuthService {
     await _storage.remove('userName'); // Clear user data on logout
     await _auth.signOut();
   }
-  // Future<User?> get getUser async => await getCurrentUser();
 }
-
-// Future<String> decryptPassword(String encryptedPassword) async {
-//   List<int> encryptedBytes = hex.HEX.decode(encryptedPassword);
-//   final key = Key.fromUtf8('awdrgyjilzsxdcfvbhjmawsdrfgyhjik');
-//   final iv = IV.fromLength(16);
-//   final encrypter = Encrypter(AES(key));
-
-//   final decryptedBytes = encrypter
-//       .decryptBytes(Encrypted(Uint8List.fromList(encryptedBytes)), iv: iv); //
-//   final decrypted = utf8.decode(decryptedBytes);
-//   return decrypted;
-// }

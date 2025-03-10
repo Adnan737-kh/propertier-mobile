@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../Auth/User/Token/token_preference_view_model/token_preference_view_model.dart';
 import '../services/add_award_services.dart';
 
 class AddAwardViewModel extends GetxController {
@@ -12,6 +14,9 @@ class AddAwardViewModel extends GetxController {
   late File image;
   final Rx<String?> selectedDate = Rx(null);
   RxString selectedStringDate = ''.obs;
+  UserPreference userPreference = UserPreference();
+  String? _accessToken;
+  String? get accessToken => _accessToken;
 
   Future<void> chooseDate(BuildContext context) async {
     final pickedDate = await showDatePicker(
@@ -30,6 +35,16 @@ class AddAwardViewModel extends GetxController {
   void onInit() {
     titleController = TextEditingController();
     descriptionController = TextEditingController();
+    userPreference.getUserAccessToken().then((value) async {
+      if (value.accessToken!.isNotEmpty ||
+          value.accessToken.toString() != 'null') {
+        _accessToken = value.accessToken;
+        if (kDebugMode) {
+          print('Add Award Access Token  !!! ${value.accessToken}');
+        }
+
+      }
+    });
     super.onInit();
   }
 
@@ -37,17 +52,17 @@ class AddAwardViewModel extends GetxController {
   bool get isSuccess => _isSuccess.value;
 
   Future<void> postAward(
-      {required String id,
+      {required String accessToken,
       required String title,
-      required String dessrcption,
+      required String description,
       required String date,
       required File imageData,
       required BuildContext context}) async {
     _isSuccess.value = false;
     final result = await AddAwardServices().addAward(
-        agentId: id,
+        accessToken: accessToken,
         context: context,
-        description: dessrcption,
+        description: description,
         title: title,
         date: date,
         image: imageData);

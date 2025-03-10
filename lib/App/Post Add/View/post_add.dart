@@ -1,6 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:propertier/App/NavBar/ViewModel/navbar_view_model.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/constant/colors.dart';
@@ -39,20 +39,72 @@ class PostAddView extends StatelessWidget {
                 //     buttonColor: AppColor.white,
                 //     textColor: AppColor.darkGreyColor.withOpacity(0.7)),
                 // getHeight(context, 0.008),
-                customTextButton(
-                    title: "Properties",
-                    onTap: GetStorage().read('user') == null
-                        ? () {
-                            navBarVM.changeSelectedTab(2);
-                          }
-                        : () {
-                            final cont = Get.put(UploadPropertyViewModel());
-                            Get.toNamed(AppRoutes.addPropertiesView,
-                                arguments: cont);
-                          },
-                    buttonColor: AppColor.white,
-                    textColor: AppColor.darkGreyColor.withOpacity(0.7)),
-                getHeight(context, 0.008),
+                // customTextButton(
+                //     title: "Properties",
+                //     onTap: GetStorage().read('user') == null
+                //         ? () {
+                //             navBarVM.changeSelectedTab(2);
+                //           }
+                //         : () {
+                //             final cont = Get.put(UploadPropertyViewModel());
+                //             Get.toNamed(AppRoutes.addPropertiesView,
+                //                 arguments: cont);
+                //           },
+                //     buttonColor: AppColor.white,
+                //     textColor: AppColor.darkGreyColor.withOpacity(0.7)),
+
+              FutureBuilder(
+                future: navBarVM.userPreference.getUserAccessToken(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator()); // Show loader while fetching data
+                  }
+
+                  if (snapshot.hasData) {
+                    final accessToken = snapshot.data?.accessToken ?? "";
+                    if (accessToken.isEmpty || accessToken.toLowerCase() == "null") {
+                      if (kDebugMode) {
+                        print('No accessToken!!! $accessToken');
+                      }
+                      return customTextButton(
+                        title: "Properties",
+                        onTap: () {
+                          navBarVM.changeSelectedTab(2);
+                        },
+                        buttonColor: AppColor.white,
+                        textColor: AppColor.darkGreyColor.withOpacity(0.7),
+                      );
+                    } else {
+                      if (kDebugMode) {
+                        print('Valid accessToken!!! $accessToken');
+                      }
+                      return customTextButton(
+                        title: "Properties",
+                        onTap: () {
+                          final cont = Get.put(UploadPropertyViewModel());
+                          Get.toNamed(AppRoutes.addPropertiesView, arguments: cont);
+                        },
+                        buttonColor: AppColor.white,
+                        textColor: AppColor.darkGreyColor.withOpacity(0.7),
+                      );
+                    }
+                  } else {
+                    if (kDebugMode) {
+                      print('Failed to fetch accessToken!');
+                    }
+                    return customTextButton(
+                      title: "Properties",
+                      onTap: () {
+                        navBarVM.changeSelectedTab(2);
+                      },
+                      buttonColor: AppColor.white,
+                      textColor: AppColor.darkGreyColor.withOpacity(0.7),
+                    );
+                  }
+                },
+              ),
+
+              getHeight(context, 0.008),
                 // customTextButton(
                 //     title: "Marketplace",
                 //     onTap: () {},

@@ -36,7 +36,7 @@ Widget videoTile(
                     ? null
                     : DecorationImage(
                         image: NetworkImage(
-                            videoModel.imageUrl ?? Constant.dummayImage),
+                            videoModel.imageUrl ?? Constant.dummyImage),
                         fit: BoxFit.cover)),
             child: videoModel.video == null
                 ? null

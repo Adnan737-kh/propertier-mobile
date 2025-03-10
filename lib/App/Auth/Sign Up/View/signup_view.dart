@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:propertier/Utils/loading_view.dart';
+import '../../../../RoutesAndBindings/app_routes.dart';
 import '../../../../Utils/appbar.dart';
 import '../../../../Utils/logo_tile.dart';
 import '../../../../constant/AppButton/text_button.dart';
@@ -138,8 +139,19 @@ class SignUpView extends StatelessWidget {
                                   child: logoTile(context)),
                               getHeight(context, 0.090),
                               customTextField(
-                                labal: "Email",
-                                controller: signupVM.userEmailController,
+                                  label: "Name",
+                                  controller: signupVM.nameController,
+                                  hintText: 'Enter your Name',
+                                  textInputType: TextInputType.text,
+                                  textInputAction: TextInputAction.done,
+                                ),
+
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              customTextField(
+                                label: "Email",
+                                controller: signupVM.emailController,
                                 hintText: 'Enter Your Email',
                                 textInputType: TextInputType.emailAddress,
                                 validator: (value) {
@@ -154,10 +166,11 @@ class SignUpView extends StatelessWidget {
                               const SizedBox(
                                 height: 12,
                               ),
+
                               Obx(
                                 () => customTextField(
-                                  labal: "Password",
-                                  obsecureText: !signupVM.isShowPassword.value,
+                                  label: "Password",
+                                  obSecureText: !signupVM.isShowPassword.value,
                                   controller: signupVM.passwordController,
                                   suffix: GestureDetector(
                                       onTap: () {
@@ -184,12 +197,11 @@ class SignUpView extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(
-                                height: 12,
-                              ),
+                                height: 12,),
                               Obx(
                                 () => customTextField(
-                                  labal: "Confirm Password",
-                                  obsecureText:
+                                  label: "Confirm Password",
+                                  obSecureText:
                                       !signupVM.isShowConfirmPassword.value,
                                   controller:
                                       signupVM.confirmPasswordController,
@@ -242,25 +254,19 @@ class SignUpView extends StatelessWidget {
                                               fontSize: 14,
                                               fontWeight: FontWeight.bold,
                                               onTap: () async {
-                                                if (signupVM
-                                                    .formKey.currentState!
-                                                    .validate()) {
+                                                if (signupVM.formKey.currentState!.validate()) {
                                                   if (await _showPrivacyPolicyDialog()) {
-                                                    signupVM
-                                                        .formKey.currentState
-                                                        ?.save();
-                                                    signupVM
-                                                        .signUpUserData(
-                                                            context:
-                                                                Get.context!,
-                                                            email: signupVM
-                                                                .userEmailController
-                                                                .text,
-                                                            password: signupVM
-                                                                .confirmPasswordController
-                                                                .text)
-                                                        .whenComplete(
-                                                            () async {});
+                                                    signupVM.formKey.currentState?.save();
+                                                    // signupVM.signUpUserData(
+                                                    //     context: Get.context!,
+                                                    //         email: signupVM.userEmailController.text,
+                                                    //         password: signupVM.confirmPasswordController.text).
+                                                    // whenComplete(() async {});
+                                                    // signupVM.signUpUser( context:Get.context! ,
+                                                    //     name: signupVM.usernameController.text,
+                                                    //     email: signupVM.userEmailController.text,
+                                                    //     password:signupVM.passwordController.text);
+                                                    signupVM.signUpPro();
                                                   }
                                                 }
                                               },
@@ -283,9 +289,7 @@ class SignUpView extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Obx(
-                                    () => signupVM
-                                                .isGoogleSigninLoading.value ==
-                                            true
+                                    () => signupVM.isGoogleSigninLoading.value == true
                                         ? const Center(
                                             child: CircularProgressIndicator(
                                               color: AppColor.googleColor,
@@ -298,8 +302,7 @@ class SignUpView extends StatelessWidget {
                                                 fontWeight: FontWeight.w600,
                                                 onTap: () async {
                                                   if (await _showPrivacyPolicyDialog()) {
-                                                    signupVM.loginWithGoogle(
-                                                        context: Get.context!);
+                                                    signupVM.signUpPro();
                                                   }
                                                 },
                                                 icondata: Bootstrap.google,
@@ -321,8 +324,10 @@ class SignUpView extends StatelessWidget {
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600,
                                         onTap: () async {
-                                          signupVM.loginWithApple(
-                                              context: context);
+                                          // signupVM.loginWithApple(
+                                          //     context: context);
+                                          Get.toNamed(AppRoutes.profileView);
+
                                         },
                                         icondata: Bootstrap.apple,
                                         // iconColor: AppColor.googleColor,

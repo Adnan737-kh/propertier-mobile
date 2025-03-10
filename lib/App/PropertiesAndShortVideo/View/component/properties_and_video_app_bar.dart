@@ -16,13 +16,13 @@ import 'package:propertier/extensions/size_extension.dart';
 import '../../ViewModel/properties_and_Video_view_model.dart';
 
 class PropertiesAndVideosAppBar extends StatelessWidget {
-  final PoropertiesAndVideoEnum poropertiesAndShortVideoEnum;
+  final PropertiesAndVideoEnum propertiesAndShortVideoEnum;
   final String propertiesType;
   // final HomeViewModel homeViewModel;
 
   const PropertiesAndVideosAppBar(
       {super.key,
-      required this.poropertiesAndShortVideoEnum,
+      required this.propertiesAndShortVideoEnum,
       required this.viewModel,
       required this.propertiesType
       // required this.homeViewModel,
@@ -90,19 +90,19 @@ class PropertiesAndVideosAppBar extends StatelessWidget {
                         width: context.getSize.width * 0.5,
                         child: GestureDetector(
                           onTap: () {
-                            showLocationBottonSheet(
-                                selectedLocation: viewModel.currentLocation,
-                                context: context,
-                                dataList:
-                                    viewModel.allPropertiesModel.value.data !=
-                                            null
-                                        ? viewModel.allPropertiesModel.value
-                                            .data!.cities
-                                        : [],
-                                onChange: (val) {
-                                  viewModel.onChangeLocation(val);
-                                  Get.back();
-                                });
+                            // showLocationBottonSheet(
+                            //     selectedLocation: viewModel.currentLocation,
+                            //     context: context,
+                            //     dataList:
+                            //         viewModel.allPropertiesModel.value.data !=
+                            //                 null
+                            //             ? viewModel.allPropertiesModel.value
+                            //                 .properties!.cities
+                            //             : [],
+                            //     onChange: (val) {
+                            //       viewModel.onChangeLocation(val);
+                            //       Get.back();
+                            //     });
                           },
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -135,9 +135,9 @@ class PropertiesAndVideosAppBar extends StatelessWidget {
                       values: const ['Buy', 'Rent'],
                       onToggleCallback: (val) {
                         if (val == 1) {
-                          viewModel.setPurpose("rent");
+                          viewModel.setPurpose("Rent");
                         } else {
-                          viewModel.setPurpose("sale");
+                          viewModel.setPurpose("Sale");
                         }
                       })
                 ],
@@ -193,48 +193,50 @@ class PropertiesAndVideosAppBar extends StatelessWidget {
                         ),
                       )),
                 ),
-                SizedBox(
-                  height: 35,
-                  width: context.getSize.width * 0.8,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: viewModel.listOfTab.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          viewModel.setSelectTab(viewModel.listOfTab[index]);
-                        },
-                        child: Obx(
-                          () => Container(
-                            margin: EdgeInsets.only(
-                                right: context.getSize.width * 0.020),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: context.getSize.width * 0.020,
-                                vertical: sizeHeight(0.010, 0.0001)),
-                            decoration: BoxDecoration(
-                                color: viewModel.listOfTab[index] ==
-                                        viewModel.selectedTab
-                                    ? AppColor.buttonColor
-                                    : AppColor.white,
-                                borderRadius: BorderRadius.circular(30),
-                                border: Border.all(
-                                  color: AppColor.blackColor.withOpacity(0.1),
-                                  width: 0.4,
-                                )),
-                            child: Row(
-                              children: [
-                                appText(
-                                    title: viewModel.listOfTab[index],
-                                    context: context,
-                                    fontSize: 12,
-                                    color: AppColor.blackColor,
-                                    fontWeight: FontWeight.normal)
-                              ],
+                Expanded(
+                  child: SizedBox(
+                    height: 35,
+                    width: context.getSize.width * 0.8,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: viewModel.listOfTab.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            viewModel.setSelectTab(viewModel.listOfTab[index]);
+                          },
+                          child: Obx(
+                            () => Container(
+                              margin: EdgeInsets.only(
+                                  right: context.getSize.width * 0.020),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: context.getSize.width * 0.020,
+                                  vertical: sizeHeight(0.010, 0.0001)),
+                              decoration: BoxDecoration(
+                                  color: viewModel.listOfTab[index] ==
+                                          viewModel.selectedTab
+                                      ? AppColor.buttonColor
+                                      : AppColor.white,
+                                  borderRadius: BorderRadius.circular(30),
+                                  border: Border.all(
+                                    color: AppColor.blackColor.withOpacity(0.1),
+                                    width: 0.4,
+                                  )),
+                              child: Row(
+                                children: [
+                                  appText(
+                                      title: viewModel.listOfTab[index],
+                                      context: context,
+                                      fontSize: 12,
+                                      color: AppColor.blackColor,
+                                      fontWeight: FontWeight.normal)
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],

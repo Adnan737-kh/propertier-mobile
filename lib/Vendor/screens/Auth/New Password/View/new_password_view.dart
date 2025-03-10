@@ -61,9 +61,9 @@ class NewPasswordView extends StatelessWidget {
                     height: 30,
                   ),
                   customTextField(
-                    labal: "New Password",
+                    label: "New Password",
                     hintText: 'Enter New Password',
-                    obsecureText: newPassVM.isShowPassword.value,
+                    obSecureText: newPassVM.isShowPassword.value,
                     controller: newPassVM.newpasswordController,
                     textInputType: TextInputType.emailAddress,
                     suffix: IconButton(
@@ -88,8 +88,8 @@ class NewPasswordView extends StatelessWidget {
                   ),
                   const Gap(12),
                   customTextField(
-                    obsecureText: newPassVM.isShowConfirmPassword.value,
-                    labal: "Confirm Password",
+                    obSecureText: newPassVM.isShowConfirmPassword.value,
+                    label: "Confirm Password",
                     hintText: 'Enter Password Again',
                     controller: newPassVM.renewpasswordController,
                     textInputType: TextInputType.text,

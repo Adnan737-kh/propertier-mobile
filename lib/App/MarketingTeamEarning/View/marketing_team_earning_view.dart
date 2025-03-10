@@ -85,7 +85,7 @@ class MarketingTeamEarningView extends StatelessWidget {
                         boxShadow: [boxShadow()],
                         borderRadius: BorderRadius.circular(10),
                         image: const DecorationImage(
-                          image: NetworkImage(Constant.dummayImage),
+                          image: NetworkImage(Constant.dummyImage),
                           fit: BoxFit.cover,
                         ),
                         border: border()),

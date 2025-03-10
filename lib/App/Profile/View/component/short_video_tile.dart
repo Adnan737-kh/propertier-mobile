@@ -1,11 +1,11 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:propertier/App/Profile/View/component/ShortVideoPlayer/VideoPlayerScreen.dart';
-// import 'package:propertier/App/Profile/Model/profile_model.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/border.dart';
 import 'package:propertier/Utils/height_width_box.dart';
@@ -16,7 +16,6 @@ import 'package:video_thumbnail/video_thumbnail.dart';
 
 import '../../../../Model/property.dart';
 import '../../../../RoutesAndBindings/app_routes.dart';
-import '../../../../Utils/App Ad Mob/app_interstitial_ads.dart';
 
 // ignore: must_be_immutable
 class ProfileShortVideosTile extends StatelessWidget {
@@ -25,11 +24,6 @@ class ProfileShortVideosTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // List<Property> newShortVideoList =viewModel
-    //     .profileModel.value.data == null ? [] : viewModel
-    //     .profileModel.value.data!.properties
-    //     .where((element) => element.shortVideo != null)
-    //     .toList();
     List<Property> newShortVideoList = listOfProperties
         .where((element) => element.shortVideo != null)
         .toList();
@@ -91,27 +85,17 @@ class ProfileShortVideosTile extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return newShortVideoList[index].shortVideo != null
                         ? GestureDetector(
-                            onTap: () async{
-                              // await loadAndShowInterstitialAd();
-                              // Get.toNamed(AppRoutes.shortVideoProfileView,
-                              //     arguments: {
-                              //       "ListOfVideos": newShortVideoList,
-                              //       "property": newShortVideoList[index]
-                              //     });
-                              // List<String> urls = [];
-                              // for(Property p in newShortVideoList){
-                              //   if(p.shortVideo != null && p.shortVideo != ""){
-                              //     urls.add(p.shortVideo!);
-                              //   }
-                              // }
-                              Get.to(VideoPlayerScreen(properties: newShortVideoList, property: newShortVideoList[index], ));
+                            onTap: () async {
+                              Get.to(VideoPlayerScreen(
+                                properties: newShortVideoList,
+                                property: newShortVideoList[index],
+                              ));
                             },
                             child: FutureBuilder<String?>(
                               future:
                                   newShortVideoList[index].shortVideo != null
                                       ? generateThumbnail(
-                                          newShortVideoList[index].shortVideo!,
-                                        )
+                                          newShortVideoList[index].shortVideo!,)
                                       : null,
                               builder: (context, snapshot) {
                                 return SizedBox(
@@ -130,42 +114,27 @@ class ProfileShortVideosTile extends StatelessWidget {
                                             padding: const EdgeInsets.all(15),
                                             alignment: Alignment.bottomCenter,
                                             decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
+                                                borderRadius: BorderRadius.circular(10),
                                                 image: DecorationImage(
-                                                  image: FileImage(
-                                                      File(snapshot.data!)),
-                                                  fit: BoxFit.cover,
-                                                )),
+                                                  image: FileImage(File(snapshot.data!)),
+                                                  fit: BoxFit.cover,)),
                                             child: Container(
-                                              height: context.getSize.height *
-                                                  0.043,
-                                              width:
-                                                  context.getSize.width * 0.086,
+                                              height: context.getSize.height * 0.043,
+                                              width: context.getSize.width * 0.086,
                                               decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
-                                                  border: border(
-                                                      color:
-                                                          AppColor.buttonColor,
-                                                      width: 1),
+                                                  border: border(color: AppColor.buttonColor, width: 1),
                                                   image: DecorationImage(
-                                                      image: NetworkImage(
-                                                          newShortVideoList[
-                                                                      index]
-                                                                  .image ??
-                                                              Constant
-                                                                  .dummayImage),
+                                                      image: NetworkImage(newShortVideoList[index].image ??
+                                                              Constant.dummyImage),
                                                       fit: BoxFit.cover)),
                                             ),
                                           )
                                         : snapshot.error != null
-                                            ? const Text(
-                                                'Error generating thumbnail')
+                                            ? const Text('Error generating thumbnail')
                                             : const Center(
-                                                child:
-                                                    CircularProgressIndicator(
-                                                color: AppColor.buttonColor,
-                                              )));
+                                                child: CircularProgressIndicator(
+                                                  color: AppColor.buttonColor,)));
                               },
                             ),
                           )
@@ -188,7 +157,9 @@ class ProfileShortVideosTile extends StatelessWidget {
       );
       return thumbnailPath;
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       return null;
     }
   }

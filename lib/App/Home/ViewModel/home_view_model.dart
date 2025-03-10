@@ -12,16 +12,50 @@ import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 import '../../../Model/property.dart';
 import '../../../constant/constant.dart';
+import '../../Auth/User/Token/token_preference_view_model/token_preference_view_model.dart';
+import '../../Auth/User/model/user_model.dart';
 import '../Model/grid_tile_model.dart';
 
 class HomeViewModel extends GetxController {
+  TextEditingController searchController = TextEditingController();
+  PageController pageController = PageController(initialPage: 0);
+  List<String> buttonTitle = <String>['Sell For Me', 'Rent For Me'];
+  final _selectedCrouselIndex = 0.obs;
+  int get selectedCarouseIndex => _selectedCrouselIndex.value;
+  set selectedCarouseIndex(int index) => _selectedCrouselIndex.value = index;
+  final RxInt _selectedTabIndex = 0.obs;
+  RxBool isSale = true.obs;
+  UserPreference userPreference = UserPreference();
+  String? _profileImage;
+  String? _userName;
+  String? get profileImage => _profileImage;
+  String? get userName => _userName;
+  int get  selectedTabIndex => _selectedTabIndex.value;
+  final RxBool _isViewMore = false.obs;
+  bool get isViewMore => _isViewMore.value;
+
+
+
+  @override
+  void onInit() async {
+    super.onInit();
+    userPreference.getUserProfileData().then((value) async {
+      if (value!.profilePictureUrl.isNotEmpty ||
+          value.profilePictureUrl.toString() != 'null') {
+        _profileImage = value.profilePictureUrl;
+        _userName = value.name;
+      }
+    });
+  }
+
+
+
   List<String> carosualList = <String>[
     'https://plus.unsplash.com/premium_photo-1676637000058-96549206fe71?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
     'https://images.unsplash.com/photo-1488372759477-a7f4aa078cb6?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
     'https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
   ];
 
-  RxBool isSale = true.obs;
   Future changeSale(int val, BuildContext context) async {
     if (val == 0) {
       isSale.value = true;
@@ -30,30 +64,23 @@ class HomeViewModel extends GetxController {
     }
   }
 
-  List<String> buttonTitle = <String>['Sell For Me', 'Rent For Me'];
   List<String> tabList = <String>[
     'Commerical',
     'Residential',
     'Services',
   ];
-  TextEditingController searchController = TextEditingController();
-  PageController pageController = PageController(initialPage: 0);
 
-  final RxInt _selectedCrouselIndex = 0.obs;
-  int get selectedCarouseIndex => _selectedCrouselIndex.value;
-  changedCarouseValue(int indx) {
-    _selectedCrouselIndex.value = indx;
+  changedCarouseValue(int index) {
+    _selectedCrouselIndex.value = index;
   }
 
-  final RxInt _selectedTabIndex = 0.obs;
-  int get seletcedTabIndex => _selectedTabIndex.value;
+
   changeTabIndex(int index) {
     debugPrint("index is $index");
     _selectedTabIndex.value = index;
   }
 
-  final RxBool _isViewMore = false.obs;
-  bool get isViewMore => _isViewMore.value;
+
   viewMore(bool isMore) {
     _isViewMore.value = isMore;
   }
@@ -167,30 +194,32 @@ class HomeViewModel extends GetxController {
     return homeModel.value;
   }
 
-  List<GridTileModel> comercialTileList = [
-    GridTileModel(title: "Guest House", IconLink: Constant.guestHouseIcon),
-    GridTileModel(title: "Food Court", IconLink: Constant.foodCourtIcon),
-    GridTileModel(title: "Building", IconLink: Constant.buildingicon),
-    GridTileModel(title: "Warehouse", IconLink: Constant.warehouseIcon),
-    GridTileModel(title: "Hall", IconLink: Constant.hallIcon),
-    GridTileModel(title: "Factory", IconLink: Constant.fairyHallicon),
-    GridTileModel(title: "Theatre", IconLink: Constant.theaterIcon),
-    GridTileModel(title: "Gym", IconLink: Constant.gymIcon),
-    GridTileModel(title: "Marriage Hall", IconLink: Constant.marriageHallIcon),
-    GridTileModel(title: "Marquee", IconLink: Constant.marqueeIcon),
-    GridTileModel(title: "Flats", IconLink: Constant.flaticon),
-    GridTileModel(title: "Plots", IconLink: Constant.plotsIcon),
-    GridTileModel(title: "Plaza", IconLink: Constant.plazaIcon),
-    GridTileModel(title: "Rooms", IconLink: Constant.roomIcon),
+  List<GridTileModel> commercialTileList = [
+    GridTileModel(title: "Guest House", iconLink: Constant.guestHouseIcon),
+    GridTileModel(title: "Food Court", iconLink: Constant.foodCourtIcon),
+    GridTileModel(title: "Building", iconLink: Constant.buildingIcon),
+    GridTileModel(title: "Warehouse", iconLink: Constant.warehouseIcon),
+    GridTileModel(title: "Hall", iconLink: Constant.hallIcon),
+    GridTileModel(title: "Factory", iconLink: Constant.fairyHallIcon),
+    GridTileModel(title: "Theatre", iconLink: Constant.theaterIcon),
+    GridTileModel(title: "Gym", iconLink: Constant.gymIcon),
+    GridTileModel(title: "Marriage Hall", iconLink: Constant.marriageHallIcon),
+    GridTileModel(title: "Marquee", iconLink: Constant.marqueeIcon),
+    GridTileModel(title: "Flats", iconLink: Constant.flatIcon),
+    GridTileModel(title: "Plots", iconLink: Constant.plotsIcon),
+    GridTileModel(title: "Plaza", iconLink: Constant.plazaIcon),
+    GridTileModel(title: "Rooms", iconLink: Constant.roomIcon),
+    GridTileModel(title: "Offices", iconLink: Constant.officeIcon),
+    GridTileModel(title: "Shops", iconLink: Constant.shopIcon),
   ];
 
   List<GridTileModel> residentialList = [
-    GridTileModel(title: "Villa", IconLink: Constant.villaIcon),
-    GridTileModel(title: "House", IconLink: Constant.homeIcon),
-    GridTileModel(title: "Flats", IconLink: Constant.flaticon),
-    GridTileModel(title: "Plots", IconLink: Constant.plotsIcon),
-    GridTileModel(title: "Plaza", IconLink: Constant.plazaIcon),
-    GridTileModel(title: "Rooms", IconLink: Constant.roomIcon),
+    GridTileModel(title: "Villa", iconLink: Constant.villaIcon),
+    GridTileModel(title: "House", iconLink: Constant.homeIcon),
+    GridTileModel(title: "Flats", iconLink: Constant.flatIcon),
+    GridTileModel(title: "Plots", iconLink: Constant.plotsIcon),
+    GridTileModel(title: "Plaza", iconLink: Constant.plazaIcon),
+    GridTileModel(title: "Rooms", iconLink: Constant.roomIcon),
   ];
   // List<GridTileModel> listOfTiles = [
   //   GridTileModel(title: "Offices", IconLink: Constant.officeIcon),

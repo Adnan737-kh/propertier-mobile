@@ -142,8 +142,8 @@ class LoginView extends StatelessWidget {
                                 height: 80,
                               ),
                               customTextField(
-                                labal: "Enter Email/Phone Number",
-                                controller: loginVM.usernameController,
+                                label: "Enter Email/Phone Number",
+                                controller: loginVM.userEmailController,
                                 hintText: 'Enter Email/Phone Number',
                                 textInputType: TextInputType.emailAddress,
                                 suffix: GestureDetector(
@@ -167,8 +167,8 @@ class LoginView extends StatelessWidget {
                                 height: 12,
                               ),
                               customTextField(
-                                labal: "Password",
-                                obsecureText: !loginVM.isShowPassword.value,
+                                label: "Password",
+                                obSecureText: !loginVM.isShowPassword.value,
                                 controller: loginVM.passwordController,
                                 suffix: GestureDetector(
                                     onTap: () {
@@ -231,27 +231,25 @@ class LoginView extends StatelessWidget {
                                                     .formKey.currentState!
                                                     .validate()) {
                                                   if (await _showPrivacyPolicyDialog()) {
-                                                    loginVM.formKey.currentState
-                                                        ?.save();
-                                                    bool isSuccess = await loginVM
-                                                        .loginUserData(
-                                                            context: context,
-                                                            email: loginVM
-                                                                .usernameController
-                                                                .text,
-                                                            password: loginVM
-                                                                .passwordController
-                                                                .text);
-                                                    if (isSuccess == true) {
-                                                      loginVM
-                                                          .changeLoading(true);
-                                                      Get.offAllNamed(
-                                                          AppRoutes.navBarView);
-                                                    } else if (isSuccess ==
-                                                        false) {
-                                                      loginVM
-                                                          .changeLoading(true);
-                                                    }
+
+                                                    loginVM.loginUser();
+                                                    // loginVM.formKey.currentState
+                                                    //     ?.save();
+                                                    // bool isSuccess = await loginVM.loginUserData(context: context, email: loginVM.userEmailController
+                                                    //             .text,
+                                                    //         password: loginVM
+                                                    //             .passwordController
+                                                    //             .text);
+                                                    // if (isSuccess == true) {
+                                                    //   loginVM
+                                                    //       .changeLoading(true);
+                                                    //   Get.offAllNamed(
+                                                    //       AppRoutes.navBarView);
+                                                    // } else if (isSuccess ==
+                                                    //     false) {
+                                                    //   loginVM
+                                                    //       .changeLoading(true);
+                                                    // }
                                                   }
                                                 } else if (loginVM
                                                     .passwordController
@@ -276,7 +274,7 @@ class LoginView extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Obx(
-                                    () => loginVM.isGoogleSigninLoading.value ==
+                                    () => loginVM.isGoogleSignInLoading.value ==
                                             true
                                         ? const Center(
                                             child: CircularProgressIndicator(
@@ -349,8 +347,12 @@ class LoginView extends StatelessWidget {
                                         text: ' Sign Up',
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () {
+                                          // Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                          //
+                                          //   return SignUpViewNEw();
+                                          // },));
+                                            // Get.offAll(() => AppRoutes.signUpView);
                                             Get.toNamed(AppRoutes.signUpView);
-                                            // Get.toNamed(AppRoutes.signUpView);
                                           })
                                   ])),
                             ],

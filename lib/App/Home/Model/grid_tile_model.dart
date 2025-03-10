@@ -1,6 +1,6 @@
 class GridTileModel {
   final String title;
-  final String IconLink;
+  final String iconLink;
 
-  GridTileModel({required this.title, required this.IconLink});
+  GridTileModel({required this.title, required this.iconLink});
 }

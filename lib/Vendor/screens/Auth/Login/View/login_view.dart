@@ -58,7 +58,7 @@ class LoginView extends StatelessWidget {
                         height: 80,
                       ),
                       customTextField(
-                        labal: "Enter Email/Phone Number",
+                        label: "Enter Email/Phone Number",
                         controller: loginVM.usernameController,
                         hintText: 'Enter Email/Phone Number',
                         textInputType: TextInputType.emailAddress,
@@ -83,8 +83,8 @@ class LoginView extends StatelessWidget {
                         height: 12,
                       ),
                       customTextField(
-                        labal: "Password",
-                        obsecureText: !loginVM.isShowPassword.value,
+                        label: "Password",
+                        obSecureText: !loginVM.isShowPassword.value,
                         controller: loginVM.passwordController,
                         suffix: GestureDetector(
                             onTap: () {

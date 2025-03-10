@@ -23,7 +23,7 @@ class PaymentApiService {
     String description,
   ) async {
     try {
-      final response = await _dio.post(Finance.creatIntention, data: {
+      final response = await _dio.post(Finance.createIntention, data: {
         "user_id": GetStorage().read("id").toString(),
         "amount": amount,
         "description": description,

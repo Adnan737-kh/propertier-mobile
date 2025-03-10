@@ -23,7 +23,7 @@ Widget reviewTile({
               children: [
                 const CircleAvatar(
                   radius: 14,
-                  backgroundImage: NetworkImage(Constant.dummayImage),
+                  backgroundImage: NetworkImage(Constant.dummyImage),
                 ),
                 const Gap(8),
                 appText(title: title, fontSize: 12, context: context)

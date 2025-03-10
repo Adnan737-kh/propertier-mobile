@@ -20,12 +20,14 @@ import 'VideoScreenController.dart';
 class VideoPlayerScreen extends StatelessWidget {
   final List<Property> properties;
   final Property property;
-  VideoPlayerScreen({required this.properties, required this.property});
+  const VideoPlayerScreen({super.key, required this.properties, required this.property});
 
   @override
   Widget build(BuildContext context) {
     // Initialize the controller with the list of URLs
     final VideoScreenController controller = Get.put(VideoScreenController(properties, property));
+    print('object user ${controller.properties[controller.activeVideoIndex.value].agent?.id!}');
+
     return Scaffold(
       // backgroundColor: AppColor.blackColor,
       body: Obx(() => PageView(
@@ -73,17 +75,13 @@ class VideoPlayerScreen extends StatelessWidget {
                             child: controller.isLiked.value.liked!
                                 ? SvgPicture.asset(Constant.heartRedFill)
                                 : SvgPicture.asset(
-                              Constant.heartunFill,
+                              Constant.heartUnFill,
                             ))
                             : const Gap(0),
                         appText(
-                          title: controller.activeVideoIndex.value< controller.properties.length?controller.properties[controller.activeVideoIndex.value].likes.toString()??"":"",
-                            // title: true
-                            //     ? controller.isLiked.value.property != null
-                            //     ? "${controller.isLiked.value.property!.likes! + controller.liked.value}"
-                            //     : ""
-                            //     : controller.properties[controller.activeVideoIndex.value].likes!.toString(),
-                            context: context,
+                          title: controller.activeVideoIndex.value< controller.properties.
+                          length?controller.properties[controller.activeVideoIndex.value].likes.toString():"",
+                                  context: context,
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
                             color: AppColor.white),
@@ -128,15 +126,11 @@ class VideoPlayerScreen extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                       color: AppColor.white,
-                                      width: 1,
-                                    ),
-                                    shape: BoxShape.circle,
-                                  ),
+                                      width: 1,),
+                                    shape: BoxShape.circle,),
                                   child: GestureDetector(
                                     onTap: () {
-                                      Get.offNamed(
-                                          AppRoutes
-                                              .serviceProviderProfile,
+                                      Get.offNamed(AppRoutes.serviceProviderProfile,
                                           arguments: controller.properties[controller.activeVideoIndex.value].agent!.id
                                               .toString());
                                       print("clicked profile");
@@ -147,7 +141,7 @@ class VideoPlayerScreen extends StatelessWidget {
                                       backgroundImage: NetworkImage(
                                           controller.activeVideoIndex.value< controller.properties.length?
                                           controller.properties[controller.activeVideoIndex.value].image ??
-                                              Constant.dummayImage:Constant.dummayImage),
+                                              Constant.dummyImage:Constant.dummyImage),
                                     ),
                                   ),
                                 ),
@@ -201,6 +195,6 @@ class VideoPlayerWidget extends StatelessWidget {
       aspectRatio: videoController.value.aspectRatio,
       child: VideoPlayer(videoController),
     )
-        : Center(child: CircularProgressIndicator());
+        : const Center(child: CircularProgressIndicator());
   }
 }

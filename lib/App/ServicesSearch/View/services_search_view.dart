@@ -91,7 +91,7 @@ class ServicesSearchView extends StatelessWidget {
                           )),
                       getHeight(context, 0.015),
                       parentServicesModel.imageUrl != null?
-                          Image.network(parentServicesModel.imageUrl??Constant.dummayImage,height: 100,
+                          Image.network(parentServicesModel.imageUrl??Constant.dummyImage,height: 100,
                             width: 86,):
                       SvgPicture.asset(
                         Constant.servicesSearchIcon,

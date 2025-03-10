@@ -21,7 +21,7 @@ class UserLoginModel {
   }
 }
 
-class User {
+class  User {
   final int? id;
   final String? lastLogin;
   final bool? isSuperuser;

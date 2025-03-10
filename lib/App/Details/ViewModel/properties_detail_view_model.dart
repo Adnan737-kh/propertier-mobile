@@ -1,13 +1,17 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/App/Details/Model/specific_property_model.dart';
 import 'package:propertier/App/Details/Services/detail_services.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
-class DetailsViewModel extends GetxController {
+import '../../../repository/property_repo/view_property_details/view_property_details_repo.dart';
+
+class
+ DetailsViewModel extends GetxController {
   //  RxBool _isLoading = false.obs;
   // bool get isLoading => _isLoading.value;
 //   RxList<String> _videosThumbnailList = <String>[].obs;
@@ -27,6 +31,10 @@ class DetailsViewModel extends GetxController {
   ScrollController scrollController = ScrollController();
   final RxInt _selectedVideoIndex = 0.obs;
   int get selectedVideoIndex => _selectedVideoIndex.value;
+  final RxBool _isCollapsed = false.obs;
+  bool get isCollapsed => _isCollapsed.value;
+  ViewPropertyDetailsRepository  viewPropertyDetailsRepository =ViewPropertyDetailsRepository();
+
   changeVideoIndex(int index) {
     _selectedVideoIndex.value = index;
   }
@@ -41,12 +49,9 @@ class DetailsViewModel extends GetxController {
     "Air Conditioning",
     "Garden",
   ];
-  final RxBool _isCollapsed = false.obs;
-  bool get isCollapsed => _isCollapsed.value;
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
 
     checkScroll();
@@ -59,12 +64,14 @@ class DetailsViewModel extends GetxController {
               ? Get.context!.getSize.height * (0.36 - 0.030)
               : Get.context!.getSize.height * (0.31 - 0.030) -
                   Get.context!.getSize.height * 0.07);
-      print("ISCollapsed ${_isCollapsed.value}");
     });
   }
 
   Rx<SpecificPropertyModel> specificPropertyModel = SpecificPropertyModel().obs;
   getSpecificPropertyDetail({required int id}) async {
+    if (kDebugMode) {
+      print('Specific ID: $id');
+    }
     final result = await DetailServices().getDetailServices(id: id);
     specificPropertyModel.value = result;
   }

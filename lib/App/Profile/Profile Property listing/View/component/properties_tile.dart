@@ -47,7 +47,7 @@ Widget propertiesTile(BuildContext context,
                 borderRadius: BorderRadius.circular(5),
                 image: DecorationImage(
                     image:
-                        NetworkImage(property.imageUrl ?? Constant.dummayImage),
+                        NetworkImage(property.imageUrl ?? Constant.dummyImage),
                     fit: BoxFit.cover)),
             // child: VideoThumbnailTile(videoUrl: videoModel.videoUrl,)
           ),

@@ -1,30 +1,50 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../constant/call_launcher.dart';
 import '../../../constant/colors.dart';
+import '../../../repository/profile_repo/profile_view/profile_view_repo.dart';
 import '../../Home/Model/properties_tiler_button_model.dart';
 import '../../Profile/Model/profile_model.dart';
-import '../../Profile/Service/profile_service.dart';
 
 class ServiceProviderProfileViewModel extends GetxController {
-  Rx<ProfileModel> ServiceProviderprofileModel = ProfileModel().obs;
+  Rx<ProfileModel> serviceProviderProfileModel = ProfileModel().obs;
   var isLoading = false.obs;
+  final RxBool _isShowMoreComment = false.obs;
+  bool get isShowMoreComment => _isShowMoreComment.value;
+  final ProfileViewRepository _repository = ProfileViewRepository();
 
   @override
   void onInit() async {
-    //  await AuthService().getCurrentUser().then((value) async {
-    // } );
-    ServiceProviderprofileModel.value =
-        await getProfilePageData(context: Get.context!, id: Get.arguments);
-    print(ServiceProviderprofileModel.value.userProfile);
-    // TODO: implement onInit
+    // Retrieve agent ID from arguments
+    final String? agentIdFromArguments = Get.arguments;
+    debugPrint("Received Agent ID from arguments: $agentIdFromArguments");
+
+    // First, try fetching using userProfile!.id if available
+    String? fetchId =
+        serviceProviderProfileModel.value.userProfile?.id?.toString();
+
+    // If userProfile ID is not available, use agent ID from arguments
+    fetchId ??= agentIdFromArguments;
+
+    if (fetchId != null) {
+      if (kDebugMode) {
+        print("fetch id $fetchId");
+      }
+      serviceProviderProfileModel.value = await getProfilePageData(
+        context: Get.context!,
+        agentID: agentIdFromArguments!,
+      );
+    }
+
+    if (kDebugMode) {
+      print('Service Profile ${serviceProviderProfileModel.value.userProfile}');
+    }
     super.onInit();
   }
 
-  final RxBool _isShowMoreComment = false.obs;
-  bool get isShowMoreComment => _isShowMoreComment.value;
   showMoreComment(bool value) {
     _isShowMoreComment.value = value;
   }
@@ -68,19 +88,17 @@ class ServiceProviderProfileViewModel extends GetxController {
 
   Future<ProfileModel> getProfilePageData({
     required BuildContext context,
-    required String id,
+    required String agentID,
   }) async {
     isLoading.value = true;
 
-    final result =
-        await ProfileService().getProfileDetail(context: context, id: id);
+    final result = await _repository.viewServicesProfileDetails(agentID);
+    // ProfileService().getProfileDetail(context: context, agentID: agentID);
     if (result.userProfile != null) {
-      ServiceProviderprofileModel.value = result;
-      print(
-          "print posts Length ${ServiceProviderprofileModel.value.properties!.length}");
+      serviceProviderProfileModel.value = result;
       isLoading.value = false;
     }
     isLoading.value = false;
-    return ServiceProviderprofileModel.value;
+    return serviceProviderProfileModel.value;
   }
 }

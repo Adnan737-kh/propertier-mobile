@@ -59,11 +59,11 @@ import 'package:propertier/extensions/size_extension.dart';
 // }
 
 class OTPField extends StatelessWidget {
-  bool isDone;
-  OTPField({
-    super.key,
-    this.isDone = false,
-  });
+  final TextEditingController controller;
+  final bool isDone;
+
+  const OTPField({Key? key, required this.controller, this.isDone = false}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +71,7 @@ class OTPField extends StatelessWidget {
       width: context.getSize.width * 0.12,
       height: context.getSize.height * 0.06,
       child: TextFormField(
+        controller: controller,
         textInputAction:
             isDone == true ? TextInputAction.done : TextInputAction.next,
         style: textStyle(

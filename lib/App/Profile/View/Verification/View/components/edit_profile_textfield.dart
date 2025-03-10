@@ -33,8 +33,8 @@ class EditProfileTextField extends StatelessWidget {
       this.validator,
       this.textInputType,
       this.onChangeCountry,
-      this.isEditablefun});
-  final void Function()? isEditablefun;
+      this.isEditableFunction});
+  final void Function()? isEditableFunction;
   final FocusNode? focusNode;
   final String hintText;
   final Function(Country)? onChangeCountry;
@@ -88,7 +88,7 @@ class EditProfileTextField extends StatelessWidget {
               Row(
                 children: [
                   GestureDetector(
-                      onTap: isEditablefun,
+                      onTap: isEditableFunction,
                       child: Icon(
                         Icons.edit,
                         size: context.getSize.width * 0.050,

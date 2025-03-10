@@ -15,7 +15,7 @@ import 'dart:math' show cos, sqrt, asin;
 
 class TransportServiceFormController extends GetxController{
 
-  static const apiKey = Constant.google_api_key;
+  static const apiKey = Constant.googleApiKey;
 
   TextEditingController descriptionController = TextEditingController();
   TextEditingController materialController = TextEditingController();
@@ -115,7 +115,7 @@ class TransportServiceFormController extends GetxController{
   }) async {
     final String origin = '$startLatitude,$startLongitude';
     final String destination = '$endLatitude,$endLongitude';
-    const apiKey = Constant.google_api_key;
+    const apiKey = Constant.googleApiKey;
 
     final String url = 'https://maps.googleapis.com/maps/api/distancematrix/json'
         '?origins=$origin'

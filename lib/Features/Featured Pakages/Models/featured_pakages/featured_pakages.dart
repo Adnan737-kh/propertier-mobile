@@ -12,7 +12,7 @@ class FeaturedPakages {
   final String? featureDuration;
   final String? status;
   final String? type;
-  @JsonKey(name: 'priority_type')
+  @JsonKey(name: 'ad_type')
   final String? priorityType;
   @JsonKey(name: 'image_url')
   final String? imageUrl;

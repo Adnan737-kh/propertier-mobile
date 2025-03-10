@@ -739,7 +739,7 @@ Future<void> updateCoverPicture(String vendorUserId, File imageFile,String fireb
     required File soleProprietorDocument,
   }) async {
 
-     final String apiUrl = '${API.incoProDocuments}/$vendorUserId/';  
+     final String apiUrl = '${API.inCoProDocuments}/$vendorUserId/';
 
 
     var request = http.MultipartRequest(
@@ -767,7 +767,7 @@ Future<void> updateCoverPicture(String vendorUserId, File imageFile,String fireb
   Future<List<VehicleModel>> fetchMyVehicles(String vendorId) async {
     List<VehicleModel> vehicles = [];
     try{
-      final url = Uri.parse("${API.getvendorvehicles}$vendorId/");
+      final url = Uri.parse("${API.getVendorVehicles}$vendorId/");
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
@@ -790,7 +790,7 @@ Future<void> updateCoverPicture(String vendorUserId, File imageFile,String fireb
   }
 
   Future<http.Response> addVehicle({required String vendorid,required String make, required String model, required String color, required String name, required String capacity, required String fuelType, required String registrationNumber, required String year, required String transmissionType, required List<String> images})async{
-    final String apiUrl = '${API.addvehicles}';
+    final String apiUrl = '${API.addVehicles}';
 
     var request = http.MultipartRequest(
       'POST',

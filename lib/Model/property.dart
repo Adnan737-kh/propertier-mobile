@@ -71,7 +71,7 @@ class Property {
       featured: json["featured"],
       purpose: json["purpose"],
       type: json["type"],
-      image: json["image_url"],
+      image: json["image"],
       bedroom: json["bedroom"],
       bathroom: json["bathroom"],
       city: json["city"],
@@ -144,7 +144,7 @@ class Agent {
   factory Agent.fromJson(Map<String, dynamic> json) {
     return Agent(
       id: json["id"],
-      name: json["name"],
+      name: json["full_name"],
       phoneNumberCountryCode: json["phone_number_country_code"],
       phoneNumber: json["phone_number"],
     );
@@ -152,7 +152,7 @@ class Agent {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "name": name,
+        "full_name": name,
         "phone_number_country_code": phoneNumberCountryCode,
         "phone_number": phoneNumber,
       };

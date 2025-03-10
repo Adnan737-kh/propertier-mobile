@@ -308,7 +308,7 @@ class WhatAreYouSearchViewModel extends GetxController {
 
   Future<void> searchPlaces(String input,
       {bool isCurrentLocation = false}) async {
-    const apiKey = Constant.google_api_key;
+    const apiKey = Constant.googleApiKey;
     const endpoint =
         'https://maps.googleapis.com/maps/api/place/autocomplete/json';
     final url = '$endpoint?input=$input&key=$apiKey';

@@ -5,9 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:propertier/App/Details/Model/specific_property_model.dart';
 import 'package:propertier/App/Details/View/component/details_title.dart';
-import 'package:propertier/App/Details/View/component/recommendedTile.dart';
 import 'package:propertier/App/Details/View/component/video_tour.dart';
 import 'package:propertier/Customer/screens/ServiceDetail/ServiceDetailController.dart';
 
@@ -18,18 +16,14 @@ import 'package:propertier/Utils/scrollableText.dart';
 import 'package:propertier/Utils/textStyle.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
-import 'package:propertier/extensions/area_convert_extension.dart';
 import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/price_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
-import 'package:propertier/extensions/tags_remove_extension.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
-import '../../../../App/Profile/View/component/ShortVideoPlayer/VideoPlayerScreen.dart';
 import '../../../../App/Profile/View/component/SingleVideoPlayer/SingleVideoScreen.dart';
 import '../../../../App/Services/Model/ServiceDashboardModel.dart';
 import '../../../../Model/property.dart';
-import '../../../../RoutesAndBindings/app_routes.dart';
 import '../../../../Utils/App Ad Mob/app_banner_ads.dart';
 import '../../../../Utils/border.dart';
 import '../../../../Utils/info_tile.dart';
@@ -151,7 +145,7 @@ Widget detailTile(BuildContext context,
         getHeight(context, 0.050),
         divider(context: context, color: const Color(0xffCFCFCF)),
         getHeight(context, 0.015),
-        SizedBox(
+       const SizedBox(
             height: 50,
             child: Center(child: AppBannerAd())),
         detailsTitle(context: context, title: context.local.detailShortVideo),
@@ -236,7 +230,7 @@ class _DetailPageShortVideoState extends State<DetailPageShortVideo> {
                     shape: BoxShape.circle,
                     border: border(color: AppColor.buttonColor, width: 1),
                     image: DecorationImage(
-                        image: NetworkImage(Constant.dummayImage),
+                        image: NetworkImage(Constant.dummyImage),
                         fit: BoxFit.cover)),
               ),
             )

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
@@ -14,20 +15,24 @@ class AddAwardServices {
     required String title,
     required File image,
     required String description,
-    required String agentId,
+    required String accessToken,
     required String date,
   }) async {
     print(date);
-    bool responsed = false;
+    bool response = false;
     try {
-      print(agentId);
+      if (kDebugMode) {
+        print('user access token uploading award $accessToken');
+      }
       final uri = Uri.parse(API.addAwardUrl);
-      // var stream= http.ByteStream(image.openRead());
-      // stream.cast();
-      // var length = await image.
+      print('url ${API.addAwardUrl}');
       final request = http.MultipartRequest('POST', uri);
-      print(title);
-      request.fields['agent'] = agentId;
+      if (kDebugMode) {
+        print(title);
+      }
+
+      request.headers['Authorization'] = 'Bearer $accessToken';
+      // request.fields['agent'] = accessToken;
       if (title != '') {
         request.fields['title'] = title;
       }
@@ -48,12 +53,10 @@ class AddAwardServices {
             contentType: MediaType.parse(mime!)));
       }
 
-      final response = await http.Response.fromStream(await request.send());
-      // final response = await request.send();
-      print(response.body);
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        responsed = true;
-        // responsed = response.body;
+      final dataResponse = await http.Response.fromStream(await request.send());
+      print("award response ${dataResponse.statusCode}");
+      if (dataResponse.statusCode == 200 || dataResponse.statusCode == 201) {
+        response = true;
 
         toast(title: 'Award Added Successfully', context: context);
       } else {
@@ -62,6 +65,6 @@ class AddAwardServices {
     } catch (e) {
       toast(title: 'Something went wrong', context: context);
     }
-    return responsed;
+    return response;
   }
 }

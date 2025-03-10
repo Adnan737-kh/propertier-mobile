@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -8,11 +9,18 @@ import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
+import 'package:propertier/data/app_exception.dart';
 import '../../../../constant/AppButton/text_button.dart';
 import '../../../../constant/toast.dart';
+import '../../../../repository/auth_repo/login_repo/login_repo.dart';
+import '../../User/model/token_model.dart';
+import '../../User/Token/token_preference_view_model/token_preference_view_model.dart';
+import '../sign_model/sign_model.dart';
 
 class LoginViewModel extends GetxController {
-  final usernameController = TextEditingController();
+  final UserPreference userPreference = UserPreference();
+  final LoginRepository _api = LoginRepository();
+  final userEmailController = TextEditingController();
   final passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
@@ -22,7 +30,7 @@ class LoginViewModel extends GetxController {
 
   @override
   void onClose() {
-    usernameController.clear();
+    userEmailController.clear();
     passwordController.clear();
     // _idleTimer?.cancel();
     super.onClose();
@@ -116,18 +124,18 @@ class LoginViewModel extends GetxController {
 
   void startListening({required int textFieldNo}) async {}
 
-  RxBool isGoogleSigninLoading = false.obs;
+  RxBool isGoogleSignInLoading = false.obs;
   loginWithGoogle({required BuildContext context}) async {
-    isGoogleSigninLoading.value = true;
+    isGoogleSignInLoading.value = true;
     try {
       var isSccuss = await AuthHandler.signInHandler(AuthHandlerEnum.google,
           isLogin: true);
       if (isSccuss) {
         Get.offAndToNamed(AppRoutes.navBarView);
       } else {}
-      isGoogleSigninLoading.value = false;
+      isGoogleSignInLoading.value = false;
     } catch (e) {
-      isGoogleSigninLoading.value = false;
+      isGoogleSignInLoading.value = false;
       Get.rawSnackbar(message: e.toString());
     }
   }
@@ -136,9 +144,9 @@ class LoginViewModel extends GetxController {
   loginWithApple({required BuildContext context}) async {
     isLoading.value = true;
     try {
-      var isSccuss =
+      var isSuccess =
           await AuthHandler.signInHandler(AuthHandlerEnum.apple, isLogin: true);
-      if (isSccuss) {
+      if (isSuccess) {
         Get.offAndToNamed(AppRoutes.navBarView);
       } else {}
       isLoading.value = false;
@@ -146,5 +154,59 @@ class LoginViewModel extends GetxController {
       isLoading.value = false;
       Get.rawSnackbar(message: e.toString());
     }
+  }
+
+  void loginUser() {
+    isLoading(true);
+
+    // Create an instance of the SignUpModel with data from the form
+    SignInModel loginUser = SignInModel(
+      email: userEmailController.value.text,
+      password: passwordController.value.text,
+    );
+
+    // // Send the model data as a Map to the API
+    _api.login(loginUser.toMap()).then((onValue) async {
+      print('only API Response: $onValue');
+      if (onValue != null && onValue.containsKey('token')) {
+        print('the API Response: $onValue');
+        String? accessToken = onValue['token']['access'];
+        if (kDebugMode) {
+          print('the access token !!! $accessToken');
+        }
+
+        if (accessToken != null) {
+          await userPreference
+              .saveUserAccessToken(TokenModel.fromJson(onValue))
+              .then((onValue) {
+            Get.toNamed(AppRoutes.navBarView);
+            toast(title: 'Login Successfully', context: Get.context!);
+          }).onError((error, stackTrace) {});
+
+        }
+      }
+      // else if(onValue != null && onValue.containsKey('errors')){
+      //   print('the msg is !!! ');
+      //   List<dynamic>? errorMessages = onValue['errors']['non_field_errors'];
+      //   if (errorMessages != null && errorMessages.isNotEmpty) {
+      //     String msg = errorMessages.first.toString();  // Extracts first error message
+      //     if (kDebugMode) {
+      //       print('the msg is !!! $msg');
+      //     }
+      //     toast(title: msg, context: Get.context!);
+      //   }
+      // }
+      isLoading(false);
+    }).onError((error, stackTrace) {
+      if (error is EmailOrPasswordIncorrect) {
+        toast(title: 'Email Or Password is Incorrect', context: Get.context!);
+      } else {
+        toast(title: 'An error occurred: $error', context: Get.context!);
+      }
+      isLoading(false);
+      if (kDebugMode) {
+        print('$error and $stackTrace');
+      }
+    });
   }
 }

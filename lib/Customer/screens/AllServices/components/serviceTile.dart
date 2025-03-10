@@ -44,7 +44,7 @@ Widget serviceTile(
               borderRadius: BorderRadius.circular(5),
               image: DecorationImage(
                 image: NetworkImage(
-                  service.imageUrls?.first ?? Constant.dummayImage,
+                  service.imageUrls?.first ?? Constant.dummyImage,
                 ),
                 fit: BoxFit.cover,
               ),

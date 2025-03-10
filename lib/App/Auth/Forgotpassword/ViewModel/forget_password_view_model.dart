@@ -1,24 +1,26 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:propertier/App/Auth/Forgotpassword/View/component/forget_password_success_dialog.dart';
 import 'package:propertier/constant/toast.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../RoutesAndBindings/app_routes.dart';
+import '../../../../repository/auth_repo/login_repo/login_repo.dart';
 import '../../response.dart';
-// import 'package:hrmsapp/AuthModule/Forgetpassword/services/forget_password_services.dart';
 
 class ForgotPasswordViewModel extends GetxController {
   final formKey = GlobalKey<FormState>();
-
+  final LoginRepository _api = LoginRepository();
   TextEditingController emailController = TextEditingController();
-
   RxBool isKeyboard = false.obs;
+
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     // _speech = stt.SpeechToText();
     // _initSpeechRecognizer();
@@ -29,6 +31,48 @@ class ForgotPasswordViewModel extends GetxController {
     // TODO: implement dispose
     emailController.dispose();
     super.dispose();
+  }
+
+  void restPasswordViaEmail(
+      {required String email, required BuildContext context}) {
+    if (!isValidEmail(email)) {
+      toast(title: 'Please Enter valid Email', context: context);
+      return;
+    }
+    isLoading(true);
+
+    Map data = {
+      'email': email,
+    };
+    // Send the model data as a Map to the API
+    _api.forgotPassword(data).then((onValue) async {
+      if (kDebugMode) {
+        print('the response $onValue');
+      }
+
+      // Extract `uid` and `token` from response
+      String? uid = onValue['uid'];
+      String? token = onValue['token'];
+
+      // Save to SharedPreferences
+      SharedPreferences forgotPref = await SharedPreferences.getInstance();
+      await forgotPref.setString('uid', uid ?? '');
+      await forgotPref.setString('token', token ?? '');
+      if (kDebugMode) {
+        print(' user uid and token $uid and $token');
+      }
+
+      // Navigate to verification screen
+      Get.toNamed(AppRoutes.otpVerifyView);
+      toast(
+          title: "Verification Email Sent to Your Gmail!",
+          context: Get.context!);
+    }).onError((error, stackTrace) {
+      isLoading(false);
+      if (kDebugMode) {
+        print('$error and $stackTrace');
+      }
+    });
   }
 
   // late stt.SpeechToText _speech;
@@ -109,7 +153,7 @@ class ForgotPasswordViewModel extends GetxController {
       forgetPasswordSuccessDialog(context: context);
     } catch (e) {
       // Handle other exceptions that may occur
-      var status0 = AuthExceptionHandler.generateErrorMessage(e);
+      AuthExceptionHandler.generateErrorMessage(e);
       isLoading.value = false; // Assuming you manage loading state somewhere
       toast(title: 'Error sending password reset email', context: context);
     }

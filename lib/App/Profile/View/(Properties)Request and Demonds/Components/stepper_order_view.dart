@@ -294,7 +294,7 @@ class _OrderTrackerListItemState extends State<OrderTrackerListItem> {
             SizedBox(width: 10),
             const CircleAvatar(
               radius: 10,
-              backgroundImage: NetworkImage(Constant.dummayImage),
+              backgroundImage: NetworkImage(Constant.dummyImage),
             ),
             // Title and date widget
             Expanded(

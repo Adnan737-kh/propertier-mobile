@@ -37,7 +37,7 @@ class ServiceProviderProfile extends GetView<ServiceProviderProfileViewModel> {
             ),
           )
         : Scaffold(
-            appBar: ServiceProviderprofileAppBar(context, controller),
+            appBar: serviceProviderProfileAppBar(context, controller),
             body: ListView(
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
@@ -50,10 +50,10 @@ class ServiceProviderProfile extends GetView<ServiceProviderProfileViewModel> {
                   ),
                   aboutTile(
                       context,
-                      controller.ServiceProviderprofileModel.value
+                      controller.serviceProviderProfileModel.value
                                   .userProfile !=
                               null
-                          ? controller.ServiceProviderprofileModel.value
+                          ? controller.serviceProviderProfileModel.value
                                   .userProfile!.email ??
                               ""
                           : ""),
@@ -63,7 +63,7 @@ class ServiceProviderProfile extends GetView<ServiceProviderProfileViewModel> {
                   profileInformationTile(
                       context,
                       controller
-                          .ServiceProviderprofileModel.value.userProfile!),
+                          .serviceProviderProfileModel.value.userProfile!),
                   getHeight(context, 0.015),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -79,9 +79,9 @@ class ServiceProviderProfile extends GetView<ServiceProviderProfileViewModel> {
                           Get.toNamed(AppRoutes.profilePropertyListingView,
                               arguments: {
                                 "PropertyEnum":
-                                    PoropertiesAndVideoEnum.properties,
+                                    PropertiesAndVideoEnum.properties,
                                 "PropertiesType": controller
-                                    .ServiceProviderprofileModel
+                                    .serviceProviderProfileModel
                                     .value
                                     .userProfile!
                                     .id
@@ -103,20 +103,20 @@ class ServiceProviderProfile extends GetView<ServiceProviderProfileViewModel> {
                   getHeight(context, 0.015),
                   Obx(
                     () => ProfileShortVideosTile(
-                        listOfProperties: controller.ServiceProviderprofileModel
+                        listOfProperties: controller.serviceProviderProfileModel
                                     .value.properties ==
                                 null
                             ? []
                             : controller
-                                .ServiceProviderprofileModel.value.properties!),
+                                .serviceProviderProfileModel.value.properties!),
                   ),
                   ProfileVideosTile(
                     listOfProperties: controller
-                                .ServiceProviderprofileModel.value.properties ==
+                                .serviceProviderProfileModel.value.properties ==
                             null
                         ? []
                         : controller
-                            .ServiceProviderprofileModel.value.properties!,
+                            .serviceProviderProfileModel.value.properties!,
                   ),
                   getHeight(context, 0.12),
                 ]),
@@ -131,13 +131,13 @@ class ServiceProviderProfile extends GetView<ServiceProviderProfileViewModel> {
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemCount:
-            controller.ServiceProviderprofileModel.value.properties != null
-                ? controller.ServiceProviderprofileModel.value.properties!
+            controller.serviceProviderProfileModel.value.properties != null
+                ? controller.serviceProviderProfileModel.value.properties!
                         .isNotEmpty
-                    ? controller.ServiceProviderprofileModel.value.properties!
+                    ? controller.serviceProviderProfileModel.value.properties!
                                 .length <=
                             5
-                        ? controller.ServiceProviderprofileModel.value
+                        ? controller.serviceProviderProfileModel.value
                             .properties!.length
                         : 5
                     : 0
@@ -147,9 +147,9 @@ class ServiceProviderProfile extends GetView<ServiceProviderProfileViewModel> {
               context: context,
               controller: controller,
               user: controller
-                  .ServiceProviderprofileModel.value.properties!.first.agent!,
+                  .serviceProviderProfileModel.value.properties!.first.agent!,
               property: controller
-                  .ServiceProviderprofileModel.value.properties![index]);
+                  .serviceProviderProfileModel.value.properties![index]);
         },
       ),
     );

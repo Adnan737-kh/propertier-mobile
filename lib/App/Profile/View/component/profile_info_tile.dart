@@ -20,10 +20,8 @@ Widget profileInformationTile(BuildContext context, UserProfile user) {
             fontSize: 12,
             fontWeight: FontWeight.w600,
           ),
-          textBox(
-            context,
-            user.phoneNumberCountryCode! + user.phoneNumber!,
-          )
+          textBox(context, user.phoneNumber!,)
+          // textBox(context, user.phoneNumberCountryCode! + user.phoneNumber!,)
         ],
       ),
       getHeight(context, 0.004),
@@ -75,8 +73,7 @@ Widget profileInformationTile(BuildContext context, UserProfile user) {
               context,
               user.createdAt != null
                   ? DateFormat.yMMMMd()
-                      .format(DateTime.parse(user.createdAt!.toString()))
-                  : ""),
+                      .format(DateTime.parse(user.createdAt!.toString())) : ""),
         ],
       ),
     ],

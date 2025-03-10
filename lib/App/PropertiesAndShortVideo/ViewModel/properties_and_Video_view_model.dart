@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -63,7 +64,7 @@ class PropertiesAndVideoViewModel extends GetxController {
 
   @override
   void onInit() {
-    if (data["PropertyEnum"] == PoropertiesAndVideoEnum.video) {
+    if (data["PropertyEnum"] == PropertiesAndVideoEnum.video) {
       getAllProperties(context: Get.context!, type: "");
     } else {
       getAllProperties(context: Get.context!, type: "");
@@ -94,7 +95,7 @@ class PropertiesAndVideoViewModel extends GetxController {
 
   List<ArchitectureModel> architectureList = <ArchitectureModel>[
     ArchitectureModel(
-        image: Constant.dummayImage,
+        image: Constant.dummyImage,
         isFavorite: true,
         price: "PKR 10000",
         area: "",
@@ -102,7 +103,7 @@ class PropertiesAndVideoViewModel extends GetxController {
         time: "20 days ago",
         title: "Building Architecture Designer"),
     ArchitectureModel(
-        image: Constant.dummayImage,
+        image: Constant.dummyImage,
         isFavorite: false,
         price: "PKR 10000",
         area: "5 Marla",
@@ -119,77 +120,137 @@ class PropertiesAndVideoViewModel extends GetxController {
 
   PageController pageController = PageController();
   Rx<AllPropertiesModel> allPropertiesModel = AllPropertiesModel().obs;
+  // Future<AllPropertiesModel> getAllProperties(
+  //     {required BuildContext context, required String type}) async {
+  //   setIsLoadingAll(true);
+  //   listOfTab.clear();
+  //   final result = await AllPropertiesServices()
+  //       .getAllPropertiesData(context: context, type: type);
+  //   if (result.data!.properties.isNotEmpty) {
+  //     allPropertiesModel.value = result;
+  //     for (var element in allPropertiesModel.value.data!.properties) {
+  //       if (!listOfTab
+  //           .any((e) => e.toLowerCase() == element.type!.toLowerCase())) {
+  //         listOfTab.add(element.type!);
+  //       }
+  //     }
+  //     doFilterAllData();
+  //     print(
+  //         "print posts Length ${allPropertiesModel.value.data!.cities.length}");
+  //   }
+  //   setIsLoadingAll(false);
+  //
+  //   return allPropertiesModel.value;
+  // }
+
   Future<AllPropertiesModel> getAllProperties(
       {required BuildContext context, required String type}) async {
     setIsLoadingAll(true);
     listOfTab.clear();
     final result = await AllPropertiesServices()
         .getAllPropertiesData(context: context, type: type);
-    if (result.data!.properties.isNotEmpty) {
+    if (kDebugMode) {
+      print("Response Length ${result.properties?.length}");
+    }
+
+    if (result.properties != null && result.properties!.isNotEmpty) {
       allPropertiesModel.value = result;
-      for (var element in allPropertiesModel.value.data!.properties) {
-        if (!listOfTab
-            .any((e) => e.toLowerCase() == element.type!.toLowerCase())) {
-          listOfTab.add(element.type!);
+
+      // Iterate over the properties and add them to _propertyList
+      for (var element in allPropertiesModel.value.properties!) {
+        // Assuming Property is directly addable, without needing toJson (if it's already a Property object)
+        _propertyList.add(element);
+
+        // Check if the type is already in the list and add if not
+        if (!listOfTab.any((e) => e.toLowerCase() == element.type.toLowerCase())) {
+          listOfTab.add(element.type);
         }
       }
-      doFilterAllData();
-      print(
-          "print posts Length ${allPropertiesModel.value.data!.cities.length}");
-    }
-    setIsLoadingAll(false);
 
+      doFilterAllData();
+    }
+
+    setIsLoadingAll(false);
     return allPropertiesModel.value;
   }
 
-  doFilterAllData() {
+  void doFilterAllData() {
     setIsLoading(true);
     List<Property> newList = [];
-    if (currentLocation == "All Locations") {
-      //!Addeding All location data
-      if (selectedTab == "All Types") {
-        //!Addeding All location data And All Types
-        newList = allPropertiesModel.value.data == null
-            ? []
-            : allPropertiesModel.value.data!.properties
-                .where((element) => element.purpose.toString() == purpose)
-                .toList();
-      } else {
-        newList = allPropertiesModel.value.data == null
-            ? []
-            : allPropertiesModel.value.data!.properties
-                .where((element) =>
-                    element.type!.toLowerCase() == selectedTab.toLowerCase() &&
-                    element.purpose!.toString().toLowerCase() ==
-                        purpose.toLowerCase())
-                .toList();
-      }
-    } else {
-      if (selectedTab == "All Types") {
-        newList = allPropertiesModel.value.data == null
-            ? []
-            : allPropertiesModel.value.data!.properties
-                .where((element) =>
-                    element.city == currentLocation &&
-                    element.purpose!.toString().toLowerCase() ==
-                        purpose.toLowerCase())
-                .toList();
-      } else {
-        newList = allPropertiesModel.value.data == null
-            ? []
-            : allPropertiesModel.value.data!.properties
-                .where((element) =>
-                    element.type!.toLowerCase() == selectedTab.toLowerCase() &&
-                    element.city == currentLocation &&
-                    element.purpose!.toString().toLowerCase() ==
-                        purpose.toLowerCase())
-                .toList();
-      }
-    }
+
+    bool isAllLocations = currentLocation == "All Locations";
+    bool isAllTypes = selectedTab == "All Types";
+
+    // Check if properties exist
+    List<Property> properties = allPropertiesModel.value.properties ?? [];
+
+    newList = properties.where((element) {
+      bool matchesLocation = isAllLocations || element.city == currentLocation;
+      bool matchesType = isAllTypes || element.type.toLowerCase() == selectedTab.toLowerCase();
+      bool matchesPurpose = element.purpose.toLowerCase() == purpose.toLowerCase();
+
+      return matchesLocation && matchesType && matchesPurpose;
+    }).toList();
+
+    // Sort by `createdAt`
+    newList.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
     _propertyList.clear();
-    _propertyList.value = newList
-      ..sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
+    _propertyList.value = newList;
+
     setIsLoading(false);
   }
+
+
+//   doFilterAllData() {
+//     setIsLoading(true);
+//     List<Property> newList = [];
+//     if (currentLocation == "All Locations") {
+//       //!Addeding All location data
+//       if (selectedTab == "All Types") {
+//         //!Addeding All location data And All Types
+//         newList = allPropertiesModel.value.data == null
+//             ? []
+//             : allPropertiesModel.value.data!.properties
+//                 .where((element) => element.purpose.toString() == purpose)
+//                 .toList();
+//       } else {
+//         newList = allPropertiesModel.value.data == null
+//             ? []
+//             : allPropertiesModel.value.data!.properties
+//                 .where((element) =>
+//                     element.type!.toLowerCase() == selectedTab.toLowerCase() &&
+//                     element.purpose!.toString().toLowerCase() ==
+//                         purpose.toLowerCase())
+//                 .toList();
+//       }
+//     } else {
+//       if (selectedTab == "All Types") {
+//         newList = allPropertiesModel.value.data == null
+//             ? []
+//             : allPropertiesModel.value.data!.properties
+//                 .where((element) =>
+//                     element.city == currentLocation &&
+//                     element.purpose!.toString().toLowerCase() ==
+//                         purpose.toLowerCase())
+//                 .toList();
+//       } else {
+//         newList = allPropertiesModel.value.data == null
+//             ? []
+//             : allPropertiesModel.value.data!.properties
+//                 .where((element) =>
+//                     element.type!.toLowerCase() == selectedTab.toLowerCase() &&
+//                     element.city == currentLocation &&
+//                     element.purpose!.toString().toLowerCase() ==
+//                         purpose.toLowerCase())
+//                 .toList();
+//       }
+//     }
+//
+//     _propertyList.clear();
+//     _propertyList.value = newList
+//       ..sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
+//     setIsLoading(false);
+//
+// }
 }

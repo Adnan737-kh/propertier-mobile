@@ -1,13 +1,15 @@
 class Constant {
+  static const baseUrl = "https://api.thepropertier.com/";
   static const shortVideoUrl = "https://propertier.com.pk/";
   static const propertyImagesUrl =
       "https://propertier.com.pk/storage/property/";
-  static const SliderImageUrl = "https://propertier.com.pk/storage/slider/";
+  static const sliderImageUrl = "https://propertier.com.pk/storage/slider/";
   static const userImageUrl = "https://propertier.com.pk/storage/user/";
   // static const google_api_key = "AIzaSyCyp3WhzP32OPjfarqqq7m2NiG_GbhO7hI";
   // static const google_api_key = "AIzaSyDdXj98JXUemYBNQi276mAIcIu8h75pgEY";
-  static const google_api_key = "AIzaSyB3YhZrNSAhs_IfGkzEoJJSSeWwz8Ey4DA";
-  static const dummayImage =
+  // static const googleApiKey = "AIzaSyDv_myXr3gNouq-DgD4exNrcRNtb4saa-Q";
+  static const googleApiKey = "AIzaSyDRzfYsryAgbiogSogMUZsD7gvIjooW1vc";
+  static const dummyImage =
       "https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
   static const galleryImageUrl =
       'https://propertier.com.pk/storage/property/gallery/';
@@ -26,8 +28,8 @@ class Constant {
   static const flag = 'assets/icons/flag.svg';
   static const search = 'assets/icons/search.png';
   static const arrowDown = 'assets/icons/arrowDown.svg';
-  static const etsate = 'assets/icons/estate.png';
-  static const addpost = 'assets/icons/add.svg';
+  static const eState = 'assets/icons/estate.png';
+  static const addPost = 'assets/icons/add.svg';
   static const material = 'assets/icons/material.png';
   static const voice = 'assets/icons/earnings.png';
   static const person = 'assets/icons/profile.png';
@@ -49,9 +51,9 @@ class Constant {
   static const plumber = 'assets/icons/plumber.svg';
   static const gardner = 'assets/icons/gardner.svg';
   static const electrician = 'assets/icons/electrician.svg';
-  static const carpanter = 'assets/icons/carpanter.svg';
+  static const carPanter = 'assets/icons/carpanter.svg';
   static const acMechanic = 'assets/icons/actechnician.svg';
-  static const architactureDesigner = 'assets/images/archDesigner.png';
+  static const architectureDesigner = 'assets/images/archDesigner.png';
   static const logoDesigner = 'assets/images/logoDesigner.png';
   static const sketches = 'assets/images/sketches.png';
   static const whatAreYouSearchingFor =
@@ -61,9 +63,9 @@ class Constant {
   static const res = "assets/icons/res.png";
   static const com = "assets/icons/com.png";
   static const landscape = "assets/icons/land.png";
-  static const ac_filter = "assets/icons/ac_filter.png";
+  static const acFilter = "assets/icons/ac_filter.png";
   static const heartFill = 'assets/icons/heart_fill.svg';
-  static const heartunFill = 'assets/icons/heart_unfill.svg';
+  static const heartUnFill = 'assets/icons/heart_unfill.svg';
   static const heartRedFill = 'assets/icons/likedheart.svg';
   static const banglo = 'assets/icons/banglo.png';
   static const house = 'assets/icons/house.png';
@@ -71,7 +73,7 @@ class Constant {
   static const completedIcon = 'assets/icons/completed.png';
   static const processingIcon = 'assets/icons/processing.png';
   static const rejectedIcon = 'assets/icons/rejected.png';
-  static const credit_debitIcon = 'assets/icons/credit-debit card.png';
+  static const creditDebitIcon = 'assets/icons/credit-debit card.png';
   static const masterCardIcon = 'assets/icons/masterCard.png';
   static const visaCardIcon = 'assets/icons/visaCard.png';
   static const unioCardIcon = 'assets/icons/unioCard.png';
@@ -81,19 +83,19 @@ class Constant {
   static const dummyVideo =
       "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4";
   static const shareRight = 'assets/icons/share_right.svg';
-  static const addtocart = 'assets/icons/addtocart.svg';
+  static const addToCart = 'assets/icons/addtocart.svg';
   static const buy = 'assets/icons/buy.svg';
   static const cycle = 'assets/icons/motorcycle.png';
   static const servicesSearchIcon = 'assets/icons/servicesSearchIcon.svg';
   static const profileAndCoverImageUrl =
       'https://propertier.com.pk/storage/user/';
   static const orderComplete = "assets/icons/ordercomplete.png";
-  static const easyPaisaicon = "assets/icons/easypaisa.svg";
-  static const jassCashicon = "assets/icons/jazz-cash.svg";
-  static const bankicon = "assets/icons/bank_3914973.svg";
-  static const buildingicon = "assets/icons/Building_icon.svg";
-  static const fairyHallicon = "assets/icons/fairy_hall_icon.svg";
-  static const flaticon = "assets/icons/flats_icon.svg";
+  static const easyPaisaIcon = "assets/icons/easypaisa.svg";
+  static const jassCashIcon = "assets/icons/jazz-cash.svg";
+  static const bankIcon = "assets/icons/bank_3914973.svg";
+  static const buildingIcon = "assets/icons/Building_icon.svg";
+  static const fairyHallIcon = "assets/icons/fairy_hall_icon.svg";
+  static const flatIcon = "assets/icons/flats_icon.svg";
   static const foodCourtIcon = "assets/icons/food_court_icon.svg";
   static const marriageHallIcon = "assets/icons/Group.svg";
   static const guestHouseIcon = "assets/icons/Guest_house_icon.svg";
@@ -116,13 +118,13 @@ class Constant {
 
   // -------------------vendor sideIcon-----------------------------
 
-  static const vendorhomeIcon = "assets/vendor_assets/home.svg";
+  static const vendorHomeIcon = "assets/vendor_assets/home.svg";
   static const vendorFeturedadIcon = "assets/vendor_assets/earning.png";
-  static const vendoraddpostIcon = "assets/vendor_assets/add.svg";
-  static const vendorearningIcon = "assets/vendor_assets/amount.svg";
-  static const vendorprofileIcon = "assets/vendor_assets/profile.svg";
+  static const vendorAddPostIcon = "assets/vendor_assets/add.svg";
+  static const vendorEarningIcon = "assets/vendor_assets/amount.svg";
+  static const vendorProfileIcon = "assets/vendor_assets/profile.svg";
   static const verifyIcon = "assets/vendor_assets/verify.svg";
-  static const editprofileIcon = "assets/vendor_assets/edit.svg";
+  static const editProfileIcon = "assets/vendor_assets/edit.svg";
   static const analyticsIcon = "assets/vendor_assets/analytics.svg";
   static const settingIcon = "assets/vendor_assets/setting.svg";
   static const adsIcon = "assets/vendor_assets/ads.svg";

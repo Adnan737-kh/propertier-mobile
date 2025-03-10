@@ -36,7 +36,7 @@ class ForRentTile extends StatelessWidget {
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10)),
                 image: DecorationImage(
-                    image: NetworkImage(Constant.dummayImage),
+                    image: NetworkImage(Constant.dummyImage),
                     fit: BoxFit.cover)),
             child: Column(
               children: [
@@ -55,7 +55,7 @@ class ForRentTile extends StatelessWidget {
                               shape: BoxShape.circle,
                               image: const DecorationImage(
                                   image: NetworkImage(
-                                    Constant.dummayImage,
+                                    Constant.dummyImage,
                                   ),
                                   fit: BoxFit.cover)),
                         ),

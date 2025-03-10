@@ -23,9 +23,13 @@ class PropertiesAndVideoView extends StatelessWidget {
   var data = Get.arguments;
   @override
   Widget build(BuildContext context) {
+
+    // print('print viewModel.propertyList[index]${viewModel.propertyList}');
     var selectedTile = data["PropertyEnum"];
     viewModel.setSelectTab(
         data["PropertiesType"] != "" ? data["PropertiesType"] : "All Types");
+
+    // print('ProperTy Type: ${data["PropertiesType"]}');
     return Scaffold(
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
@@ -42,9 +46,11 @@ class PropertiesAndVideoView extends StatelessWidget {
               title: Obx(
                 () => insideAppBarTile(
                   context,
-                  title: selectedTile == PoropertiesAndVideoEnum.video
-                      ? '${viewModel.propertyList.length} ${viewModel.selectedTab} in ${viewModel.currentLocation}'
-                      : '${viewModel.propertyList.length} ${viewModel.selectedTab} in ${viewModel.currentLocation}',
+                  title: selectedTile == PropertiesAndVideoEnum.video
+                      ? '${viewModel.propertyList.length} ${viewModel.selectedTab} '
+                      'in ${viewModel.currentLocation}'
+                      : '${viewModel.propertyList.length} ${viewModel.selectedTab} '
+                      'in ${viewModel.currentLocation}',
                 ),
               ),
               centerTitle: true,
@@ -54,7 +60,7 @@ class PropertiesAndVideoView extends StatelessWidget {
                   bottom: context.getSize.height * 0.010),
               background: PropertiesAndVideosAppBar(
                 viewModel: viewModel,
-                poropertiesAndShortVideoEnum: selectedTile,
+                propertiesAndShortVideoEnum: selectedTile,
                 propertiesType: data["PropertiesType"],
               ),
             ),
@@ -79,10 +85,11 @@ class PropertiesAndVideoView extends StatelessWidget {
   Widget switchPropertiesAndVideoTile(
       // HomeViewModel homeVM,
       String type,
-      PoropertiesAndVideoEnum data,
+      PropertiesAndVideoEnum data,
       BuildContext context) {
+
     switch (data) {
-      case PoropertiesAndVideoEnum.topselling:
+      case PropertiesAndVideoEnum.topSelling:
         return Padding(
           padding: EdgeInsets.symmetric(
             horizontal: context.getSize.width * 0.030,
@@ -106,7 +113,7 @@ class PropertiesAndVideoView extends StatelessWidget {
             ],
           ),
         );
-      case PoropertiesAndVideoEnum.video:
+      case PropertiesAndVideoEnum.video:
         return Padding(
           padding: EdgeInsets.symmetric(
             horizontal: context.getSize.width * 0.030,
@@ -132,7 +139,7 @@ class PropertiesAndVideoView extends StatelessWidget {
             ],
           ),
         );
-      case PoropertiesAndVideoEnum.properties:
+      case PropertiesAndVideoEnum.properties:
         return Padding(
           padding: EdgeInsets.symmetric(
             horizontal: context.getSize.width * 0.030,
@@ -150,7 +157,9 @@ class PropertiesAndVideoView extends StatelessWidget {
                             shrinkWrap: true,
                             itemCount: viewModel.propertyList.length,
                             itemBuilder: (context, index) {
-                              return propertiesTile(context,
+                              return propertiesTile(
+                                propertySaleOrRent: viewModel.purpose,
+                                  context,
                                   property: viewModel.propertyList[index]);
                             }),
               )

@@ -15,9 +15,9 @@ class Features {
   }
 
   Map<String, dynamic> toJson() => {
-        "data": data?.toJson(),
-        "status": status,
-      };
+    "data": data?.toJson(),
+    "status": status,
+  };
 }
 
 class Data {
@@ -28,17 +28,18 @@ class Data {
   final List<Feature> features;
 
   factory Data.fromJson(Map<String, dynamic> json) {
+    print("json id in Data ${json["amenities"]}"); // Debugging print
     return Data(
-      features: json["Features"] == null
+      features: json["amenities"] == null
           ? []
           : List<Feature>.from(
-              json["Features"]!.map((x) => Feature.fromJson(x))),
+          json["amenities"].map((x) => Feature.fromJson(x))),
     );
   }
 
   Map<String, dynamic> toJson() => {
-        "Features": features.map((x) => x.toJson()).toList(),
-      };
+    "Features": features.map((x) => x.toJson()).toList(),
+  };
 }
 
 class Feature {
@@ -51,14 +52,15 @@ class Feature {
   final String? name;
 
   factory Feature.fromJson(Map<String, dynamic> json) {
+    print("json id is here ${json["id"]}"); // Debugging print
     return Feature(
-      id: json["id"],
-      name: json["name"],
+      id: json["id"] ??'',
+      name: json["name"] ?? '',
     );
   }
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-      };
+    "id": id,
+    "name": name,
+  };
 }

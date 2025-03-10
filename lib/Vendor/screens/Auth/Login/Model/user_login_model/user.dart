@@ -12,6 +12,7 @@ class User {
   final bool? isSuperuser;
   @JsonKey(name: 'firebase_id')
   final String? firebaseId;
+  @JsonKey(name: 'full_name')
   final String? name;
   final dynamic about;
   @JsonKey(name: 'phone_number_country_code')
@@ -38,6 +39,7 @@ class User {
   final DateTime? createdAt;
   @JsonKey(name: 'updated_at')
   final DateTime? updatedAt;
+  @JsonKey(name: 'gender')
   final dynamic gender;
   final List<dynamic>? languages;
   final dynamic designation;
@@ -186,7 +188,7 @@ class User {
 
   @override
   String toString() {
-    return 'User(id: $id, lastLogin: $lastLogin, isSuperuser: $isSuperuser, firebaseId: $firebaseId, name: $name, about: $about, phoneNumberCountryCode: $phoneNumberCountryCode, phoneNumber: $phoneNumber, email: $email, identifier: $identifier, profilePictureUrl: $profilePictureUrl, coverPhotoUrl: $coverPhotoUrl, type: $type, accountStatus: $accountStatus, suspensionDays: $suspensionDays, isStaff: $isStaff, isActive: $isActive, createdAt: $createdAt, updatedAt: $updatedAt, gender: $gender, languages: $languages, designation: $designation, address: $address, latitudePosition: $latitudePosition, longitudePosition: $longitudePosition, profileDescription: $profileDescription, cnicFrontUrl: $cnicFrontUrl, cnicBackUrl: $cnicBackUrl, totalIncome: $totalIncome, monthlyIncome: $monthlyIncome, deductions: $deductions, rating: $rating, visitingCharges: $visitingCharges, availabilityHours: $availabilityHours, level: $level, balance: $balance, bankDetails: $bankDetails, onlineStatus: $onlineStatus, facebookLink: $facebookLink, instagramLink: $instagramLink, twitterLink: $twitterLink, letterHeadVerified: $letterHeadVerified, cnicVerified: $cnicVerified, profilePictureVerified: $profilePictureVerified, shopVisitingCardVerified: $shopVisitingCardVerified, emailVerified: $emailVerified, certificateOfIncorporationVerified: $certificateOfIncorporationVerified, artificialOfAssociationVerified: $artificialOfAssociationVerified, memberOfAssociationVerified: $memberOfAssociationVerified, incorporateDocumentVerified: $incorporateDocumentVerified, soleProprietorDocumentVerified: $soleProprietorDocumentVerified, letterHeadUrl: $letterHeadUrl, shopVisitingCardUrl: $shopVisitingCardUrl, certificateOfIncorporationUrl: $certificateOfIncorporationUrl, artificialOfAssociationUrl: $artificialOfAssociationUrl, memberOfAssociationUrl: $memberOfAssociationUrl, incorporateDocumentUrl: $incorporateDocumentUrl, soleProprietorDocumentUrl: $soleProprietorDocumentUrl, notificationsEnabled: $notificationsEnabled, groups: $groups, userPermissions: $userPermissions, followers: $followers, likes: $likes)';
+    return 'User(id: $id, lastLogin: $lastLogin, isSuperuser: $isSuperuser, firebaseId: $firebaseId, full_name: $name, about: $about, phoneNumberCountryCode: $phoneNumberCountryCode, phoneNumber: $phoneNumber, email: $email, identifier: $identifier, profilePictureUrl: $profilePictureUrl, coverPhotoUrl: $coverPhotoUrl, type: $type, accountStatus: $accountStatus, suspensionDays: $suspensionDays, isStaff: $isStaff, isActive: $isActive, createdAt: $createdAt, updatedAt: $updatedAt, gender: $gender, languages: $languages, designation: $designation, address: $address, latitudePosition: $latitudePosition, longitudePosition: $longitudePosition, profileDescription: $profileDescription, cnicFrontUrl: $cnicFrontUrl, cnicBackUrl: $cnicBackUrl, totalIncome: $totalIncome, monthlyIncome: $monthlyIncome, deductions: $deductions, rating: $rating, visitingCharges: $visitingCharges, availabilityHours: $availabilityHours, level: $level, balance: $balance, bankDetails: $bankDetails, onlineStatus: $onlineStatus, facebookLink: $facebookLink, instagramLink: $instagramLink, twitterLink: $twitterLink, letterHeadVerified: $letterHeadVerified, cnicVerified: $cnicVerified, profilePictureVerified: $profilePictureVerified, shopVisitingCardVerified: $shopVisitingCardVerified, emailVerified: $emailVerified, certificateOfIncorporationVerified: $certificateOfIncorporationVerified, artificialOfAssociationVerified: $artificialOfAssociationVerified, memberOfAssociationVerified: $memberOfAssociationVerified, incorporateDocumentVerified: $incorporateDocumentVerified, soleProprietorDocumentVerified: $soleProprietorDocumentVerified, letterHeadUrl: $letterHeadUrl, shopVisitingCardUrl: $shopVisitingCardUrl, certificateOfIncorporationUrl: $certificateOfIncorporationUrl, artificialOfAssociationUrl: $artificialOfAssociationUrl, memberOfAssociationUrl: $memberOfAssociationUrl, incorporateDocumentUrl: $incorporateDocumentUrl, soleProprietorDocumentUrl: $soleProprietorDocumentUrl, notificationsEnabled: $notificationsEnabled, groups: $groups, userPermissions: $userPermissions, followers: $followers, likes: $likes)';
   }
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

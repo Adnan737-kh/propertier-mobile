@@ -107,7 +107,7 @@ class ServicesMapView extends StatelessWidget {
                                             radius:
                                                 context.getSize.height * 0.016,
                                             backgroundImage: const NetworkImage(
-                                                Constant.dummayImage),
+                                                Constant.dummyImage),
                                           ),
                                           getWidth(context, 0.010),
                                           Column(

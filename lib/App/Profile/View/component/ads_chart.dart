@@ -38,7 +38,7 @@ Widget adsChart(BuildContext context, ProfileViewModel viewModel) {
           lineChartData: [],
           columnChartData: [],
           spline1Data: viewModel.spline1ThisWeek,
-          spline2Data: viewModel.splin2ThisWeek)
+          spline2Data: viewModel.spline2ThisWeek)
     ],
   );
 }

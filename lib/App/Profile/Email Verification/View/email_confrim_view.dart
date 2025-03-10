@@ -49,7 +49,7 @@ class EmailConfirmView extends StatelessWidget {
                       height: 30,
                     ),
                     customTextField(
-                      labal: "Enter your email",
+                      label: "Enter your email",
                       hintText: 'Enter your email',
                       controller: confirmEmailVM.emailController,
                       textInputType: TextInputType.emailAddress,

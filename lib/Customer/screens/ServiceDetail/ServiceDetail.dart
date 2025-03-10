@@ -86,7 +86,7 @@ class ServiceDetail extends GetView<ServiceDetailController> {
                         GestureDetector(
                           onTap: () {},
                           child: SvgPicture.asset(
-                            Constant.heartunFill,
+                            Constant.heartUnFill,
                           ),
                         )
                       ],

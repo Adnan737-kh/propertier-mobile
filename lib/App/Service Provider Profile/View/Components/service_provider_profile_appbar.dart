@@ -11,7 +11,7 @@ import 'package:propertier/extensions/size_extension.dart';
 
 import '../../ViewModel/service_provider_profile_viewmodel.dart';
 
-PreferredSize ServiceProviderprofileAppBar(
+PreferredSize serviceProviderProfileAppBar(
     BuildContext context, ServiceProviderProfileViewModel viewModel) {
   return PreferredSize(
       preferredSize: Size(context.getSize.width, context.getSize.height * 3),
@@ -22,10 +22,10 @@ PreferredSize ServiceProviderprofileAppBar(
             Column(
               children: [
                 InstaImageViewer(
-                  imageUrl: viewModel.ServiceProviderprofileModel.value
+                  imageUrl: viewModel.serviceProviderProfileModel.value
                               .userProfile!.coverPhotoUrl !=
                           null
-                      ? viewModel.ServiceProviderprofileModel.value.userProfile!
+                      ? viewModel.serviceProviderProfileModel.value.userProfile!
                           .coverPhotoUrl!
                       : Constant.dumyImage2,
                   child: Container(
@@ -38,16 +38,16 @@ PreferredSize ServiceProviderprofileAppBar(
                     height: context.getSize.height * 0.20,
                     decoration: BoxDecoration(
                         boxShadow: [boxShadow()],
-                        image: viewModel.ServiceProviderprofileModel.value
+                        image: viewModel.serviceProviderProfileModel.value
                                     .userProfile ==
                                 null
                             ? null
                             : DecorationImage(
                                 image: NetworkImage(
-                                  viewModel.ServiceProviderprofileModel.value
+                                  viewModel.serviceProviderProfileModel.value
                                               .userProfile!.coverPhotoUrl !=
                                           null
-                                      ? viewModel.ServiceProviderprofileModel
+                                      ? viewModel.serviceProviderProfileModel
                                           .value.userProfile!.coverPhotoUrl!
                                       : Constant.dumyImage2,
                                 ),
@@ -86,10 +86,10 @@ PreferredSize ServiceProviderprofileAppBar(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               appText(
-                                  title: viewModel.ServiceProviderprofileModel
+                                  title: viewModel.serviceProviderProfileModel
                                               .value.userProfile !=
                                           null
-                                      ? viewModel.ServiceProviderprofileModel
+                                      ? viewModel.serviceProviderProfileModel
                                               .value.userProfile!.name ??
                                           ""
                                       : "",
@@ -162,13 +162,13 @@ PreferredSize ServiceProviderprofileAppBar(
                               context: context),
                           appText(
                               color: const Color(0xffB8B8B8),
-                              title: viewModel.ServiceProviderprofileModel.value
+                              title: viewModel.serviceProviderProfileModel.value
                                           .properties !=
                                       null
-                                  ? viewModel.ServiceProviderprofileModel.value
+                                  ? viewModel.serviceProviderProfileModel.value
                                               .userProfile!.email !=
                                           null
-                                      ? viewModel.ServiceProviderprofileModel
+                                      ? viewModel.serviceProviderProfileModel
                                           .value.userProfile!.email!
                                           .toString()
                                       : ""
@@ -193,32 +193,32 @@ PreferredSize ServiceProviderprofileAppBar(
                   alignment: Alignment.bottomRight,
                   children: [
                     InstaImageViewer(
-                      imageUrl: viewModel.ServiceProviderprofileModel.value
+                      imageUrl: viewModel.serviceProviderProfileModel.value
                                   .userProfile!.profilePictureUrl ==
                               null
                           ? Constant.dumyImage2
-                          : viewModel.ServiceProviderprofileModel.value
+                          : viewModel.serviceProviderProfileModel.value
                               .userProfile!.profilePictureUrl!,
                       child: Container(
                         width: 100,
                         height: 100,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          image: viewModel.ServiceProviderprofileModel.value
+                          image: viewModel.serviceProviderProfileModel.value
                                       .userProfile ==
                                   null
                               ? null
                               : DecorationImage(
                                   image: NetworkImage(
                                     viewModel
-                                                .ServiceProviderprofileModel
+                                                .serviceProviderProfileModel
                                                 .value
                                                 .userProfile!
                                                 .profilePictureUrl ==
                                             null
                                         ? Constant.dumyImage2
                                         : viewModel
-                                            .ServiceProviderprofileModel
+                                            .serviceProviderProfileModel
                                             .value
                                             .userProfile!
                                             .profilePictureUrl!,

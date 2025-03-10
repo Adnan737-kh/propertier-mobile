@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-// ignore: depend_on_referenced_packages
 import 'package:geocoding/geocoding.dart' as geocode;
 
 import 'package:propertier/App/Auth/Login/Services/login_services.dart';
@@ -17,38 +16,46 @@ import 'package:propertier/App/What%20are%20you%20searching/ViewModel/what_are_v
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/constant/constant.dart';
 import 'package:propertier/constant/toast.dart';
-// import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 import 'package:http/http.dart' as http;
+import 'package:propertier/repository/auth_repo/signup_repo/signup_repo.dart';
 
 import '../../../../Handlers/Auth Handler/auth_handler.dart';
 import '../../../../Utils/app_text.dart';
 import '../../../../constant/AppButton/text_button.dart';
 import '../../../../constant/colors.dart';
+import '../../../../data/app_exception.dart';
 import '../../Service/auth_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../User/Token/token_preference_view_model/token_preference_view_model.dart';
+import '../Model/signup_model.dart';
 
 class SignUpViewModel extends GetxController {
+  UserPreference userPreference = UserPreference();
   String? isVendor = Get.arguments;
-  final usernameController = TextEditingController();
-  final userNumberController = TextEditingController();
-  final userEmailController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
-  final passwordController = TextEditingController();
-  final locationController = TextEditingController();
-  final searchAddressController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController numberController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController locationController = TextEditingController();
+  TextEditingController searchAddressController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-  final callecformKey = GlobalKey<FormState>();
+  final calledFormKey = GlobalKey<FormState>();
 
   var isShowPassword = false.obs;
   var isShowConfirmPassword = false.obs;
 
   RxBool isKeyboard = false.obs;
 
+  final _api = SignUpRepository();
+
   @override
   void dispose() {
-    userEmailController.dispose();
-    userNumberController.dispose();
-    usernameController.dispose();
+    emailController.dispose();
+    numberController.dispose();
+    nameController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
     super.dispose();
@@ -154,7 +161,7 @@ class SignUpViewModel extends GetxController {
     } catch (e) {
       toast(
           title:
-              'User already register with this email: ${userEmailController.text}',
+              'User already register with this email: ${emailController.text}',
           context: context);
       // toast(title: 'User already register with this email', context: context);
       return false;
@@ -239,7 +246,8 @@ class SignUpViewModel extends GetxController {
     bool isDone = false;
     try {
       isLoading(true);
-      return await AuthHandler.signUpWithEmailAndPassword(email, password, isVendor);
+      return await AuthHandler.signUpWithEmailAndPassword(
+          email, password, isVendor);
     } catch (e) {
       isLoading(false);
 
@@ -349,7 +357,7 @@ class SignUpViewModel extends GetxController {
 
   Future<void> searchPlaces(String input,
       {bool isCurrentLocation = false}) async {
-    const apiKey = Constant.google_api_key;
+    const apiKey = Constant.googleApiKey;
     const endpoint =
         'https://maps.googleapis.com/maps/api/place/autocomplete/json';
     final url = '$endpoint?input=$input&key=$apiKey';
@@ -372,5 +380,87 @@ class SignUpViewModel extends GetxController {
     } else {
       places.value = [];
     }
+  }
+
+  // Future<void> signUpUser({
+  //   required BuildContext context,
+  //   required String name,
+  //   required String email,
+  //   required String password,
+  // }) async {
+  //   final url = Uri.parse('${Constant.baseUrl}api/auth/user/register/');
+  //   print('$name, $email, $password');
+  //   isLoading(true);
+  //
+  //   try {
+  //     final response = await http.post(
+  //       url,
+  //       headers: {"Content-Type": "application/json"},
+  //       body: jsonEncode({
+  //         "full_name": name,
+  //         "email": email,
+  //         "password": password,
+  //       }),
+  //     );
+  //     isLoading(false);
+  //
+  //     if (response.statusCode == 200 || response.statusCode == 201) {
+  //       final responseData = jsonDecode(response.body); // Parse JSON response
+  //       String? otpToken = responseData['otp_token']; // Extract OTP Token
+  //
+  //       if (otpToken != null) {
+  //         await saveOtpToken(otpToken); // Save OTP Token in SharedPreferences
+  //       }
+  //
+  //       toast(title: 'Email verification sent to server.', context: context);
+  //       print("Email verification sent. OTP Token: $otpToken");
+  //
+  //       Get.toNamed(
+  //           AppRoutes.otpVerifyView); // Navigate to OTP Verification Screen
+  //     } else {
+  //       print("Failed to sign up: ${response.body}");
+  //     }
+  //   } catch (error) {
+  //     print("Error signing up user: $error");
+  //   } finally {
+  //     isLoading(false);
+  //   }
+  // }
+
+  void signUpPro() {
+    isLoading(true);
+
+    // Create an instance of the SignUpModel with data from the form
+    SignUpModel signUpData = SignUpModel(
+      fullName: nameController.value.text,
+      email: emailController.value.text,
+      password: passwordController.value.text,
+      passwordConfirm: confirmPasswordController.value.text,
+    );
+
+    _api.signup(signUpData.toMap()).then((onValue) async {
+      print('onValue $onValue');
+      if (onValue != null && onValue.containsKey('otp_token')) {
+        String otpToken = onValue['otp_token'];
+        print('Save otpToken For Header $otpToken');
+
+        // 🔹 Save to SharedPreferences
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('otp_token', otpToken);
+
+        print('📌 otp_token stored successfully: $otpToken');
+      }
+      toast(title: 'OTP Sent to Your Gmail', context: Get.context!);
+      Get.toNamed(AppRoutes.otpVerifyView);
+      isLoading(false);
+    }).onError((error, stackTrace) {
+      isLoading(false);
+      if (error is UserAlreadyExistsException) {
+        toast(title: 'User with this email already exists', context: Get.context!);
+      } else {
+        toast(title: 'An error occurred: $error', context: Get.context!);
+      }
+      print('$error and $stackTrace');
+    });
   }
 }

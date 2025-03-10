@@ -40,7 +40,7 @@ class ProfileVideosTile extends StatelessWidget {
                     onTap: () {
                       Get.toNamed(AppRoutes.profilePropertyListingView,
                           arguments: {
-                            "PropertyEnum": PoropertiesAndVideoEnum.video,
+                            "PropertyEnum": PropertiesAndVideoEnum.video,
                             "PropertiesType":
                                 listOfProperties.first.agent!.id.toString()
                           });

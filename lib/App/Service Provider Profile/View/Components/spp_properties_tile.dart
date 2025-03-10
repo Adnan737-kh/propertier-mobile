@@ -58,7 +58,7 @@ Widget sPPpropertiesTile(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10)),
                 image: DecorationImage(
-                    image: NetworkImage(property.image ?? Constant.dummayImage),
+                    image: NetworkImage(property.image ?? Constant.dummyImage),
                     fit: BoxFit.cover)),
             child: GestureDetector(
                 onTap: () {},
@@ -87,13 +87,13 @@ Widget sPPpropertiesTile(
                       title: getTimeAgo(property.createdAt!),
                       context: context,
                       colorOpecity: 0.7,
-                      fontSize: 10,
+                      fontSize: 8,
                       fontWeight: FontWeight.w500),
                   appText(
                       title: 'Residential',
                       context: context,
                       colorOpecity: 0.7,
-                      fontSize: 10,
+                      fontSize: 8,
                       fontWeight: FontWeight.w500),
                 ],
               ),
@@ -103,7 +103,7 @@ Widget sPPpropertiesTile(
                   title: property.title!,
                   context: context,
                   colorOpecity: 1,
-                  fontSize: 12,
+                  fontSize: 10,
                   overflow: TextOverflow.ellipsis,
                   fontWeight: FontWeight.bold),
               getHeight(context, 0.008),
@@ -113,7 +113,7 @@ Widget sPPpropertiesTile(
                       text: "PKR ",
                       style: textStyle(
                           context: context,
-                          fontSize: 10,
+                          fontSize: 8,
                           fontWeight: FontWeight.bold)),
                   TextSpan(
                       text: double.parse(property.price!).formatPrice(),
@@ -127,7 +127,7 @@ Widget sPPpropertiesTile(
                   title: property.address!,
                   context: context,
                   colorOpecity: 0.7,
-                  fontSize: 10,
+                  fontSize: 8,
                   fontWeight: FontWeight.w500),
               getHeight(context, 0.008),
               Row(

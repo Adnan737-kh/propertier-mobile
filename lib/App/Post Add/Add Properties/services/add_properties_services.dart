@@ -11,8 +11,14 @@ import 'package:propertier/App/Post%20Add/Add%20Properties/ViewModel/add_propert
 import 'package:propertier/Network/api_urls.dart';
 import 'package:http/http.dart' as http;
 import 'package:propertier/Network/http_multipart_request.dart';
+import 'package:propertier/RoutesAndBindings/app_routes.dart';
+import 'package:propertier/res/app_urls/app_url.dart';
+
+import '../../../Auth/User/Token/token_preference_view_model/token_preference_view_model.dart';
 
 class AddPropertiesServices {
+  UserPreference userPreference = UserPreference();
+  RxnString accessToken = RxnString();
   final List<OverlayEntry> _overlayEntry = [];
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -26,9 +32,22 @@ class AddPropertiesServices {
         final decodedData = jsonDecode(response.body);
         print("Featured Data ${decodedData['data']}");
         features = Features.fromJson(jsonDecode(response.body));
-      } else {}
-    } catch (e) {}
+      } else {
+        print("Featured Data Error}");
+      }
+    } catch (e) {
+      print("Featured Data $e}");
+
+    }
     return features;
+  }
+
+  void getAccessToken() async {
+    var user = await userPreference.getUserAccessToken();
+    print("@@@@@@ ${user.accessToken}");
+    if (user.accessToken != null) {
+      accessToken.value = user.accessToken; // Updating observable variable
+    }
   }
 
   Future<bool> uploadProperty({
@@ -52,14 +71,14 @@ class AddPropertiesServices {
     required String floor,
     required String description,
     required String areaUnit,
+    String? accessToken,
   }) async {
     bool isSuccess = false;
 
     try {
-      final uri = Uri.parse('${API.uploadPropertyUrl}/');
-
+      final uri = Uri.parse(API.uploadPropertyUrl);
       // Create the Multipart request
-      var request = MultipartRequest( 
+      var request = MultipartRequest(
         'POST',
         uri,
         onProgress: (int bytes, int total) {
@@ -67,13 +86,9 @@ class AddPropertiesServices {
           RxDouble progress = (bytes / total).obs;
           showNotificationWithProgress(progress.value * 100);
           vm.changeValue(progress.value);
-          // _showPersistentToast(context: context, progress: progress);
-
-          print('progress: $progress ($bytes/$total)');
         },
       );
-      // var request= http.MultipartRequest("POST", uri, );
-      // Add fields to the request
+
       request.fields['agent'] = agentID;
       if (title.isNotEmpty) request.fields['title'] = title;
       if (title.isNotEmpty) request.fields['slug'] = title;
@@ -83,8 +98,8 @@ class AddPropertiesServices {
       if (bedroom.isNotEmpty) request.fields['bedroom'] = bedroom;
       if (areaUnit.isNotEmpty) request.fields['area_unit'] = areaUnit;
       if (area.isNotEmpty) request.fields['area'] = area;
-      if (city.isNotEmpty) request.fields['city'] = city;
-      if (city.isNotEmpty) request.fields['city_slug'] = city;
+      // if (city.isNotEmpty) request.fields['city'] = city;
+      // if (city.isNotEmpty) request.fields['city_slug'] = city;
       if (address.isNotEmpty) request.fields['address'] = address;
       if (purpose.isNotEmpty) request.fields['purpose'] = purpose;
       if (type.isNotEmpty) request.fields['type'] = type;
@@ -97,12 +112,6 @@ class AddPropertiesServices {
         request.fields['Features[$i]'] = features[i].toString();
       }
 
-      // List<Map<String, String>> featureList =
-      //     features.map((featureId) => {"Features": featureId.toString()}).toList();
-      // request.fields['Features'] = jsonEncode(features);
-
-      // request.fields
-      // Add files to the request
       if (image.isNotEmpty) {
         request.files.add(await http.MultipartFile.fromPath(
           'image',
@@ -131,11 +140,13 @@ class AddPropertiesServices {
         var prprty = jsonDecode(response.body);
         var propertyId = prprty["id"];
         ("Status COde is That $propertyId");
-
         vm.hideOverlay();
-
-        final uri = Uri.parse(API.uploadPropertyFeaturesUrl);
-        final headers = {"Content-Type": "application/json"};
+        print("Uploading to: ${AppUrls.propertiesUploadUrl}");
+        final uri = Uri.parse(AppUrls.propertiesUploadUrl);
+        final headers = {
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer $accessToken',
+        };
         final body = jsonEncode({
           "property_id": propertyId,
           "features": features,
@@ -145,6 +156,8 @@ class AddPropertiesServices {
 
         if (responses.statusCode == 201) {
           print('Features added successfully!');
+          Get.toNamed(AppRoutes.profileView);
+
         }
         print("Property Upload Successfully");
         cancelNotification(0);
@@ -158,7 +171,7 @@ class AddPropertiesServices {
         cancelNotification(0);
         isSuccess = true;
 
-        print("Error is This : $response");
+        print("Error is This : ${response.body}");
         //
       }
     } catch (e) {
@@ -168,7 +181,6 @@ class AddPropertiesServices {
       print("catch Error is This:$e");
       // toast(title: 'Something went wrong', context: context);
     }
-
     return isSuccess;
   }
 

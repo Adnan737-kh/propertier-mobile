@@ -19,6 +19,8 @@ class AddAwardView extends GetView<AddAwardViewModel> {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Get.put(AddAwardViewModel());
+    print('ADD AWARD USER ID!!! ${viewModel.accessToken}');
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -85,9 +87,9 @@ class AddAwardView extends GetView<AddAwardViewModel> {
                           } else {
                             await controller
                                 .postAward(
-                                    id: GetStorage().read("id").toString(),
+                                    accessToken: viewModel.accessToken!,
                                     title: controller.titleController.text,
-                                    dessrcption:
+                                    description:
                                         controller.descriptionController.text,
                                     imageData: controller.image,
                                     context: context,
@@ -96,7 +98,7 @@ class AddAwardView extends GetView<AddAwardViewModel> {
                               final vm = Get.put(ProfileViewModel());
                               vm.getProfilePageData(
                                   context: context,
-                                  id: GetStorage().read('id').toString());
+                                  id: viewModel.accessToken!);
                             });
                           }
                         })

@@ -1,33 +1,33 @@
 import 'dart:convert';
 
-UserModel UserModelFromJson(String str) => UserModel.fromJson(json.decode(str));
+UserModelOld UserModelFromJson(String str) => UserModelOld.fromJson(json.decode(str));
 
-String UserModelToJson(UserModel data) => json.encode(data.toJson());
+String UserModelToJson(UserModelOld data) => json.encode(data.toJson());
 
-class UserModel {
+class UserModelOld {
   String token;
   DateTime expiration;
   String email;
   List<String>? userRoles;
-  dynamic phonenumber;
-  String fname;
-  String lname;
+  dynamic phoneNumber;
+  String fName;
+  String lName;
   String id;
-  int timeSheettype;
+  int timeSheetType;
 
-  UserModel({
+  UserModelOld({
     required this.token,
     required this.expiration,
     required this.email,
     required this.userRoles,
-    required this.phonenumber,
-    required this.fname,
-    required this.lname,
+    required this.phoneNumber,
+    required this.fName,
+    required this.lName,
     required this.id,
-    required this.timeSheettype,
+    required this.timeSheetType,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+  factory UserModelOld.fromJson(Map<String, dynamic> json) => UserModelOld(
         token: json["token"] ?? "",
         expiration: json["expiration"] == null
             ? DateTime.parse(
@@ -37,11 +37,11 @@ class UserModel {
         userRoles: json["userRoles"] != null
             ? List<String>.from(json["userRoles"].map((x) => x))
             : [],
-        phonenumber: json["phonenumber"] ?? "",
-        fname: json["fname"] ?? "",
-        lname: json["lname"] ?? "",
+        phoneNumber: json["phonenumber"] ?? "",
+        fName: json["fname"] ?? "",
+        lName: json["lname"] ?? "",
         id: json["id"] ?? "",
-        timeSheettype: json["timeSheettype"] ?? 0,
+        timeSheetType: json["timeSheettype"] ?? 0,
       );
 
   Map<String, dynamic> toJson() => {
@@ -49,10 +49,10 @@ class UserModel {
         "expiration": expiration.toIso8601String(),
         "email": email,
         "userRoles": List<dynamic>.from(userRoles!.map((x) => x)),
-        "phonenumber": phonenumber,
-        "fname": fname,
-        "lname": lname,
+        "phonenumber": phoneNumber,
+        "fname": fName,
+        "lname": lName,
         "id": id,
-        "timeSheettype": timeSheettype,
+        "timeSheettype": timeSheetType,
       };
 }

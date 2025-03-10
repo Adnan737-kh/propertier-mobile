@@ -131,7 +131,7 @@ class DashboardState extends State<Dashboard>
               items: [
                 CurvedNavigationBarItem(
                   child: SvgPicture.asset(
-                   Constant.vendorhomeIcon,
+                   Constant.vendorHomeIcon,
                   ),
                   label: selectedIndex == 0 ? '' : 'Requests',
                   labelStyle: const TextStyle(
@@ -151,7 +151,7 @@ class DashboardState extends State<Dashboard>
                 ),
                 CurvedNavigationBarItem(
                   child: SvgPicture.asset(
-                    Constant.vendoraddpostIcon,
+                    Constant.vendorAddPostIcon,
                   ),
                   label: selectedIndex == 2 ? '' : 'Post Add',
                   labelStyle: const TextStyle(
@@ -161,7 +161,7 @@ class DashboardState extends State<Dashboard>
                   ),
                 ),
                 CurvedNavigationBarItem(
-                  child: SvgPicture.asset(Constant.vendorearningIcon),
+                  child: SvgPicture.asset(Constant.vendorEarningIcon),
                   label: selectedIndex == 3 ? '' : 'Earnings',
                   labelStyle: const TextStyle(
                     color: Color(0xFF131A22),
@@ -171,7 +171,7 @@ class DashboardState extends State<Dashboard>
                 ),
                 CurvedNavigationBarItem(
                   child: SvgPicture.asset(
-                    Constant.vendorprofileIcon,
+                    Constant.vendorProfileIcon,
                   ),
                   label: selectedIndex == 4 ? '' : 'Profile',
                   labelStyle: const TextStyle(

@@ -21,7 +21,7 @@ class ServicesVideoTile extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           image: const DecorationImage(
-              image: NetworkImage(Constant.dummayImage), fit: BoxFit.cover)),
+              image: NetworkImage(Constant.dummyImage), fit: BoxFit.cover)),
       child: Column(
         children: [
           Row(
@@ -39,7 +39,7 @@ class ServicesVideoTile extends StatelessWidget {
                         shape: BoxShape.circle,
                         image: const DecorationImage(
                             image: NetworkImage(
-                              Constant.dummayImage,
+                              Constant.dummyImage,
                             ),
                             fit: BoxFit.cover)),
                   ),

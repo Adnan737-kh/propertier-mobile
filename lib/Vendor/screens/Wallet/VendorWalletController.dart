@@ -43,7 +43,7 @@ class VendorWalletController extends GetxController{
         'balance': balance
       };
       var encodedData = jsonEncode(data);
-      String url = "${API.topupWallet}$vendorUserId/";
+      String url = "${API.topUpWallet}$vendorUserId/";
       print(url);
       var response = await http.put(Uri.parse(url),
           headers: <String, String>{'Content-Type': 'application/json'},

@@ -6,6 +6,7 @@ abstract class AppRoutes {
   static const navBarView = '/navBar';
   static const homeView = '/home';
   static const loginView = '/login';
+  static const userNotLoginView = '/userNotLogin';
   static const signUpView = '/signUp';
   static const forgotPasswordView = '/forgotPassword';
   static const newPasswordView = '/newPassword';
@@ -26,7 +27,7 @@ abstract class AppRoutes {
   static const marketPlaceView = '/marketplace';
   static const servicesView = '/services';
   static const propertiesAndVideoView = '/propertiesAndVideo';
-  static const emailverificationView = '/emailverificationView';
+  static const emailVerificationView = '/emailverificationView';
   static const emailOTPView = '/emailOTPView';
   static const emailEnterView = '/emailEnterView';
   static const numberVerificationView = '/numberVerificationView';

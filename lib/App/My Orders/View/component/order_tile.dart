@@ -80,7 +80,7 @@ class OrderTile extends StatelessWidget {
                 children: [
                   const CircleAvatar(
                     radius: 14,
-                    backgroundImage: NetworkImage(Constant.dummayImage),
+                    backgroundImage: NetworkImage(Constant.dummyImage),
                   ),
                   const Gap(5),
                   Expanded(

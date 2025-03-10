@@ -56,7 +56,7 @@ class ForgotPasswordView extends StatelessWidget {
                     height: 30,
                   ),
                   customTextField(
-                    labal: "Enter Your Email",
+                    label: "Enter Your Email",
                     hintText: 'Email',
                     controller: forgetPassVM.emailController,
                     textInputType: TextInputType.emailAddress,
@@ -95,10 +95,14 @@ class ForgotPasswordView extends StatelessWidget {
                                 child: textButton(
                                   textFontWeight: FontWeight.bold,
                                   onClick: () async {
-                                    forgetPassVM.postForgetPassword(
+                                    forgetPassVM.restPasswordViaEmail(
                                         email:
-                                            forgetPassVM.emailController.text,
-                                        context: context);
+                                            forgetPassVM.emailController.text, context: context);
+
+                                    // forgetPassVM.postForgetPassword(
+                                    //     email:
+                                    //         forgetPassVM.emailController.text,
+                                    //     context: context);
                                     // if (forgetPassVM.formKey.currentState!.validate()) {
                                     //   forgetPassVM.formKey.currentState?.save();
 

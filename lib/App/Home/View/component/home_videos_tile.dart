@@ -54,7 +54,7 @@ class HomeVideosTile extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     Get.toNamed(AppRoutes.propertiesAndVideoView, arguments: {
-                      "PropertyEnum": PoropertiesAndVideoEnum.video,
+                      "PropertyEnum": PropertiesAndVideoEnum.video,
                       "PropertiesType": ""
                     });
                   },
@@ -94,7 +94,7 @@ class HomeVideosTile extends StatelessWidget {
                               onTap: () {
                                 // Get.toNamed(AppRoutes.playerView,
                                 //     arguments: property.video);
-                                Get.to(Ytplayer(), arguments: property.video);
+                                Get.to(const Ytplayer(), arguments: property.video);
                               },
                               child: VideoThumbnailTile(
                                 videoUrl: property.video!,

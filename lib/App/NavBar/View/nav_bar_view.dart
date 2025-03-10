@@ -40,9 +40,33 @@ class NavBarView extends StatelessWidget {
                     if (viewModel.selectedTabIndex == 0) {
                       return HomeView();
                     } else if (viewModel.selectedTabIndex == 2) {
-                      return GetStorage().read('user') == null
-                          ? const UserNotLoginView()
-                          : ProfileStatusView();
+                      // return viewModel.accessToken.value?.isEmpty ?? true
+                      //     ? const UserNotLoginView()
+                      //     : ProfileStatusView();
+
+                      return  FutureBuilder(
+                        future: viewModel.userPreference.getUserAccessToken(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return const Center(child: CircularProgressIndicator()); // Show loader while fetching data
+                          }
+
+                          if (snapshot.hasData) {
+                            final accessToken = snapshot.data?.accessToken ?? "";
+                            if (accessToken == null || accessToken.isEmpty || accessToken.toLowerCase() == "null") {
+                              print('No accessToken!!! $accessToken');
+                              return const UserNotLoginView();
+                            } else {
+                              print('Valid accessToken!!! $accessToken');
+                              return ProfileStatusView();
+                            }
+                          } else {
+                            print('Fall accessToken!!!');
+                            return const UserNotLoginView(); // Fallback in case of error
+                          }
+                        },
+                      );
+
                     } else if (viewModel.selectedTabIndex == 1) {
                       return PostAddView();
                     }
@@ -74,7 +98,7 @@ class NavBarView extends StatelessWidget {
                                     width: 5))
                             : null,
                         child: Image.asset(
-                          Constant.etsate,
+                          Constant.eState,
                           height: 25,
                           width: 25,
                         ),
@@ -100,7 +124,7 @@ class NavBarView extends StatelessWidget {
                                     width: 5))
                             : null,
                         child: SvgPicture.asset(
-                          Constant.addpost,
+                          Constant.addPost,
                           height: 25,
                           width: 25,
                         ),

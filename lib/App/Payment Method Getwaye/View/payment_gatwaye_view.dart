@@ -169,15 +169,15 @@ class PaymentGatwayeView extends GetView<PaymentGatwayeViewModel> {
       Obx(() => Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              selectPaymentWayTile(context, "EasyPaisa", Constant.easyPaisaicon,
+              selectPaymentWayTile(context, "EasyPaisa", Constant.easyPaisaIcon,
                   controller.seletedBank == "EasyPaisa", () {
                 controller.onChangeBank("EasyPaisa");
               }),
-              selectPaymentWayTile(context, "JazzCash", Constant.jassCashicon,
+              selectPaymentWayTile(context, "JazzCash", Constant.jassCashIcon,
                   controller.seletedBank == "JazzCash", () {
                 controller.onChangeBank("JazzCash");
               }),
-              selectPaymentWayTile(context, "Bank", Constant.bankicon,
+              selectPaymentWayTile(context, "Bank", Constant.bankIcon,
                   controller.seletedBank == "Bank", () {
                 controller.onChangeBank("Bank");
               }),

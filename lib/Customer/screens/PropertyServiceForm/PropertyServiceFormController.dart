@@ -11,7 +11,7 @@ import '../../../constant/constant.dart';
 
 class PropertyServiceFormController extends GetxController{
 
-  static const apiKey = Constant.google_api_key;
+  static const apiKey = Constant.googleApiKey;
 
   TextEditingController descriptionController = TextEditingController();
   TextEditingController overviewController = TextEditingController();

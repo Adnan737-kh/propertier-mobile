@@ -45,10 +45,10 @@ class DetailDataModel {
           ? []
           : List<GalleryImage>.from(
               json["Gallery_images"]!.map((x) => GalleryImage.fromJson(x))),
-      features: json["Features"] == null
-          ? []
-          : List<Feature>.from(
-              json["Features"]!.map((x) => Feature.fromJson(x))),
+      features: json["Property"] != null && json["Property"]["amenities"] != null
+          ? List<Feature>.from(
+          json["Property"]["amenities"].map((x) => Feature.fromJson(x)))
+          : [],
       relatedProperties: json["Related_Properties"] == null
           ? []
           : List<Property>.from(
@@ -59,30 +59,56 @@ class DetailDataModel {
   Map<String, dynamic> toJson() => {
         "Property": property?.toJson(),
         "Gallery_images": galleryImages.map((x) => x.toJson()).toList(),
-        "Features": features.map((x) => x.toJson()).toList(),
+        "amenities": features.map((x) => x.toJson()).toList(),
         "Related_Properties": relatedProperties.map((x) => x.toJson()).toList(),
       };
 }
 
 class Feature {
   Feature({
-    required this.featureId,
+    required this.id,
+    required this.name,
+    this.iconUrl,
   });
 
-  final FeatureId? featureId;
+  final int? id;
+  final String? name;
+  final String? iconUrl;
 
   factory Feature.fromJson(Map<String, dynamic> json) {
     return Feature(
-      featureId: json["feature_id"] == null
-          ? null
-          : FeatureId.fromJson(json["feature_id"]),
+      id: json["id"],
+      name: json["name"],
+      iconUrl: json["icon_url"], // This can be null
     );
   }
 
   Map<String, dynamic> toJson() => {
-        "feature_id": featureId?.toJson(),
-      };
+    "id": id,
+    "name": name,
+    "icon_url": iconUrl,
+  };
 }
+
+// class Feature {
+//   Feature({
+//     required this.featureId,
+//   });
+//
+//   final FeatureId? featureId;
+//
+//   factory Feature.fromJson(Map<String, dynamic> json) {
+//     return Feature(
+//       featureId: json["id"] == null
+//           ? null
+//           : FeatureId.fromJson(json["id"]),
+//     );
+//   }
+//
+//   Map<String, dynamic> toJson() => {
+//         "id": featureId?.toJson(),
+//       };
+// }
 
 class FeatureId {
   FeatureId({
@@ -111,11 +137,11 @@ class GalleryImage {
 
   factory GalleryImage.fromJson(Map<String, dynamic> json) {
     return GalleryImage(
-      imageUrl: json["image_url"],
+      imageUrl: json["image"],
     );
   }
 
   Map<String, dynamic> toJson() => {
-        "image_url": imageUrl,
+        "image": imageUrl,
       };
 }

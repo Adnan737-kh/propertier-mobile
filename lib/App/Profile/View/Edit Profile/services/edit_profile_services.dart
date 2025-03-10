@@ -2,11 +2,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:propertier/App/Auth/Login/Model/login_response_model.dart';
-// import 'package:propertier/App/Profile/View/Edit%20Profile/model/edit_profile_res_model.dart';
-import 'package:propertier/Network/api_urls.dart';
 import 'package:propertier/constant/toast.dart';
+import '../../../../../res/app_urls/app_url.dart';
 
-class EditProfileServices {
+class EditProfileServices  {
+
+
+
   Future<UserData?> editProfile({
     required BuildContext context,
     required String id,
@@ -24,7 +26,7 @@ class EditProfileServices {
   }) async {
     UserData? model;
     try {
-      final uri = Uri.parse(API.updateProfileUrl);
+      final uri = Uri.parse(AppUrls.editProfileUrl);
       final request = http.MultipartRequest('POST', uri);
       request.fields['id'] = id;
       if (name != '') {
@@ -81,4 +83,6 @@ class EditProfileServices {
     }
     return model;
   }
+
+
 }

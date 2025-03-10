@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/App/Services/Model/FixedServicesModel.dart';
@@ -7,21 +8,50 @@ import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/localization_extension.dart';
 import '../../../Vendor/screens/dashboard/Posts/add_post/Model/title_model.dart';
 import '../../../Vendor/screens/dashboard/Posts/select_category/View/select_category.dart';
+import '../../Auth/User/Token/token_preference_view_model/token_preference_view_model.dart';
 import '../Model/ServiceDashboardModel.dart';
 import 'package:propertier/Vendor/helpers/api_service.dart';
 
 class ServicesViewModel extends GetxController {
 
- @override
-  void onInit() {
-    // TODO: implement onInit
-    super.onInit();
-    GetServicesDashboard();
-  }
+  Rxn<ServiceDashboardModel> serviceDashboardModel = Rxn<ServiceDashboardModel>();
+  TextEditingController searchController = TextEditingController();
   ServicesCore servicesCore = ServicesCore();
+  UserPreference userPreference = UserPreference();
+  var profileImage = "".obs; // Make it observable
+  var userName = "".obs; // Make it observable
+  final ApiService apiService = ApiService();
+  var isLoading = false.obs;
+  var parentServicesMap = <String, String>{}.obs;
+  String? selectedParentServiceId;
+  var titles = <TitleModel>[].obs;
+  var errorMessage = RxnString();
+  String? selectedCategory;
+  String? parentId;
 
- TextEditingController searchCOntroller = TextEditingController();
- List<ServicesModel> servciesList = <ServicesModel>[
+
+  @override
+  void onInit() {
+    super.onInit();
+    userPreference.getUserProfileData().then((value) async {
+      if (value!.profilePictureUrl.isNotEmpty ||
+          value.profilePictureUrl.toString() != 'null') {
+        setProfileImage(value.profilePictureUrl);
+        setUserName(value.name!);
+        getServicesDashboard();
+      }
+    });
+  }
+
+  void setProfileImage(String image) {
+    profileImage.value = image;
+  }
+
+  void setUserName(String name) {
+    userName.value = name;
+  }
+
+ List<ServicesModel> servicesList = <ServicesModel>[
    ServicesModel(title: Get.context!.local.plumber, icon: Constant.plumber),
    ServicesModel(
        title: Get.context!.local.electrician, icon: Constant.electrician),
@@ -29,13 +59,13 @@ class ServicesViewModel extends GetxController {
        title: Get.context!.local.acTechnician, icon: Constant.acMechanic),
    ServicesModel(title: Get.context!.local.gardener, icon: Constant.gardner),
    ServicesModel(
-       title: Get.context!.local.carpanter, icon: Constant.carpanter),
+       title: Get.context!.local.carpanter, icon: Constant.carPanter),
    ServicesModel(title: Get.context!.local.painter, icon: Constant.painter),
  ];
 
  List<ServicesModel> topSellingList = <ServicesModel>[
    ServicesModel(
-       title: 'Architecture Designer', icon: Constant.architactureDesigner),
+       title: 'Architecture Designer', icon: Constant.architectureDesigner),
    ServicesModel(title: 'Handmade 3D Sketches', icon: Constant.sketches),
    ServicesModel(
        title: 'Graphic & Logo Designer', icon: Constant.logoDesigner),
@@ -51,28 +81,15 @@ class ServicesViewModel extends GetxController {
    return await servicesCore.ServicesPagination(context: context);
  }
 
- Rxn<ServiceDashboardModel> serviceDashboardModel = Rxn<ServiceDashboardModel>();
-
- Future GetServicesDashboard()async{
+ Future getServicesDashboard()async{
    serviceDashboardModel.value = await servicesCore.ServicesDashboard(context: Get.context!);
  }
-
-
-
- final ApiService apiService = ApiService();
- var isLoading = false.obs;
- var parentServicesMap = <String, String>{}.obs;
- String? selectedParentServiceId;
- var titles = <TitleModel>[].obs;
- var errorMessage = RxnString();
- String? selectedCategory;
- String? parentId;
 
  Future openSelectCategoryScreen(BuildContext context) async {
    showDialog(
      context: context,
      barrierDismissible: false,
-     builder: (context) => Center(child: CircularProgressIndicator()),
+     builder: (context) => const Center(child: CircularProgressIndicator()),
    );
 
    await fetchParentServices();
@@ -80,7 +97,9 @@ class ServicesViewModel extends GetxController {
    if (Navigator.of(context).canPop()) {
      Navigator.of(context).pop();
    }
-   print('Fetched Parent Services Map: ${parentServicesMap}');
+   if (kDebugMode) {
+     print('Fetched Parent Services Map: $parentServicesMap');
+   }
 
    final String? selected = await showModalBottomSheet<String?>(
      context: context,
@@ -97,16 +116,22 @@ class ServicesViewModel extends GetxController {
                context: context,
                barrierDismissible: false,
                builder: (context) =>
-                   Center(child: CircularProgressIndicator()),
+                   const Center(child: CircularProgressIndicator()),
              );
 
-             print('Selected Category: $category');
+             if (kDebugMode) {
+               print('Selected Category: $category');
+             }
              await fetchTitlesForParentService(category);
-             print('Fetched Titles for $category:');
+             if (kDebugMode) {
+               print('Fetched Titles for $category:');
+             }
 
-             titles.forEach((titleModel) {
-               print('Title: ${titleModel.title}, ID: ${titleModel.id}');
-             });
+             for (var titleModel in titles) {
+               if (kDebugMode) {
+                 print('Title: ${titleModel.title}, ID: ${titleModel.id}');
+               }
+             }
 
                parentId =selectedParentServiceId;
                selectedCategory = category;
@@ -121,7 +146,6 @@ class ServicesViewModel extends GetxController {
      },
    );
  }
-
 
  // Fetch Parent Services
  Future<void> fetchParentServices() async {
@@ -151,8 +175,11 @@ class ServicesViewModel extends GetxController {
 
      titles.value = titlesList;
      selectedParentServiceId = parentServicesMap[parentServiceName] ?? '';
-     print('Fetched Titles for $parentServiceName: $titlesList');
-     print('Selected Parent Service ID: ${selectedParentServiceId}');
+     if (kDebugMode) {
+       print('Fetched Titles for $parentServiceName: $titlesList');
+       print('Selected Parent Service ID: $selectedParentServiceId');
+
+     }
      errorMessage.value = null;
    } catch (e) {
      errorMessage.value = 'An error occurred: $e';

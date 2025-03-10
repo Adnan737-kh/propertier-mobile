@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
@@ -7,8 +8,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:propertier/App/Post%20Add/Add%20Properties/Components/add_property_facilities.dart';
 import 'package:propertier/App/Post%20Add/Add%20Properties/Components/overlayWidget.dart';
-import 'package:propertier/App/Profile/ViewModel/profile_view_model.dart';
-import 'package:propertier/Utils/search_location_bottom_sheet.dart';
 import 'package:propertier/Utils/textStyle.dart';
 import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
@@ -19,10 +18,10 @@ import '../../../../Utils/app_text.dart';
 import '../../../../Utils/appbar.dart';
 import '../../../../Utils/box_shadow.dart';
 import '../../../../Utils/height_width_box.dart';
+import '../../../../Utils/search_location_bottom_sheet.dart';
 import '../../../../Utils/text_botton.dart';
 import '../../../../constant/colors.dart';
 import '../../../../constant/constant.dart';
-import '../../../../constant/toast.dart';
 import '../../../Rental/Components/rental_cutom_btn.dart';
 import '../Components/add_property_info.dart';
 import '../Components/addproperties_inspector_report.dart';
@@ -37,6 +36,7 @@ class AddPropertiesView extends GetView<AddPropertiesViewModel> {
   UploadPropertyViewModel cont = Get.arguments;
   @override
   Widget build(BuildContext context) {
+    // print('the feature data ${controller.featuresList.value.data?.features[0].name!}');
     return Scaffold(
       body: Stack(
         alignment: Alignment.topCenter,
@@ -74,7 +74,7 @@ class AddPropertiesView extends GetView<AddPropertiesViewModel> {
                       ],
                     ),
                     getHeight(context, 0.008),
-                    CustomAddTextfield(
+                    CustomAddTextField(
                       textEditingController: controller.titleController,
                       border: InputBorder.none,
                       validator: (value) {
@@ -95,7 +95,7 @@ class AddPropertiesView extends GetView<AddPropertiesViewModel> {
                       ],
                     ),
                     getHeight(context, 0.008),
-                    CustomAddTextfield(
+                    CustomAddTextField(
                       textEditingController: controller.descriptionController,
                       border: InputBorder.none,
                       validator: (value) {
@@ -109,14 +109,14 @@ class AddPropertiesView extends GetView<AddPropertiesViewModel> {
                     Row(
                       children: [
                         Obx(() => Expanded(
-                              child: CustomAddTextfield(
+                              child: CustomAddTextField(
                                 formatter: [
                                   FilteringTextInputFormatter.digitsOnly,
                                 ],
                                 textInputType: TextInputType.number,
                                 labelText: controller.selectedPurpose != 1
                                     ? "Price"
-                                    : "Price",
+                                    : "Rent",
                                 color: Colors.transparent,
                                 textEditingController:
                                     controller.priceController,
@@ -130,7 +130,7 @@ class AddPropertiesView extends GetView<AddPropertiesViewModel> {
                             )),
                         const Gap(52),
                         Expanded(
-                          child: CustomAddTextfield(
+                          child: CustomAddTextField(
                             textInputType: TextInputType.number,
                             labelText: "Size/Area",
                             color: Colors.transparent,
@@ -149,25 +149,43 @@ class AddPropertiesView extends GetView<AddPropertiesViewModel> {
                     Row(
                       children: [
                         Expanded(
-                          child: CustomAddTextfield(
+                          child: CustomAddTextField(
                             readOnly: true,
                             onTap: () {
-                              searchLoactionBottomSheet(
+                              searchLocationBottomSheet(
                                   placesList: controller.places,
                                   context: context,
                                   searchController:
                                       controller.searchLocationController,
                                   onChange: (val) {
-                                    controller.searchPlaces(val);
+                                      controller.searchPlaces(val);
                                   },
                                   onSelect: (val) {
                                     controller.locationController.text = val;
-
                                     controller.searchLocationController.clear();
                                     controller.places.clear();
                                     Get.back();
                                   });
                             },
+                            //   onTap: () {
+                            //     searchLocationBottomSheet(
+                            //       placesList: controller.placesList,
+                            //       placesMap: controller.placesMap, // Pass the map of names -> GeoPoints
+                            //       context: context,
+                            //       searchController: controller.searchLocationController,
+                            //       onChange: (val) {
+                            //         controller.searchPlaces(val);
+                            //       },
+                            //       onSelect: (GeoPoint? val) {
+                            //         controller.locationController.text = "${val?.latitude},"
+                            //             " ${val?.longitude}";
+                            //         controller.searchLocationController.clear();
+                            //         controller.placesList.clear();
+                            //         controller.placesMap.clear();
+                            //         // Get.back();
+                            //       },
+                            //     );
+                            //   },
                             labelText: "Location",
                             color: Colors.transparent,
                             textEditingController:
@@ -230,8 +248,7 @@ class AddPropertiesView extends GetView<AddPropertiesViewModel> {
                     getHeight(context, 0.017),
                     addPropertyInfo(controller: controller, context: context),
                     getHeight(context, 0.015),
-                    addPropertyFacilities(
-                        controller: controller, context: context),
+                    addPropertyFacilities(controller: controller, context: context),
                     getHeight(context, 0.015),
                     AddPropertyInspectReportView(),
                     getHeight(context, 0.016),
@@ -319,96 +336,151 @@ class AddPropertiesView extends GetView<AddPropertiesViewModel> {
                                 )
                               : Expanded(
                                   child: textButton(
-                                    onClick: () async {
-                                      controller.urlController.text =
-                                          controller.urlController.text == ""
-                                              ? " "
-                                              : controller.urlController.text;
-                                      if (controller.formKey.currentState!
-                                          .validate()) {
-                                        if (controller
-                                            .galleryImage.isNotEmpty) {
-                                          if (controller.pickedImage == '') {
-                                            toast(
-                                                title: "Upload Thumbnail image",
-                                                context: Get.context!);
-                                          } else {
-                                            cont
-                                                .uploadPropertyData(
-                                                    areaUnit: controller
-                                                        .selectAreaUnitType
-                                                        .value,
-                                                    context: context,
-                                                    agentID: GetStorage()
-                                                        .read('id')
-                                                        .toString(),
-                                                    galleryImages:
-                                                        controller.galleryImage,
-                                                    title: controller
-                                                        .titleController.text,
-                                                    price: controller
-                                                        .priceController.text,
-                                                    floor: controller.selectedfloors.value == ""
-                                                        ? '0'
-                                                        : controller
-                                                            .selectedfloors
-                                                            .value,
-                                                    features: controller
-                                                        .selectedFacilities,
-                                                    purpose: controller.selectedPurpose == 0
-                                                        ? "sale"
-                                                        : "rent",
-                                                    areatype: controller
-                                                        .selectedArea.value
-                                                        .toLowerCase(),
-                                                    type: controller
-                                                        .selectedpropertyType
-                                                        .value,
-                                                    bedroom: controller.selectedbedRoom.value != ""
-                                                        ? controller
-                                                            .selectedbedRoom
-                                                            .value
-                                                        : "0",
-                                                    bathroom: controller
-                                                                .selectedBathroom
-                                                                .value !=
-                                                            ""
-                                                        ? controller
-                                                            .selectedBathroom
-                                                            .value
-                                                        : "0",
-                                                    city: controller.locationController.text,
-                                                    address: controller.locationController.text,
-                                                    area: controller.unitsController.text,
-                                                    image: controller.pickedImage,
-                                                    shortVideo: controller.videoPath,
-                                                    video: controller.urlController.text == " " ? '' : controller.urlController.text,
-                                                    description: controller.descriptionController.text)
-                                                .whenComplete(() {
-                                              final vm =
-                                                  Get.put(ProfileViewModel());
-                                              vm.getProfilePageData(
-                                                  context: context,
-                                                  id: GetStorage()
-                                                      .read('id')
-                                                      .toString());
-                                            });
-                                          }
-                                        } else if (controller
-                                            .galleryImage.isEmpty) {
-                                          toast(
-                                              title:
-                                                  'Please Pick Minimum One Gallery Images',
-                                              context: context);
-                                        } else if (controller
-                                            .pickedImage.isEmpty) {
-                                          toast(
-                                              title:
-                                                  'Please upload inspection Report',
-                                              context: context);
-                                        }
+                                    onClick: () {
+                                      if (kDebugMode) {
+                                        print('selectedFacilities ${ controller.selectedFacilities}');
+                                      }
+
+                                      if (controller.formKey.currentState!.validate()) {
+                                      controller.uploadProperties(
+                                        areaUnit:
+                                            controller.selectAreaUnitType.value,
+                                        context: context,
+                                        agentID:
+                                            GetStorage().read('id').toString(),
+                                        galleryImages: controller.galleryImage,
+                                        title: controller.titleController.text,
+                                        price: controller.priceController.text,
+                                        floor: controller
+                                                    .selectedFloors.value ==
+                                                ""
+                                            ? '0'
+                                            : controller.selectedFloors.value,
+                                        features: controller.selectedFacilities,
+                                        purpose: controller.selectedPurpose == 0
+                                            ? "sale"
+                                            : "rent",
+                                        areaType: controller.selectedArea.value
+                                            .toLowerCase(),
+                                        type: controller
+                                            .selectedPropertyType.value,
+                                        bedroom: controller
+                                                    .selectedBedRoom.value !=
+                                                ""
+                                            ? controller.selectedBedRoom.value
+                                            : "0",
+                                        bathroom: controller
+                                                    .selectedBathroom.value !=
+                                                ""
+                                            ? controller.selectedBathroom.value
+                                            : "0",
+                                        city:
+                                            controller.locationController.text,
+                                        address:
+                                            controller.locationController.text,
+                                        area: controller.unitsController.text,
+                                        image: controller.pickedImage,
+                                        shortVideo: controller.videoPath,
+                                        video:
+                                            controller.urlController.text == " "
+                                                ? ''
+                                                : controller.urlController.text,
+                                        description: controller
+                                            .descriptionController.text,
+                                        accessToken:
+                                            controller.accessToken.toString(),
+                                      );
                                       }
                                     },
+                                    // onClick: () async {
+                                    //   controller.urlController.text =
+                                    //       controller.urlController.text == "" ? " " : controller.urlController.text;
+                                    //   if (controller.formKey.currentState!.validate()) {
+                                    //     if (controller.galleryImage.isNotEmpty) {
+                                    //       if (controller.pickedImage == '') {
+                                    //         toast(
+                                    //             title: "Upload Thumbnail image",
+                                    //             context: Get.context!);
+                                    //       } else {
+                                    //         cont
+                                    //             .uploadPropertyData(
+                                    //                 areaUnit: controller
+                                    //                     .selectAreaUnitType
+                                    //                     .value,
+                                    //                 context: context,
+                                    //                 agentID: GetStorage()
+                                    //                     .read('id')
+                                    //                     .toString(),
+                                    //                 galleryImages:
+                                    //                     controller.galleryImage,
+                                    //                 title: controller
+                                    //                     .titleController.text,
+                                    //                 price: controller
+                                    //                     .priceController.text,
+                                    //                 floor: controller.selectedfloors.value == ""
+                                    //                     ? '0'
+                                    //                     : controller
+                                    //                         .selectedfloors
+                                    //                         .value,
+                                    //                 features: controller
+                                    //                     .selectedFacilities,
+                                    //                 purpose: controller.selectedPurpose == 0
+                                    //                     ? "sale"
+                                    //                     : "rent",
+                                    //                 areaType: controller
+                                    //                     .selectedArea.value
+                                    //                     .toLowerCase(),
+                                    //                 type: controller
+                                    //                     .selectedpropertyType
+                                    //                     .value,
+                                    //                 bedroom: controller.selectedbedRoom.value != ""
+                                    //                     ? controller
+                                    //                         .selectedbedRoom
+                                    //                         .value
+                                    //                     : "0",
+                                    //                 bathroom: controller
+                                    //                             .selectedBathroom
+                                    //                             .value !=
+                                    //                         ""
+                                    //                     ? controller
+                                    //                         .selectedBathroom
+                                    //                         .value
+                                    //                     : "0",
+                                    //                 city: controller.locationController.text,
+                                    //                 address: controller.locationController.text,
+                                    //                 area: controller.unitsController.text,
+                                    //                 image: controller.pickedImage,
+                                    //                 shortVideo: controller.videoPath,
+                                    //                 video: controller.urlController.text == " " ? '' : controller.urlController.text,
+                                    //                 description:
+                                    //                 controller.descriptionController.text,
+                                    //           accessToken: controller.accessToken.toString(),
+                                    //         )
+                                    //             .whenComplete(() {
+                                    //           final vm =
+                                    //               Get.put(ProfileViewModel());
+                                    //           vm.getProfilePageData(
+                                    //               context: context,
+                                    //               id: GetStorage()
+                                    //                   .read('id')
+                                    //                   .toString());
+                                    //         });
+                                    //       }
+                                    //     } else if (controller
+                                    //         .galleryImage.isEmpty) {
+                                    //       toast(
+                                    //           title:
+                                    //               'Please Pick Minimum One Gallery Images',
+                                    //           context: context);
+                                    //     } else if (controller
+                                    //         .pickedImage.isEmpty) {
+                                    //       toast(
+                                    //           title:
+                                    //               'Please upload inspection Report',
+                                    //           context: context);
+                                    //     }
+                                    //   }
+                                    // },
                                     context: context,
                                     title: 'Post',
                                   ),
@@ -431,22 +503,23 @@ class AddPropertiesView extends GetView<AddPropertiesViewModel> {
   }
 }
 
-class CustomAddTextfield extends StatelessWidget {
-  const CustomAddTextfield(
-      {super.key,
-      this.labelText,
-      required this.textEditingController,
-      this.height = 0.1,
-      this.validator,
-      this.border,
-      this.color,
-      this.isShadowless,
-      this.suffixIcon,
-      this.readOnly = false,
-      this.onChanged,
-      this.formatter,
-      this.onTap,
-      this.textInputType = TextInputType.text});
+class CustomAddTextField extends StatelessWidget {
+  const CustomAddTextField({
+    super.key,
+    this.labelText,
+    required this.textEditingController,
+    this.height = 0.1,
+    this.validator,
+    this.border,
+    this.color,
+    this.isShadowless,
+    this.suffixIcon,
+    this.readOnly = false,
+    this.onChanged,
+    this.formatter,
+    this.onTap,
+    this.textInputType = TextInputType.text,
+  });
   final TextInputType textInputType;
   final bool readOnly;
   final String? labelText;

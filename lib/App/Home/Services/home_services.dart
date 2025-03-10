@@ -15,9 +15,11 @@ class HomeServices {
   }) async {
     HomeModel homeModel = HomeModel();
     try {
+      print('home data call' );
       final response = await http.get(Uri.parse(API.homeDataUrl));
       if (response.statusCode == 200) {
         final decodedJson = jsonDecode(response.body);
+        print('home data ${decodedJson}' );
 
         homeModel = HomeModel.fromJson(decodedJson);
       } else {
@@ -33,6 +35,8 @@ class HomeServices {
               title: 'Something went wrong.',
               context: context,
               color: AppColor.white)));
+      print('home data ${e}' );
+
     }
     return homeModel;
   }

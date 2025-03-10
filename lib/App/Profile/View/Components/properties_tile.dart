@@ -53,7 +53,7 @@ Container propertiesTile(BuildContext context,
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10)),
                 image: DecorationImage(
-                    image: NetworkImage(property.image ?? Constant.dummayImage),
+                    image: NetworkImage(property.image ?? Constant.dummyImage),
                     fit: BoxFit.cover)),
             child: Stack(
               children: [
@@ -114,11 +114,10 @@ Container propertiesTile(BuildContext context,
                               context: context,
                               textDecoration: TextDecoration.underline,
                               color: AppColor.greenColor,
-                              // colorOpecity: ,
                               fontSize: 10,
                               fontWeight: FontWeight.w500),
                         ),
-                        Icon(Icons.add,color: AppColor.greenColor,)
+                        const Icon(Icons.add,color: AppColor.greenColor,)
                       ],
                     ),
                   )
@@ -211,7 +210,7 @@ Container propertiesTile(BuildContext context,
                 children: [
                   Expanded(
                     child: TextButton.icon(
-                        style: ButtonStyle(
+                        style: const ButtonStyle(
                             backgroundColor:
                                 WidgetStatePropertyAll(AppColor.googleColor)),
                         // color: AppColor.googleColor,
@@ -224,8 +223,8 @@ Container propertiesTile(BuildContext context,
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: Text('Confirm Deletion'),
-                                content: Text(
+                                title: const Text('Confirm Deletion'),
+                                content: const Text(
                                     'Are you sure you want to delete this property?'),
                                 actions: [
                                   TextButton(
@@ -234,7 +233,7 @@ Container propertiesTile(BuildContext context,
                                       Navigator.of(context)
                                           .pop(); // Close the dialog
                                     },
-                                    child: Text('Cancel'),
+                                    child: const Text('Cancel'),
                                   ),
                                   TextButton(
                                     onPressed: () {
@@ -253,12 +252,12 @@ Container propertiesTile(BuildContext context,
                                         );
                                       });
                                     },
-                                    child: const Text('Delete'),
                                     style: TextButton.styleFrom(
                                         backgroundColor: AppColor.googleColor,
                                         foregroundColor: AppColor.white
                                         // primary: Colors.red, // Make the Delete button red
                                         ),
+                                    child: const Text('Delete'),
                                   ),
                                 ],
                               );

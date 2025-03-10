@@ -20,7 +20,7 @@ Widget addPropertyDropdown<T>(
       // boxShadow: [boxShadow()]
     ),
     child: Padding(
-      padding: const EdgeInsets.all(3.0),
+      padding: const EdgeInsets.all(2.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

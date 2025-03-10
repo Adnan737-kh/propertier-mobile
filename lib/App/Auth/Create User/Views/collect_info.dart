@@ -114,7 +114,7 @@ class CollectInfo extends StatelessWidget {
           : Scaffold(
               resizeToAvoidBottomInset: true,
               body: Form(
-                key: signupVM.callecformKey,
+                key: signupVM.calledFormKey,
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 36.0),
@@ -140,35 +140,35 @@ class CollectInfo extends StatelessWidget {
                                   alignment: Alignment.center,
                                   child: logoTile(context)),
                               getHeight(context, 0.090),
-                              customTextField(
-                                labal: "Full Name",
-                                controller: signupVM.usernameController,
-                                hintText: 'Full Name',
-                                textInputType: TextInputType.name,
-                                suffix: GestureDetector(
-                                  onTap: () {
-                                    print("Start Listing");
-                                    signupVM.startListening(textFieldNo: 0);
-                                  },
-                                  child: Image.asset(
-                                    Constant.mic,
-                                    height: context.getSize.height * 0.022,
-                                    width: context.getSize.width * 0.038,
-                                  ),
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter Full Name';
-                                  }
-                                  return null;
-                                },
-                              ),
+                              // customTextField(
+                              //   labal: "Full Name",
+                              //   controller: signupVM.nameController,
+                              //   hintText: 'Full Name',
+                              //   textInputType: TextInputType.name,
+                              //   suffix: GestureDetector(
+                              //     onTap: () {
+                              //       print("Start Listing");
+                              //       signupVM.startListening(textFieldNo: 0);
+                              //     },
+                              //     child: Image.asset(
+                              //       Constant.mic,
+                              //       height: context.getSize.height * 0.022,
+                              //       width: context.getSize.width * 0.038,
+                              //     ),
+                              //   ),
+                              //   validator: (value) {
+                              //     if (value == null || value.isEmpty) {
+                              //       return 'Please enter Full Name';
+                              //     }
+                              //     return null;
+                              //   },
+                              // ),
                               const SizedBox(
                                 height: 12,
                               ),
                               customTextField(
-                                labal: "Email",
-                                controller: signupVM.userEmailController,
+                                label: "Email",
+                                controller: signupVM.emailController,
                                 hintText: 'Enter Your Email',
                                 textInputType: TextInputType.emailAddress,
                                 suffix: GestureDetector(
@@ -195,25 +195,25 @@ class CollectInfo extends StatelessWidget {
                               ),
                               customTextField(
                                 onTap: () {
-                                  searchLoactionBottomSheet(
-                                      placesList: signupVM.places,
-                                      onSelect: (val) {
-                                        signupVM.locationController.text = val;
-                                        signupVM.getGeoCode(val);
-                                        signupVM.searchAddressController
-                                            .clear();
-                                        signupVM.places.clear();
-                                        Get.back();
-                                      },
-                                      onChange: (val) {
-                                        signupVM.searchPlaces(val);
-                                      },
-                                      context: context,
-                                      searchController:
-                                          signupVM.searchAddressController);
+                                  // searchLocationBottomSheet(
+                                  //     placesList: signupVM.places,
+                                  //     onSelect: (val) {
+                                  //       signupVM.locationController.text = val;
+                                  //       signupVM.getGeoCode(val);
+                                  //       signupVM.searchAddressController
+                                  //           .clear();
+                                  //       signupVM.places.clear();
+                                  //       Get.back();
+                                  //     },
+                                  //     onChange: (val) {
+                                  //       signupVM.searchPlaces(val);
+                                  //     },
+                                  //     context: context,
+                                  //     searchController:
+                                  //         signupVM.searchAddressController);
                                 },
                                 readOnly: true,
-                                labal: "Address",
+                                label: "Address",
                                 controller: signupVM.locationController,
                                 hintText: 'Address',
                                 textInputType: TextInputType.text,
@@ -229,7 +229,7 @@ class CollectInfo extends StatelessWidget {
                               ),
                               customPhoneNumberTextField(
                                 labal: "Phone Number",
-                                controller: signupVM.userNumberController,
+                                controller: signupVM.numberController,
                                 hintText: 'Enter Your Phone Number',
                                 textInputType: TextInputType.phone,
                                 suffix: const Icon(Icons.record_voice_over),
@@ -258,22 +258,22 @@ class CollectInfo extends StatelessWidget {
                                               fontSize: 14,
                                               fontWeight: FontWeight.bold,
                                               onTap: () async {
-                                                if (signupVM.callecformKey
+                                                if (signupVM.calledFormKey
                                                         .currentState!
                                                         .validate() &&
-                                                    signupVM.userNumberController
+                                                    signupVM.numberController
                                                             .text !=
                                                         "") {
-                                                  signupVM.callecformKey
+                                                  signupVM.calledFormKey
                                                       .currentState
                                                       ?.save();
 
                                                   signupVM.sendOTPtoEmail(
                                                       email: signupVM
-                                                          .userEmailController
+                                                          .emailController
                                                           .text);
                                                 } else if (signupVM
-                                                    .userNumberController
+                                                    .numberController
                                                     .text
                                                     .isEmpty) {
                                                   toast(

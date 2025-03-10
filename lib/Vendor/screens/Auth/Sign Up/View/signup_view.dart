@@ -56,7 +56,7 @@ class SignUpView extends StatelessWidget {
                   Align(alignment: Alignment.center, child: logoTile(context)),
                   getHeight(context, 0.090),
                   customTextField(
-                    labal: "Full Name",
+                    label: "Full Name",
                     controller: signupVM.usernameController,
                     hintText: 'Full Name',
                     textInputType: TextInputType.name,
@@ -82,7 +82,7 @@ class SignUpView extends StatelessWidget {
                     height: 12,
                   ),
                   customTextField(
-                    labal: "Email",
+                    label: "Email",
                     controller: signupVM.userEmailController,
                     hintText: 'Enter Your Email',
                     textInputType: TextInputType.emailAddress,
@@ -110,23 +110,23 @@ class SignUpView extends StatelessWidget {
                   ),
                   customTextField(
                     onTap: () {
-                      searchLoactionBottomSheet(
-                          placesList: signupVM.places,
-                          onSelect: (val) {
-                            signupVM.locationController.text = val;
-                            signupVM.getGeoCode(val);
-                            signupVM.searchAddressController.clear();
-                            signupVM.places.clear();
-                            Get.back();
-                          },
-                          onChange: (val) {
-                            signupVM.searchPlaces(val);
-                          },
-                          context: context,
-                          searchController: signupVM.searchAddressController);
+                      // searchLocationBottomSheet(
+                      //     placesList: signupVM.places,
+                      //     onSelect: (val) {
+                      //       signupVM.locationController.text = val;
+                      //       signupVM.getGeoCode(val);
+                      //       signupVM.searchAddressController.clear();
+                      //       signupVM.places.clear();
+                      //       Get.back();
+                      //     },
+                      //     onChange: (val) {
+                      //       signupVM.searchPlaces(val);
+                      //     },
+                      //     context: context,
+                      //     searchController: signupVM.searchAddressController);
                     },
                     readOnly: true,
-                    labal: "Address",
+                    label: "Address",
                     controller: signupVM.locationController,
                     hintText: 'Address',
                     textInputType: TextInputType.text,
@@ -160,8 +160,8 @@ class SignUpView extends StatelessWidget {
                     children: [
                       Expanded(
                         child: customTextField(
-                          labal: "Password",
-                          obsecureText: !signupVM.isShowPassword.value,
+                          label: "Password",
+                          obSecureText: !signupVM.isShowPassword.value,
                           controller: signupVM.passwordController,
                           suffix: GestureDetector(
                               onTap: () {
@@ -191,8 +191,8 @@ class SignUpView extends StatelessWidget {
                       getWidth(context, 0.010),
                       Expanded(
                         child: customTextField(
-                          labal: "Confirm Password",
-                          obsecureText: !signupVM.isShowConfirmPassword.value,
+                          label: "Confirm Password",
+                          obSecureText: !signupVM.isShowConfirmPassword.value,
                           controller: signupVM.confirmPasswordController,
                           suffix: GestureDetector(
                               onTap: () {

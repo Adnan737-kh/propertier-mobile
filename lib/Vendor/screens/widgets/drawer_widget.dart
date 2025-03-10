@@ -120,7 +120,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ),
           ListTile(
             leading: SvgPicture.asset(
-              Constant.vendorprofileIcon,
+              Constant.vendorProfileIcon,
               color: Colors.white,
               height: 18,
             ),
@@ -146,7 +146,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           divider(context: context),
           ListTile(
             leading: SvgPicture.asset(
-              Constant.vendorprofileIcon,
+              Constant.vendorProfileIcon,
               color: Colors.white,
               height: 18,
             ),
@@ -170,7 +170,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ),
           ListTile(
             leading: SvgPicture.asset(
-              Constant.vendorprofileIcon,
+              Constant.vendorProfileIcon,
               color: Colors.white,
               height: 18,
             ),
@@ -217,7 +217,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ),
           divider(context: context),
           ListTile(
-            leading: SvgPicture.asset(Constant.editprofileIcon,
+            leading: SvgPicture.asset(Constant.editProfileIcon,
                 color: Colors.white),
             title: const Text(
               'Edit Profile',

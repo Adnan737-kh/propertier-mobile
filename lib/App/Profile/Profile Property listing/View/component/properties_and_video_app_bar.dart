@@ -17,7 +17,7 @@ import '../../ViewModel/profile_property_listing_view_model.dart';
 import 'properties_search_tile.dart';
 
 class PropertiesAndVideosAppBar extends StatelessWidget {
-  final PoropertiesAndVideoEnum poropertiesAndShortVideoEnum;
+  final PropertiesAndVideoEnum poropertiesAndShortVideoEnum;
   // final HomeViewModel homeViewModel;
 
   const PropertiesAndVideosAppBar({
@@ -92,19 +92,19 @@ class PropertiesAndVideosAppBar extends StatelessWidget {
                       getHeight(context, 0.008),
                       GestureDetector(
                         onTap: () {
-                          showLocationBottonSheet(
-                              selectedLocation: viewModel.currentLocation,
-                              context: context,
-                              dataList:
-                                  viewModel.allPropertiesModel.value.data !=
-                                          null
-                                      ? viewModel
-                                          .allPropertiesModel.value.data!.cities
-                                      : [],
-                              onChange: (val) {
-                                viewModel.onChangeLocation(val);
-                                Get.back();
-                              });
+                          // showLocationBottomSheet(
+                          //     selectedLocation: viewModel.currentLocation,
+                          //     context: context,
+                          //     dataList:
+                          //         viewModel.allPropertiesModel.value.data !=
+                          //                 null
+                          //             ? viewModel
+                          //                 .allPropertiesModel.value.data!.cities
+                          //             : [],
+                          //     onChange: (val) {
+                          //       viewModel.onChangeLocation(val);
+                          //       Get.back();
+                          //     });
                         },
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -159,36 +159,38 @@ class PropertiesAndVideosAppBar extends StatelessWidget {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    viewModel.setSelectTab("All Types");
-                  },
-                  child: Obx(() => Container(
-                        margin: EdgeInsets.only(
-                            right: context.getSize.width * 0.020),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: context.getSize.width * 0.020,
-                            vertical: context.getSize.height * 0.010),
-                        decoration: BoxDecoration(
-                            color: "All Types" == viewModel.selectedTab
-                                ? AppColor.buttonColor
-                                : AppColor.white,
-                            borderRadius: BorderRadius.circular(30),
-                            border: Border.all(
-                              color: AppColor.blackColor.withOpacity(0.1),
-                              width: 0.4,
-                            )),
-                        child: Row(
-                          children: [
-                            appText(
-                                title: "All Types",
-                                context: context,
-                                fontSize: 12,
-                                color: AppColor.blackColor,
-                                fontWeight: FontWeight.normal)
-                          ],
-                        ),
-                      )),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      viewModel.setSelectTab("All Types");
+                    },
+                    child: Obx(() => Container(
+                          margin: EdgeInsets.only(
+                              right: context.getSize.width * 0.020),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: context.getSize.width * 0.020,
+                              vertical: context.getSize.height * 0.010),
+                          decoration: BoxDecoration(
+                              color: "All Types" == viewModel.selectedTab
+                                  ? AppColor.buttonColor
+                                  : AppColor.white,
+                              borderRadius: BorderRadius.circular(30),
+                              border: Border.all(
+                                color: AppColor.blackColor.withOpacity(0.1),
+                                width: 0.4,
+                              )),
+                          child: Row(
+                            children: [
+                              appText(
+                                  title: "All Types",
+                                  context: context,
+                                  fontSize: 10,
+                                  color: AppColor.blackColor,
+                                  fontWeight: FontWeight.normal)
+                            ],
+                          ),
+                        )),
+                  ),
                 ),
                 SizedBox(
                     height: 35,

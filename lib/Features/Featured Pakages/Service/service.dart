@@ -12,7 +12,7 @@ class FeaturedPakageService {
   Future<dynamic> getFeatures() async {
     var profileDetailModel;
     try {
-      final response = await http.get(Uri.parse(API.getFeaturesPakagesUrl));
+      final response = await http.get(Uri.parse(API.getFeaturesPackagesUrl));
       if (response.statusCode == 200) {
         final decodedJson = jsonDecode(response.body);
         print(decodedJson);

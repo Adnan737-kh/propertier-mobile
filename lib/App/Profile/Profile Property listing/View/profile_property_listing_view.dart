@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/Utils/height_width_box.dart';
@@ -21,7 +22,7 @@ class ProfilePropertyListingView extends StatelessWidget {
   // final homeViewModel = Get.find<HomeViewModel>();
   var data = Get.arguments;
 
-  // PoropertiesAndVideoEnum selectedTile = data[""];
+  // PropertiesAndVideoEnum selectedTile = data[""];
   @override
   Widget build(BuildContext context) {
     var selectedTile = data["PropertyEnum"];
@@ -41,9 +42,11 @@ class ProfilePropertyListingView extends StatelessWidget {
               title: Obx(
                 () => insideAppBarTile(
                   context,
-                  title: selectedTile == PoropertiesAndVideoEnum.video
-                      ? '${viewModel.propertyList.length} ${viewModel.selectedTab} in ${viewModel.currentLocation}'
-                      : '${viewModel.propertyList.length} ${viewModel.selectedTab} in ${viewModel.currentLocation}',
+                  title: selectedTile == PropertiesAndVideoEnum.video
+                      ? '${viewModel.propertyList.length} ${viewModel.selectedTab} '
+                          'in ${viewModel.currentLocation}'
+                      : '${viewModel.propertyList.length} ${viewModel.selectedTab} '
+                          'in ${viewModel.currentLocation}',
                 ),
               ),
               centerTitle: true,
@@ -69,26 +72,17 @@ class ProfilePropertyListingView extends StatelessWidget {
         ],
       ),
     );
-
-    // Column(
-    //   children: [
-    //     PropertiesAndVideosAppBar(
-    //       viewModel: viewModel,
-    //       poropertiesAndShortVideoEnum: selectedTile,
-    //     ),
-    //     getHeight(context, 0.015),
-    //     switchPropertiesAndVideoTile(selectedTile, context)
-    //   ],
-    // ),
   }
 
   Widget switchPropertiesAndVideoTile(
       // HomeViewModel homeVM,
-      PoropertiesAndVideoEnum data,
+      PropertiesAndVideoEnum data,
       BuildContext context) {
-    print(data);
+    if (kDebugMode) {
+      print(data);
+    }
     switch (data) {
-      case PoropertiesAndVideoEnum.topselling:
+      case PropertiesAndVideoEnum.topSelling:
         return Padding(
           padding: EdgeInsets.symmetric(
             horizontal: context.getSize.width * 0.090,
@@ -112,7 +106,7 @@ class ProfilePropertyListingView extends StatelessWidget {
             ],
           ),
         );
-      case PoropertiesAndVideoEnum.video:
+      case PropertiesAndVideoEnum.video:
         return Padding(
           padding: EdgeInsets.symmetric(
             horizontal: context.getSize.width * 0.090,
@@ -134,17 +128,13 @@ class ProfilePropertyListingView extends StatelessWidget {
             ],
           ),
         );
-      case PoropertiesAndVideoEnum.properties:
+      case PropertiesAndVideoEnum.properties:
         return Padding(
           padding: EdgeInsets.symmetric(
             horizontal: context.getSize.width * 0.090,
           ),
           child: Column(
             children: [
-              // insideAppBarTile(
-              //   context,
-              //   title: '6 Bungalows in Bahira town Pakistan',
-              // ),
               getHeight(context, 0.010),
               Obx(
                 () => ListView.builder(

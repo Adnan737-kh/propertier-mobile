@@ -10,7 +10,7 @@ import '../../../constant/colors.dart';
 import '../../../constant/constant.dart';
 
 class HouseWorkFormController extends GetxController{
-  static const apiKey = Constant.google_api_key;
+  static const apiKey = Constant.googleApiKey;
 
   TextEditingController descriptionController = TextEditingController();
   TextEditingController overviewController = TextEditingController();

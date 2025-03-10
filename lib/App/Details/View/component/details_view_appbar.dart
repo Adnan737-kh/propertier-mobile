@@ -22,7 +22,7 @@ Widget detailsAppBar(
             .galleryImages.isNotEmpty
         ? viewModel.specificPropertyModel.value.detailDataModel!
             .galleryImages[viewModel.selectedVideoIndex].imageUrl
-        : Constant.dummayImage,
+        : Constant.dummyImage,
     child: Container(
         padding: EdgeInsets.only(
             left: context.getSize.width * 0.090,
@@ -83,7 +83,7 @@ Widget detailsAppBar(
                     getWidth(context, 0.020),
                     GestureDetector(
                       onTap: favoriteCallBack,
-                      child: SvgPicture.asset(Constant.heartunFill),
+                      child: SvgPicture.asset(Constant.heartUnFill),
                     )
                   ],
                 ),

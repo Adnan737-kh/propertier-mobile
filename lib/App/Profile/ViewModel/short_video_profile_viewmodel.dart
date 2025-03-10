@@ -12,20 +12,19 @@ class ShortVideoProfileViewModel extends GetxController {
         // Constant.dummyVideo,
         title: 'House For Sale',
         subtitle: 'This is Beautiful House',
-        avatarUrl: Constant.dummayImage),
+        avatarUrl: Constant.dummyImage),
     ShortVideoModel(
         videoUrl: "https://www.youtube.com/watch?v=70AZK5fqSAE",
         // 'https://onlinetestcase.com/wp-content/uploads/2023/06/1MB.mp4',
         title: 'House For Sale',
         subtitle: 'This is Beautiful House',
-        avatarUrl: Constant.dummayImage),
+        avatarUrl: Constant.dummyImage),
     ShortVideoModel(
         videoUrl: "https://www.youtube.com/watch?v=DgYINBY0Kn0",
         // "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_20mb.mp4",
         title: 'Villa For Sale',
         subtitle: 'This is Beautiful Villa',
-        avatarUrl:
-            'https://images.unsplash.com/photo-1575936123452-b67c3203c357?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+        avatarUrl: 'https://images.unsplash.com/photo-1575936123452-b67c3203c357?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
   ];
   final PageController pageController = PageController();
   @override

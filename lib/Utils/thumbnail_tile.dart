@@ -1,7 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/App/Player/YTPlayer.dart';
-import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
@@ -21,20 +21,30 @@ class _VideoThumbnailTileState extends State<VideoThumbnailTile> {
   final bool _isLoading = false;
 
   Future<String> getThumbnail() async {
-    if (widget.videoUrl.contains("youtu")) {
-      final videoId = extractVideoIdFromUrl(widget.videoUrl);
-      final yt = YoutubeExplode();
+    if (widget.videoUrl.isEmpty || !widget.videoUrl.contains("youtu")) {
+      return '';
+    }
 
+    final videoId = extractVideoIdFromUrl(widget.videoUrl);
+
+    final yt = YoutubeExplode();
+
+    try {
       final video = await yt.videos.get(videoId);
       yt.close();
-      return video.thumbnails.mediumResUrl;
+
+      return video.thumbnails.mediumResUrl; // Handle potential null
+    } catch (e) {
+      yt.close();
+      if (kDebugMode) {
+        print("Error fetching video details: $e");
+      }
+      return ''; // Return empty on error
     }
-    return '';
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -43,7 +53,7 @@ class _VideoThumbnailTileState extends State<VideoThumbnailTile> {
     return GestureDetector(
       onTap: () {
         // Get.toNamed(AppRoutes.playerView, arguments: widget.videoUrl);
-        Get.to(Ytplayer(), arguments: widget.videoUrl);
+        Get.to(const Ytplayer(), arguments: widget.videoUrl);
       },
       child: FutureBuilder<String>(
           future: getThumbnail(),
@@ -66,13 +76,11 @@ class _VideoThumbnailTileState extends State<VideoThumbnailTile> {
                 decoration: BoxDecoration(
                     color: AppColor.blackColor,
                     borderRadius: BorderRadius.circular(5),
-                    image: snapshot.data!.isEmpty
-                        ? null
-                        : DecorationImage(
-                            image: NetworkImage(
-                              snapshot.data!,
-                            ),
-                            fit: BoxFit.cover)),
+                    image: (snapshot.data ?? '').isNotEmpty // Ensures null safety
+                        ? DecorationImage(
+                      image: NetworkImage(snapshot.data!), // Safe to use `!` now
+                      fit: BoxFit.cover,
+                    ) : null,),
                 child: _isLoading == false
                     ? const Center(
                         child: Icon(
@@ -96,7 +104,9 @@ class _VideoThumbnailTileState extends State<VideoThumbnailTile> {
   }
 
   String extractVideoIdFromUrl(String url) {
-    print("MY URL is $url");
+    if (kDebugMode) {
+      print("MY URL is $url");
+    }
     RegExp regExp = RegExp(
         r'^.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*');
     Match? match = regExp.firstMatch(url);

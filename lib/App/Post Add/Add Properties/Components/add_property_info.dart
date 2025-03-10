@@ -25,9 +25,9 @@ Widget addPropertyInfo({
         children: [
           Obx(() => Expanded(
                   child: addPropertyDropdown(
-                enable: controller.selectedpropertyType.value != "Plots",
+                enable: controller.selectedPropertyType.value != "Plots",
                 onChange: (val) {
-                  controller.selectedbedRoom.value = val!;
+                  controller.selectedBedRoom.value = val!;
                 },
                 context: context,
                 title: "Bedrooms",
@@ -44,7 +44,7 @@ Widget addPropertyInfo({
           const Gap(5),
           Obx(() => Expanded(
                   child: addPropertyDropdown(
-                enable: controller.selectedpropertyType.value != "Plots",
+                enable: controller.selectedPropertyType.value != "Plots",
                 onChange: (val) {
                   controller.selectedBathroom.value = val!;
                 },
@@ -63,11 +63,11 @@ Widget addPropertyInfo({
           const Gap(5),
           Obx(() => Expanded(
                   child: addPropertyDropdown(
-                enable: controller.selectedpropertyType.value != "Plots",
+                enable: controller.selectedPropertyType.value != "Plots",
                 context: context,
                 title: "Floors",
                 onChange: (p0) {
-                  controller.selectedfloors.value = p0!;
+                  controller.selectedFloors.value = p0!;
                 },
                 items: List.generate(
                     100,

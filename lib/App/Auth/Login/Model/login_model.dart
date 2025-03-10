@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-UserModel UserModelFromJson(String str) => UserModel.fromJson(json.decode(str));
+UserModelOld UserModelFromJson(String str) => UserModelOld.fromJson(json.decode(str));
 
-String UserModelToJson(UserModel data) => json.encode(data.toJson());
+String UserModelToJson(UserModelOld data) => json.encode(data.toJson());
 
-class UserModel {
+class UserModelOld {
   String token;
   DateTime expiration;
   String email;
@@ -15,7 +15,7 @@ class UserModel {
   String id;
   int timeSheettype;
 
-  UserModel({
+  UserModelOld({
     required this.token,
     required this.expiration,
     required this.email,
@@ -27,7 +27,7 @@ class UserModel {
     required this.timeSheettype,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+  factory UserModelOld.fromJson(Map<String, dynamic> json) => UserModelOld(
         token: json["token"] ?? "",
         expiration: json["expiration"] == null
             ? DateTime.parse(

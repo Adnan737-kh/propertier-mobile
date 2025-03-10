@@ -203,7 +203,7 @@ class _ShortVideoPLayerWidgetState extends State<ShortVideoPLayerWidget> {
                                                   context.getSize.width * 0.040,
                                               backgroundImage: NetworkImage(
                                                   widget.property.image ??
-                                                      Constant.dummayImage),
+                                                      Constant.dummyImage),
                                             ),
                                           ),
                                         ),
@@ -273,7 +273,7 @@ class _ShortVideoPLayerWidgetState extends State<ShortVideoPLayerWidget> {
                                   child: propertDetail.value.liked!
                                       ? SvgPicture.asset(Constant.heartRedFill)
                                       : SvgPicture.asset(
-                                          Constant.heartunFill,
+                                          Constant.heartUnFill,
                                         ))
                               : const Gap(0),
                           appText(

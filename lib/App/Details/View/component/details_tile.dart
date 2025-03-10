@@ -1,10 +1,8 @@
-import 'dart:io';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:propertier/App/Details/Model/specific_property_model.dart';
 import 'package:propertier/App/Details/View/component/details_title.dart';
 import 'package:propertier/App/Details/View/component/recommendedTile.dart';
@@ -22,18 +20,26 @@ import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/price_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 import 'package:propertier/extensions/tags_remove_extension.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
 
 import '../../../../Model/property.dart';
 import '../../../../RoutesAndBindings/app_routes.dart';
 import '../../../../Utils/App Ad Mob/app_banner_ads.dart';
-import '../../../../Utils/border.dart';
 import '../../../../Utils/info_tile.dart';
+import 'package:video_player/video_player.dart';
+
+// import 'package:get_thumbnail_video/index.dart';
+// import 'package:get_thumbnail_video/video_thumbnail.dart';
+// import 'package:get_thumbnail_video/video_thumbnail_web.dart';
 
 Widget detailTile(BuildContext context,
     {
     // required VideosModel videosModel,
     required DetailDataModel dataModel}) {
+  if (kDebugMode) {
+    print("Features List: ${dataModel.features.map((e) => e.name).toList()}");
+
+    print('Agent ID @@@:${dataModel.property!.agent!.id}');
+  }
   return Container(
     padding: EdgeInsets.symmetric(
         horizontal: context.getSize.width * 0.015,
@@ -129,7 +135,9 @@ Widget detailTile(BuildContext context,
         infoTile(context,
             title: context.local.area,
             subtitle:
-                "${dataModel.property!.area!.toDouble().convertArea(areaType: dataModel.property!.areaUnit ?? '').toString()} ${dataModel.property!.areaUnit ?? ''}",
+                "${dataModel.property!.area!.toDouble().convertArea(
+                    areaType: dataModel.property!.areaUnit ?? '').toString()}"
+                " ${dataModel.property!.areaUnit ?? ''}",
             isShowIcon: true,
             icon: Constant.marla),
         getHeight(context, 0.007),
@@ -137,8 +145,7 @@ Widget detailTile(BuildContext context,
         getHeight(context, 0.007),
         detailsTitle(
           context: context,
-          title: context.local.otherFeatures,
-        ),
+          title: context.local.otherFeatures,),
         Wrap(
           spacing: 12,
           runSpacing: 12,
@@ -161,7 +168,7 @@ Widget detailTile(BuildContext context,
                       const Gap(5),
                       appText(
                           title:
-                              " ${dataModel.features[index].featureId!.name!}",
+                              " ${dataModel.features[index].name!}",
                           colorOpecity: 0.7,
                           context: context),
                     ],
@@ -182,14 +189,13 @@ Widget detailTile(BuildContext context,
         getHeight(context, 0.01),
         divider(context: context, color: const Color(0xffCFCFCF)),
         getHeight(context, 0.015),
-        SizedBox(
-            height: 50,
-            child: AppBannerAd()),
+        const SizedBox(height: 50, child: AppBannerAd()),
         detailsTitle(context: context, title: context.local.detailShortVideo),
         getHeight(context, 0.005),
         dataModel.property!.shortVideo != null
             ? DetailPageShortVideo(
                 property: Property(
+                    agent: dataModel.property!.agent,
                     id: dataModel.property!.id,
                     shortVideo: dataModel.property!.shortVideo,
                     image: dataModel.property!.image,
@@ -213,12 +219,11 @@ Widget detailTile(BuildContext context,
                   Get.offAndToNamed(AppRoutes.detailView, arguments: {
                     "id": dataModel.relatedProperties[index].id,
                     "user": "null"
-                  });
-                },
+                  });},
                 child: recommandedTile(
                   context: context,
                   imageUrl: dataModel.relatedProperties[index].image ??
-                      Constant.dummayImage,
+                      Constant.dummyImage,
                   title: dataModel.relatedProperties[index].title!,
                   subtitle: double.parse(dataModel
                           .relatedProperties[index].price!
@@ -234,6 +239,130 @@ Widget detailTile(BuildContext context,
   );
 }
 
+// class DetailPageShortVideo extends StatefulWidget {
+//   final Property property;
+//
+//   const DetailPageShortVideo({super.key, required this.property});
+//
+//   @override
+//   State<DetailPageShortVideo> createState() => _DetailPageShortVideoState();
+// }
+//
+// class _DetailPageShortVideoState extends State<DetailPageShortVideo> {
+//   String? _path;
+//   bool _isLoading = true;
+//
+//   Future<void> generateThumbnail(String videoUrl) async {
+//     try {
+//       if (videoUrl.isEmpty) {
+//         setState(() {
+//           _isLoading = false;
+//         });
+//         return;
+//       }
+//
+//
+//       String? thumbnailPath = await VideoThumbnail.thumbnailFile(
+//         video: videoUrl,
+//         thumbnailPath: (await getTemporaryDirectory()).path,
+//         imageFormat: ImageFormat.JPEG,
+//         maxWidth: 128, // Adjust as needed
+//         quality: 75, // Adjust as needed
+//       );
+//
+//       // Generate the thumbnail (returns an XFile)
+//       // XFile thumbnailFile = await VideoThumbnail.thumbnailFile(
+//       //   video: videoUrl,
+//       //   thumbnailPath: (await getTemporaryDirectory()).path,
+//       //   imageFormat: ImageFormat.WEBP,
+//       //   maxHeight: 64,
+//       //   quality: 75,
+//       // );
+//
+//       if (thumbnailPath != null && File(thumbnailPath).existsSync()) {
+//         setState(() {
+//           _path = thumbnailPath;
+//           _isLoading = false;
+//         });
+//       } else {
+//         setState(() {
+//           _isLoading = false;
+//         });
+//       }
+//     } catch (e) {
+//       print("Thumbnail generation error: $e");
+//       setState(() {
+//         _isLoading = false;
+//       });
+//     }
+//   }
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//
+//     // Ensure shortVideo is not null
+//     if (widget.property.shortVideo != null && widget.property.shortVideo!.isNotEmpty) {
+//       generateThumbnail(widget.property.shortVideo!);
+//     } else {
+//       _isLoading = false;
+//     }
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         print("Video tapped: ${widget.property.shortVideo.toString()}");
+//         Get.toNamed(AppRoutes.shortVideoView, arguments: widget.property);
+//       },
+//       child: SizedBox(
+//         width: context.width * 0.6,
+//         height: context.height * 0.5,
+//         child: _isLoading
+//             ? const Center(
+//           child: CircularProgressIndicator(color: AppColor.buttonColor),
+//         )
+//             : _path != null
+//             ? Container(
+//           margin: EdgeInsets.symmetric(
+//             horizontal: context.width * 0.015,
+//             vertical: 5,
+//           ),
+//           width: context.width / 4,
+//           padding: const EdgeInsets.all(15),
+//           alignment: Alignment.bottomCenter,
+//           decoration: BoxDecoration(
+//             borderRadius: BorderRadius.circular(10),
+//             image: DecorationImage(
+//               image: FileImage(File(_path!)),
+//               fit: BoxFit.cover,
+//             ),
+//           ),
+//           child: Container(
+//             height: context.height * 0.043,
+//             width: context.width * 0.086,
+//             decoration: BoxDecoration(
+//               shape: BoxShape.circle,
+//               border: Border.all(color: AppColor.buttonColor, width: 1),
+//               image: DecorationImage(
+//                 image: NetworkImage(widget.property.image ?? Constant.dummyImage),
+//                 fit: BoxFit.cover,
+//               ),
+//             ),
+//           ),
+//         )
+//             : const Center(
+//           child: Text(
+//             "Thumbnail not available",
+//             style: TextStyle(color: Colors.white),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
 class DetailPageShortVideo extends StatefulWidget {
   final Property property;
 
@@ -244,73 +373,61 @@ class DetailPageShortVideo extends StatefulWidget {
 }
 
 class _DetailPageShortVideoState extends State<DetailPageShortVideo> {
-  String? _path;
-  generateThumbnail(String videoPath) async {
-    try {
-      final String? thumbnailPath = await VideoThumbnail.thumbnailFile(
-        video: videoPath,
-        thumbnailPath: (await getTemporaryDirectory()).path,
-        imageFormat: ImageFormat.JPEG,
-        maxWidth: 128, // specify the width of the thumbnail, can be adjusted
-        quality: 75, // specify the quality of the thumbnail, can be adjusted
-      );
-      setState(() {
-        _path = thumbnailPath;
-      });
-    } catch (e) {
-      print(e);
-      return null;
-    }
-  }
+  late VideoPlayerController _videoController;
+  bool _isInitialized = false;
 
   @override
   void initState() {
-    widget.property.shortVideo != null
-        ? generateThumbnail(
-            widget.property.shortVideo!,
-          )
-        : null;
     super.initState();
+    String videoUrl = widget.property.shortVideo ?? "";
+
+    if (videoUrl.startsWith("http://")) {
+      videoUrl = videoUrl.replaceFirst("http://", "https://");
+    }
+    _videoController = VideoPlayerController.networkUrl(Uri.parse(videoUrl))
+      ..initialize().then((_) {
+        setState(() {
+          _isInitialized = true;
+          _videoController
+              .pause(); // Stop playback to only show the first frame
+        });
+      }).catchError((error) {
+        if (kDebugMode) {
+          print("Error initializing video: $error");
+        }
+      });
+  }
+
+  @override
+  void dispose() {
+    _videoController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {
-          Get.toNamed(AppRoutes.shortVideoView, arguments: widget.property);
-        },
-        child: SizedBox(
-            width: context.getSize.width * 0.6,
-            height: context.getSize.height * 0.5,
-            child: _path != null
-                ? Container(
-                    margin: EdgeInsets.symmetric(
-                        horizontal: context.getSize.width * 0.015, vertical: 5),
-                    // height: context.getSize.height / 2,
-                    width: context.getSize.width / 4,
-                    padding: const EdgeInsets.all(15),
-                    alignment: Alignment.bottomCenter,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                          image: FileImage(File(_path!)),
-                          fit: BoxFit.cover,
-                        )),
-                    child: Container(
-                      height: context.getSize.height * 0.043,
-                      width: context.getSize.width * 0.086,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: border(color: AppColor.buttonColor, width: 1),
-                          image: DecorationImage(
-                              image: NetworkImage(widget.property.image ??
-                                  Constant.dummayImage),
-                              fit: BoxFit.cover)),
-                    ),
-                  )
-                : const Center(
-                    child: CircularProgressIndicator(
-                    color: AppColor.buttonColor,
-                  ))));
+      onTap: () {
+        Get.toNamed(AppRoutes.shortVideoView, arguments: widget.property);
+      },
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          _isInitialized
+              ? AspectRatio(
+                  aspectRatio: _videoController.value.aspectRatio,
+                  child: VideoPlayer(_videoController), // Shows first frame
+                )
+              : Container(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  color: Colors.black12,
+                  child: const Center(child: CircularProgressIndicator()),
+                ),
+          const Icon(Icons.play_circle_fill,
+              size: 50, color: Colors.white), // Play button overlay
+        ],
+      ),
+    );
   }
 }

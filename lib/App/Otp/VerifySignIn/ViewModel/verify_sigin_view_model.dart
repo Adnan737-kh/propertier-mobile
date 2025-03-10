@@ -68,9 +68,9 @@ class VeifySigninViewModel extends GetxController {
           pinCode: "+92",
           address: signupVM.locationController.text,
           context: Get.context!,
-          name: signupVM.usernameController.text,
-          email: signupVM.userEmailController.text,
-          phoneNumber: signupVM.userNumberController.text,
+          name: signupVM.nameController.text,
+          email: signupVM.emailController.text,
+          phoneNumber: signupVM.numberController.text,
           password: signupVM.passwordController.text,
           confirmPassword: signupVM.confirmPasswordController.text);
 

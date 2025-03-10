@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:propertier/App/Auth/Service/auth_service.dart';
-import 'package:propertier/App/Auth/Service/google_sigin_services.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/divider.dart';
 import 'package:propertier/constant/colors.dart';
@@ -10,8 +8,8 @@ import 'package:propertier/extensions/size_extension.dart';
 
 import '../../../RoutesAndBindings/app_routes.dart';
 import '../../../constant/constant.dart';
+import '../../Auth/User/Token/token_preference_view_model/token_preference_view_model.dart';
 import '../Components/drawer_tile.dart';
-// import '../../Utils/logo_tile.dart';
 
 Widget customDrawer({required BuildContext context}) {
   return Container(
@@ -213,9 +211,13 @@ Widget customDrawer({required BuildContext context}) {
 
             InkWell(
               onTap: () {
-                AuthService().logout();
-                GoogleSiginServices().logout();
-                Get.offAllNamed(AppRoutes.loginView);
+                // AuthService().logout();
+                // GoogleSiginServices().logout();
+                // Get.offAllNamed(AppRoutes.loginView);
+                UserPreference up = UserPreference();
+                up.logOut().then((value){
+                  Get.toNamed(AppRoutes.loginView);
+                });
               },
               child: Container(
                 width: context.width,

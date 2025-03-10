@@ -1,25 +1,63 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:propertier/App/Analytics/Model/chart_data_model.dart';
+import 'package:propertier/App/Auth/User/Token/token_preference_view_model/token_preference_view_model.dart';
 import 'package:propertier/App/Home/Model/comment_button_model.dart';
 import 'package:propertier/App/Profile/Model/profile_model.dart';
 
+import '../../../RoutesAndBindings/app_routes.dart';
 import '../../../constant/call_launcher.dart';
 import '../../../constant/colors.dart';
+import '../../../constant/toast.dart';
+import '../../../repository/profile_repo/profile_update/profile_updat_repo.dart';
+import '../../../repository/profile_repo/profile_view/profile_view_repo.dart';
 import '../../Home/Model/properties_tiler_button_model.dart';
 
-import '../Service/profile_service.dart';
-
 class ProfileViewModel extends GetxController {
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController profilePictureController = TextEditingController();
+  final ProfileUpdateRepository _api = ProfileUpdateRepository();
+  final ProfileViewRepository _profileViewRepository = ProfileViewRepository();
+  final RxBool _isShowMoreComment = false.obs;
   Rx<ProfileModel> profileModel = ProfileModel().obs;
+  UserPreference userPreference = UserPreference();
+  String selectedGender = "male"; // Default gender
+  String? accessToken;
+  String? _userID;
+  String? get userID => _userID;
+  bool get isShowMoreComment => _isShowMoreComment.value;
   var isLoading = false.obs;
 
   @override
   void onInit() async {
-    profileModel.value = await getProfilePageData(
-        context: Get.context!, id: GetStorage().read("id").toString());
+    userPreference.getUserAccessToken().then((value) async {
+      if (kDebugMode) {
+        print('ProfileViewModel Access Token  !!! ${value.accessToken}');
+      }
+      if (value.accessToken!.isNotEmpty ||
+          value.accessToken.toString() != 'null') {
+        accessToken = value.accessToken;
+        profileModel.value = await getProfilePageData(
+          context: Get.context!,
+          id: value.accessToken!,
+        );
+
+        userPreference.getUserProfileData().then((value) async {
+          if (kDebugMode) {
+            print('user saved id ${value?.id.toString()}');
+          }
+          if (value!.email!.isNotEmpty || value.email.toString() != 'null') {
+            _userID = value.id.toString();
+            if (kDebugMode) {
+              print('user saved id $value.id.toString()');
+            }
+          }
+        });
+      }
+    });
 
     super.onInit();
   }
@@ -38,7 +76,7 @@ class ProfileViewModel extends GetxController {
     SalesData('Nov', 89),
     SalesData('Dec', 2),
   ];
-  final List<SalesData> splin2ThisWeek = [
+  final List<SalesData> spline2ThisWeek = [
     SalesData('Jan', 50),
     SalesData('Feb', 18),
     SalesData('Mar', 30),
@@ -52,8 +90,66 @@ class ProfileViewModel extends GetxController {
     SalesData('Nov', 89),
     SalesData('Dec', 2),
   ];
-  final RxBool _isShowMoreComment = false.obs;
-  bool get isShowMoreComment => _isShowMoreComment.value;
+
+  Future<ProfileModel> getProfilePageData({
+    required BuildContext context,
+    required String id,
+  }) async {
+    isLoading.value = true;
+    _profileViewRepository
+        .viewProfileDetails(accessToken!)
+        .then((result) async {
+      final dataResponse = ProfileModel.fromJson(result);
+      profileModel.value = dataResponse;
+
+      await userPreference
+          .saveUserProfileData(profileModel.value.userProfile!)
+          .then((onValue) {
+        Get.toNamed(AppRoutes.navBarView);
+        if (kDebugMode) {
+          print('Profile Data Saved $result');
+        }
+      }).onError((error, stackTrace) {});
+        //     if (profileModel.value.userProfile!.requiresProfileCompletion == true) {
+      //   showProfileCompletionDialog(Get.context!, profileModel);
+      // }
+      isLoading(false);
+    }).onError((error, stackTrace) {
+      Get.offAllNamed(AppRoutes.loginView);
+      isLoading(false);
+
+      if (kDebugMode) {
+        print('$error and $stackTrace');
+      }
+    });
+    return profileModel.value;
+  }
+
+  void completeProfile() {
+    isLoading(true);
+
+    CompleteProfile updateProfile = CompleteProfile(
+      phoneNumber: phoneController.text.toString(),
+      address: addressController.text.toString(),
+      profilePictureUrl: profilePictureController.text.toString(),
+      gender: selectedGender,
+    );
+
+    // // Send the model data as a Map to the API
+    _api
+        .updateProfile(updateProfile.toMap(), accessToken!)
+        .then((onValue) async {
+      isLoading(false);
+      toast(title: 'Profile Updated Successfully', context: Get.context!);
+      Get.back();
+    }).onError((error, stackTrace) {
+      isLoading(false);
+      if (kDebugMode) {
+        print('$error and $stackTrace');
+      }
+    });
+  }
+
   showMoreComment(bool value) {
     _isShowMoreComment.value = value;
   }
@@ -103,22 +199,98 @@ class ProfileViewModel extends GetxController {
     CommentButtonModel(icon: Ionicons.share_social_outline, title: '')
   ].obs;
 
-  Future<ProfileModel> getProfilePageData({
-    required BuildContext context,
-    required String id,
-  }) async {
-    isLoading.value = true;
+  void showProfileCompletionDialog(
+      BuildContext context, Rx<ProfileModel>? userProfile) {
+    final formKey = GlobalKey<FormState>(); // Form key for validation
 
-    final result =
-        await ProfileService().getProfileDetail(context: context, id: id);
-    if (result.userProfile != null) {
-      profileModel.value = result;
-      // print("print posts Length ${profileModel.value.data!.properties.length}");
-      isLoading.value = false;
-    }
-    isLoading.value = false;
-    return profileModel.value;
+    showDialog(
+      context: context,
+      barrierDismissible: false, // Prevent closing the popup without action
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Complete Your Profile"),
+          content: SingleChildScrollView(
+            child: Form(
+              key: formKey, // Attach form key
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextFormField(
+                    controller: phoneController,
+                    decoration:
+                        const InputDecoration(labelText: "Phone Number"),
+                    keyboardType: TextInputType.phone,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please enter your phone number";
+                      } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                        return "Enter a valid phone number";
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: addressController,
+                    decoration: const InputDecoration(labelText: "Address"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please enter your address";
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: profilePictureController,
+                    decoration:
+                        const InputDecoration(labelText: "Profile Picture URL"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please enter profile picture URL";
+                      } else if (!Uri.tryParse(value)!.hasAbsolutePath) {
+                        return "Enter a valid URL";
+                      }
+                      return null;
+                    },
+                  ),
+                  DropdownButtonFormField<String>(
+                    value: selectedGender,
+                    onChanged: (value) {
+                      selectedGender = value!;
+                    },
+                    items: ["male", "female", "other"]
+                        .map((gender) => DropdownMenuItem(
+                            value: gender, child: Text(gender)))
+                        .toList(),
+                    decoration: const InputDecoration(labelText: "Gender"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please select a gender";
+                      }
+                      return null;
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text("Cancel"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (formKey.currentState!.validate()) {
+                  // Only update profile if all fields are valid
+                  completeProfile();
+                  Navigator.pop(context);
+                }
+              },
+              child: const Text("Submit"),
+            ),
+          ],
+        );
+      },
+    );
   }
-
-  // ProfileModel profileModel = ProfileModel();
 }

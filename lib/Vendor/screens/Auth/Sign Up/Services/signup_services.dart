@@ -56,7 +56,7 @@ class SignupServices {
 
     try {
       final response = await http.post(
-        Uri.parse("${API.venregisterUrl}/"),
+        Uri.parse("${API.venRegisterUrl}/"),
         headers: <String, String>{'Content-Type': 'application/json'},
         body: encodedData,
       );
@@ -95,7 +95,7 @@ class SignupServices {
   Future<bool> _checkUserExists(String? email, String? firebaseID) async {
     try {
       final response = await http.get(
-        Uri.parse("${API.venregisterUrl}/"),
+        Uri.parse("${API.venRegisterUrl}/"),
         headers: <String, String>{'Content-Type': 'application/json'},
       );
 

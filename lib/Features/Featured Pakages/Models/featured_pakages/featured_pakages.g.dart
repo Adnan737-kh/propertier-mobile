@@ -14,7 +14,7 @@ FeaturedPakages _$FeaturedPakagesFromJson(Map<String, dynamic> json) =>
       featureDuration: json['feature_duration'] as String?,
       status: json['status'] as String?,
       type: json['type'] as String?,
-      priorityType: json['priority_type'] as String?,
+      priorityType: json['ad_type'] as String?,
       imageUrl: json['image_url'] as String?,
       createdAt: json['created_at'] == null
           ? null
@@ -32,7 +32,7 @@ Map<String, dynamic> _$FeaturedPakagesToJson(FeaturedPakages instance) =>
       'feature_duration': instance.featureDuration,
       'status': instance.status,
       'type': instance.type,
-      'priority_type': instance.priorityType,
+      'ad_type': instance.priorityType,
       'image_url': instance.imageUrl,
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),

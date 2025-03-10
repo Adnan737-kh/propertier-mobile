@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -13,23 +14,25 @@ class AppBannerAd extends StatefulWidget {
 class _AppBannerAdState extends State<AppBannerAd> {
 
   BannerAd? _bannerAd;
-  RxBool _isBannerAdReady = false.obs;
+  final RxBool _isBannerAdReady = false.obs;
 
   @override
   void initState() {
     super.initState();
 
     _bannerAd = BannerAd(
-      adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+      adUnitId: 'ca-app-pub-9403488694655871/1902225363',
       size: AdSize.banner,
-      request: AdRequest(),
+      request: const AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (_) {
             _isBannerAdReady.value = true;
         },
         onAdFailedToLoad: (ad, error) {
           ad.dispose();
-          print('Failed to load a banner ad: ${error.message}');
+          if (kDebugMode) {
+            print('Failed to load a banner ad: ${error.message}');
+          }
         },
       ),
     )..load();
@@ -51,7 +54,7 @@ class _AppBannerAdState extends State<AppBannerAd> {
         width: _bannerAd!.size.width.toDouble(),
         height: _bannerAd!.size.height.toDouble(),
         child: AdWidget(ad: _bannerAd!),
-      ):SizedBox()
+      ):const SizedBox()
       ),
     );
   }

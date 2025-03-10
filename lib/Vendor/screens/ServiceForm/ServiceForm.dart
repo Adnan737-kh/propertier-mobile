@@ -12,6 +12,8 @@ import 'package:propertier/constant/colors.dart';
 class ServiceForm extends GetView<ServiceFormController> {
   final _formKey = GlobalKey<FormState>();
 
+  ServiceForm({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +22,7 @@ class ServiceForm extends GetView<ServiceFormController> {
           onPressed: () {
             Get.back();
           },
-          icon: Icon(
+          icon:const Icon(
             Icons.arrow_back,
             color: AppColor.blackColor,
           ),
@@ -67,7 +69,7 @@ class ServiceForm extends GetView<ServiceFormController> {
             },
           )),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
             child: Obx(()=> textButton(context: context, title: controller.isLoading.value?"Loading...":"Continue", onClick: (){
               if (_formKey.currentState?.validate() == true) {
                 _formKey.currentState?.save();
@@ -99,7 +101,7 @@ class ServiceForm extends GetView<ServiceFormController> {
 
   Widget _buildField(ServiceFormModel field) {
     if(field.id == 19) return SizedBox();
-    if(field.id == 18) return _selectTranspor(field);
+    if(field.id == 18) return _selectTransport(field);
     switch (field.fieldType) {
       case 'text':
         return TextFormField(
@@ -138,10 +140,10 @@ class ServiceForm extends GetView<ServiceFormController> {
           children: [
             ElevatedButton(
               onPressed: () => controller.multiImagePick(field.fieldName ?? ""),
-              child: Text("Upload Images for ${field.fieldName}"),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColor.buttonColor
               ),
+              child: Text("Upload Images for ${field.fieldName}"),
             ),
             Obx(() {
               final images = controller.formFieldValues[field.fieldName ?? ""] as List<String>? ?? [];
@@ -206,7 +208,7 @@ class ServiceForm extends GetView<ServiceFormController> {
     }
   }
 
-  Widget _selectTranspor(ServiceFormModel field){
+  Widget _selectTransport(ServiceFormModel field){
     return FutureBuilder(
         future: controller.getAllTransport(),
         builder: (context, snapshot){
@@ -215,7 +217,7 @@ class ServiceForm extends GetView<ServiceFormController> {
             controller.filteredTransports = transports;
             return _selectTransportDropdown(field);
           }
-          return SizedBox();
+          return const SizedBox();
         }
     );
   }
@@ -263,7 +265,7 @@ class ServiceForm extends GetView<ServiceFormController> {
         Text(
           "Selected Transport: ${controller.selectedTransportName.value}",
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-        ):SizedBox()),
+        ):const SizedBox()),
       ],
     );
   }

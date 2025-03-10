@@ -34,11 +34,11 @@ Widget topSellingListTile(BuildContext context,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 image: const DecorationImage(
-                    image: NetworkImage(Constant.dummayImage),
+                    image: NetworkImage(Constant.dummyImage),
                     fit: BoxFit.cover)),
             child: SvgPicture.asset(architecture.isFavorite == true
                 ? Constant.heartFill
-                : Constant.heartunFill)),
+                : Constant.heartUnFill)),
         getHeight(context, 0.010),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

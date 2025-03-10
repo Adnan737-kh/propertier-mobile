@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 // import 'package:flutter/widgets.dart';
@@ -26,6 +27,9 @@ class DetailsView extends StatelessWidget {
   var data = Get.arguments;
   @override
   Widget build(BuildContext context) {
+    if (kDebugMode) {
+      print("details idd!${data["id"]}");
+    }
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
@@ -39,6 +43,8 @@ class DetailsView extends StatelessWidget {
           viewModel.controller!.getSpecificPropertyDetail(id: data["id"]);
         },
         builder: (viewModel) {
+          // print("Youtube video url ${viewModel.specificPropertyModel
+          //     .value.detailDataModel?.property?.video}");
           return Scaffold(
             body: viewModel.specificPropertyModel.value.detailDataModel == null
                 ? const SizedBox(
@@ -103,7 +109,7 @@ class DetailsView extends StatelessWidget {
                                     GestureDetector(
                                       onTap: () {},
                                       child: SvgPicture.asset(
-                                        Constant.heartunFill,
+                                        Constant.heartUnFill,
                                       ),
                                     )
                                   ],

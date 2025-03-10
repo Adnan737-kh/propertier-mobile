@@ -29,7 +29,7 @@ Container customShareAndBuyTile(BuildContext context,
           height: context.getSize.height * 0.2,
           decoration: const BoxDecoration(
               image: DecorationImage(
-                  image: NetworkImage(Constant.dummayImage), fit: BoxFit.cover),
+                  image: NetworkImage(Constant.dummyImage), fit: BoxFit.cover),
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(10), topRight: Radius.circular(10))),
           child: GestureDetector(

@@ -16,11 +16,11 @@ import '../colors.dart';
 Widget customTextField({
   FocusNode? focusNode,
   required String hintText,
-  String? labal,
+  String? label,
   required TextEditingController controller,
   TextInputType textInputType = TextInputType.text,
   TextInputAction textInputAction = TextInputAction.next,
-  bool obsecureText = false,
+  bool obSecureText = false,
   double height = 36,
   Function(String)? onChanged,
   double width = double.infinity,
@@ -54,9 +54,9 @@ Widget customTextField({
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            labal != null
+            label != null
                 ? appText(
-                    title: labal,
+                    title: label,
                     context: context,
                     fontSize: 14,
                     color: const Color.fromARGB(196, 141, 142, 143),
@@ -67,7 +67,7 @@ Widget customTextField({
               onTap: onTap,
               readOnly: readOnly,
               maxLines: maxLines,
-              obscureText: obsecureText,
+              obscureText: obSecureText,
               keyboardType: textInputType,
               textInputAction: textInputAction,
               // style:

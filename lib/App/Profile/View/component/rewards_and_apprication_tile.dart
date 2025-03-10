@@ -9,8 +9,9 @@ import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
-Widget rewardsAndAppricationTile(
+Widget rewardsAndAppreciationTile(
     BuildContext context, ProfileViewModel viewModel) {
+
   return Obx(() => Column(
         children: [
           Row(
@@ -67,7 +68,7 @@ Widget rewardsAndAppricationTile(
                                       null
                                   ? viewModel
                                       .profileModel.value.awards![index].image!
-                                  : Constant.dummayImage,
+                                  : Constant.dummyImage,
                               child: Container(
                                 height: 225,
                                 width: context.getSize.width * 0.4,
@@ -82,7 +83,7 @@ Widget rewardsAndAppricationTile(
                                                 null
                                             ? viewModel.profileModel.value
                                                 .awards![index].image!
-                                            : Constant.dummayImage),
+                                            : Constant.dummyImage),
                                         fit: BoxFit.cover)),
                               ),
                             )

@@ -48,7 +48,7 @@ class ServiceDetail extends GetView<NearestServiceDetailViewModel>{
                     getHeight(context, 0.1),
                     getHeight(context, 0.015),
                     controller.nearbyServices.service?.imageUrl != null?
-                    Image.network(controller.nearbyServices.service?.imageUrl??Constant.dummayImage,height: 100,
+                    Image.network(controller.nearbyServices.service?.imageUrl??Constant.dummyImage,height: 100,
                       width: 86,):
                     SvgPicture.asset(
                       Constant.servicesSearchIcon,

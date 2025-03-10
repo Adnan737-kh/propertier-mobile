@@ -67,7 +67,7 @@ class ForgotPasswordView extends StatelessWidget {
                     height: 30,
                   ),
                   customTextField(
-                    labal: "Enter Your Email",
+                    label: "Enter Your Email",
                     hintText: 'Email',
                     controller: forgetPassVM.emailController,
                     textInputType: TextInputType.emailAddress,

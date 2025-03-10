@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import '../../../../RoutesAndBindings/app_routes.dart';
 import '../../../../Utils/appbar.dart';
 import '../../../../Utils/height_width_box.dart';
 import '../../../../Utils/logo_tile.dart';
@@ -52,10 +51,10 @@ class NewPasswordView extends StatelessWidget {
                     height: 30,
                   ),
                   customTextField(
-                    labal: "New Password",
+                    label: "New Password",
                     hintText: 'Enter New Password',
-                    obsecureText: newPassVM.isShowPassword.value,
-                    controller: newPassVM.newpasswordController,
+                    obSecureText: newPassVM.isShowPassword.value,
+                    controller: newPassVM.newPasswordController,
                     textInputType: TextInputType.emailAddress,
                     suffix: IconButton(
                         onPressed: () {
@@ -79,10 +78,10 @@ class NewPasswordView extends StatelessWidget {
                   ),
                   const Gap(12),
                   customTextField(
-                    obsecureText: newPassVM.isShowConfirmPassword.value,
-                    labal: "Confirm Password",
+                    obSecureText: newPassVM.isShowConfirmPassword.value,
+                    label: "Confirm Password",
                     hintText: 'Enter Password Again',
-                    controller: newPassVM.renewpasswordController,
+                    controller: newPassVM.reNewPasswordController,
                     textInputType: TextInputType.text,
                     suffix: IconButton(
                         onPressed: () {
@@ -100,8 +99,8 @@ class NewPasswordView extends StatelessWidget {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please Enter Password Again';
-                      } else if (newPassVM.newpasswordController.text !=
-                          newPassVM.renewpasswordController.text) {
+                      } else if (newPassVM.newPasswordController.text !=
+                          newPassVM.reNewPasswordController.text) {
                         return 'Password Mismatch';
                       }
                       return null;
@@ -117,10 +116,11 @@ class NewPasswordView extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
                             onTap: () async {
-                              if (newPassVM.formKey.currentState!.validate()) {
-                                newPassVM.formKey.currentState?.save();
-                                Get.offAllNamed(AppRoutes.joinAsView);
-                              }
+                              newPassVM.confirmRestPassword();
+                              // if (newPassVM.formKey.currentState!.validate()) {
+                              //   newPassVM.formKey.currentState?.save();
+                              //   Get.offAllNamed(AppRoutes.joinAsView);
+                              // }
                             },
                             title: 'Save',
                             textColor: AppColor.blackColor,

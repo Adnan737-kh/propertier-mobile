@@ -10,7 +10,7 @@ import '../../../constant/constant.dart';
 
 class WaterServiceFormController extends GetxController{
 
-  static const apiKey = Constant.google_api_key;
+  static const apiKey = Constant.googleApiKey;
 
   TextEditingController descriptionController = TextEditingController();
   TextEditingController addressController = TextEditingController();

@@ -9,8 +9,8 @@ import 'package:propertier/App/Home/View/component/short_videos_tile.dart';
 import 'package:propertier/App/Home/ViewModel/home_view_model.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 
-class ComercialView extends StatelessWidget {
-  const ComercialView({super.key, required this.viewModel});
+class CommercialView extends StatelessWidget {
+  const CommercialView({super.key, required this.viewModel});
   final HomeViewModel viewModel;
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class ComercialView extends StatelessWidget {
         GridTileWidget(
           viewModel: viewModel,
         ),
-        getHeight(context, 0.015),
+        getHeight(context, 0.025),
         viewModel.homeModel.value.data != null
             ? Obx(
                 () => Properties(
@@ -31,7 +31,7 @@ class ComercialView extends StatelessWidget {
                 ),
               )
             : const Gap(0),
-        getHeight(context, 0.015),
+        getHeight(context, 0.025),
         Obx(
           () => viewModel.homeModel.value.data != null
               ? ShortVideosTile(

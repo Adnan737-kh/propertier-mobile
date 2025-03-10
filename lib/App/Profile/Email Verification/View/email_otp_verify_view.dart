@@ -111,7 +111,7 @@ class EmailOTPVerifyView extends StatelessWidget {
                       context: context,
                       title: 'Verify',
                       onClick: () {
-                        Get.toNamed(AppRoutes.emailverificationView);
+                        Get.toNamed(AppRoutes.emailVerificationView);
                       }),
                 ],
               ),

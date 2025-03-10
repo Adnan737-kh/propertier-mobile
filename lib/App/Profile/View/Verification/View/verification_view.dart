@@ -45,7 +45,7 @@ class VerificationView extends StatelessWidget {
                   VerifyTile(
                     title: "Email",
                     verify: true,
-                    onTap: () => Get.toNamed(AppRoutes.emailverificationView),
+                    onTap: () => Get.toNamed(AppRoutes.emailVerificationView),
                   ),
                   const Gap(5),
                   VerifyTile(

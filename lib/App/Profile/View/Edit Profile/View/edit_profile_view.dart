@@ -20,20 +20,9 @@ class EditProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: const BackButton(
-      //     color: AppColor.blackColor,
-      //   ),
-      //   title: const Text(
-      //     "Edit Profile",
-      //     style: TextStyle(
-      //       color: AppColor.blackColor,
-      //     ),
-      //   ),
-      // ),
       resizeToAvoidBottomInset: true,
       body: Obx(
-        () => editProfileVM.userData.value.message == null
+        () => editProfileVM.profileModel.value.userProfile == null
             ? const Center(
                 child: CircularProgressIndicator(
                   color: AppColor.buttonColor,
@@ -61,8 +50,8 @@ class EditProfileView extends StatelessWidget {
                                   width: context.getSize.width,
                                   decoration: BoxDecoration(
                                       image: editProfileVM.coverImage != '' ||
-                                              editProfileVM.userData.value.users
-                                                      ?.first.coverPhotoUrl ==
+                                              editProfileVM.profileModel.value.userProfile
+                                                      ?.coverPhotoUrl ==
                                                   ''
                                           ? DecorationImage(
                                               image: FileImage(
@@ -72,13 +61,9 @@ class EditProfileView extends StatelessWidget {
                                             )
                                           : DecorationImage(
                                               image: NetworkImage(
-                                                editProfileVM
-                                                        .userData
-                                                        .value
-                                                        .users
-                                                        ?.first
-                                                        .coverPhotoUrl ??
-                                                    Constant.dummayImage,
+                                                editProfileVM.profileModel.value.userProfile
+                                                    ?.coverPhotoUrl ??
+                                                    Constant.dummyImage,
                                               ),
                                               fit: BoxFit.cover,
                                             )),
@@ -101,7 +86,7 @@ class EditProfileView extends StatelessWidget {
                                         child: GestureDetector(
                                           onTap: () {
                                             editProfileVM.pickImage(
-                                                isPorfileImage: false);
+                                                isProfileImage: false);
                                           },
                                           child: Container(
                                             padding: const EdgeInsets.all(3),
@@ -142,24 +127,16 @@ class EditProfileView extends StatelessWidget {
                                                           .profileImage)),
                                                   fit: BoxFit.cover,
                                                 )
-                                              : editProfileVM
-                                                          .userData
-                                                          .value
-                                                          .users
-                                                          ?.first
-                                                          .profilePictureUrl ==
+                                              : editProfileVM.profileModel.value.userProfile
+                                              ?.profilePictureUrl ==
                                                       null
                                                   ? null
                                                   : DecorationImage(
                                                       image: NetworkImage(
-                                                          editProfileVM
-                                                                  .userData
-                                                                  .value
-                                                                  .users
-                                                                  ?.first
-                                                                  .profilePictureUrl ??
+                                                          editProfileVM.profileModel.value.userProfile
+                                                              ?.profilePictureUrl ??
                                                               Constant
-                                                                  .dummayImage),
+                                                                  .dummyImage),
                                                       fit: BoxFit.cover,
                                                     ),
                                           border: Border.all(
@@ -172,7 +149,7 @@ class EditProfileView extends StatelessWidget {
                                       child: GestureDetector(
                                         onTap: () {
                                           editProfileVM.pickImage(
-                                              isPorfileImage: true);
+                                              isProfileImage: true);
                                         },
                                         child: Container(
                                           height:
@@ -206,21 +183,21 @@ class EditProfileView extends StatelessWidget {
                             children: [
                               getHeight(context, 0.04),
                               EditProfileTextField(
-                                isEditable: editProfileVM.isName.value,
-                                isEditablefun: () {
-                                  editProfileVM.isName.value =
-                                      !editProfileVM.isName.value;
-                                  Future.delayed(
-                                      const Duration(
-                                        milliseconds: 500,
-                                      ), () {
-                                    editProfileVM.focusTextField(
-                                        editProfileVM.focusNode1, context);
-                                  });
-                                },
+                                isEditable: false,
+                                // isEditableFunction: () {
+                                //   editProfileVM.isName.value =
+                                //       !editProfileVM.isName.value;
+                                //   Future.delayed(
+                                //       const Duration(
+                                //         milliseconds: 500,
+                                //       ), () {
+                                //     editProfileVM.focusTextField(
+                                //         editProfileVM.nameFocusNode, context);
+                                //   });
+                                // },
                                 label: "Full Name",
                                 controller:
-                                    editProfileVM.userFullNameController,
+                                    editProfileVM.nameController,
                                 hintText: 'Full Name',
                                 textInputType: TextInputType.name,
                                 suffix: GestureDetector(
@@ -237,25 +214,25 @@ class EditProfileView extends StatelessWidget {
                                   }
                                   return null;
                                 },
-                                focusNode: editProfileVM.focusNode1,
+                                focusNode: editProfileVM.nameFocusNode,
                               ),
                               getHeight(context, 0.028),
                               EditProfileTextField(
-                                isEditable: editProfileVM.isEmail.value,
-                                isEditablefun: () {
-                                  editProfileVM.isEmail.value =
-                                      !editProfileVM.isEmail.value;
-                                  Future.delayed(
-                                      const Duration(
-                                        milliseconds: 500,
-                                      ), () {
-                                    editProfileVM.focusTextField(
-                                        editProfileVM.focusNode2, context);
-                                  });
-                                },
+                                isEditable: false,
+                                // isEditableFunction: () {
+                                //   editProfileVM.isEmail.value =
+                                //       !editProfileVM.isEmail.value;
+                                //   Future.delayed(
+                                //       const Duration(
+                                //         milliseconds: 500,
+                                //       ), () {
+                                //     editProfileVM.focusTextField(
+                                //         editProfileVM.emailFocusNode, context);
+                                //   });
+                                // },
                                 label: "Email",
                                 textInputType: TextInputType.emailAddress,
-                                controller: editProfileVM.usernameController,
+                                controller: editProfileVM.emailController,
                                 hintText: 'Enter Your Email',
                                 suffix: GestureDetector(
                                   onTap: () {},
@@ -271,12 +248,12 @@ class EditProfileView extends StatelessWidget {
                                   }
                                   return null;
                                 },
-                                focusNode: editProfileVM.focusNode2,
+                                focusNode: editProfileVM.emailFocusNode,
                               ),
                               getHeight(context, 0.028),
                               EditProfileTextField(
                                 isEditable: editProfileVM.isPassword.value,
-                                isEditablefun: () {
+                                isEditableFunction: () {
                                   editProfileVM.isPassword.value =
                                       !editProfileVM.isPassword.value;
                                   Future.delayed(
@@ -330,7 +307,7 @@ class EditProfileView extends StatelessWidget {
                                     });
                                   },
                                   controller:
-                                      editProfileVM.userNumberController,
+                                      editProfileVM.numberController,
                                   hintText: 'Enter Your Phone Number',
                                   textInputType: TextInputType.phone,
                                   suffix: const Icon(Icons.record_voice_over),
@@ -344,7 +321,7 @@ class EditProfileView extends StatelessWidget {
                               getHeight(context, 0.028),
                               EditProfileTextField(
                                 isEditable: editProfileVM.isAbout.value,
-                                isEditablefun: () {
+                                isEditableFunction: () {
                                   editProfileVM.isAbout.value =
                                       !editProfileVM.isAbout.value;
                                   Future.delayed(
@@ -357,7 +334,7 @@ class EditProfileView extends StatelessWidget {
                                 },
                                 label: "About",
                                 textInputType: TextInputType.text,
-                                controller: editProfileVM.userAboutController,
+                                controller: editProfileVM.aboutController,
                                 hintText: '',
                                 suffix: GestureDetector(
                                   onTap: () {},
@@ -378,27 +355,27 @@ class EditProfileView extends StatelessWidget {
                               getHeight(context, 0.028),
                               EditProfileTextField(
                                 isEditable: editProfileVM.isAddress.value,
-                                isEditablefun: () {
+                                isEditableFunction: () {
                                   editProfileVM.isAddress.value =
                                       !editProfileVM.isAddress.value;
-                                  searchLoactionBottomSheet(
-                                      placesList: editProfileVM.places,
-                                      onSelect: (val) {
-                                        editProfileVM.addressController.text =
-                                            val;
-                                        editProfileVM.getGeoCode(val);
-                                        editProfileVM.searchAddressController
-                                            .clear();
-                                        editProfileVM.places.clear();
-
-                                        Get.back();
-                                      },
-                                      onChange: (val) {
-                                        editProfileVM.searchPlaces(val);
-                                      },
-                                      context: context,
-                                      searchController: editProfileVM
-                                          .searchAddressController);
+                                  // searchLocationBottomSheet(
+                                  //     placesList: editProfileVM.places,
+                                  //     onSelect: (val) {
+                                  //       editProfileVM.addressController.text =
+                                  //           val;
+                                  //       editProfileVM.getGeoCode(val);
+                                  //       editProfileVM.searchAddressController
+                                  //           .clear();
+                                  //       editProfileVM.places.clear();
+                                  //
+                                  //       Get.back();
+                                  //     },
+                                  //     onChange: (val) {
+                                  //       editProfileVM.searchPlaces(val);
+                                  //     },
+                                  //     context: context,
+                                  //     searchController: editProfileVM
+                                  //         .searchAddressController);
                                   // });
                                 },
                                 label: "Address",
@@ -433,33 +410,35 @@ class EditProfileView extends StatelessWidget {
                                       )
                                     : customTextButton(
                                         onTap: () async {
-                                          await editProfileVM
-                                              .editProfileData(
-                                                password: editProfileVM
-                                                    .passwordController.text,
-                                                context: context,
-                                                id: editProfileVM.userData.value
-                                                        .users?.first.id
-                                                        .toString() ??
-                                                    '',
-                                                profileImage:
-                                                    editProfileVM.profileImage,
-                                                coverImage:
-                                                    editProfileVM.coverImage,
-                                                name: editProfileVM
-                                                    .userFullNameController
-                                                    .text,
-                                                email: editProfileVM
-                                                    .usernameController.text,
-                                                phoneNumber: editProfileVM
-                                                    .userNumberController.text,
-                                                about: editProfileVM
-                                                    .userAboutController.text,
-                                                address: editProfileVM
-                                                    .addressController.text,
-                                              )
-                                              .whenComplete(() =>
-                                                  editProfileVM.getUserData());
+                                          // await editProfileVM
+                                          //     .editProfileData(
+                                          //       password: editProfileVM
+                                          //           .passwordController.text,
+                                          //       context: context,
+                                          //       id: editProfileVM.userData.value
+                                          //               .users?.first.id
+                                          //               .toString() ??
+                                          //           '',
+                                          //       profileImage:
+                                          //           editProfileVM.profileImage,
+                                          //       coverImage:
+                                          //           editProfileVM.coverImage,
+                                          //       name: editProfileVM
+                                          //           .userFullNameController
+                                          //           .text,
+                                          //       email: editProfileVM
+                                          //           .usernameController.text,
+                                          //       phoneNumber: editProfileVM
+                                          //           .userNumberController.text,
+                                          //       about: editProfileVM
+                                          //           .userAboutController.text,
+                                          //       address: editProfileVM
+                                          //           .addressController.text,
+                                          //     )
+                                          //     .whenComplete(() =>
+                                          //         editProfileVM.getUserData());
+                                          editProfileVM.isLoading.value = true;
+                                          editProfileVM.editProfile();
                                         },
                                         fontWeight: FontWeight.bold,
                                         buttonColor: AppColor.buttonColor,

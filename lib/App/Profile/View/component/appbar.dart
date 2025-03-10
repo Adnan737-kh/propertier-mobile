@@ -13,7 +13,8 @@ import 'package:propertier/extensions/size_extension.dart';
 
 import '../../ViewModel/profile_view_model.dart';
 
-PreferredSize profileAppBar(BuildContext context, ProfileViewModel viewModel) {
+PreferredSize profileAppBar(BuildContext context, ProfileViewModel viewModel,
+    GlobalKey<ScaffoldState> scaffoldKey) {
   return PreferredSize(
       preferredSize: Size(context.getSize.width, context.getSize.height * 3),
       child: FittedBox(
@@ -23,9 +24,9 @@ PreferredSize profileAppBar(BuildContext context, ProfileViewModel viewModel) {
             Column(
               children: [
                 InstaImageViewer(
-                  imageUrl:
-                      viewModel.profileModel.value.userProfile!.coverPhotoUrl ??
-                          Constant.dumyImage2,
+                  imageUrl: viewModel
+                          .profileModel.value.userProfile!.coverPhotoUrl ??
+                      Constant.dumyImage2,
                   child: Container(
                     alignment: Alignment.topCenter,
                     padding: EdgeInsets.only(
@@ -44,9 +45,19 @@ PreferredSize profileAppBar(BuildContext context, ProfileViewModel viewModel) {
                                         .userProfile!.coverPhotoUrl ??
                                     Constant.dumyImage2),
                                 fit: BoxFit.cover)),
-                    child: Row(
+                    child:  Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        IconButton(
+                          icon: const Icon(
+                            Icons.menu,
+                            color: AppColor.white,
+                            size: 35.0,
+                          ),
+                          onPressed: () {
+                            scaffoldKey.currentState?.openDrawer();
+                          },
+                        ),
                         const SizedBox.shrink(),
                         GestureDetector(
                           onTap: () {},
@@ -160,7 +171,7 @@ PreferredSize profileAppBar(BuildContext context, ProfileViewModel viewModel) {
                                               .email !=
                                           null
                                       ? viewModel.profileModel.value
-                                          .userProfile!.phoneNumberCountryCode!
+                                          .userProfile!.phoneNumberCountryCode
                                           .toString()
                                       : ""
                                   : "",
@@ -233,7 +244,7 @@ PreferredSize profileAppBar(BuildContext context, ProfileViewModel viewModel) {
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ));

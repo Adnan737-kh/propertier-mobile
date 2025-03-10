@@ -13,7 +13,7 @@ class PropertyBidDetailController extends GetxController{
   }
 
 
-  static const apiKey = Constant.google_api_key;
+  static const apiKey = Constant.googleApiKey;
   late GoogleMapController mapController;
   final LatLng endLatLng = LatLng(34.0522, -118.2437); // Example: Los Angeles
   final Set<Marker> markers = {};

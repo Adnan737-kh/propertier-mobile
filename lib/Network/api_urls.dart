@@ -1,5 +1,5 @@
 class API {
-  static const mainUrl = "https://www.propertier.com.pk/api/v1";
+  static const mainUrl = "https://api.thepropertier.com";
   // static const baseURL = "https://propertier-p2wwcx3okq-em.a.run.app/";
   static const baseURL = "https://propertier-cloud-run-882044310734.asia-south2.run.app"; //localhost
   // static const baseWebSocketURL = "ws://propertier-p2wwcx3okq-em.a.run.app/";
@@ -7,83 +7,84 @@ class API {
 
   static const secondaryUrl = "api/mob/v1";
 
-  static const userInfoUrl = "$baseURL/accounts/user-info";
-  static const registerUrl = "$baseURL/accounts/customers";
-  static const uploadPropertyUrl = '$baseURL/$secondaryUrl/Properties';
-  static const uploadPropertyFeaturesUrl = '$baseURL/$secondaryUrl/add-features/';
+  static const userInfoUrl = "$mainUrl/accounts/user-info";
+  static const registerUrl = "$mainUrl/accounts/customers";
+  static const uploadPropertyUrl = '$mainUrl/$secondaryUrl/Properties';
+  static const uploadPropertyFeaturesUrl = '$mainUrl/$secondaryUrl/add-features/';
   static const loginUrl = "$mainUrl/login";
 
-  static const homeDataUrl = '$baseURL/$secondaryUrl/HomePage';
-  static const propertydetailUrl = '$baseURL/$secondaryUrl/GetPropertiesDetail';
-  static const customerRequestUrl = '$baseURL/$secondaryUrl/CustomerRequests/';
-  static const allPropertiesUrl = '$baseURL/$secondaryUrl/FilteredProperties';
-  static const profileDetailUrl = '$baseURL/$secondaryUrl/user-profiles/';
-  static const getFeaturesPakagesUrl = '$baseURL/properties/feature-packages/';
-  static const accountDeleteUrl = '$baseURL/accounts/delete-user-profile/';
-  static const likePropertyUrl = '$baseURL/$secondaryUrl/LikeOrUnlike/';
-  static const isLikedPropertyUrl = '$baseURL/$secondaryUrl/isLiked/';
+  static const homeDataUrl = '$mainUrl/$secondaryUrl/homepage/';
+  static const propertyDetailUrl = '$mainUrl/$secondaryUrl/getpropertiesdetail/';
+  static const customerRequestUrl = '$mainUrl/$secondaryUrl/CustomerRequests/';
+  static const allPropertiesUrl = '$mainUrl/api/properties/';
+  // static const allPropertiesUrl = '$baseURL/$secondaryUrl/FilteredProperties';
+  static const profileDetailUrl = '$mainUrl/$secondaryUrl/user-profiles/3/';
+  static const getFeaturesPackagesUrl = '$baseURL/properties/feature-packages/';
+  static const accountDeleteUrl = '$mainUrl/accounts/delete-user-profile/';
+  static const likePropertyUrl = '$mainUrl/$secondaryUrl/LikeOrUnlike/';
+  static const isLikedPropertyUrl = '$mainUrl/$secondaryUrl/isLiked/';
   static const updateProfileUrl =
-      '$baseURL/$secondaryUrl/update-customer-info/';
-  static const requestPropertiesUrl = '$baseURL/$secondaryUrl/nearby-requests/';
+      '$mainUrl/$secondaryUrl/update-customer-info/';
+  static const requestPropertiesUrl = '$mainUrl/$secondaryUrl/nearby-requests/';
   static const allVideosUrl = '$mainUrl/get-complete-videos-screen-data';
   static const uploadAwardUrl = '$mainUrl/upload-award';
-  static const addAwardUrl = '$baseURL/$secondaryUrl/Award/';
+  static const addAwardUrl = '$mainUrl/$secondaryUrl/award/';
   static const unlikePropertyUrl = '$mainUrl/unlike-property';
 
   static const demandRequestUrl = '$mainUrl/demand-properties';
-  static const featuresUrl = '$baseURL/$secondaryUrl/GetAllFeatures';
+  static const featuresUrl = '$mainUrl/$secondaryUrl/get-all-amenities/';
   static const forgetPasswordUrl = '$mainUrl/forget-password';
 
   //------------------------------------------------------vender-----------------------------------------------------------------------------//
-  static const venregisterUrl = '$baseURL/accounts/vendors';
-  static const fetchProfile = '$baseURL/accounts/vendors';
-  static const updateUserProfile = '$baseURL/accounts/vendors';
-  static const deleteVendorProfile = '$baseURL/accounts/vendors';
-  static const updateCoverPicture = '$baseURL/accounts/vendors';
-  static const addAwards = '$baseURL/services/vendor-awards/';
-  static const getAwards = '$baseURL/services/awards-for-vendor';
-  static const getServices = '$baseURL/services/services-for-vendor';
-  static const getFeaturedServices = '$baseURL/services/vendor-featured-services';
-  static const deleteServices = '$baseURL/services/vendor-services';
-  static const deleteFeaturedService= '$baseURL/services/featured-services';
-  static const deleteAward = '$baseURL/services/vendor-awards';
-  static const uploadCnicImages = '$baseURL/accounts/vendors';
-  static const fetchEarningData = '$baseURL/services/vendor';
-  static const postWithoutFeaturePackage = '$baseURL/services/vendor-services/';
-  static const postWithFeaturePackage = '$baseURL/services/featured-services/';
-  static const submitFeaturePackage = '$baseURL/services/feature-packages/';
-  static const fetchVendorFeedbacks = '$baseURL/services/vendor-feedbacks';
-  static const uploadDocuments = '$baseURL/accounts/vendors'; //cnic and otherdocuments
-  static const incoProDocuments = '$baseURL/accounts/vendors'; //Incorporation and Proprietor Documents
+  static const venRegisterUrl = '$mainUrl/accounts/vendors';
+  static const fetchProfile = '$mainUrl/accounts/vendors';
+  static const updateUserProfile = '$mainUrl/accounts/vendors';
+  static const deleteVendorProfile = '$mainUrl/accounts/vendors';
+  static const updateCoverPicture = '$mainUrl/accounts/vendors';
+  static const addAwards = '$mainUrl/services/vendor-awards/';
+  static const getAwards = '$mainUrl/services/awards-for-vendor';
+  static const getServices = '$mainUrl/services/services-for-vendor';
+  static const getFeaturedServices = '$mainUrl/services/vendor-featured-services';
+  static const deleteServices = '$mainUrl/services/vendor-services';
+  static const deleteFeaturedService= '$mainUrl/services/featured-services';
+  static const deleteAward = '$mainUrl/services/vendor-awards';
+  static const uploadCnicImages = '$mainUrl/accounts/vendors';
+  static const fetchEarningData = '$mainUrl/services/vendor';
+  static const postWithoutFeaturePackage = '$mainUrl/services/vendor-services/';
+  static const postWithFeaturePackage = '$mainUrl/services/featured-services/';
+  static const submitFeaturePackage = '$mainUrl/services/feature-packages/';
+  static const fetchVendorFeedbacks = '$mainUrl/services/vendor-feedbacks';
+  static const uploadDocuments = '$mainUrl/accounts/vendors'; //cnic and otherdocuments
+  static const inCoProDocuments = '$mainUrl/accounts/vendors'; //Incorporation and Proprietor Documents
 
   // *************  Services *****************
-  static const serviceMobileDashboard = '$baseURL/services/mobile-dashboard/';
-  static const socketSubservice = '$baseURL/services/service';
-  static const fixedServices = '$baseURL/services/fixed-services/';
-  static const fetchParentServices = '$baseURL/services/services/';
-  static const createBidByCustomer = '$baseURL/services/bids/';
+  static const serviceMobileDashboard = '$mainUrl/services/mobile-dashboard/';
+  static const socketSubService = '$mainUrl/services/service';
+  static const fixedServices = '$mainUrl/services/fixed-services/';
+  static const fetchParentServices = '$mainUrl/services/services/';
+  static const createBidByCustomer = '$mainUrl/services/bids/';
   static const listenBidByVendor = '${baseWebSocketURL}ws/bid-responses/';
   static const listenOrderByCustomer = '${baseWebSocketURL}ws/bids/filtered-bids/';
-  static const offerByVendor = '$baseURL/services/bid-responses/';
-  static const getvendorvehicles = '$baseURL/services/transportcars/vendor/';
-  static const addvehicles = '$baseURL/services/transportcars/';
-  static const createOrder = '$baseURL/services/orders/';
-  static const trackVendorLocation = '$baseURL/services/track-vendor-location/';
-  static const updateVendorLocation = '$baseURL/services/update-vendor-location/';
-  static const vendorOrder = '$baseURL/services/vendor-orders/';
-  static const customerOrder = '$baseURL/services/customer-orders/';
-  static const getSubService = '$baseURL/services/sub-services/';
-  static const servicesWithPagination = '$baseURL/services/vendor-services-with-pagination/';
-  static const getServiceForm = '$baseURL/services/get-requirments-by-serviceId/';
-  static const getTransport = '$baseURL/services/get-all-VehicleType/';
+  static const offerByVendor = '$mainUrl/services/bid-responses/';
+  static const getVendorVehicles = '$mainUrl/services/transportcars/vendor/';
+  static const addVehicles = '$mainUrl/services/transportcars/';
+  static const createOrder = '$mainUrl/services/orders/';
+  static const trackVendorLocation = '$mainUrl/services/track-vendor-location/';
+  static const updateVendorLocation = '$mainUrl/services/update-vendor-location/';
+  static const vendorOrder = '$mainUrl/services/vendor-orders/';
+  static const customerOrder = '$mainUrl/services/customer-orders/';
+  static const getSubService = '$mainUrl/services/sub-services/';
+  static const servicesWithPagination = '$mainUrl/services/vendor-services-with-pagination/';
+  static const getServiceForm = '$mainUrl/services/get-requirments-by-serviceId/';
+  static const getTransport = '$mainUrl/services/get-all-VehicleType/';
   // static const saveTransportFormField = '$baseURL/services/requirement-values/';
-  static const saveVendorFormField = '$baseURL/services/vendor-requirements/';
-  static const getVendorFormData = '$baseURL/services/get-requirments-by-vendorId/?vendor_id=';
+  static const saveVendorFormField = '$mainUrl/services/vendor-requirements/';
+  static const getVendorFormData = '$mainUrl/services/get-requirments-by-vendorId/?vendor_id=';
 
 
   //**************** Finance API ***********************
   static const createWallet = '$baseURL/finance/user-wallets/';
-  static const topupWallet = '$baseURL/finance/update-wallet/';
+  static const topUpWallet = '$baseURL/finance/update-wallet/';
   static const getWallet = '$baseURL/finance/get-user-wallet/';
   static const walletTestPayment = '$baseURL/finance/test-paymob-intention/';
   static const walletLivePayment = '$baseURL/finance/paymob-intention/';
@@ -98,16 +99,16 @@ class BaseUrl {
 }
 
 class Finance {
-  static const creatIntention = '${BaseUrl.baseURL}/finance/paymob-intention/';
-  static const creatIntentionTest =
+  static const createIntention = '${BaseUrl.baseURL}/finance/paymob-intention/';
+  static const createIntentionTest =
       '${BaseUrl.baseURL}/finance/test-paymob-intention/';
   static const paymentStatusSocket =
       '${BaseUrl.baseWebSocketURL}/ws/finance/payment-status/';
 }
 
 class CreateFeatureAd {
-  static const creatIntention = '${BaseUrl.baseURL}/finance/paymob-intention/';
-  static const creatIntentionTest =
+  static const createIntention = '${BaseUrl.baseURL}/finance/paymob-intention/';
+  static const createIntentionTest =
       '${BaseUrl.baseURL}/finance/test-paymob-intention/';
   static const paymentStatusSocket =
       '${BaseUrl.baseWebSocketURL}/ws/finance/payment-status/';

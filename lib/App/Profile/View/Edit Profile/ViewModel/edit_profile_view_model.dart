@@ -1,35 +1,47 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:geocoding/geocoding.dart' as geocode;
+import 'package:path/path.dart';
 
 import 'package:propertier/App/Auth/Login/Model/user_login_model/user_login_model.dart';
 import 'package:propertier/App/Auth/Service/auth_service.dart';
+import 'package:propertier/App/Auth/User/Token/token_preference_view_model/token_preference_view_model.dart';
 import 'package:propertier/App/Home/ViewModel/home_view_model.dart';
 import 'package:propertier/App/Profile/View/Edit%20Profile/services/edit_profile_services.dart';
 import 'package:propertier/App/Profile/ViewModel/profile_view_model.dart';
 import 'package:propertier/App/What%20are%20you%20searching/ViewModel/what_are_viewmodel.dart';
 import 'package:http/http.dart' as http;
+import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/constant/constant.dart';
+import 'package:propertier/res/app_urls/app_url.dart';
 
+import '../../../../../constant/toast.dart';
+import '../../../../../repository/profile_repo/profile_update/profile_updat_repo.dart';
+import '../../../../../repository/profile_repo/profile_view/profile_view_repo.dart';
 import '../../../../Auth/Login/Services/login_services.dart';
 import '../../../../Auth/Service/google_sigin_services.dart';
+import '../../../Model/profile_model.dart';
+import '../../../Service/profile_service.dart';
+import '../model/edit_profile_res_model.dart';
 
 class EditProfileViewModel extends GetxController {
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
   final searchAddressController = TextEditingController();
-  final userNumberController = TextEditingController();
-  final userFullNameController = TextEditingController();
-  final userAboutController = TextEditingController();
+  final numberController = TextEditingController();
+  final nameController = TextEditingController();
+  final aboutController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final passwordController = TextEditingController();
   final addressController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-  final FocusNode focusNode1 = FocusNode();
-  final FocusNode focusNode2 = FocusNode();
+  final FocusNode nameFocusNode = FocusNode();
+  final FocusNode emailFocusNode = FocusNode();
   final FocusNode passwordFocusNode = FocusNode();
   final FocusNode focusNode3 = FocusNode();
   final FocusNode focusNode4 = FocusNode();
@@ -45,46 +57,221 @@ class EditProfileViewModel extends GetxController {
   var isAddress = false.obs;
   final RxString _initialCode = '+92'.obs;
   String get initialCode => _initialCode.value;
+  var isLoading = false.obs;
+  String? accessToken;
+  Rx<ProfileModel> profileModel = ProfileModel().obs;
+  final ProfileUpdateRepository _api = ProfileUpdateRepository();
+  Rx<UserLoginModel> userData = UserLoginModel().obs;
+  UserPreference userPreference = UserPreference();
+  final RxString _profileImage = ''.obs;
+  final RxString _coverImage = ''.obs;
+  String get profileImage => _profileImage.value;
+  String get coverImage => _coverImage.value;
+  final RxDouble _latitude = (0.0).obs;
+  double get latitude => _latitude.value;
+  final RxDouble _longitude = (0.0).obs;
+  double get longitude => _longitude.value;
+  RxList<Place> places = <Place>[].obs;
+  final RxBool _isSuccess = true.obs;
+  final ProfileViewRepository _profileViewRepository = ProfileViewRepository();
+
+
+
+  @override
+  void onInit() async {
+    userPreference.getUserAccessToken().then((value) async {
+      print('edit ACCESS   !!! ${value.accessToken}');
+      if (value.accessToken!.isNotEmpty ||
+          value.accessToken.toString() != 'null') {
+        accessToken = value.accessToken;
+        profileModel.value = await getProfilePageData(
+          context: Get.context!,
+          id: value.accessToken!,
+        );
+      }
+    });
+
+   await userPreference.getUserProfileData().then((value) {
+      print(' getUserProfileData USER NAME !!! ${value?.name}');
+      // if (value.name.isNotEmpty || value?.name.toString() != 'null') {
+      //   accessToken = value.accessToken;
+      // }
+    });
+
+
+
+    // if (accessToken != null) {
+    //   profileModel.value = await getProfilePageData(
+    //     context: Get.context!,
+    //     id: accessToken!,
+    //   );
+    // } else {
+    //   print("Error: Access token is null!");
+    // }
+
+    super.onInit();
+  }
+
+  Future<ProfileModel> getProfilePageData({
+    required BuildContext context,
+    required String id,
+  }) async {
+    isLoading.value = true;
+    _profileViewRepository.viewProfileDetails(accessToken!).then((result) async {
+      final dataResponse = ProfileModel.fromJson(result);
+      profileModel.value = dataResponse;
+
+      nameController.text = profileModel.value.userProfile?.name ?? '';
+      numberController.text =
+          profileModel.value.userProfile?.phoneNumber ?? '';
+      // _initialCode.value = userData!.value.phoneNumberCountryCode ?? "+92";
+      emailController.text = profileModel.value.userProfile?.email ?? '';
+      // passwordController.text = userData!.value.users?.first.hashedPassword ?? '';
+      aboutController.text = profileModel.value.userProfile?.about ?? '';
+      addressController.text = profileModel.value.userProfile?.address ?? '';
+
+      isLoading(false);
+    }).onError((error, stackTrace) {
+      // Get.offAllNamed(AppRoutes.loginView);
+      isLoading(false);
+
+      print('$error and $stackTrace');
+    });
+    return profileModel.value;
+  }
+
+  // void editProfile1() {
+  //   isLoading(true);
+  //
+  //   EditUserModel updateProfile = EditUserModel(
+  //     phoneNumber: numberController.text.toString(),
+  //     address: addressController.text.toString(),
+  //     profilePictureUrl: _profileImage.toString(),
+  //     fullName: nameController.text.toString(),
+  //     email: emailController.text.toString(),
+  //   );
+  //
+  //   if (kDebugMode) {
+  //     print('payload ${updateProfile.toMap()}');
+  //   }
+  //
+  //   // Send the model data as a Map to the API
+  //   _api.updateProfile(updateProfile.toMap(), accessToken!)
+  //       .then((onValue) async {
+  //     isLoading(false);
+  //     toast(title: 'Profile Edited Successfully', context: Get.context!);
+  //     // Get.back();
+  //   }).onError((error, stackTrace) {
+  //     isLoading(false);
+  //     if (kDebugMode) {
+  //       print('$error and $stackTrace');
+  //     }
+  //   });
+  // }
+
+  void editProfile() async {
+    isLoading.value = true;
+
+    try {
+      var request = http.MultipartRequest(
+        'PATCH',
+        Uri.parse(AppUrls.profileApi),
+      );
+
+      request.headers['Authorization'] = 'Bearer $accessToken';
+
+      // Add text fields
+      request.fields['full_name'] = nameController.text.trim();
+      request.fields['email'] = emailController.text.trim();
+      request.fields['phone_number'] = numberController.text.trim();
+      request.fields['address'] = addressController.text.trim();
+      request.fields['about'] = aboutController.text.trim();
+
+      // Attach profile picture file if selected
+      if (_profileImage.value.isNotEmpty) {
+        File profileFile = File(_profileImage.value);
+        request.files.add(await http.MultipartFile.fromPath(
+          'profile_picture', // Field name expected by the API
+          profileFile.path,
+          filename: basename(profileFile.path),
+        ));
+      }
+
+      // Attach cover photo file if selected
+      if (_coverImage.value.isNotEmpty) {
+        File coverFile = File(_coverImage.value);
+        request.files.add(await http.MultipartFile.fromPath(
+          'cover_photo', // Field name expected by the API
+          coverFile.path,
+          filename: basename(coverFile.path),
+        ));
+      }
+
+      // Send request
+      var response = await request.send();
+
+      // Get response body
+      var responseBody = await response.stream.bytesToString();
+
+      if (response.statusCode == 200) {
+        if (kDebugMode) {
+          print('Profile updated successfully: $responseBody');
+          Get.toNamed(AppRoutes.profileView);
+        }
+        toast(title: 'Profile Edited Successfully', context: Get.context!);
+      } else {
+        if (kDebugMode) {
+          print('Failed to update profile: ${response.statusCode} - $responseBody');
+        }
+        toast(title: 'Failed to update profile', context: Get.context!);
+      }
+      isLoading(false);
+    } catch (e) {
+      isLoading(false);
+      if (kDebugMode) {
+        print('Error uploading profile: $e');
+      }
+      toast(title: 'Error uploading profile', context: Get.context!);
+    } finally {
+      isLoading(false);
+    }
+  }
+
+
   changeInitialCode(String code) {
     _initialCode.value = code;
   }
 
   RxBool isKeyboard = false.obs;
-  @override
-  void onInit() {
-    getUserData();
-    super.onInit();
-  }
 
-  // final GetStorage _storage = GetStorage();
-  Rx<UserLoginModel> userData = UserLoginModel().obs;
+
   getUserData() async {
     // final user = await _storage.read('user');
     userData.value = await AuthService().getCurrentUser() ?? UserLoginModel();
-    print("User is ${userData.value}");
+    print("User is ${userData.value.users?.first.name}");
     if (userData.value.users != null) {
-      userFullNameController.text = userData.value.users?.first.name ?? '';
-      userNumberController.text = userData.value.users?.first.phoneNumber ?? '';
+      nameController.text = profileModel.value.userProfile?.name ?? '';
+      numberController.text = userData.value.users?.first.phoneNumber ?? '';
       // _initialCode.value = userData!.value.phoneNumberCountryCode ?? "+92";
-      usernameController.text = userData.value.users?.first.email ?? '';
+      emailController.text = userData.value.users?.first.email ?? '';
       // passwordController.text = userData!.value.users?.first.hashedPassword ?? '';
-      userAboutController.text = userData.value.users?.first.about ?? '';
+      aboutController.text = userData.value.users?.first.about ?? '';
       addressController.text = userData.value.users?.first.address ?? '';
     }
   }
 
   @override
   void dispose() {
-    userFullNameController.dispose();
-    userNumberController.dispose();
-    usernameController.dispose();
+    nameController.dispose();
+    numberController.dispose();
+    emailController.dispose();
     passwordController.dispose();
-    userAboutController.dispose();
+    aboutController.dispose();
     confirmPasswordController.dispose();
     super.dispose();
   }
 
-  final RxBool _isSuccess = true.obs;
+
   bool get isSuccess => _isSuccess.value;
   Future editProfileData({
     required BuildContext context,
@@ -144,28 +331,18 @@ class EditProfileViewModel extends GetxController {
     _coverImage.value = '';
   }
 
-  final RxString _profileImage = ''.obs;
 
-  String get profileImage => _profileImage.value;
-  final RxString _coverImage = ''.obs;
-
-  String get coverImage => _coverImage.value;
-  pickImage({required bool isPorfileImage}) async {
+  pickImage({required bool isProfileImage}) async {
     final image = await ImagePicker()
         .pickImage(source: ImageSource.gallery, imageQuality: 50);
     if (image != null) {
-      if (isPorfileImage == true) {
+      if (isProfileImage == true) {
         _profileImage.value = image.path;
-      } else if (isPorfileImage == false) {
+      } else if (isProfileImage == false) {
         _coverImage.value = image.path;
       }
     }
   }
-
-  final RxDouble _latitude = (0.0).obs;
-  double get latitude => _latitude.value;
-  final RxDouble _longitude = (0.0).obs;
-  double get longitude => _longitude.value;
 
   void getGeoCode(val) async {
     List<geocode.Location> locations = await geocode.locationFromAddress(val);
@@ -179,8 +356,8 @@ class EditProfileViewModel extends GetxController {
 
   @override
   void onClose() {
-    focusNode1.dispose();
-    focusNode2.dispose();
+    nameFocusNode.dispose();
+    emailFocusNode.dispose();
     focusNode3.dispose();
     focusNode4.dispose();
     focusNode5.dispose();
@@ -189,11 +366,9 @@ class EditProfileViewModel extends GetxController {
     super.onClose();
   }
 
-  RxList<Place> places = <Place>[].obs;
-
   Future<void> searchPlaces(String input,
       {bool isCurrentLocation = false}) async {
-    const apiKey = Constant.google_api_key;
+    const apiKey = Constant.googleApiKey;
     const endpoint =
         'https://maps.googleapis.com/maps/api/place/autocomplete/json';
     final url = '$endpoint?input=$input&key=$apiKey';

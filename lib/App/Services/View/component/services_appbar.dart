@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -22,7 +23,7 @@ import '../../../../Vendor/screens/Auth/Service/google_sigin_services.dart';
 import '../../../Auth/Service/auth_service.dart';
 import '../../../NavBar/ViewModel/navbar_view_model.dart';
 
-PreferredSize servciesAppBar(BuildContext context,
+PreferredSize servicesAppBar(BuildContext context,
     {required ServicesViewModel viewModel}) {
   return PreferredSize(
       preferredSize: Size(
@@ -64,23 +65,17 @@ PreferredSize servciesAppBar(BuildContext context,
                     },
                     child: CircleAvatar(
                       radius: context.getSize.width * 0.08,
-                      backgroundImage: NetworkImage(GetStorage()
-                              .read("image") ??
+                      backgroundImage: NetworkImage(viewModel.profileImage.toString() ??
                           "https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
                     ),
                   ),
                   ElevatedButton(
-                    // onPressed: () async {
-                    //   await viewModel.openSelectCategoryScreen(context);
-                    //   Get.toNamed(AppRoutes.ServiceForm, arguments: {
-                    //   'vendorId': 46,
-                    //   'serviceId':  viewModel.selectedParentServiceId,
-                    //   'serviceName': viewModel.selectedCategory,
-                    //   });
-                    // },
+
                     onPressed: () async {
                       UserLoginModel? currentUser = await AuthService().getCurrentUser();
-                      print(currentUser?.users?.first.type);
+                      if (kDebugMode) {
+                        print(currentUser?.users?.first.type);
+                      }
                       if (currentUser != null) {
                         for(User user in currentUser.users??[]){
                           if(user.type == "vendor"){
@@ -91,8 +86,10 @@ PreferredSize servciesAppBar(BuildContext context,
                         }
                         await viewModel.openSelectCategoryScreen(context);
 
-                        print(viewModel.selectedParentServiceId);
-                        print(viewModel.selectedCategory);
+                        if (kDebugMode) {
+                          print(viewModel.selectedParentServiceId);
+                          print(viewModel.selectedCategory);
+                        }
                         if(viewModel.selectedParentServiceId == null || viewModel.selectedCategory == null){
                           Fluttertoast.showToast(msg: "Please Select a Category");
                           return;
@@ -103,7 +100,9 @@ PreferredSize servciesAppBar(BuildContext context,
                         String email = currentUser.users!.first.email!;
                         String firebaseID = currentUser.users!.first.firebaseId!;
                         int? vendorId = await vendorService.AuthService().RegisterVendor(context, email, firebaseID,viewModel.selectedParentServiceId!, viewModel.selectedCategory!);
-                        print("vendor id: $vendorId");
+                        if (kDebugMode) {
+                          print("vendor id: $vendorId");
+                        }
                         if(vendorId != null){
                           Get.toNamed(AppRoutes.ServiceForm, arguments: {
                             'vendorId': vendorId,
@@ -145,7 +144,7 @@ PreferredSize servciesAppBar(BuildContext context,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   appText(
-                    title: 'Anees Shahzad',
+                    title: viewModel.userName.toString() ,
                     context: context,
                     fontSize: 14,
                     fontFamily: 'Rubik',
@@ -153,9 +152,9 @@ PreferredSize servciesAppBar(BuildContext context,
                   ),
                   InkWell(
                     onTap: (){
-                      Get.to(MyServiceOrder());
+                      Get.to(const MyServiceOrder());
                     },
-                      child: Icon(Ionicons.cart_outline)),
+                      child: const Icon(Ionicons.cart_outline)),
                 ],
               ),
               getHeight(context, 0.01),
@@ -164,7 +163,7 @@ PreferredSize servciesAppBar(BuildContext context,
               SearchTextField(
                   hintText: 'What are you looking for',
                   horzontalPadding: 0,
-                  searchController: viewModel.searchCOntroller,
+                  searchController: viewModel.searchController,
                   suFixIcon: Image.asset(Constant.mic))
             ],
           ),

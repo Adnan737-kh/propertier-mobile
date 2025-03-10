@@ -26,18 +26,18 @@ class GridTileWidget extends StatelessWidget {
             direction: Axis.horizontal,
             spacing: 7,
             runSpacing: 7,
-            children: List.generate(viewModel.isViewMore == false ? 6 : 14,
+            children: List.generate(viewModel.isViewMore == false ? 6 : 16,
                 // viewModel.seletcedTabIndex == 0
                 //     ?   viewModel.comercialTileList.length
                 //         : viewModel.residentialList.length,
                 (index) {
-              GridTileModel tileModel = viewModel.seletcedTabIndex == 0
-                  ? viewModel.comercialTileList[index]
+              GridTileModel tileModel = viewModel.selectedTabIndex == 0
+                  ? viewModel.commercialTileList[index]
                   : viewModel.residentialList[index];
               return InkWell(
                 onTap: () {
                   Get.toNamed(AppRoutes.propertiesAndVideoView, arguments: {
-                    "PropertyEnum": PoropertiesAndVideoEnum.properties,
+                    "PropertyEnum": PropertiesAndVideoEnum.properties,
                     "PropertiesType": tileModel.title
                   });
                 },
@@ -59,7 +59,7 @@ class GridTileWidget extends StatelessWidget {
                           height: context.getSize.height * 0.110,
                           width: context.getSize.width * 0.27,
                           child: SvgPicture.asset(
-                              fit: BoxFit.cover, tileModel.IconLink),
+                              fit: BoxFit.cover, tileModel.iconLink),
                         ),
                         const Gap(10),
                         appText(
@@ -76,7 +76,7 @@ class GridTileWidget extends StatelessWidget {
           ),
         ),
         getHeight(context, 0.008),
-        Obx(() => viewModel.seletcedTabIndex == 0
+        Obx(() => viewModel.selectedTabIndex == 0
             ? GestureDetector(
                 onTap: () {
                   viewModel.viewMore(!viewModel.isViewMore);

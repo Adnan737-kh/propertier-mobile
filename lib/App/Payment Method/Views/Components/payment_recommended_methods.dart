@@ -29,7 +29,7 @@ Widget recommendedMethod(
             Row(
               children: [
                 Image.asset(
-                  Constant.credit_debitIcon,
+                  Constant.creditDebitIcon,
                   width: 13,
                   height: 10.17,
                 ),

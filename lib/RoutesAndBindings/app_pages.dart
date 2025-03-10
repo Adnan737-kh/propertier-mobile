@@ -169,6 +169,7 @@ import '../App/PropertiesAndShortVideo/View/properties_and_Video_view.dart';
 import '../App/PropertiesAndShortVideo/ViewModel/properties_and_Video_view_model.dart';
 import '../App/Service Provider Profile/ViewModel/service_provider_profile_viewmodel.dart';
 import '../App/ServicesSearch/ViewModel/services_search_view_model_2.dart';
+import '../App/UserNotLogin/view/user_not_login_view.dart';
 import '../App/What are you searching/View/what_are_you_search_view.dart';
 import '../Customer/screens/AllParentServices/AllParentServices.dart';
 import '../Customer/screens/AllServices/AllServicesScreen.dart';
@@ -207,7 +208,7 @@ class AppPages {
     GetPage(
         name: AppRoutes.otpVerifyView,
         transition: Transition.rightToLeftWithFade,
-        page: () => const OTPVerifyView(),
+        page: () =>  OTPVerifyView(),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => OTPVerifyViewModel());
         })),
@@ -242,6 +243,10 @@ class AppPages {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => LoginViewModel());
         })),
+    GetPage(
+        name: AppRoutes.userNotLoginView,
+        transition: Transition.rightToLeftWithFade,
+        page: () => const UserNotLoginView(),),
     GetPage(
         name: AppRoutes.signUpView,
         transition: Transition.rightToLeftWithFade,
@@ -371,7 +376,7 @@ class AppPages {
     GetPage(
         name: AppRoutes.servicesView,
         transition: Transition.rightToLeftWithFade,
-        page: () => ServciesView(),
+        page: () => ServicesView(),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => ServicesViewModel());
         })),
@@ -385,7 +390,7 @@ class AppPages {
           Get.lazyPut(() => HomeViewModel());
         })),
     GetPage(
-        name: AppRoutes.emailverificationView,
+        name: AppRoutes.emailVerificationView,
         transition: Transition.rightToLeftWithFade,
         page: () => EmailVerificationView(),
         binding: BindingsBuilder(() {

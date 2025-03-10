@@ -12,8 +12,8 @@ Widget SPPrewardsAndAppricationTile(
     BuildContext context, ServiceProviderProfileViewModel viewModel) {
   return Obx(() => Column(
         children: [
-          viewModel.ServiceProviderprofileModel.value.properties != null &&
-                  viewModel.ServiceProviderprofileModel.value.awards!.isNotEmpty
+          viewModel.serviceProviderProfileModel.value.properties != null &&
+                  viewModel.serviceProviderProfileModel.value.awards!.isNotEmpty
               ? SizedBox(
                   width: context.getSize.width,
                   height: context.getSize.height / 3,
@@ -21,13 +21,13 @@ Widget SPPrewardsAndAppricationTile(
                     // reverse: true,
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
-                    itemCount: viewModel.ServiceProviderprofileModel.value
+                    itemCount: viewModel.serviceProviderProfileModel.value
                                     .properties !=
                                 null &&
-                            viewModel.ServiceProviderprofileModel.value.awards!
+                            viewModel.serviceProviderProfileModel.value.awards!
                                 .isNotEmpty
                         ? viewModel
-                            .ServiceProviderprofileModel.value.awards!.length
+                            .serviceProviderProfileModel.value.awards!.length
                         : null,
                     itemBuilder: (context, index) {
                       return Padding(
@@ -37,19 +37,19 @@ Widget SPPrewardsAndAppricationTile(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             appText(
-                                title: viewModel.ServiceProviderprofileModel
+                                title: viewModel.serviceProviderProfileModel
                                     .value.awards![index].title!,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
                                 context: context),
                             getHeight(context, 0.008),
                             InstaImageViewer(
-                              imageUrl: viewModel.ServiceProviderprofileModel
+                              imageUrl: viewModel.serviceProviderProfileModel
                                           .value.awards![index].image !=
                                       null
-                                  ? viewModel.ServiceProviderprofileModel.value
+                                  ? viewModel.serviceProviderProfileModel.value
                                       .awards![index].image!
-                                  : Constant.dummayImage,
+                                  : Constant.dummyImage,
                               child: Container(
                                 height: 225,
                                 width: context.getSize.width * 0.4,
@@ -57,17 +57,17 @@ Widget SPPrewardsAndAppricationTile(
                                     borderRadius: BorderRadius.circular(10),
                                     image: DecorationImage(
                                         image: NetworkImage(viewModel
-                                                    .ServiceProviderprofileModel
+                                                    .serviceProviderProfileModel
                                                     .value
                                                     .awards![index]
                                                     .image !=
                                                 null
                                             ? viewModel
-                                                .ServiceProviderprofileModel
+                                                .serviceProviderProfileModel
                                                 .value
                                                 .awards![index]
                                                 .image!
-                                            : Constant.dummayImage),
+                                            : Constant.dummyImage),
                                         fit: BoxFit.cover)),
                               ),
                             )

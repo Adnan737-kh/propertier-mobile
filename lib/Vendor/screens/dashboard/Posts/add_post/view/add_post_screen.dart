@@ -955,7 +955,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   )
                       : const Gap(0),
                   getHeight(context, 0.015),
-                  CustomAddTextfield(
+                  CustomAddTextField(
                     textEditingController: urlController,
                     border: InputBorder.none,
                     labelText: "Past Video Url here",

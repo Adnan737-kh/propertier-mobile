@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:propertier/App/PropertiesAndShortVideo/Model/all_properties_model.dart';
-// import 'package:propertier/App/Details/Model/specific_property_model.dart';
-// import 'package:propertier/App/PropertiesAndShortVideo/Model/all_properties_model.dart';
-// import 'package:propertier/App/PropertiesAndShortVideo/Model/videos_model.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/box_shadow.dart';
 import 'package:propertier/Utils/height_width_box.dart';
@@ -39,7 +36,7 @@ Widget videoTile(
                     ? null
                     : DecorationImage(
                         image: NetworkImage(
-                            videoModel.imageUrl ?? Constant.dummayImage),
+                            videoModel.imageUrl ?? Constant.dummyImage),
                         fit: BoxFit.cover)),
             child: videoModel.video == null
                 ? null
@@ -75,8 +72,8 @@ Widget videoTile(
                             color: AppColor.blackColor),
                         title: videoModel.title ?? ''),
                     appText(
-                        title: videoModel.price!.isNum
-                            ? double.parse(videoModel.price!).formatPrice()
+                        title: videoModel.price.isNum
+                            ? double.parse(videoModel.price).formatPrice()
                             : videoModel.price.toString(),
                         context: context,
                         fontSize: 10,

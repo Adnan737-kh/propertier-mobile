@@ -26,13 +26,14 @@ import '../../../What are you searching/View/Components/custom_botton_wryf.dart'
 Widget propertiesTile(
   BuildContext context, {
   required Property property,
+  required String propertySaleOrRent,
 }) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 05),
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: AppColor.buttonColor.withOpacity(0.0)),
-    height: sizeHeight(0.33, 0.3),
+    height: sizeHeight(0.37, 0.3),
     width: double.infinity,
     child: Stack(
       fit: StackFit.loose,
@@ -49,7 +50,7 @@ Widget propertiesTile(
                 borderRadius: BorderRadius.circular(5),
                 image: DecorationImage(
                     image:
-                        NetworkImage(property.imageUrl ?? Constant.dummayImage),
+                        NetworkImage(property.imageUrl ?? Constant.dummyImage),
                     fit: BoxFit.cover)),
           ),
         ),
@@ -81,11 +82,12 @@ Widget propertiesTile(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                             color: AppColor.blackColor),
-                        title: property.title!.parseHtmlString()),
+                        title: property.title.parseHtmlString()),
                     appText(
-                        title: property.price!.isNum
-                            ? double.parse(property.price!).formatPrice()
-                            : property.price!,
+                       title: property.price.isNum
+                           ? double.parse(property.price).formatPrice()
+                           : property.price,
+
                         context: context,
                         fontSize: 12,
                         color: AppColor.greenColor,
@@ -109,10 +111,10 @@ Widget propertiesTile(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
                             color: AppColor.blackColor.withOpacity(0.8)),
-                        title: property.address!),
+                        title: property.address),
                     const Spacer(),
                     appText(
-                        title: property.areaType?.toUpperCase() ?? "",
+                        title: property.areaType.toUpperCase(),
                         context: context,
                         fontSize: 12,
                         color: AppColor.blackColor,
@@ -124,7 +126,7 @@ Widget propertiesTile(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     appText(
-                        title: getTimeAgo(property.createdAt!),
+                        title: getTimeAgo(property.createdAt),
                         context: context,
                         colorOpecity: 0.7,
                         fontSize: 10,
@@ -153,7 +155,8 @@ Widget propertiesTile(
                     scrollableText(
                       width: 0.40,
                       title:
-                          '${double.parse(property.area.toString()).convertArea(areaType: property.areaUnit ?? '')} ${property.areaUnit ?? ''}',
+                          '${double.parse(property.area.toString()).convertArea(areaType: property.areaUnit)}'
+                              ' ${property.areaUnit}',
                       context: context,
                       textStyle: textStyle(
                         // color: AppColor.blackColor.withOpacity(0.8),
@@ -198,84 +201,86 @@ Widget propertiesTile(
                   ],
                 ),
                 getHeight(context, 0.01),
-                Row(
-                  children: [
-                    getWidth(context, 0.020),
-                    Expanded(
-                      child: GestureDetector(
-                          onTap: () {
-                            Get.bottomSheet(
-                              Container(
-                                padding: const EdgeInsets.all(8),
-                                decoration: const BoxDecoration(
-                                    color: AppColor.white,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10),
-                                    )),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    customButton(
-                                      title: "Call",
-                                      onTap: () {
-                                        openDialer(property.agent!
-                                                .phoneNumberCountryCode! +
-                                            property.agent!.phoneNumber!);
-                                      },
-                                    ),
-                                    const Gap(10),
-                                    customButton(
-                                      title: "SMS",
-                                      onTap: () {
-                                        textMe(property.agent!
-                                                .phoneNumberCountryCode! +
-                                            property.agent!.phoneNumber!);
-                                      },
-                                    ),
-                                  ],
+                Expanded(
+                  child: Row(
+                    children: [
+                      getWidth(context, 0.020),
+                      Expanded(
+                        child: GestureDetector(
+                            onTap: () {
+                              Get.bottomSheet(
+                                Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: const BoxDecoration(
+                                      color: AppColor.white,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        topRight: Radius.circular(10),
+                                      )),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      customButton(
+                                        title: "Call",
+                                        onTap: () {
+                                          openDialer(property.agent
+                                                  .phoneNumberCountryCode +
+                                              property.agent.phoneNumber);
+                                        },
+                                      ),
+                                      const Gap(10),
+                                      customButton(
+                                        title: "SMS",
+                                        onTap: () {
+                                          textMe(property.agent
+                                                  .phoneNumberCountryCode +
+                                              property.agent.phoneNumber);
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(42),
-                                color: AppColor.greenColor),
-                            child: appText(
-                                color: AppColor.white,
-                                title: 'Buy',
-                                context: context,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400),
-                          )),
-                    ),
-                    getWidth(context, 0.020),
-                    Expanded(
-                      child: GestureDetector(
-                          onTap: () {
-                            Get.toNamed(AppRoutes.detailView,
-                                arguments: {"id": property.id, "user": "null"});
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: AppColor.buttonColor,
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.circular(42),
-                                color: AppColor.buttonColor),
-                            child: appText(
-                                color: AppColor.blackColor,
-                                title: 'Detail',
-                                context: context,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400),
-                          )),
-                    ),
-                  ],
+                              );
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(42),
+                                  color: AppColor.greenColor),
+                              child: appText(
+                                  color: AppColor.white,
+                                  title: propertySaleOrRent.toUpperCase(),
+                                  context: context,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400),
+                            )),
+                      ),
+                      getWidth(context, 0.020),
+                      Expanded(
+                        child: GestureDetector(
+                            onTap: () {
+                              Get.toNamed(AppRoutes.detailView,
+                                  arguments: {"id": property.id, "user": "null"});
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: AppColor.buttonColor,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(42),
+                                  color: AppColor.buttonColor),
+                              child: appText(
+                                  color: AppColor.blackColor,
+                                  title: 'Detail',
+                                  context: context,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400),
+                            )),
+                      ),
+                    ],
+                  ),
                 )
               ],
             ),

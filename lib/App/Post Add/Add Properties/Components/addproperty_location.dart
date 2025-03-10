@@ -35,7 +35,7 @@ Widget addPropertylocations({
           Expanded(
               child: addPropertyDropdown(
             onChange: (val) {
-              controller.selectedpropertyType.value = val!;
+              controller.selectedPropertyType.value = val!;
             },
             context: context,
             title: "Property Type",
