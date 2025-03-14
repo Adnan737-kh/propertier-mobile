@@ -542,7 +542,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).pop(); // Close the dialog
-                          AuthService().deleteVender();
+                          AuthService().deleteVendor();
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red,
@@ -560,7 +560,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             onTap: () {
               Get.put(LoginViewModel());
               AuthService().logout();
-              GoogleSiginServices().logout();
+              GoogleSignInServices().logout();
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (context) => LoginView(),

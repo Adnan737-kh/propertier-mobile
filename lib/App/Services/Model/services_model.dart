@@ -45,7 +45,7 @@ class ParentServicesModel {
     title = json['title'];
     description = json['description'];
     coverImageUrl = json['cover_image_url'];
-    imageUrl = json['image_url'];
+    imageUrl = json['image'];
     rating = json['rating'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
@@ -61,7 +61,7 @@ class ParentServicesModel {
     data['title'] = this.title;
     data['description'] = this.description;
     data['cover_image_url'] = this.coverImageUrl;
-    data['image_url'] = this.imageUrl;
+    data['image'] = this.imageUrl;
     data['rating'] = this.rating;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;

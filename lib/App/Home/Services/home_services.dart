@@ -19,7 +19,7 @@ class HomeServices {
       final response = await http.get(Uri.parse(API.homeDataUrl));
       if (response.statusCode == 200) {
         final decodedJson = jsonDecode(response.body);
-        print('home data ${decodedJson}' );
+        print('home data $decodedJson' );
 
         homeModel = HomeModel.fromJson(decodedJson);
       } else {

@@ -54,14 +54,14 @@ class API {
   static const postWithFeaturePackage = '$mainUrl/services/featured-services/';
   static const submitFeaturePackage = '$mainUrl/services/feature-packages/';
   static const fetchVendorFeedbacks = '$mainUrl/services/vendor-feedbacks';
-  static const uploadDocuments = '$mainUrl/accounts/vendors'; //cnic and otherdocuments
+  static const uploadDocuments = '$mainUrl/accounts/vendors'; //cnic and other-documents
   static const inCoProDocuments = '$mainUrl/accounts/vendors'; //Incorporation and Proprietor Documents
 
   // *************  Services *****************
-  static const serviceMobileDashboard = '$mainUrl/services/mobile-dashboard/';
+  static const serviceMobileDashboard = '$mainUrl/api/services-dashboard/';
   static const socketSubService = '$mainUrl/services/service';
   static const fixedServices = '$mainUrl/services/fixed-services/';
-  static const fetchParentServices = '$mainUrl/services/services/';
+  static const fetchParentServices = '$mainUrl/api/services/';
   static const createBidByCustomer = '$mainUrl/services/bids/';
   static const listenBidByVendor = '${baseWebSocketURL}ws/bid-responses/';
   static const listenOrderByCustomer = '${baseWebSocketURL}ws/bids/filtered-bids/';

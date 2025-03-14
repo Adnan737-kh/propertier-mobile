@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'dart:typed_data';
 import 'package:encrypt/encrypt.dart' as enc;
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -18,17 +18,18 @@ class AuthService {
   final GetStorage _storage = GetStorage();
 
   Future<void> registerUser(UserLoginModel user, String password) async {
-    final hashedPassword =
-        password; // Implement secure hashing (explained earlier)
+// Implement secure hashing (explained earlier)
 
-    var userjson = user.toJson();
-    print(userjson);
+    var userJson = user.toJson();
+    if (kDebugMode) {
+      print(userJson);
+    }
     await _storage.write('id', user.users!.first.id);
     await _storage.write('userName', user.users!.first.name);
     await _storage.write('image', user.users!.first.profilePictureUrl);
     await _storage.write('coverImage', user.users!.first.coverPhotoUrl);
     await _storage.write('type', user.users!.first.type);
-    await _storage.write('user', userjson);
+    await _storage.write('user', userJson);
 
     return;
   }
@@ -55,7 +56,7 @@ class AuthService {
     await _auth.signOut();
   }
 
-  Future<int?> RegisterVendor(BuildContext context,String email, String firebaseID, String serviceId, String serviceName) async {
+  Future<int?> registerVendor(BuildContext context,String email, String firebaseID, String serviceId, String serviceName) async {
     String url = API.venRegisterUrl;
 
     final Map<String, dynamic> data = {
@@ -66,8 +67,10 @@ class AuthService {
     };
 
     final encodedData = jsonEncode(data);
-    print(url);
-    print(encodedData);
+    if (kDebugMode) {
+      print(url);
+      print(encodedData);
+    }
     try {
       final response = await http.post(
         Uri.parse("${API.venRegisterUrl}/"),
@@ -82,12 +85,16 @@ class AuthService {
 
         var decodedData = jsonDecode(response.body);
         int id = decodedData['id']??-1;
-        print(id);
+        if (kDebugMode) {
+          print(id);
+        }
         await createWallet(id.toString(), context);
         return id;
       }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: appText(
           title: 'Something went wrong: $e',
@@ -97,13 +104,16 @@ class AuthService {
       ));
 
     }
+    return null;
 
   }
 
-  Future deleteVender() async {
+  Future deleteVendor() async {
     int? id;
     UserLoginModel? currentUser = await getCurrentUser();
-    print(currentUser?.users?.first.type);
+    if (kDebugMode) {
+      print(currentUser?.users?.first.type);
+    }
     if (currentUser != null) {
       for (var user in currentUser.users ?? []) {
         if (user.type == "vendor") {
@@ -113,12 +123,17 @@ class AuthService {
     }
     if(id == null) return;
 
-    String url = "${API.deleteVendorProfile}/${id}/";
-    print(url);
+    String url = "${API.deleteVendorProfile}/$id/";
+    if (kDebugMode) {
+      print(url);
+    }
     try {
       var response = await http.delete(Uri.parse(url));
-      print(response.statusCode);
-      print(response.body);
+      if (kDebugMode) {
+        print(response.statusCode);
+        print(response.body);
+
+      }
       if (response.statusCode == 204) {
         AuthService().logout();
         GoogleSiginServices().logout();
@@ -132,7 +147,9 @@ class AuthService {
         Get.offAllNamed(AppRoutes.loginView);
       }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
         content: appText(
           title: 'Something went wrong: $e',
@@ -152,14 +169,18 @@ class AuthService {
         }),
         headers: <String, String>{'Content-Type': 'application/json'},
       );
-      print(response.statusCode);
-      print(response.body);
+      if (kDebugMode) {
+        print(response.statusCode);
+        print(response.body);
+      }
       if(response.statusCode == 201){
 
       }
     }
     catch(e){
-      print("error create wallet $e");
+      if (kDebugMode) {
+        print("error create wallet $e");
+      }
     }
 
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(

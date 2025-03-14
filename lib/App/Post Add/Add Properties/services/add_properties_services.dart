@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -30,13 +31,19 @@ class AddPropertiesServices {
 
       if (response.statusCode == 200) {
         final decodedData = jsonDecode(response.body);
-        print("Featured Data ${decodedData['data']}");
+        if (kDebugMode) {
+          print("Featured Data ${decodedData['data']}");
+        }
         features = Features.fromJson(jsonDecode(response.body));
       } else {
-        print("Featured Data Error}");
+        if (kDebugMode) {
+          print("Featured Data Error}");
+        }
       }
     } catch (e) {
-      print("Featured Data $e}");
+      if (kDebugMode) {
+        print("Featured Data $e}");
+      }
 
     }
     return features;
@@ -44,7 +51,9 @@ class AddPropertiesServices {
 
   void getAccessToken() async {
     var user = await userPreference.getUserAccessToken();
-    print("@@@@@@ ${user.accessToken}");
+    if (kDebugMode) {
+      print("@@@@@@ ${user.accessToken}");
+    }
     if (user.accessToken != null) {
       accessToken.value = user.accessToken; // Updating observable variable
     }
@@ -134,14 +143,20 @@ class AddPropertiesServices {
 
       var streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
-      print("Status COde is That ${response.headers}");
+      if (kDebugMode) {
+        print("Status COde is That ${response.headers}");
+      }
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print("Status COde is That ${response.body}");
+        if (kDebugMode) {
+          print("Status COde is That ${response.body}");
+        }
         var prprty = jsonDecode(response.body);
         var propertyId = prprty["id"];
         ("Status COde is That $propertyId");
         vm.hideOverlay();
-        print("Uploading to: ${AppUrls.propertiesUploadUrl}");
+        if (kDebugMode) {
+          print("Uploading to: ${AppUrls.propertiesUploadUrl}");
+        }
         final uri = Uri.parse(AppUrls.propertiesUploadUrl);
         final headers = {
           "Content-Type": "application/json",
@@ -155,11 +170,15 @@ class AddPropertiesServices {
         final responses = await http.post(uri, headers: headers, body: body);
 
         if (responses.statusCode == 201) {
-          print('Features added successfully!');
+          if (kDebugMode) {
+            print('Features added successfully!');
+          }
           Get.toNamed(AppRoutes.profileView);
 
         }
-        print("Property Upload Successfully");
+        if (kDebugMode) {
+          print("Property Upload Successfully");
+        }
         cancelNotification(0);
         isSuccess = true;
         showNotificationPropertyUpload();

@@ -78,11 +78,11 @@ class ServicesViewModel extends GetxController {
    return servicesCore.getAllParentServices(context: context);
  }
  Future<ServicePaginationModel?> getPaginationServices(BuildContext context)async{
-   return await servicesCore.ServicesPagination(context: context);
+   return await servicesCore.servicesPagination(context: context);
  }
 
  Future getServicesDashboard()async{
-   serviceDashboardModel.value = await servicesCore.ServicesDashboard(context: Get.context!);
+   serviceDashboardModel.value = await servicesCore.servicesDashboard(context: Get.context!);
  }
 
  Future openSelectCategoryScreen(BuildContext context) async {

@@ -143,7 +143,7 @@ class LoginViewModel extends GetxController {
   void startListening({required int textFieldNo}) async {}
 
   RxBool isGoogleSigninLoading = false.obs;
-  final GoogleSiginServices _googleSiginServices = GoogleSiginServices();
+  final GoogleSignInServices _googleSiginServices = GoogleSignInServices();
   loginWithGoogle({required BuildContext context}) async {
     isGoogleSigninLoading.value = true;
     try {
