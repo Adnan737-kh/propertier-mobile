@@ -54,12 +54,17 @@ class AddAwardServices {
       }
 
       final dataResponse = await http.Response.fromStream(await request.send());
-      print("award response ${dataResponse.statusCode}");
+      if (kDebugMode) {
+        print("award response ${dataResponse.statusCode}");
+      }
       if (dataResponse.statusCode == 200 || dataResponse.statusCode == 201) {
         response = true;
 
         toast(title: 'Award Added Successfully', context: context);
       } else {
+        if (kDebugMode) {
+          print('award response ${dataResponse.statusCode}');
+        }
         toast(title: 'Something went wrong', context: context);
       }
     } catch (e) {

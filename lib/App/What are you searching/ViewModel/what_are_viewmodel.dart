@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:geocoding/geocoding.dart' as geocode;
@@ -23,17 +24,23 @@ class WhatAreYouSearchViewModel extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController decriptionController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
   var areaValue = 100.0.obs;
-
   var user = User().obs;
-
-  final _selecttype = ListOfTypes().types[0].obs;
-  String get selecttype => _selecttype.value;
-  setSelecttype(value) => _selecttype.value = value;
-
+  final _selectType = ListOfTypes().types[0].obs;
+  String get selectType => _selectType.value;
+  setSelectType(value) => _selectType.value = value;
   final _selectPurpose = 'sale'.obs;
   get selectPurpose => _selectPurpose.value;
+  final _selectSize = '5 Marla'.obs;
+  get selectSize => _selectSize.value;
+  setSelectSize(value) => _selectSize.value = value;
+  late GoogleMapController mapController;
+  RxList<String> searchList = <String>[].obs;
+
+
+
+
   setSelectPurpose(value) {
     if (value == 0) {
       _selectPurpose.value = "sale";
@@ -41,10 +48,6 @@ class WhatAreYouSearchViewModel extends GetxController {
       _selectPurpose.value = "rent";
     }
   }
-
-  final _selectSize = '5 Marla'.obs;
-  get selectSize => _selectSize.value;
-  setSelectSize(value) => _selectSize.value = value;
 
   var sizeType = [
     "2.5 Marla",
@@ -56,12 +59,9 @@ class WhatAreYouSearchViewModel extends GetxController {
     "90 Marla"
   ].obs;
 
-  late GoogleMapController mapController;
 
   var initialCameraPosition =
       const CameraPosition(target: LatLng(6.931970, 79.857750), zoom: 16.0).obs;
-
-  RxList<String> searchList = <String>[].obs;
 
   searchAddress(String val) {
     if (address.contains(val)) {
@@ -149,7 +149,9 @@ class WhatAreYouSearchViewModel extends GetxController {
   RxSet<Marker> markerPosition = <Marker>{}.obs;
   RxList<String> address = <String>[].obs;
   void updateMarkerPosition(double lat, double lng) async {
-    print("UPDATED MARKER $lat, $lng");
+    if (kDebugMode) {
+      print("UPDATED MARKER $lat, $lng");
+    }
     if (markerPosition.length > 2) {
       markerPosition.clear();
     }
@@ -210,7 +212,7 @@ class WhatAreYouSearchViewModel extends GetxController {
     print(locations.first.latitude);
     _arrivallat.value = locations.first.latitude.toDouble();
     _arrivalLang.value = locations.first.longitude.toDouble();
-    print("LAtitude is this ${_arrivallat.value}, ${_arrivalLang.value}");
+    print("LAttitude is this ${_arrivallat.value}, ${_arrivalLang.value}");
   }
 
   final RxDouble _latitude = (0.0).obs;
@@ -248,7 +250,9 @@ class WhatAreYouSearchViewModel extends GetxController {
       geocode.Placemark place = placemarks[0];
       _currentAddress.value =
           "${place.street}, ${place.locality}, ${place.administrativeArea}, ${place.country}";
-      print("Current Address ${_currentAddress.value}");
+      if (kDebugMode) {
+        print("Current Address ${_currentAddress.value}");
+      }
 
       _latitude.value = position.latitude;
       _longitude.value = position.longitude;
@@ -286,7 +290,7 @@ class WhatAreYouSearchViewModel extends GetxController {
         purpose: selectPurpose,
         phoneNumber: phoneNumberController.text,
         email: emailController.text,
-        description: decriptionController.text,
+        description: descriptionController.text,
         city: selectedPlace,
         area: "${areaValue.value}",
         max_price: priceValue.value.end
@@ -300,7 +304,7 @@ class WhatAreYouSearchViewModel extends GetxController {
         latitude: latitude.toString(),
         longitude: longitude.toString(),
         size: selectSize,
-        type: selecttype);
+        type: selectType);
     isLoading(false);
   }
 
@@ -317,9 +321,13 @@ class WhatAreYouSearchViewModel extends GetxController {
     if (response.statusCode == 200) {
       print(response.statusCode);
       final data = json.decode(response.body);
-      print('Prediction $data');
+      if (kDebugMode) {
+        print('Prediction $data');
+      }
       final predictions = data['predictions'] as List<dynamic>;
-      print("Prediction ${predictions.length}");
+      if (kDebugMode) {
+        print("Prediction ${predictions.length}");
+      }
       places.value = predictions
           .map((prediction) => Place(
                 placeId: prediction['place_id'],

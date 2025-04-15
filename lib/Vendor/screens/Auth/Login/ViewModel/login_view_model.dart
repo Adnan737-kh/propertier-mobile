@@ -161,7 +161,7 @@ class LoginViewModel extends GetxController {
           AuthService().registerUser(user, result.user!.email ?? '');
           isGoogleSigninLoading.value = false;
           
-              Get.offAllNamed(AppRoutes.vendordashborad);
+              Get.offAllNamed(AppRoutes.vendorDashBoard);
                Get.put(ProfileController());
         } else if (user != null) {
           final isSuccessData = await SignupServices().signupUserData(
@@ -181,7 +181,7 @@ class LoginViewModel extends GetxController {
                 isGoogleSigninLoading.value = false;
                 toast(title: "Success in signup", context: context);
                 Get.put(ProfileController());
-                Get.offAndToNamed(AppRoutes.vendordashborad);
+                Get.offAndToNamed(AppRoutes.vendorDashBoard);
                  Get.put(ProfileController());
            Navigator.of(context).pushReplacement(
                MaterialPageRoute(

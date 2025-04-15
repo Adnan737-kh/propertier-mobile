@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/App/Home/ViewModel/home_view_model.dart';
@@ -30,7 +31,8 @@ class _ShortVideoViewState extends State<ShortVideoView> {
   Future<void> preloadController(bool isNext, String? videoUrl) async {
     if (videoUrl == null || videoUrl.isEmpty) return;
 
-    VideoPlayerController controller = VideoPlayerController.networkUrl(Uri.parse(videoUrl));
+    VideoPlayerController controller =
+        VideoPlayerController.networkUrl(Uri.parse(videoUrl));
 
     await controller.initialize().then((_) {
       if (isNext) {
@@ -44,7 +46,8 @@ class _ShortVideoViewState extends State<ShortVideoView> {
   Future<void> loadTheCurrentController(String? videoUrl) async {
     if (videoUrl == null || videoUrl.isEmpty) return;
 
-    VideoPlayerController controller = VideoPlayerController.networkUrl(Uri.parse(videoUrl));
+    VideoPlayerController controller =
+        VideoPlayerController.networkUrl(Uri.parse(videoUrl));
 
     await controller.initialize().then((_) {
       currentController = controller;
@@ -69,15 +72,20 @@ class _ShortVideoViewState extends State<ShortVideoView> {
 
     // Get arguments safely
     property = Get.arguments as Property?;
-    print('property is not n ${property?.video.toString()}');
+    if (kDebugMode) {
+      print('property is not n ${property?.video.toString()}');
+    }
     if (property == null) {
-      print('property is $property');
+      if (kDebugMode) {
+        print('property is $property');
+      }
       Get.back();
       return;
     }
 
     // Fetch home data safely
-    dataList = Get.find<HomeViewModel>().homeModel.value.data?.shortVideos ?? [];
+    dataList =
+        Get.find<HomeViewModel>().homeModel.value.data?.shortVideos ?? [];
 
     if (property!.id != null) {
       dataList.removeWhere((element) => element.id == property!.id);
@@ -133,7 +141,7 @@ class _ShortVideoViewState extends State<ShortVideoView> {
                   child: child);
             },
             child: ShortVideoPLayerWidget(
-              agentId:property!.agent!.id.toString(),
+              agentId: property!.agent!.id.toString(),
               controller: VideoPlayerController.networkUrl(
                 Uri.parse(newShortVideosList[index].shortVideo ?? ''),
               ),

@@ -1,4 +1,5 @@
 import 'package:chewie/chewie.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -56,7 +57,6 @@ class _ShortVideoPLayerWidgetState extends State<ShortVideoPLayerWidget> {
   late Future<void> _initializeVideoPlayerFuture;
   bool _showOverlay = true; // Initially show overlay
 
-
   var isLikeFree = false.obs;
   var isLiked = 0.obs;
   var propertyDetail = IsLiked().obs;
@@ -66,10 +66,12 @@ class _ShortVideoPLayerWidgetState extends State<ShortVideoPLayerWidget> {
         propertyId: widget.property.id!.toString());
   }
 
-
   @override
   void initState() {
-    print('agent id ShortVideoPLayerWidget ${widget.property.agent!.id.toString()}');
+    if (kDebugMode) {
+      print(
+          'agent id ShortVideoPLayerWidget ${widget.property.agent!.id.toString()}');
+    }
     try {
       String videoUrl = widget.property.shortVideo ?? "";
 
@@ -94,18 +96,22 @@ class _ShortVideoPLayerWidgetState extends State<ShortVideoPLayerWidget> {
 
   @override
   Widget build(BuildContext context) {
-       return GestureDetector(
-         behavior: HitTestBehavior.opaque,
-         onTap: () {
-           setState(() {
-             print("Tapped! _showOverlay before: $_showOverlay");
-             setState(() {
-               _showOverlay = !_showOverlay;
-             });
-             print("Tapped! _showOverlay after: $_showOverlay");
-           });
-         },
-         child: FutureBuilder(
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        setState(() {
+          if (kDebugMode) {
+            print("Tapped! _showOverlay before: $_showOverlay");
+          }
+          setState(() {
+            _showOverlay = !_showOverlay;
+          });
+          if (kDebugMode) {
+            print("Tapped! _showOverlay after: $_showOverlay");
+          }
+        });
+      },
+      child: FutureBuilder(
           future: _initializeVideoPlayerFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
@@ -113,7 +119,6 @@ class _ShortVideoPLayerWidgetState extends State<ShortVideoPLayerWidget> {
                 alignment: Alignment.center,
                 children: [
                   Positioned.fill(
-
                     child: Chewie(
                       controller: ChewieController(
                           videoPlayerController: _controller,
@@ -126,170 +131,172 @@ class _ShortVideoPLayerWidgetState extends State<ShortVideoPLayerWidget> {
                   ),
                   //!Back BTN
                   if (_showOverlay)
-                  Positioned(
-                      top: context.getSize.height * widget.positionTop,
+                    Positioned(
+                        top: context.getSize.height * widget.positionTop,
+                        left: context.getSize.width * widget.positionLeft,
+                        right: context.getSize.width * widget.positionRight,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            widget.isBackButton == true
+                                ? GestureDetector(
+                                    onTap: () {
+                                      Get.back();
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: AppColor.white,
+                                      ),
+                                      child: Icon(
+                                        Icons.keyboard_arrow_left,
+                                        size: context.getSize.width * 0.080,
+                                      ),
+                                    ),
+                                  )
+                                : SizedBox(
+                                    width: context.getSize.width * 0.080,
+                                  ),
+                          ],
+                        )),
+                  if (_showOverlay)
+                    Positioned(
+                      bottom: context.getSize.height * widget.positionBottom,
                       left: context.getSize.width * widget.positionLeft,
                       right: context.getSize.width * widget.positionRight,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          widget.isBackButton == true
-                              ? GestureDetector(
-                                  onTap: () {
-                                    Get.back();
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: AppColor.white,
-                                    ),
-                                    child: Icon(
-                                      Icons.keyboard_arrow_left,
-                                      size: context.getSize.width * 0.080,
-                                    ),
-                                  ),
-                                )
-                              : SizedBox(
-                                  width: context.getSize.width * 0.080,
-                                ),
-                        ],
-                      )),
-                  if (_showOverlay)
-                  Positioned(
-                          bottom: context.getSize.height * widget.positionBottom,
-                          left: context.getSize.width * widget.positionLeft,
-                          right: context.getSize.width * widget.positionRight,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Get.offNamed(AppRoutes.detailView, arguments: {
-                                    "id": widget.property.id!,
-                                    "user": "null"
-                                  });
-                                },
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 8.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      InkWell(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                              color: AppColor.white,
-                                              width: 1,
-                                            ),
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              Get.offNamed(
-                                                  AppRoutes
-                                                      .serviceProviderProfile,
-                                                  arguments: widget.property.agent!.id.toString());
-                                              debugPrint("clicked profile");
-                                            },
-                                            child: CircleAvatar(
-                                              radius: context.getSize.width * 0.040,
-                                              backgroundImage: NetworkImage(
-                                                  widget.property.image ??
-                                                      Constant.dummyImage),
-                                            ),
-                                          ),
+                          InkWell(
+                            onTap: () {
+                              Get.offNamed(AppRoutes.detailView, arguments: {
+                                "id": widget.property.id!,
+                                "user": "null"
+                              });
+                            },
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  InkWell(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: AppColor.white,
+                                          width: 1,
+                                        ),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Get.offNamed(
+                                              AppRoutes.serviceProviderProfile,
+                                              arguments: widget
+                                                  .property.agent!.id
+                                                  .toString());
+                                          debugPrint("clicked profile");
+                                        },
+                                        child: CircleAvatar(
+                                          radius: context.getSize.width * 0.040,
+                                          backgroundImage: NetworkImage(
+                                              widget.property.image ??
+                                                  Constant.dummyImage),
                                         ),
                                       ),
-                                      getWidth(context, 0.020),
-                                      SizedBox(
-                                          width: context.getSize.width * 0.7,
-                                          child: appText(
-                                              fontSize: 18,
-                                              overflow: TextOverflow.ellipsis,
-                                              color: AppColor.white,
-                                              fontWeight: FontWeight.bold,
-                                              title: widget.property.title!,
-                                              context: context))
-                                    ],
+                                    ),
                                   ),
-                                ),
+                                  getWidth(context, 0.020),
+                                  SizedBox(
+                                      width: context.getSize.width * 0.7,
+                                      child: appText(
+                                          fontSize: 18,
+                                          overflow: TextOverflow.ellipsis,
+                                          color: AppColor.white,
+                                          fontWeight: FontWeight.bold,
+                                          title: widget.property.title!,
+                                          context: context))
+                                ],
                               ),
-                              getHeight(context, 0.010),
-                              appText(
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.justify,
-                                  context: context,
-                                  color: AppColor.white,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: widget.fontSize - 4,
-                                  title: widget.property.description!
-                                      .parseHtmlString()),
-                            ],
+                            ),
                           ),
-                        ),
-                  if (_showOverlay)
-                  Positioned(
-                    right: context.getSize.width * widget.positionRight,
-                    bottom: context.getSize.height * 0.2,
-                    child: Obx(
-                      () => Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          propertyDetail.value.property != null
-                              ? InkWell(
-                                  onTap: () async {
-                                    await LikeAndUnlikeServices()
-                                        .likeService(
-                                            context: context,
-                                            agentId: GetStorage()
-                                                .read("id")
-                                                .toString(),
-                                            propertyId:
-                                                widget.property.id!.toString())
-                                        .then((value) {
-                                      // getSpecificPropertyDetail();
-                                      isLikeFree.value = true;
-                                      if (propertyDetail.value.liked!) {
-                                        isLiked.value -= 1;
-                                        propertyDetail.value.liked = false;
-                                      } else if (isLiked.value == 1) {
-                                        isLiked.value -= 1;
-                                        propertyDetail.value.liked = false;
-                                      } else {
-                                        propertyDetail.value.liked = true;
-
-                                        isLiked.value += 1;
-                                      }
-                                    });
-                                  },
-                                  child: propertyDetail.value.liked!
-                                      ? SvgPicture.asset(Constant.heartRedFill)
-                                      : SvgPicture.asset(
-                                          Constant.heartUnFill,
-                                        ))
-                              : const Gap(0),
+                          getHeight(context, 0.010),
                           appText(
-                              title: widget.isBackButton
-                                  ? propertyDetail.value.property != null
-                                      ? "${propertyDetail.value.property!.likes! + isLiked.value}"
-                                      : ""
-                                  : widget.property.likes!.toString(),
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.justify,
                               context: context,
-                              fontSize: widget.fontSize - 2,
-                              fontWeight: FontWeight.w500,
-                              color: AppColor.white),
-                          getHeight(context, 0.060),
-                          SvgPicture.asset(
-                            Constant.shareRight,
-                            width: context.getSize.width * 0.065,
-                          ),
+                              color: AppColor.white,
+                              fontWeight: FontWeight.w400,
+                              fontSize: widget.fontSize - 4,
+                              title: widget.property.description!
+                                  .parseHtmlString()),
                         ],
                       ),
                     ),
-                  ),
+                  if (_showOverlay)
+                    Positioned(
+                      right: context.getSize.width * widget.positionRight,
+                      bottom: context.getSize.height * 0.2,
+                      child: Obx(
+                        () => Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            propertyDetail.value.property != null
+                                ? InkWell(
+                                    onTap: () async {
+                                      await LikeAndUnlikeServices()
+                                          .likeService(
+                                              context: context,
+                                              agentId: GetStorage()
+                                                  .read("id")
+                                                  .toString(),
+                                              propertyId: widget.property.id!
+                                                  .toString())
+                                          .then((value) {
+                                        // getSpecificPropertyDetail();
+                                        isLikeFree.value = true;
+                                        if (propertyDetail.value.liked!) {
+                                          isLiked.value -= 1;
+                                          propertyDetail.value.liked = false;
+                                        } else if (isLiked.value == 1) {
+                                          isLiked.value -= 1;
+                                          propertyDetail.value.liked = false;
+                                        } else {
+                                          propertyDetail.value.liked = true;
+
+                                          isLiked.value += 1;
+                                        }
+                                      });
+                                    },
+                                    child: propertyDetail.value.liked!
+                                        ? SvgPicture.asset(
+                                            Constant.heartRedFill)
+                                        : SvgPicture.asset(
+                                            Constant.heartUnFill,
+                                          ))
+                                : const Gap(0),
+                            appText(
+                                title: widget.isBackButton
+                                    ? propertyDetail.value.property != null
+                                        ? "${propertyDetail.value.property!.likes! + isLiked.value}"
+                                        : ""
+                                    : widget.property.likes!.toString(),
+                                context: context,
+                                fontSize: widget.fontSize - 2,
+                                fontWeight: FontWeight.w500,
+                                color: AppColor.white),
+                            getHeight(context, 0.060),
+                            SvgPicture.asset(
+                              Constant.shareRight,
+                              width: context.getSize.width * 0.065,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                 ],
               );
             } else {
@@ -297,7 +304,7 @@ class _ShortVideoPLayerWidgetState extends State<ShortVideoPLayerWidget> {
               // return const LoadingView();
             }
           }),
-       );
+    );
   }
 
   @override

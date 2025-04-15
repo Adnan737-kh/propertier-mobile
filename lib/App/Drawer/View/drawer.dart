@@ -52,7 +52,7 @@ Widget customDrawer({required BuildContext context}) {
             ),
             divider(context: context),
             drawerTile(
-              onTap: () => Get.toNamed(AppRoutes.CustomerWallet),
+              onTap: () => Get.toNamed(AppRoutes.customerWallet),
               context: context,
               title: "Wallet",
             ),

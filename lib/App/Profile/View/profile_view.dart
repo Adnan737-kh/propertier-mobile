@@ -27,18 +27,18 @@ class ProfileStatusView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-          () {
+      () {
         if (viewModel.isLoading.value) {
           return const Center(
             child: CircularProgressIndicator(
               color: AppColor.buttonColor,
             ),
           );
-        } else if (viewModel.profileModel.value.userProfile == null ||
-        viewModel.profileModel.value.userProfile!.id == null ){
+        } else if (viewModel.profileModel.value.userProfile == null ) {
           // WidgetsBinding.instance.addPostFrameCallback((_) {
           //   Get.offAllNamed(AppRoutes.loginView);
           // });
+          // print("${viewModel.profileModel.value.userProfile!.phoneNumber}");
           return const SizedBox();
         } else {
           return Scaffold(
@@ -55,9 +55,7 @@ class ProfileStatusView extends StatelessWidget {
                 aboutTile(
                     context,
                     viewModel.profileModel.value.properties != null
-                        ? viewModel
-                        .profileModel.value.userProfile!.about ??
-                        ""
+                        ? viewModel.profileModel.value.userProfile!.about ?? ""
                         : ""),
                 getHeight(context, 0.015),
                 Container(
@@ -78,7 +76,7 @@ class ProfileStatusView extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.toNamed(AppRoutes.selectFeaturedtype);
+                              Get.toNamed(AppRoutes.selectFeaturedType);
                             },
                             child: appText(
                                 fontSize: 18,
@@ -109,8 +107,7 @@ class ProfileStatusView extends StatelessWidget {
                       onTap: () {
                         Get.toNamed(AppRoutes.profilePropertyListingView,
                             arguments: {
-                              "PropertyEnum":
-                              PropertiesAndVideoEnum.properties,
+                              "PropertyEnum": PropertiesAndVideoEnum.properties,
                               "PropertiesType": viewModel.userID
                             });
                       },
@@ -131,15 +128,15 @@ class ProfileStatusView extends StatelessWidget {
                 getHeight(context, 0.015),
                 ProfileShortVideosTile(
                     listOfProperties:
-                    viewModel.profileModel.value.userProfile == null
-                        ? []
-                        : viewModel.profileModel.value.properties!),
+                        viewModel.profileModel.value.userProfile == null
+                            ? []
+                            : viewModel.profileModel.value.properties!),
                 getHeight(context, 0.015),
                 ProfileVideosTile(
                   listOfProperties:
-                  viewModel.profileModel.value.properties == null
-                      ? []
-                      : viewModel.profileModel.value.properties!,
+                      viewModel.profileModel.value.properties == null
+                          ? []
+                          : viewModel.profileModel.value.properties!,
                 ),
                 getHeight(context, 0.12),
               ],
@@ -352,5 +349,4 @@ class ProfileStatusView extends StatelessWidget {
       ),
     );
   }
-
 }

@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../../Auth/User/Token/token_preference_view_model/token_preference_view_model.dart';
 
 class VerficationViewModel extends GetxController {
   final usernameController = TextEditingController();
@@ -8,6 +11,13 @@ class VerficationViewModel extends GetxController {
   final confirmPasswordController = TextEditingController();
   final passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  final _emailVerificationStatus = ''.obs;
+  final _numberVerificationStatus = ''.obs;
+  final _idCardVerificationStatus = ''.obs;
+  RxString get emailVerificationStatus => _emailVerificationStatus;
+  RxString get numberVerificationStatus => _numberVerificationStatus;
+  RxString get idCardVerificationStatus => _idCardVerificationStatus;
+  UserPreference userPreference = UserPreference();
 
   var isShowPassword = false.obs;
   var isShowConfirmPassword = false.obs;
@@ -17,10 +27,30 @@ class VerficationViewModel extends GetxController {
   var isAddress = false.obs;
 
   RxBool isKeyboard = false.obs;
+
   @override
-  void onInit() {
-    // TODO: implement onInit
+  void onInit() async {
+    fetchVerificationStatus();
     super.onInit();
+  }
+
+  void fetchVerificationStatus() async {
+    final accessToken = await userPreference.getUserAccessToken();
+    if (kDebugMode) {
+      print('Verification Access Token: ${accessToken.accessToken} ');
+    }
+
+    final userData = await userPreference.getUserProfileData();
+    print('email status ${userData?.phoneNumberVerificationStatus}');
+
+    if (userData != null) {
+      _emailVerificationStatus.value = userData.emailVerificationStatus ?? "";
+      _numberVerificationStatus.value =
+          userData.phoneNumberVerificationStatus ?? "";
+      _idCardVerificationStatus.value = userData.cnicVerificationStatus ?? "";
+
+      update();
+    }
   }
 
   @override

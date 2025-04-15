@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../Utils/app_text.dart';
 import '../../../../Utils/appbar.dart';
 import '../../../../Utils/text_botton.dart';
+import '../ViewModel/id_card_verification_view_model.dart';
 import 'components/id_upload_tile.dart';
 
 class IDUploadView extends StatefulWidget {
@@ -18,7 +20,7 @@ class IDUploadView extends StatefulWidget {
 }
 
 class _IDUploadViewState extends State<IDUploadView> {
-  // final iDCardVM = Get.find<IDVerficationViewModel>();
+  final idCardVM = Get.find<IDVerficationViewModel>();
   File? _pickedFrontImage;
   File? _pickedBackImage;
 
@@ -114,7 +116,12 @@ class _IDUploadViewState extends State<IDUploadView> {
                       Expanded(
                         child: textButton(
                           onClick: () async {
-                            // _pickedImage == null ?_pickAndCropImage : null;
+                            if (kDebugMode) {
+                              print("id card access token ${idCardVM.accessToken}");
+                              print("picked image $_pickedFrontImage");
+
+                            }
+                            await idCardVM.verifyIdCard(_pickedFrontImage, _pickedBackImage, idCardVM.accessToken!);
                           },
                           context: context,
                           title: 'Next',

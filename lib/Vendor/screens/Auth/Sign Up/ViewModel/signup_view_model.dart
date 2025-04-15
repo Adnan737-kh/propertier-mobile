@@ -208,7 +208,7 @@ class SignUpViewModel extends GetxController {
       changeLoading(true);
 
       Get.toNamed(
-        AppRoutes.verifySigninView,
+        AppRoutes.verifySignInView,
       );
     } else {
       changeLoading(true);

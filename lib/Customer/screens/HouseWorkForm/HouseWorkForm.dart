@@ -264,7 +264,7 @@ class HouseWorkForm extends GetView<HouseWorkFormController>{
                           context: context,
                           title: 'Offer to Vendor',
                           onClick: () {
-                            Get.toNamed(AppRoutes.VendorOffer);
+                            Get.toNamed(AppRoutes.vendorOffer);
                           })
                     ],
                   )

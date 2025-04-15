@@ -312,7 +312,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                               ),
                             ],
                           ),
-                          SizedBox(height: 10,),
+                          const SizedBox(height: 10,),
                           RatingBar.builder(
                             initialRating:
                             profileController.profile.value.rating?.toDouble() ??

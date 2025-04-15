@@ -7,11 +7,6 @@ import 'package:propertier/Vendor/screens/dashboard/home/Controller/home_control
 import 'package:propertier/Vendor/screens/dashboard/home/Model/home_model.dart';
 import 'package:propertier/Vendor/screens/dashboard/home/view/detail_screen.dart';
 import 'package:propertier/Vendor/screens/widgets/tabbar_item.dart';
-import 'package:propertier/constant/constant.dart';
-import 'package:propertier/extensions/size_extension.dart';
-
-import '../../../../../App/Services/Model/services_model.dart';
-import '../../../../../App/Services/View/component/services_tile.dart';
 import '../../../../../constant/colors.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -95,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen>
               children: [
                 // Tab 1
                 Obx(() => webSocketController.selectedService.value == ""
-                    ? Center(
+                    ? const Center(
                         child: CircularProgressIndicator(
                           color: AppColor.buttonColor,
                         ),
@@ -168,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen>
                                             .removeWhere((e) => e == bid);
                                       });
                                     }
-                                    return SizedBox();
+                                    return const SizedBox();
                                   });
                             },
                           )
@@ -391,16 +386,16 @@ class _HomeScreenState extends State<HomeScreen>
             style: TextStyle(fontSize: 16, color: Colors.grey),
           ),
           ElevatedButton(onPressed: (){
-            Get.toNamed(AppRoutes.TransportBidDetail);
+            Get.toNamed(AppRoutes.transportBidDetail);
           }, child: Text("View Transport Bid")),
           ElevatedButton(onPressed: (){
-            Get.toNamed(AppRoutes.WaterBidDetail);
+            Get.toNamed(AppRoutes.waterBidDetail);
           }, child: Text("View Water Bid")),
           ElevatedButton(onPressed: (){
-            Get.toNamed(AppRoutes.PropertyBidDetail);
+            Get.toNamed(AppRoutes.propertyBidDetail);
           }, child: Text("Property related Bid")),
           ElevatedButton(onPressed: (){
-            Get.toNamed(AppRoutes.HouseWorkBidDetail);
+            Get.toNamed(AppRoutes.houseWorkBidDetail);
           }, child: Text("Domestic Work Bid"))
         ],
 

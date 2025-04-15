@@ -165,7 +165,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             ),
             onTap: () {
               widget.onToggleDrawer(); // Close the drawer
-              Get.toNamed(AppRoutes.VendorWallet);
+              Get.toNamed(AppRoutes.vendorWallet);
             },
           ),
           ListTile(
@@ -189,7 +189,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             ),
             onTap: () {
               widget.onToggleDrawer(); // Close the drawer
-              Get.toNamed(AppRoutes.VendorForm);
+              Get.toNamed(AppRoutes.vendorForm);
             },
           ),
           divider(context: context),

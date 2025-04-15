@@ -47,7 +47,6 @@ class ProfileViewModel extends GetxController {
 
         userPreference.getUserProfileData().then((value) async {
           if (kDebugMode) {
-            print('user saved id ${value?.id.toString()}');
           }
           if (value!.email!.isNotEmpty || value.email.toString() != 'null') {
             _userID = value.id.toString();
@@ -109,15 +108,17 @@ class ProfileViewModel extends GetxController {
         if (kDebugMode) {
           print('Profile Data Saved $result');
         }
-      }).onError((error, stackTrace) {});
+      }).onError((error, stackTrace) {
+        print('Profile Data Error $error');
+      });
         //     if (profileModel.value.userProfile!.requiresProfileCompletion == true) {
       //   showProfileCompletionDialog(Get.context!, profileModel);
       // }
       isLoading(false);
     }).onError((error, stackTrace) {
+      print('aa Data to login $error');
       Get.offAllNamed(AppRoutes.loginView);
       isLoading(false);
-
       if (kDebugMode) {
         print('$error and $stackTrace');
       }

@@ -90,7 +90,7 @@ class NearestServiceDetailViewModel extends GetxController{
     }
     String? id =  await ServicessearchService().createBidByCustomer(context: context, images: imagesPath, description: descriptionController.text, service: nearbyServices.service!.id.toString(), subService: selectedServiceId!.value.toString(), vendorId: nearbyServices.vendor?.id.toString());
     if(id != null){
-      Get.toNamed(AppRoutes.BidViewScreen,
+      Get.toNamed(AppRoutes.bidViewScreen,
           arguments: {
             'id': id,
             'serviceId': nearbyServices.service!.id.toString(),

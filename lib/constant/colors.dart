@@ -17,6 +17,6 @@ class AppColor {
   static const googleColor = Color(0xFFD34836);
   static const facebookColor = Color(0xFF4286F5);
   static const appleColor = Color.fromARGB(255, 120, 130, 147);
-  static const joinasbtnColor = Color(0xFF109B0E);
+  static const joinAsBtnColor = Color(0xFF109B0E);
   static const textColorGrey = Color(0xFFB8B8B8);
 }

@@ -105,17 +105,6 @@ class PostAddView extends StatelessWidget {
               ),
 
               getHeight(context, 0.008),
-                // customTextButton(
-                //     title: "Marketplace",
-                //     onTap: () {},
-                //     buttonColor: AppColor.white,
-                //     textColor: AppColor.darkGreyColor.withOpacity(0.7)),
-                // getHeight(context, 0.008),
-                // customTextButton(
-                //     title: "Files",
-                //     onTap: () {},
-                //     buttonColor: AppColor.white,
-                //     textColor: AppColor.darkGreyColor.withOpacity(0.7))
               ],
             ),
           ),

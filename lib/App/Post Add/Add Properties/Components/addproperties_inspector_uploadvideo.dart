@@ -95,12 +95,12 @@ class _AddPropertyUploadVideoViewState
                 },
                 icon: const Icon(Icons.check),
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please Enter Url';
-                }
-                return null;
-              },
+              // validator: (value) {
+              //   if (value == null || value.isEmpty) {
+              //     return 'Please Enter Url';
+              //   }
+              //   return null;
+              // },
             ),
             getHeight(context, 0.015),
           ],

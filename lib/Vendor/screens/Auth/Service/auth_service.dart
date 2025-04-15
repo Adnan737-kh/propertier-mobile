@@ -10,6 +10,7 @@ import 'package:propertier/Network/api_urls.dart';
 import 'package:propertier/Vendor/screens/Auth/Login/Model/user_login_model/user_login_model.dart';
 import 'package:http/http.dart' as http;
 import '../../../../App/Auth/Service/google_sigin_services.dart';
+import '../../../../App/Services/Model/vender_registration_model.dart';
 import '../../../../RoutesAndBindings/app_routes.dart';
 import '../../../../Utils/app_text.dart';
 import '../../../../constant/colors.dart';
@@ -56,14 +57,16 @@ class AuthService {
     await _auth.signOut();
   }
 
-  Future<int?> registerVendor(BuildContext context,String email, String firebaseID, String serviceId, String serviceName) async {
+  Future<VendorRegistrationModel?> registerVendor(
+      BuildContext context,
+      String serviceId,
+      String serviceName,
+      String accessToken,
+      ) async {
     String url = API.venRegisterUrl;
 
     final Map<String, dynamic> data = {
-      "email": email.toLowerCase(),
-      "firebase_id": firebaseID,
-      "type": 'vendor',
-      "profession_types": [serviceId, serviceName]
+      "assigned_service": serviceId,
     };
 
     final encodedData = jsonEncode(data);
@@ -71,10 +74,14 @@ class AuthService {
       print(url);
       print(encodedData);
     }
+
     try {
       final response = await http.post(
-        Uri.parse("${API.venRegisterUrl}/"),
-        headers: <String, String>{'Content-Type': 'application/json'},
+        Uri.parse("$url/"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $accessToken',
+        },
         body: encodedData,
       );
 
@@ -82,30 +89,26 @@ class AuthService {
       debugPrint("Response Body: ${response.body}");
 
       if (response.statusCode == 201 || response.statusCode == 200) {
+        final decodedData = jsonDecode(response.body);
+        final result = VendorRegistrationModel.fromJson(decodedData);
 
-        var decodedData = jsonDecode(response.body);
-        int id = decodedData['id']??-1;
-        if (kDebugMode) {
-          print(id);
-        }
-        await createWallet(id.toString(), context);
-        return id;
+        await createWallet(result.id.toString(), context);
+        return result;
       }
     } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: appText(
-          title: 'Something went wrong: $e',
-          context: Get.context!,
-          color: AppColor.white,
+      if (kDebugMode) print(e);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: appText(
+            title: 'Something went wrong: $e',
+            context: Get.context!,
+            color: AppColor.white,
+          ),
         ),
-      ));
-
+      );
     }
-    return null;
 
+    return null;
   }
 
   Future deleteVendor() async {
@@ -208,3 +211,4 @@ Future<String> decryptPassword(String encryptedPassword) async {
   final decrypted = utf8.decode(decryptedBytes);
   return decrypted;
 }
+

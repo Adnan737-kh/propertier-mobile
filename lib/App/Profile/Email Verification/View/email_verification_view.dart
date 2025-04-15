@@ -9,7 +9,7 @@ import 'components/email_verify_tile.dart';
 
 class EmailVerificationView extends StatelessWidget {
   EmailVerificationView({super.key});
-  final editProfileVM = Get.find<EmailVerficationViewModel>();
+  final emailVerificationVM = Get.find<EmailVerficationViewModel>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

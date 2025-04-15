@@ -63,7 +63,7 @@ class ServiceProviderProfileViewModel extends GetxController {
         titleColor: AppColor.greenColor,
         borderColor: AppColor.greenColor),
     PropertiesTileButtonModel(
-        onTap: (val) async {
+          onTap: (val) async {
           if (val != '') {
             launchCallandSMS(type: 'tel', phoneNumber: val!);
           }

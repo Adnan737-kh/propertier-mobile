@@ -108,6 +108,7 @@ class ServicesCore {
           content: appText(
               title: e.toString(), context: context, color: AppColor.white)));
     }
+    return null;
   }
 
   Future<ServicePaginationModel?> servicesPagination(

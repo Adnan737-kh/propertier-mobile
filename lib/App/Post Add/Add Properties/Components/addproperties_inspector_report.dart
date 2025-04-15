@@ -34,12 +34,12 @@ class AddPropertyInspectReportView extends StatelessWidget {
                 children: [
                   iDUploadTile(
                     isLoading: false,
-                    image: controller.pickedImage,
+                    image: controller.thumbnailImage,
                     onTap: () {
                       controller.pickImage(true);
                     },
                   ),
-                  controller.pickedImage != ""
+                  controller.thumbnailImage != ""
                       ? Positioned(
                           top: 5,
                           right: 5,
@@ -80,7 +80,7 @@ Widget iDUploadTile({
       height: 170,
       width: context.width * 0.8,
       decoration: BoxDecoration(
-          border: controller.pickedImage != ""
+          border: controller.thumbnailImage != ""
               ? null
               : Border.all(color: Colors.red),
           borderRadius: BorderRadius.circular(10),
@@ -100,7 +100,7 @@ Widget iDUploadTile({
                       context: context,
                       fontSize: 16,
                       colorOpecity: 0.4,
-                      color: controller.pickedImage != ""
+                      color: controller.thumbnailImage != ""
                           ? Colors.black
                           : Colors.red,
                       fontWeight: FontWeight.bold),

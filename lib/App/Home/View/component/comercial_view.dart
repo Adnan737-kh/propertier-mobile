@@ -22,7 +22,7 @@ class CommercialView extends StatelessWidget {
         GridTileWidget(
           viewModel: viewModel,
         ),
-        getHeight(context, 0.025),
+        getHeight(context, 0.020),
         viewModel.homeModel.value.data != null
             ? Obx(
                 () => Properties(
@@ -31,12 +31,12 @@ class CommercialView extends StatelessWidget {
                 ),
               )
             : const Gap(0),
-        getHeight(context, 0.025),
+        getHeight(context, 0.020),
         Obx(
           () => viewModel.homeModel.value.data != null
               ? ShortVideosTile(
                   viewModel: viewModel,
-                  shortVidoesList: viewModel.homeModel.value.data!.shortVideos,
+                  shortVideosList: viewModel.homeModel.value.data!.shortVideos,
                 )
               : const SizedBox(),
         ),

@@ -35,7 +35,7 @@ Widget serviceTile(
       children: [
         GestureDetector(
           onTap: () {
-            Get.toNamed(AppRoutes.ServiceDetail,
+            Get.toNamed(AppRoutes.serviceDetail,
                 arguments: service);
           },
           child: Container(
@@ -142,7 +142,7 @@ Widget serviceTile(
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          Get.toNamed(AppRoutes.nearesServiceDetail,
+                          Get.toNamed(AppRoutes.nearServiceDetail,
                               arguments: service);
                         },
                         child: Container(
@@ -165,7 +165,7 @@ Widget serviceTile(
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          Get.toNamed(AppRoutes.ServiceDetail,
+                          Get.toNamed(AppRoutes.serviceDetail,
                               arguments: service);
                         },
                         child: Container(

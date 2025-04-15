@@ -281,7 +281,7 @@ class TransportServiceForm extends GetView<TransportServiceFormController>{
                             context: context,
                             title: 'Offer to Vendor',
                             onClick: () {
-                              Get.toNamed(AppRoutes.VendorOffer);
+                              Get.toNamed(AppRoutes.vendorOffer);
                             })
                       ],
                     )

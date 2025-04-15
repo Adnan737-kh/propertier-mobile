@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
@@ -20,14 +21,15 @@ import '../../../Profile/View/component/ShortVideoPlayer/VideoPlayerScreen.dart'
 // ignore: must_be_immutable
 class ShortVideosTile extends StatelessWidget {
   HomeViewModel viewModel;
-  List<Property> shortVidoesList;
+  List<Property> shortVideosList;
   ShortVideosTile(
-      {super.key, required this.viewModel, required this.shortVidoesList});
-  // final shortVideoVM = Get.put(ShortVideoViewModel());
+      {super.key, required this.viewModel, required this.shortVideosList});
   @override
   Widget build(BuildContext context) {
-    List<Property> newShortVideoList = shortVidoesList;
-    print("new ShortVideo List ${newShortVideoList.length}");
+    List<Property> newShortVideoList = shortVideosList;
+    if (kDebugMode) {
+      print("new ShortVideo List ${newShortVideoList.length}");
+    }
     List<Property> shortVideos = [];
     if (viewModel.isSale.value == true) {
       shortVideos = newShortVideoList
@@ -91,7 +93,7 @@ class ShortVideosTile extends StatelessWidget {
       width: context.getSize.width,
       child: shortVideos.isEmpty
           ? Center(
-              child: appText(title: 'No Data Avaliable', context: context),
+              child: appText(title: 'No Data Available', context: context),
             )
           : ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -102,11 +104,12 @@ class ShortVideosTile extends StatelessWidget {
               itemCount: shortVideos.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                    onTap: () async{
+                    onTap: () async {
                       await loadAndShowInterstitialAd();
                       // Get.toNamed(AppRoutes.shortVideoView,
                       //     arguments: shortVideos[index]);
-                      Get.to(VideoPlayerScreen(properties: [], property: shortVideos[index]));
+                      Get.to(VideoPlayerScreen(
+                          properties: const [], property: shortVideos[index]));
                     },
                     child: ShortVideoThumbnail(
                       property: shortVideos[index],

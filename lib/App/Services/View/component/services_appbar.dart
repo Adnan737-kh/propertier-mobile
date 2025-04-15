@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:propertier/App/Auth/User/model/token_model.dart';
 import 'package:propertier/App/Home/View/component/carousel_slider_widget.dart';
 import 'package:propertier/App/MyServiceOrder/View/MyServiceOrder.dart';
 import 'package:propertier/App/Services/ViewModel/services_view_model.dart';
@@ -23,6 +22,7 @@ import '../../../../Vendor/screens/Auth/Service/google_sigin_services.dart';
 import '../../../Auth/Service/auth_service.dart';
 import '../../../NavBar/ViewModel/navbar_view_model.dart';
 import '../../../Profile/Model/profile_model.dart';
+import '../../Model/vender_registration_model.dart';
 
 PreferredSize servicesAppBar(BuildContext context,
     {required ServicesViewModel viewModel}) {
@@ -84,74 +84,91 @@ PreferredSize servicesAppBar(BuildContext context,
                       //       return;
                       //     }}}
 
+                      UserProfile? user =
+                          await viewModel.userPreference.getUserProfileData();
 
-                      TokenModel? accessToken =
-                          await viewModel.userPreference.getUserAccessToken();
-
-                      if (accessToken == null) {
+                      if (user == null) {
                         if (kDebugMode) {
-                          print("Access token is null");
+                          print("no user**");
                         }
-                        return;
+                        return Get.toNamed(AppRoutes.loginView);
+                      }
+                      if (kDebugMode) {
+                        print("status ${user.vendor}");
                       }
 
                       if (kDebugMode) {
-                        print("Access Token: ${accessToken.accessToken}");
+                        print("general status ${user.verificationStatus}");
                       }
+                      if (user.verificationStatus == "pending") {
+                        Get.toNamed(AppRoutes.verificationView);
+                      } else {
+                        if (user.vendor == null) {
+                          await viewModel.openSelectCategoryScreen(context);
 
-                      if (accessToken != null) {
-                        UserProfile? currentUserData =
-                            await viewModel.userPreference.getUserProfileData();
+                          if (kDebugMode) {
+                            print(
+                                "selected services ${viewModel.selectedParentServiceId}");
+                            print(
+                                "selected services name ${viewModel.selectedCategory}");
+                          }
 
-                        // for(User user in currentUser.users??[]){
-                        //   if(user.type == "vendor"){
-                        //     // GetStorage().write('vendorUserId', user.id);
-                        //     Get.toNamed(AppRoutes.vendordashborad);
-                        //     return;
-                        //   }}
+                          if (viewModel.selectedParentServiceId == null ||
+                              viewModel.selectedCategory == null) {
+                            Fluttertoast.showToast(
+                                msg: "Please Select a Category");
+                            return;
+                          } else {
+                            Fluttertoast.showToast(msg: "Please Wait...");
+                          }
 
-                        await viewModel.openSelectCategoryScreen(context);
+                          VendorRegistrationModel? vendorResponse =
+                              await vendor_service.AuthService().registerVendor(
+                            context,
+                            viewModel.selectedParentServiceId!,
+                            viewModel.selectedCategory!,
+                            viewModel.accessToken!,
+                          );
 
-                        if (kDebugMode) {
-                          print(viewModel.selectedParentServiceId);
-                          print(viewModel.selectedCategory);
-                        }
-                        if (viewModel.selectedParentServiceId == null ||
-                            viewModel.selectedCategory == null) {
-                          Fluttertoast.showToast(
-                              msg: "Please Select a Category");
-                          return;
-                        } else {
-                          Fluttertoast.showToast(msg: "Please Wait...");
-                        }
-                        String? email = currentUserData?.email;
-                        // String firebaseID =
-                        //     currentUser.users!.first.firebaseId!;
-                        int? vendorId = await vendor_service.AuthService()
-                            .registerVendor(
-                                context,
-                                email!,
-                                'firebaseID',
-                                viewModel.selectedParentServiceId!,
-                                viewModel.selectedCategory!);
-                        if (kDebugMode) {
-                          print("vendor id: $vendorId");
-                        }
-                        if (vendorId != null) {
-                          Get.toNamed(AppRoutes.ServiceForm, arguments: {
-                            'vendorId': vendorId,
-                            'serviceId': viewModel.selectedParentServiceId,
-                            'serviceName': viewModel.selectedCategory,
-                            // 'email': currentUser.users!.first.email!,
-                            // 'firebaseId': currentUser.users!.first.firebaseId!
+                          if (vendorResponse != null) {
+                            int vendorId = vendorResponse.id;
+                            String? title = vendorResponse.serviceTitle;
+                            String? mainCategory =
+                                vendorResponse.serviceMainCategory;
+                            int userId = vendorResponse.user;
+
+                            if (kDebugMode) {
+                              print("Vendor ID: $vendorId");
+                              print("Service Title: $title");
+                              print("Main Category: $mainCategory");
+                              print("User ID: $userId");
+                              print(
+                                  "category else pre ${user.vendor?.submittedRequirements}");
+                              print(
+                                  "mainCategory else ${user.vendor?.assignedService?.mainCategory}");
+                            }
+                          }
+
+                          if (vendorResponse?.id != null) {
+                            Get.toNamed(AppRoutes.serviceForm, arguments: {
+                              'category': vendorResponse?.serviceMainCategory,
+                            });
+                          } else {
+                            AuthService().logout();
+                            GoogleSignInServices().logout();
+                          }
+                        } else if (user.vendor?.submittedRequirements == null) {
+                          if (kDebugMode) {
+                            print(
+                                "category else he ${user.vendor?.assignedService?.mainCategory}");
+                          }
+                          Get.toNamed(AppRoutes.serviceForm, arguments: {
+                            'category':
+                                user.vendor?.assignedService?.mainCategory,
                           });
                         } else {
-                          AuthService().logout();
-                          GoogleSignInServices().logout();
-                          Get.offAllNamed(AppRoutes.loginView);
+                          Get.toNamed(AppRoutes.vendorDashBoard);
                         }
-                      } else {
-                        Get.toNamed(AppRoutes.loginView);
                       }
                     },
                     style: ElevatedButton.styleFrom(

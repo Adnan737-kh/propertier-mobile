@@ -54,14 +54,11 @@ class NavBarView extends StatelessWidget {
                           if (snapshot.hasData) {
                             final accessToken = snapshot.data?.accessToken ?? "";
                             if (accessToken == null || accessToken.isEmpty || accessToken.toLowerCase() == "null") {
-                              print('No accessToken!!! $accessToken');
                               return const UserNotLoginView();
                             } else {
-                              print('Valid accessToken!!! $accessToken');
                               return ProfileStatusView();
                             }
                           } else {
-                            print('Fall accessToken!!!');
                             return const UserNotLoginView(); // Fallback in case of error
                           }
                         },

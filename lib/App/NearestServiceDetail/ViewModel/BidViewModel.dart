@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -15,7 +16,6 @@ class BidViewModel extends GetxController{
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     id = Get.arguments['id'];
     serviceId = Get.arguments['serviceId'];
@@ -33,7 +33,9 @@ class BidViewModel extends GetxController{
   void connectToWebSocket() {
     try {
       String url = "${API.listenBidByVendor}$id/";
-      print(url);
+      if (kDebugMode) {
+        print(url);
+      }
       channel = WebSocketChannel.connect(
         Uri.parse(url),
       );

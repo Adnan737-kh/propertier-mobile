@@ -40,7 +40,8 @@ class IDVerificationView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   iDVerifyTile(
-                      title: "Your ID Card is not verified", isVerify: false),
+                      title: "Your ID Card is not verified",
+                      isVerify: false),
                   const Gap(5),
                   getHeight(context, 0.06),
                 ],

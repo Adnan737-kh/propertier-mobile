@@ -259,7 +259,7 @@ class SelectFeaturedTypeView extends GetView<SelectFeatuedTypeController> {
                     controller.selectedFeaturedType.value) {
                   if (controller.pickedImage != '') {
                     String propertyId = controller.selectedPropertyID.value.id.toString();
-                    Get.toNamed(AppRoutes.paymentGatwayeView, arguments: {
+                    Get.toNamed(AppRoutes.paymentGatWayView, arguments: {
                       "propertyId": propertyId,
                       "pickedImage": controller.pickedImage,
                       "featuredItem": controller.featuredItem.value
@@ -270,7 +270,7 @@ class SelectFeaturedTypeView extends GetView<SelectFeatuedTypeController> {
                 } else if (controller.featuredItemsList[1] ==
                     controller.featuredItem.value) {
                   if (controller.selectedPropertyID.value.id != null) {
-                    Get.toNamed(AppRoutes.paymentGatwayeView,arguments: {
+                    Get.toNamed(AppRoutes.paymentGatWayView,arguments: {
                       "propertyId": controller.selectedPropertyID.value.id.toString(),
                       "pickedImage": controller.pickedImage,
                       "featuredItem": controller.featuredItem.value

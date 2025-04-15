@@ -7,11 +7,10 @@ import '../../../../constant/colors.dart';
 import '../../../../Utils/app_text.dart';
 import '../../../../Utils/text_botton.dart';
 import '../ViewModel/number_verification_view_model.dart';
-// import '../../Email Verification copy/ViewModel/email_verification_view_model.dart';
 
 class NumberConfirmView extends StatelessWidget {
   NumberConfirmView({super.key});
-  final forgetPassVM = Get.find<NumberVerficationViewModel>();
+  final numberVerificationVM = Get.find<NumberVerficationViewModel>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +31,7 @@ class NumberConfirmView extends StatelessWidget {
           child: Center(
             child: SingleChildScrollView(
               child: Form(
-                key: forgetPassVM.emailformKey,
+                key: numberVerificationVM.emailFormKey,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -51,7 +50,7 @@ class NumberConfirmView extends StatelessWidget {
                     customPhoneNumberTextField(
                       labal: "Enter your email",
                       hintText: 'Enter your email',
-                      controller: forgetPassVM.emailController,
+                      controller: numberVerificationVM.numberController,
                       textInputType: TextInputType.emailAddress,
                       suffix: IconButton(
                         onPressed: () {},
@@ -72,11 +71,11 @@ class NumberConfirmView extends StatelessWidget {
                         Expanded(
                           child: textButton(
                             onClick: () async {
-                              if (forgetPassVM.emailformKey.currentState!
+                              if (numberVerificationVM.emailFormKey.currentState!
                                   .validate()) {
-                                forgetPassVM.emailformKey.currentState?.save();
-
-                                Get.toNamed(AppRoutes.numberOTPView);
+                                numberVerificationVM.emailFormKey.currentState?.save();
+                                numberVerificationVM.phoneNumberVerification(context,numberVerificationVM.accessToken!);
+                                // Get.toNamed(AppRoutes.numberOTPView);
                               } else {}
                             },
                             context: context,

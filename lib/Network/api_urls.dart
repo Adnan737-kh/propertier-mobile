@@ -35,12 +35,12 @@ class API {
   static const featuresUrl = '$mainUrl/$secondaryUrl/get-all-amenities/';
   static const forgetPasswordUrl = '$mainUrl/forget-password';
 
-  //------------------------------------------------------vender-----------------------------------------------------------------------------//
-  static const venRegisterUrl = '$mainUrl/accounts/vendors';
-  static const fetchProfile = '$mainUrl/accounts/vendors';
-  static const updateUserProfile = '$mainUrl/accounts/vendors';
-  static const deleteVendorProfile = '$mainUrl/accounts/vendors';
-  static const updateCoverPicture = '$mainUrl/accounts/vendors';
+  //------------------------------------------------------vendor-----------------------------------------------------------------------------//
+  static const venRegisterUrl = '$mainUrl/api/vendors';
+  static const fetchProfile = '$mainUrl/api/vendors';
+  static const updateUserProfile = '$mainUrl/api/vendors';
+  static const deleteVendorProfile = '$mainUrl/api/vendors';
+  static const updateCoverPicture = '$mainUrl/api/vendors';
   static const addAwards = '$mainUrl/services/vendor-awards/';
   static const getAwards = '$mainUrl/services/awards-for-vendor';
   static const getServices = '$mainUrl/services/services-for-vendor';
@@ -48,14 +48,14 @@ class API {
   static const deleteServices = '$mainUrl/services/vendor-services';
   static const deleteFeaturedService= '$mainUrl/services/featured-services';
   static const deleteAward = '$mainUrl/services/vendor-awards';
-  static const uploadCnicImages = '$mainUrl/accounts/vendors';
+  static const uploadCnicImages = '$mainUrl/api/vendors';
   static const fetchEarningData = '$mainUrl/services/vendor';
   static const postWithoutFeaturePackage = '$mainUrl/services/vendor-services/';
   static const postWithFeaturePackage = '$mainUrl/services/featured-services/';
   static const submitFeaturePackage = '$mainUrl/services/feature-packages/';
   static const fetchVendorFeedbacks = '$mainUrl/services/vendor-feedbacks';
-  static const uploadDocuments = '$mainUrl/accounts/vendors'; //cnic and other-documents
-  static const inCoProDocuments = '$mainUrl/accounts/vendors'; //Incorporation and Proprietor Documents
+  static const uploadDocuments = '$mainUrl/api/vendors'; //cnic and other-documents
+  static const inCoProDocuments = '$mainUrl/api/vendors'; //Incorporation and Proprietor Documents
 
   // *************  Services *****************
   static const serviceMobileDashboard = '$mainUrl/api/services-dashboard/';
@@ -75,10 +75,10 @@ class API {
   static const customerOrder = '$mainUrl/services/customer-orders/';
   static const getSubService = '$mainUrl/services/sub-services/';
   static const servicesWithPagination = '$mainUrl/services/vendor-services-with-pagination/';
-  static const getServiceForm = '$mainUrl/services/get-requirments-by-serviceId/';
+  static const getServiceForm = '$mainUrl/api/get-requirments-by-serviceid/';
   static const getTransport = '$mainUrl/services/get-all-VehicleType/';
   // static const saveTransportFormField = '$baseURL/services/requirement-values/';
-  static const saveVendorFormField = '$mainUrl/services/vendor-requirements/';
+  static const saveVendorFormField = '$mainUrl/api/vendor-requirements/';
   static const getVendorFormData = '$mainUrl/services/get-requirments-by-vendorId/?vendor_id=';
 
 

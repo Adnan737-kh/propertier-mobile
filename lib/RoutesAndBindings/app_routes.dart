@@ -1,6 +1,6 @@
 abstract class AppRoutes {
   static const onBoardingView = '/';
-  static const verifySigninView = '/verifySigin';
+  static const verifySignInView = '/verifySigin';
   static const otpVerifyView = '/otpVerify';
   static const servicesProviderView = '/servicesProvider';
   static const navBarView = '/navBar';
@@ -35,6 +35,7 @@ abstract class AppRoutes {
   static const numberEnterView = '/numberEnterView';
   static const idVerificationView = '/idVerificationView';
   static const idUploadView = '/idUploadView';
+  static const faceRecognitionView = '/faceRecognitionView';
   static const incorporationVerificationView = '/incorporationVerificationView';
   static const incorporationUploadView = '/incorporationUploadView';
   static const documentsVerificationView = '/documentsVerificationView';
@@ -43,7 +44,7 @@ abstract class AppRoutes {
   static const myOrderView = '/myOrderView';
   static const reviewView = '/reviewView';
   static const policyView = '/policyView';
-  static const oficialTeamView = '/oficialTeamView';
+  static const officialTeamView = '/oficialTeamView';
   static const rentalView = '/rentalView';
   static const postAddView = '/postAddView';
   static const addMaterialView = '/addMaterialView';
@@ -79,35 +80,35 @@ abstract class AppRoutes {
   static const addAward = '/addAward';
   static const requestDemandView = '/requestDemandView';
   static const profilePropertyListingView = '/profilePropertyListingView';
-  static const paymentGatwayeView = '/paymentGatwayeView';
+  static const paymentGatWayView = '/paymentGatwayeView';
   static const serviceProviderProfile = '/serviceProviderProfile';
   static const collectInfoProfile = '/collectInfoProfile';
-  static const selectFeaturedtype = '/selectFeaturedtype';
-  static const nearesServiceDetail = '/nearestServiceDetail';
-  static const ServiceDetail = '/ServiceDetail';
+  static const selectFeaturedType = '/selectFeaturedtype';
+  static const nearServiceDetail = '/nearestServiceDetail';
+  static const serviceDetail = '/ServiceDetail';
   static const subServices = '/subServices';
-  static const BidViewScreen = '/BidViewScreen';
-  static const AllServicesScreen = '/AllServicesScreen';
-  static const VendorWallet = '/VendorWallet';
-  static const AllParentServices = '/AllParentServices';
-  static const ServiceForm = '/ServiceForm';
-  static const VendorForm = '/VendorForm';
-  static const EditVendorForm = '/EditVendorForm';
-  static const TransportServiceForm = '/TransportServiceForm';
-  static const TransportBidDetail = '/TransportBidDetail';
-  static const VendorOffer = '/VendorOffer';
-  static const CustomerWallet = '/CustomerWallet';
-  static const WaterServiceForm = '/WaterServiceForm';
-  static const WaterBidDetail = '/WaterBidDetail';
-  static const PropertyServiceForm = '/PropertyServiceForm';
-  static const PropertyBidDetail = '/PropertyBidDetail';
-  static const HouseWorkForm = '/HouseWorkForm';
-  static const HouseWorkBidDetail = '/HouseWorkBidDetail';
+  static const bidViewScreen = '/BidViewScreen';
+  static const allServicesScreen = '/AllServicesScreen';
+  static const vendorWallet = '/VendorWallet';
+  static const allParentServices = '/AllParentServices';
+  static const serviceForm = '/ServiceForm';
+  static const vendorForm = '/VendorForm';
+  static const editVendorForm = '/EditVendorForm';
+  static const transportServiceForm = '/TransportServiceForm';
+  static const transportBidDetail = '/TransportBidDetail';
+  static const vendorOffer = '/VendorOffer';
+  static const customerWallet = '/CustomerWallet';
+  static const waterServiceForm = '/WaterServiceForm';
+  static const waterBidDetail = '/WaterBidDetail';
+  static const propertyServiceForm = '/PropertyServiceForm';
+  static const propertyBidDetail = '/PropertyBidDetail';
+  static const houseWorkForm = '/HouseWorkForm';
+  static const houseWorkBidDetail = '/HouseWorkBidDetail';
 
 
   //----------vender------------//
 
-  static const vendordashborad = '/dashboard';
-  static const signupvendor = '/signupVendor';
+  static const vendorDashBoard = '/dashboard';
+  static const signUpVendor = '/signupVendor';
 
 }

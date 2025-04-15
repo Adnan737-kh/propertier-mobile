@@ -32,7 +32,7 @@ class EmailConfirmView extends StatelessWidget {
           child: Center(
             child: SingleChildScrollView(
               child: Form(
-                key: confirmEmailVM.emailformKey,
+                key: confirmEmailVM.emailFormKey,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -72,12 +72,13 @@ class EmailConfirmView extends StatelessWidget {
                         Expanded(
                           child: textButton(
                             onClick: () async {
-                              if (confirmEmailVM.emailformKey.currentState!
+                              if (confirmEmailVM.emailFormKey.currentState!
                                   .validate()) {
-                                confirmEmailVM.emailformKey.currentState
+                                confirmEmailVM.emailFormKey.currentState
                                     ?.save();
-
-                                Get.toNamed(AppRoutes.emailOTPView);
+                                confirmEmailVM.emailVerification(
+                                    context, confirmEmailVM.accessToken!);
+                                // Get.toNamed(AppRoutes.emailOTPView);
                               } else {}
                             },
                             context: context,

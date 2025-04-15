@@ -26,7 +26,7 @@ class GridTileWidget extends StatelessWidget {
             direction: Axis.horizontal,
             spacing: 7,
             runSpacing: 7,
-            children: List.generate(viewModel.isViewMore == false ? 6 : 16,
+            children: List.generate(viewModel.isViewMore == false ? 3 : 16,
                 // viewModel.seletcedTabIndex == 0
                 //     ?   viewModel.comercialTileList.length
                 //         : viewModel.residentialList.length,

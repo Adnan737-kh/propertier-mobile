@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:propertier/Utils/animated_toggle.dart';
 import 'package:propertier/App/Home/View/component/carousel_slider_widget.dart';

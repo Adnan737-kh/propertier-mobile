@@ -119,7 +119,7 @@ class BidViewScreen extends GetView<BidViewModel>{
                                         title: "$day-$month-$year",
                                         context: context),
                                     appText(
-                                        color: offer.bidResponse?.status == "accepted"?AppColor.joinasbtnColor:AppColor.appleColor,
+                                        color: offer.bidResponse?.status == "accepted"?AppColor.joinAsBtnColor:AppColor.appleColor,
                                         fontSize: 8,
                                         fontWeight: FontWeight.w400,
                                         title: "${offer.bidResponse?.status??"pending."}",

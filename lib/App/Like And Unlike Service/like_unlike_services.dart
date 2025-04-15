@@ -22,16 +22,16 @@ class LikeAndUnlikeServices {
       if (propertyId != '') {
         request.fields['property_id'] = propertyId;
       }
-      var responsed = await http.Response.fromStream(await request.send());
+      var response = await http.Response.fromStream(await request.send());
       // print("Status code is that ${response.statusCode}" );
-      if (responsed.statusCode == 200) {
+      if (response.statusCode == 200) {
         // toast(title: 'Liked Successfully', context: context);
-        return responsed.body;
+        return response.body;
       } else {
-        toast(title: 'Something went wrong', context: context);
+        toast(title: 'Something went wrong Like ', context: context);
       }
     } catch (e) {
-      toast(title: 'Something went wrong', context: context);
+      toast(title: 'Something went wrong Like', context: context);
     }
   }
 

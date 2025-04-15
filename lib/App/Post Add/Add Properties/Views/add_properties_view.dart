@@ -328,7 +328,7 @@ class AddPropertiesView extends GetView<AddPropertiesViewModel> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Obx(() => cont.isSuccess.value == false
+                          Obx(() => controller.isSuccess.value == false
                               ? const Center(
                                   child: CircularProgressIndicator(
                                     color: AppColor.buttonColor,
@@ -337,150 +337,65 @@ class AddPropertiesView extends GetView<AddPropertiesViewModel> {
                               : Expanded(
                                   child: textButton(
                                     onClick: () {
-                                      if (kDebugMode) {
-                                        print('selectedFacilities ${ controller.selectedFacilities}');
-                                      }
-
                                       if (controller.formKey.currentState!.validate()) {
-                                      controller.uploadProperties(
-                                        areaUnit:
-                                            controller.selectAreaUnitType.value,
-                                        context: context,
-                                        agentID:
-                                            GetStorage().read('id').toString(),
-                                        galleryImages: controller.galleryImage,
-                                        title: controller.titleController.text,
-                                        price: controller.priceController.text,
-                                        floor: controller
-                                                    .selectedFloors.value ==
-                                                ""
-                                            ? '0'
-                                            : controller.selectedFloors.value,
-                                        features: controller.selectedFacilities,
-                                        purpose: controller.selectedPurpose == 0
-                                            ? "sale"
-                                            : "rent",
-                                        areaType: controller.selectedArea.value
-                                            .toLowerCase(),
-                                        type: controller
-                                            .selectedPropertyType.value,
-                                        bedroom: controller
-                                                    .selectedBedRoom.value !=
-                                                ""
-                                            ? controller.selectedBedRoom.value
-                                            : "0",
-                                        bathroom: controller
-                                                    .selectedBathroom.value !=
-                                                ""
-                                            ? controller.selectedBathroom.value
-                                            : "0",
-                                        city:
-                                            controller.locationController.text,
-                                        address:
-                                            controller.locationController.text,
-                                        area: controller.unitsController.text,
-                                        image: controller.pickedImage,
-                                        shortVideo: controller.videoPath,
-                                        video:
-                                            controller.urlController.text == " "
-                                                ? ''
-                                                : controller.urlController.text,
-                                        description: controller
-                                            .descriptionController.text,
-                                        accessToken:
-                                            controller.accessToken.toString(),
-                                      );
+                                        // Custom validation checks
+                                        if (controller.titleController.text.isEmpty) {
+                                          Get.snackbar("Error", "Title is required");
+                                          return;
+                                        }
+
+                                        if (controller.descriptionController.text.isEmpty) {
+                                          Get.snackbar("Error", "Description is required");
+                                          return;
+                                        }
+
+                                        if (controller.priceController.text.isEmpty) {
+                                          Get.snackbar("Error", "Price is required");
+                                          return;
+                                        }
+
+                                        if (controller.unitsController.text.isEmpty) {
+                                          Get.snackbar("Error", "Size/Area is required");
+                                          return;
+                                        }
+
+                                        if (controller.locationController.text.isEmpty) {
+                                          Get.snackbar("Error", "Location is required");
+                                          return;
+                                        }
+
+                                        if (controller.thumbnailImage.isEmpty) {
+                                          Get.snackbar("Error", "Please upload a Thumbnail Image");
+                                          return;
+                                        }
+
+                                        // ✅ If all validations pass, upload property
+                                        controller.uploadProperties(
+                                          areaUnit: controller.selectAreaUnitType.value,
+                                          context: context,
+                                          agentID: GetStorage().read('id').toString(),
+                                          galleryImages: controller.galleryImage,
+                                          title: controller.titleController.text,
+                                          price: controller.priceController.text,
+                                          floor: controller.selectedFloors.value == "" ? '0' : controller.selectedFloors.value,
+                                          features: controller.selectedFacilities,
+                                          purpose: controller.selectedPurpose == 0 ? "sale" : "rent",
+                                          areaType: controller.selectedArea.value.toLowerCase(),
+                                          type: controller.selectedPropertyType.value,
+                                          bedroom: controller.selectedBedRoom.value != "" ? controller.selectedBedRoom.value : "0",
+                                          bathroom: controller.selectedBathroom.value != "" ? controller.selectedBathroom.value : "0",
+                                          city: controller.locationController.text,
+                                          address: controller.locationController.text,
+                                          area: controller.unitsController.text,
+                                          image: controller.thumbnailImage,
+                                          shortVideo: controller.videoPath,
+                                          video: controller.urlController.text.trim().isEmpty ? '' : controller.urlController.text,
+                                          description: controller.descriptionController.text,
+                                          accessToken: controller.accessToken.toString(),
+                                        );
                                       }
                                     },
-                                    // onClick: () async {
-                                    //   controller.urlController.text =
-                                    //       controller.urlController.text == "" ? " " : controller.urlController.text;
-                                    //   if (controller.formKey.currentState!.validate()) {
-                                    //     if (controller.galleryImage.isNotEmpty) {
-                                    //       if (controller.pickedImage == '') {
-                                    //         toast(
-                                    //             title: "Upload Thumbnail image",
-                                    //             context: Get.context!);
-                                    //       } else {
-                                    //         cont
-                                    //             .uploadPropertyData(
-                                    //                 areaUnit: controller
-                                    //                     .selectAreaUnitType
-                                    //                     .value,
-                                    //                 context: context,
-                                    //                 agentID: GetStorage()
-                                    //                     .read('id')
-                                    //                     .toString(),
-                                    //                 galleryImages:
-                                    //                     controller.galleryImage,
-                                    //                 title: controller
-                                    //                     .titleController.text,
-                                    //                 price: controller
-                                    //                     .priceController.text,
-                                    //                 floor: controller.selectedfloors.value == ""
-                                    //                     ? '0'
-                                    //                     : controller
-                                    //                         .selectedfloors
-                                    //                         .value,
-                                    //                 features: controller
-                                    //                     .selectedFacilities,
-                                    //                 purpose: controller.selectedPurpose == 0
-                                    //                     ? "sale"
-                                    //                     : "rent",
-                                    //                 areaType: controller
-                                    //                     .selectedArea.value
-                                    //                     .toLowerCase(),
-                                    //                 type: controller
-                                    //                     .selectedpropertyType
-                                    //                     .value,
-                                    //                 bedroom: controller.selectedbedRoom.value != ""
-                                    //                     ? controller
-                                    //                         .selectedbedRoom
-                                    //                         .value
-                                    //                     : "0",
-                                    //                 bathroom: controller
-                                    //                             .selectedBathroom
-                                    //                             .value !=
-                                    //                         ""
-                                    //                     ? controller
-                                    //                         .selectedBathroom
-                                    //                         .value
-                                    //                     : "0",
-                                    //                 city: controller.locationController.text,
-                                    //                 address: controller.locationController.text,
-                                    //                 area: controller.unitsController.text,
-                                    //                 image: controller.pickedImage,
-                                    //                 shortVideo: controller.videoPath,
-                                    //                 video: controller.urlController.text == " " ? '' : controller.urlController.text,
-                                    //                 description:
-                                    //                 controller.descriptionController.text,
-                                    //           accessToken: controller.accessToken.toString(),
-                                    //         )
-                                    //             .whenComplete(() {
-                                    //           final vm =
-                                    //               Get.put(ProfileViewModel());
-                                    //           vm.getProfilePageData(
-                                    //               context: context,
-                                    //               id: GetStorage()
-                                    //                   .read('id')
-                                    //                   .toString());
-                                    //         });
-                                    //       }
-                                    //     } else if (controller
-                                    //         .galleryImage.isEmpty) {
-                                    //       toast(
-                                    //           title:
-                                    //               'Please Pick Minimum One Gallery Images',
-                                    //           context: context);
-                                    //     } else if (controller
-                                    //         .pickedImage.isEmpty) {
-                                    //       toast(
-                                    //           title:
-                                    //               'Please upload inspection Report',
-                                    //           context: context);
-                                    //     }
-                                    //   }
-                                    // },
+
                                     context: context,
                                     title: 'Post',
                                   ),

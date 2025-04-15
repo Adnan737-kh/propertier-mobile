@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -89,7 +90,8 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
   }
 
 
- Future<void> updateUserProfile(String vendorUserId, ProfileModel profileModel, ProfileController profileController) async {
+ Future<void> updateUserProfile(String vendorUserId, ProfileModel profileModel,
+     ProfileController profileController) async {
 
      final String apiUrl = '${API.updateUserProfile}/$vendorUserId/'; 
 
@@ -98,7 +100,6 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
         'PATCH',
         Uri.parse(apiUrl),
       );
-
 
       request.fields['name'] = profileModel.name?.isNotEmpty == true
           ? profileModel.name!
@@ -180,7 +181,6 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
     throw Exception('Error');
   }
 
-
   Future<List<ServiceModel>> getServices(String vendorUserId) async {
 
       final String apiUrl = '${API.getServices}/$vendorUserId';
@@ -228,8 +228,7 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
     }
   }
 
-
-Future<bool> deleteService(int serviceId) async {
+  Future<bool> deleteService(int serviceId) async {
 
    final String apiUrl = '${API.deleteServices}/$serviceId/';  
   
@@ -256,7 +255,6 @@ Future<bool> deleteService(int serviceId) async {
     return false;
   }
 }
-
 
   Future<bool> deleteFeaturedService(int serviceId) async {
 
@@ -309,7 +307,7 @@ Future<bool> deleteService(int serviceId) async {
     }
   }
 
-Future<void> updateCoverPicture(String vendorUserId, File imageFile,String firebaseid, String email) async {
+  Future<void> updateCoverPicture(String vendorUserId, File imageFile,String firebaseid, String email) async {
 
      final String apiUrl = '${API.updateCoverPicture}/$vendorUserId/';  
 
@@ -334,6 +332,7 @@ Future<void> updateCoverPicture(String vendorUserId, File imageFile,String fireb
       throw Exception('An error occurred while updating the cover picture: $e');
     }
   }
+
   Future<void> updateDrivingLicense( File? front, File? back, String vendorUserId, String firebaseid, String email) async {
 
      final String apiUrl = '${API.updateCoverPicture}/$vendorUserId/';
@@ -376,7 +375,6 @@ Future<void> updateCoverPicture(String vendorUserId, File imageFile,String fireb
       throw Exception('An error occurred while updating the cover picture: $e');
     }
   }
-
 
   Future<bool> uploadCnicImages(File cnicFront) async {
 
@@ -790,7 +788,7 @@ Future<void> updateCoverPicture(String vendorUserId, File imageFile,String fireb
   }
 
   Future<http.Response> addVehicle({required String vendorid,required String make, required String model, required String color, required String name, required String capacity, required String fuelType, required String registrationNumber, required String year, required String transmissionType, required List<String> images})async{
-    final String apiUrl = '${API.addVehicles}';
+    const String apiUrl = API.addVehicles;
 
     var request = http.MultipartRequest(
       'POST',
@@ -835,7 +833,9 @@ Future<void> updateCoverPicture(String vendorUserId, File imageFile,String fireb
       );
     }
     catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 }

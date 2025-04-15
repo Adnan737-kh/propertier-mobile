@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -86,7 +87,9 @@ class AuthHandler {
         .signInWithEmailAndPassword(email: email, password: password);
     if (user.user != null) {
       var token = await user.user!.getIdToken();
-      print("here is the token: $token");
+      if (kDebugMode) {
+        print("here is the token: $token");
+      }
       await LoginServices()
           .loginUser(
               context: Get.context!,
@@ -95,7 +98,9 @@ class AuthHandler {
               password: token ?? '')
           .then((value) {
         if (value != null) {
-          print("here is value: ${value.users?.first.toJson()}");
+          if (kDebugMode) {
+            print("here is value: ${value.users?.first.toJson()}");
+          }
           AuthService().registerUser(value, "");
         } else {
           return false;

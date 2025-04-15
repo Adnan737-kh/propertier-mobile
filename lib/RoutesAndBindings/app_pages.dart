@@ -157,6 +157,7 @@ import '../App/Profile/Email Verification/View/email_otp_verify_view.dart';
 import '../App/Profile/Email Verification/View/email_verification_view.dart';
 import '../App/Profile/Email Verification/ViewModel/email_otp_confirm.dart';
 import '../App/Profile/Email Verification/ViewModel/email_verification_view_model.dart';
+import '../App/Profile/Face Recognition/view/face_recognition_view.dart';
 import '../App/Profile/Number Verification/View/number_confrim_view.dart';
 import '../App/Profile/Number Verification/View/number_otp_verify_view.dart';
 import '../App/Profile/Number Verification/View/number_verification_view.dart';
@@ -199,7 +200,7 @@ class AppPages {
           Get.lazyPut(() => OnBoardingViewModel());
         })),
     GetPage(
-        name: AppRoutes.verifySigninView,
+        name: AppRoutes.verifySignInView,
         transition: Transition.rightToLeftWithFade,
         page: () => const VerifySigninView(),
         binding: BindingsBuilder(() {
@@ -285,7 +286,7 @@ class AppPages {
     GetPage(
         name: AppRoutes.verificationView,
         transition: Transition.rightToLeftWithFade,
-        page: () => VerificationView(),
+        page: () => const VerificationView(),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => VerficationViewModel());
         })),
@@ -445,6 +446,14 @@ class AppPages {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => ());
         })),
+
+    GetPage(
+        name: AppRoutes.faceRecognitionView,
+        transition: Transition.rightToLeftWithFade,
+        page: () => FaceRecognitionView(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => ());
+        })),
     GetPage(
         name: AppRoutes.incorporationVerificationView,
         transition: Transition.rightToLeftWithFade,
@@ -502,7 +511,7 @@ class AppPages {
           Get.lazyPut(() => PolicyViewModel());
         })),
     GetPage(
-        name: AppRoutes.oficialTeamView,
+        name: AppRoutes.officialTeamView,
         transition: Transition.rightToLeftWithFade,
         page: () => OfficialTeamView(),
         binding: BindingsBuilder(() {
@@ -751,7 +760,7 @@ class AppPages {
           Get.lazyPut(() => ProfilePropertyListingViewModel());
         })),
     GetPage(
-        name: AppRoutes.paymentGatwayeView,
+        name: AppRoutes.paymentGatWayView,
         transition: Transition.rightToLeftWithFade,
         page: () => const PaymentGatwayeView(),
         binding: BindingsBuilder(() {
@@ -772,7 +781,7 @@ class AppPages {
           Get.lazyPut(() => SignUpViewModel());
         })),
     GetPage(
-        name: AppRoutes.nearesServiceDetail,
+        name: AppRoutes.nearServiceDetail,
         transition: Transition.rightToLeftWithFade,
         page: () => ServiceDetail(),
         binding: BindingsBuilder(() {
@@ -786,121 +795,121 @@ class AppPages {
           Get.lazyPut(() => SubServiceViewModel());
         })),
     GetPage(
-        name: AppRoutes.BidViewScreen,
+        name: AppRoutes.bidViewScreen,
         transition: Transition.rightToLeftWithFade,
         page: () => BidViewScreen(),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => BidViewModel());
         })),
     GetPage(
-        name: AppRoutes.ServiceDetail,
+        name: AppRoutes.serviceDetail,
         transition: Transition.rightToLeftWithFade,
         page: () => sd.ServiceDetail(),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => ServiceDetailController());
         })),
     GetPage(
-        name: AppRoutes.AllServicesScreen,
+        name: AppRoutes.allServicesScreen,
         transition: Transition.rightToLeftWithFade,
         page: () => AllServicesScreen(),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => AllServicesScreenController());
         })),
     GetPage(
-        name: AppRoutes.AllParentServices,
+        name: AppRoutes.allParentServices,
         transition: Transition.rightToLeftWithFade,
         page: () => AllParentServices(),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => AllParentServicesController());
         })),
     GetPage(
-        name: AppRoutes.VendorOffer,
+        name: AppRoutes.vendorOffer,
         transition: Transition.rightToLeftWithFade,
         page: () => VendorOffer(),
         binding: VendorOfferBinding()
     ),
     GetPage(
-        name: AppRoutes.CustomerWallet,
+        name: AppRoutes.customerWallet,
         transition: Transition.rightToLeftWithFade,
         page: () => CustomerWallet(),
         binding: CustomerWalletBinding()
     ),
     GetPage(
-        name: AppRoutes.WaterServiceForm,
+        name: AppRoutes.waterServiceForm,
         transition: Transition.rightToLeftWithFade,
         page: () => WaterServiceForm(),
         binding: WaterServiceFormBinding()
     ),
     GetPage(
-        name: AppRoutes.PropertyServiceForm,
+        name: AppRoutes.propertyServiceForm,
         transition: Transition.rightToLeftWithFade,
         page: () => PropertyServiceForm(),
         binding: PropertyServiceFormBinding()
     ),
     GetPage(
-        name: AppRoutes.HouseWorkForm,
+        name: AppRoutes.houseWorkForm,
         transition: Transition.rightToLeftWithFade,
         page: () => HouseWorkForm(),
         binding: HouseWorkFormBinding()
     ),
     //!!--------------------------Vender-----------------------------!!//
     GetPage(
-        name: AppRoutes.vendordashborad,
+        name: AppRoutes.vendorDashBoard,
         transition: Transition.rightToLeftWithFade,
         page: () => const Dashboard(),
         binding: BindingsBuilder(() {
           // Get.lazyPut(() => Dashboard());
         })),
     GetPage(
-        name: AppRoutes.VendorWallet,
+        name: AppRoutes.vendorWallet,
         transition: Transition.rightToLeftWithFade,
         page: () => VendorWallet(),
         binding: VendorWalletBinding()
     ),
     GetPage(
-        name: AppRoutes.ServiceForm,
+        name: AppRoutes.serviceForm,
         transition: Transition.rightToLeftWithFade,
         page: () => ServiceForm(),
         binding: ServiceFormBinding()
     ),
     GetPage(
-        name: AppRoutes.VendorForm,
+        name: AppRoutes.vendorForm,
         transition: Transition.rightToLeftWithFade,
         page: () => VendorForm(),
         binding: VendorFormBinding()
     ),
     GetPage(
-        name: AppRoutes.EditVendorForm,
+        name: AppRoutes.editVendorForm,
         transition: Transition.rightToLeftWithFade,
         page: () => EditVendorForm(),
         binding: EditVendorFormBinding()
     ),
     GetPage(
-        name: AppRoutes.TransportServiceForm,
+        name: AppRoutes.transportServiceForm,
         transition: Transition.rightToLeftWithFade,
         page: () => TransportServiceForm(),
         binding: TransportServiceFormBinding()
     ),
     GetPage(
-        name: AppRoutes.TransportBidDetail,
+        name: AppRoutes.transportBidDetail,
         transition: Transition.rightToLeftWithFade,
         page: () => TransportBidDetail(),
         binding: TransportBidDetailBinding()
     ),
     GetPage(
-        name: AppRoutes.WaterBidDetail,
+        name: AppRoutes.waterBidDetail,
         transition: Transition.rightToLeftWithFade,
         page: () => WaterBidDetail(),
         binding: WaterBidDetailBinding()
     ),
     GetPage(
-        name: AppRoutes.PropertyBidDetail,
+        name: AppRoutes.propertyBidDetail,
         transition: Transition.rightToLeftWithFade,
         page: () => PropertyBidDetail(),
         binding: PropertyBidDetailBinding()
     ),
     GetPage(
-        name: AppRoutes.HouseWorkBidDetail,
+        name: AppRoutes.houseWorkBidDetail,
         transition: Transition.rightToLeftWithFade,
         page: () => HouseWorkBidDetail(),
         binding: HouseWorkBidDetailBinding()

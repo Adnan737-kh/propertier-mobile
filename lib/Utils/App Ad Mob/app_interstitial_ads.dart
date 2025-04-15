@@ -1,49 +1,53 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
 
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-
-
-
-
 
 Future<bool> loadAndShowInterstitialAd({bool flag = false}) async {
   Completer<bool> completer = Completer<bool>();
-  InterstitialAd? _interstitialAd;
+  InterstitialAd? interstitialAd;
 
   // show add randomly
   int num =  getRandomZeroOrOne();
-  print("************* $num");
+
   if(num == 0 && flag == false){
     completer.complete(false);
     return completer.future;
   }
 
+  String adUnitId = Platform.isAndroid
+      ? 'ca-app-pub-9403488694655871/2212565520'
+      : 'ca-app-pub-9403488694655871/2072092584';
+
   // Load the interstitial ad only when navigating
   InterstitialAd.load(
-    adUnitId: 'ca-app-pub-3940256099942544/1033173712', // Replace with your Ad Unit ID
-    request: AdRequest(),
+    adUnitId: adUnitId, // Replace with your Ad Unit ID
+    request: const AdRequest(),
     adLoadCallback: InterstitialAdLoadCallback(
       onAdLoaded: (InterstitialAd ad) {
-        _interstitialAd = ad;
+        interstitialAd = ad;
 
         // Show the ad
-        _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+        interstitialAd!.fullScreenContentCallback =
+            FullScreenContentCallback(
           onAdDismissedFullScreenContent: (InterstitialAd ad) {
             ad.dispose();
             completer.complete(true); // Ad closed successfully
           },
-          onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
+          onAdFailedToShowFullScreenContent: (InterstitialAd ad,
+              AdError error) {
             ad.dispose();
             completer.complete(false); // Failed to show ad
           },
         );
-        _interstitialAd!.show();
+        interstitialAd!.show();
       },
       onAdFailedToLoad: (LoadAdError error) {
-        print('InterstitialAd failed to load: $error');
+        if (kDebugMode) {
+          print('InterstitialAd failed to load: $error');
+        }
         completer.complete(false); // Failed to load ad
       },
     ),

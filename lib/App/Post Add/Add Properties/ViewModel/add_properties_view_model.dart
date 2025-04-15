@@ -36,6 +36,17 @@ class AddPropertiesViewModel extends GetxController {
   UserPreference userPreference = UserPreference();
   RxnString accessToken = RxnString();
 
+  @override
+  void dispose() {
+    titleController.dispose();
+    descriptionController.dispose();
+    priceController.dispose();
+    unitsController.dispose();
+    locationController.dispose();
+    urlController.dispose();
+    super.dispose();
+  }
+
   void getAccessToken() async {
     var user = await userPreference.getUserAccessToken();
     if (kDebugMode) {
@@ -216,6 +227,7 @@ class AddPropertiesViewModel extends GetxController {
   //   print('Features added Failed! ${responses.body}' );
   // }
 
+  RxBool isSuccess = true.obs;
   Future<bool> uploadProperties({
     required BuildContext context,
     required String agentID,
@@ -243,8 +255,7 @@ class AddPropertiesViewModel extends GetxController {
     if (kDebugMode) {
       print('selectedFacilities $selectedFacilities');
     }
-    bool isSuccess = false;
-
+    isSuccess.value = false;
     try {
       RxDouble? progress;
       final uri =
@@ -365,7 +376,7 @@ class AddPropertiesViewModel extends GetxController {
         Get.toNamed(AppRoutes.profileView);
         vm.hideOverlay();
         showNotificationWithProgress(progress!.value * 100,'Property Uploaded Successfully');
-        isSuccess = true;
+        isSuccess.value  = true;
       } else {
         vm.hideOverlay();
         showNotificationWithProgress(progress!.value * 100,'Property Uploading Failed');
@@ -380,7 +391,7 @@ class AddPropertiesViewModel extends GetxController {
       }
     }
 
-    return isSuccess;
+    return  isSuccess.value;
   }
 
   // Future<bool> uploadProperties({
@@ -524,7 +535,7 @@ class AddPropertiesViewModel extends GetxController {
   }
 
   final RxString _pickedFrontImage = ''.obs;
-  String get pickedImage => _pickedFrontImage.value;
+  String get thumbnailImage => _pickedFrontImage.value;
   setPickedImage(String val) => _pickedFrontImage.value = val;
   Future<void> pickImage(bool front) async {
     if (await PermissionsHandler.requestGalleryPermission()) {

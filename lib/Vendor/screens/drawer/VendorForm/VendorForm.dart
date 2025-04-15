@@ -78,7 +78,7 @@ class VendorForm extends GetView<VendorFormController>{
           )),
           InkWell(
             onTap: (){
-              Get.toNamed(AppRoutes.EditVendorForm, arguments: controller.items);
+              Get.toNamed(AppRoutes.editVendorForm, arguments: controller.items);
             },
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 20),

@@ -55,14 +55,14 @@ class HomeServices {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: appText(
-                title: 'Something went wrong.',
+                title: 'Something went wrong getShortVideoData.',
                 context: context,
                 color: AppColor.white)));
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: appText(
-              title: 'Something went wrong.',
+              title: 'Something went wrong getShortVideoData $e.',
               context: context,
               color: AppColor.white)));
     }

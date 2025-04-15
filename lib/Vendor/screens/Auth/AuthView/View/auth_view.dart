@@ -39,7 +39,7 @@ class _AuthViewState extends State<AuthView> {
         //     .registerUser(newUser, user.hashedPassword!)
         //     .whenComplete(() => Get.offAllNamed(AppRoutes.navBarView));
         Get.offAllNamed(
-            AppRoutes.vendordashborad); //* Navigate to home screen if user exists
+            AppRoutes.vendorDashBoard); //* Navigate to home screen if user exists
       } else {
         Get.offAllNamed(AppRoutes
             .onBoardingView); //* Navigate to home screen if user exists

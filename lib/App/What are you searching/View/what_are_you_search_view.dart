@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -91,7 +92,7 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
                 ],
               ),
               getHeight(context, 0.010),
-              Obx(() => loctionTile(
+              Obx(() => locationTile(
                     context: context,
                     tile: controller.selectedPlace.isNotEmpty
                         ? "Selected: ${controller.selectedPlace}"
@@ -111,7 +112,7 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
                           return GestureDetector(
                             onTap: () {
                               controller
-                                  .setSelecttype(ListOfTypes().types[index]);
+                                  .setSelectType(ListOfTypes().types[index]);
                             },
                             child: Container(
                               margin: EdgeInsets.only(
@@ -121,7 +122,7 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
                                   vertical: context.getSize.height * 0.010),
                               decoration: BoxDecoration(
                                   color: ListOfTypes().types[index] ==
-                                          controller.selecttype
+                                          controller.selectType
                                       ? AppColor.buttonColor
                                       : AppColor.white,
                                   borderRadius: BorderRadius.circular(30),
@@ -156,7 +157,7 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
               getHeight(context, 0.015),
               additionalDetailsWRYSF(context),
               getHeight(context, 0.015),
-              buttomBottons(),
+              bottomButtons(),
               getHeight(context, 0.005),
             ],
           ),
@@ -287,7 +288,7 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
   //   );
   // }
 
-  InkWell loctionTile(
+  InkWell locationTile(
       {required BuildContext context,
       required String tile,
       Function()? onTap}) {
@@ -411,7 +412,7 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
                           onChanged: (v){
                             controller.priceValue.value = SfRangeValues(double.parse(v), controller.priceValue.value.end);
                           },
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             filled: true,
                             fillColor: Colors.white,  // White background
                             enabledBorder: OutlineInputBorder(
@@ -435,7 +436,7 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 10,),
+                      const SizedBox(width: 10,),
                       Expanded(
                         child: TextFormField(
                           controller: controller.maxPriceC,
@@ -443,7 +444,7 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
                           onChanged: (v){
                             controller.priceValue.value = SfRangeValues(controller.priceValue.value.start, double.parse(v));
                           },
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             filled: true,
                             fillColor: Colors.white,  // White background
                             enabledBorder: OutlineInputBorder(
@@ -511,7 +512,7 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
     );
   }
 
-  Container buttomBottons() {
+  Container bottomButtons() {
     return Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
@@ -748,7 +749,7 @@ class DescriptionWRYSF extends StatelessWidget {
               style: textStyle(context: context, fontSize: 12),
               expands: true,
               maxLines: null,
-              controller: controller.decriptionController,
+              controller: controller.descriptionController,
               decoration: InputDecoration(
                   hintStyle: textStyle(
                       fontSize: 12, context: context, withOpacity: 0.4),
@@ -767,7 +768,7 @@ class SelectLocation extends StatelessWidget {
   final WhatAreYouSearchViewModel viewModel;
   @override
   Widget build(BuildContext context) {
-    final FocusNode _focusNode = FocusNode();
+    final FocusNode focusNode = FocusNode();
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -793,7 +794,7 @@ class SelectLocation extends StatelessWidget {
                       height: 54,
                       width: context.width * 0.688,
                       child: TextFormField(
-                        focusNode: _focusNode,
+                        focusNode: focusNode,
                         controller: viewModel.searchAddressTextController,
                         style: textStyle(context: context, fontSize: 12),
                         decoration: InputDecoration(
@@ -880,7 +881,7 @@ class SelectLocation extends StatelessWidget {
                           context: context,
                           tile: viewModel.selectedPlace,
                           onTap: () async {
-                            FocusScope.of(context).requestFocus(_focusNode);
+                            FocusScope.of(context).requestFocus(focusNode);
                           },
                         ))
                     : const SizedBox(),
@@ -981,7 +982,9 @@ class DestinationSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Places Length ${controller.places.length}");
+    if (kDebugMode) {
+      print("Places Length ${controller.places.length}");
+    }
     return Obx(
       () => ListView.builder(
         itemCount: controller.places.length,

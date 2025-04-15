@@ -27,7 +27,7 @@ class JoinView extends StatelessWidget {
                   onTap: () {
                     Get.toNamed(AppRoutes.servicesProviderView);
                   },
-                  buttonColor: AppColor.joinasbtnColor),
+                  buttonColor: AppColor.joinAsBtnColor),
               const Gap(15),
               Wrap(
                 runSpacing: 10,

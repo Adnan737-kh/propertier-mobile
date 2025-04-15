@@ -1,9 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:propertier/constant/colors.dart';
 
 import '../../../../RoutesAndBindings/app_routes.dart';
+import '../../../Profile/ViewModel/profile_view_model.dart';
+import '../../User/Token/token_preference_view_model/token_preference_view_model.dart';
 
 class AuthView extends StatefulWidget {
   const AuthView({super.key});
@@ -13,46 +15,64 @@ class AuthView extends StatefulWidget {
 }
 
 class _AuthViewState extends State<AuthView> {
+  final ProfileViewModel viewModel = Get.put(ProfileViewModel());
+  final UserPreference userPreference = UserPreference();
+
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 0), () async {
-      if (await GetStorage().read('user') != null) {
-        // LoginResponseModel result = await LoginServices().loginUser(
-        //     email: user.email ?? '',
-        //     context: context,
-        //     password: user.hashedPassword!);
+    super.initState();
 
-        // final newUser = User(
-        //   id: result.data!.user!.id!,
-        //   roleId: result.data!.user!.roleId!,
-        //   name: result.data!.user!.name, // Name can be added later
-        //   username: result.data!.user!.username,
-        //   email: result.data!.user!.email,
-        //   image: result.data!.user!.image,
-        //   cover: result.data!.user!.cover,
-        //   phoneNumber: result
-        //       .data!.user!.phoneNumber, // Phone number can be added later
-        //   createdAt: result.data!.user!.createdAt,
-        //   updatedAt: result.data!.user!.updatedAt,
-        //   hashedPassword: user.hashedPassword,
-        // );
-        // await AuthService()
-        //     .registerUser(newUser, user.hashedPassword!)
-        //     .whenComplete(() => Get.offAllNamed(AppRoutes.navBarView));
-        Get.offAllNamed(
-            AppRoutes.navBarView); //* Navigate to home screen if user exists
-      } else {
-        Get.offAllNamed(AppRoutes
-            .onBoardingView); //* Navigate to home screen if user exists
+    final viewModel = Get.put(ProfileViewModel());
+    final UserPreference userPreference = UserPreference();
+
+    Future.delayed(Duration.zero, () async {
+      try {
+        final tokenData = await userPreference.getUserAccessToken();
+
+        if (tokenData != null &&
+            tokenData.accessToken != null &&
+            tokenData.accessToken!.isNotEmpty &&
+            tokenData.accessToken != 'null') {
+          debugPrint('✅ Access Token Found: ${tokenData.accessToken}');
+
+          // Fetch profile data
+          await viewModel.getProfilePageData(
+            context: Get.context!,
+            id: tokenData.accessToken!,
+          );
+
+          final userProfile = await userPreference.getUserProfileData();
+
+          if (userProfile != null && userProfile.email != null) {
+            debugPrint('✅ User profile email: ${userProfile.email}');
+            debugPrint('✅ Vendor info: ${userProfile.vendor}');
+
+            // Navigate to home screen
+            Get.offAllNamed(AppRoutes.navBarView);
+          } else {
+            debugPrint('❌ User profile not found or email is null');
+            Get.offAllNamed(AppRoutes.onBoardingView);
+          }
+        } else {
+          debugPrint('❌ Access token is missing or invalid');
+          Get.offAllNamed(AppRoutes.onBoardingView);
+        }
+      } catch (e, stackTrace) {
+        debugPrint('🚨 Error during auth flow: $e');
+        debugPrint('StackTrace: $stackTrace');
+        Get.offAllNamed(AppRoutes.onBoardingView);
       }
     });
-    super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColor.backgroundColor,
+    return const Scaffold(
+      backgroundColor: AppColor.backgroundColor,
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 }

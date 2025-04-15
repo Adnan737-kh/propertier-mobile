@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -107,7 +108,9 @@ class SignUpViewModel extends GetxController {
             email: email,
             firebaseID: firebaseSignup.user!.uid,
             phoneNumber: phoneNumber);
-        print("Data is Here $result");
+        if (kDebugMode) {
+          print("Data is Here $result");
+        }
 
         isDone = true;
       }
@@ -200,8 +203,8 @@ class SignUpViewModel extends GetxController {
   loginWithGoogle({required BuildContext context}) async {
     isGoogleSigninLoading.value = true;
     try {
-      var isSccuss = await AuthHandler.signInHandler(AuthHandlerEnum.google);
-      if (isSccuss) {
+      var isSuccess = await AuthHandler.signInHandler(AuthHandlerEnum.google);
+      if (isSuccess) {
         Get.offAndToNamed(AppRoutes.navBarView);
       } else {}
       isGoogleSigninLoading.value = false;
@@ -215,8 +218,8 @@ class SignUpViewModel extends GetxController {
   loginWithApple({required BuildContext context}) async {
     isLoading.value = true;
     try {
-      var isSccuss = await AuthHandler.signInHandler(AuthHandlerEnum.apple);
-      if (isSccuss) {
+      var isSuccess = await AuthHandler.signInHandler(AuthHandlerEnum.apple);
+      if (isSuccess) {
         Get.offAndToNamed(AppRoutes.navBarView);
       } else {}
       isLoading.value = false;
@@ -320,7 +323,9 @@ class SignUpViewModel extends GetxController {
       },
       verificationFailed: (FirebaseAuthException e) {},
       codeSent: (String verificationId, int? resendToken) {
-        print("E is Ths $verificationId");
+        if (kDebugMode) {
+          print("E is Ths $verificationId");
+        }
 
         GetStorage().write('authkey', verificationId);
       },
@@ -346,7 +351,7 @@ class SignUpViewModel extends GetxController {
     if (data == true) {
       changeLoading(false);
 
-      Get.toNamed(AppRoutes.verifySigninView,
+      Get.toNamed(AppRoutes.verifySignInView,
           arguments: "SignUpWithEmailAndPassword");
     } else {
       changeLoading(false);
@@ -439,10 +444,14 @@ class SignUpViewModel extends GetxController {
     );
 
     _api.signup(signUpData.toMap()).then((onValue) async {
-      print('onValue $onValue');
+      if (kDebugMode) {
+        print('onValue $onValue');
+      }
       if (onValue != null && onValue.containsKey('otp_token')) {
         String otpToken = onValue['otp_token'];
-        print('Save otpToken For Header $otpToken');
+        if (kDebugMode) {
+          print('Save otpToken For Header $otpToken');
+        }
 
         // 🔹 Save to SharedPreferences
         SharedPreferences prefs = await SharedPreferences.getInstance();

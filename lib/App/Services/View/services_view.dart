@@ -31,7 +31,8 @@ class ServicesView extends StatelessWidget {
     // viewModel.getAllParentServices(context);
    return Obx((){
      if(viewModel.profileImage == null){
-       return const Scaffold(body: Center(child: CircularProgressIndicator()));
+       return const Scaffold(
+           body: Center(child: CircularProgressIndicator()));
      }
        return Scaffold(
          body: CustomScrollView(
@@ -103,13 +104,13 @@ class ServicesView extends StatelessWidget {
                                    context: context,
                                    title: 'Other',
                                    onClick: () {
-                                     Get.toNamed(AppRoutes.AllParentServices);
+                                     Get.toNamed(AppRoutes.allParentServices);
                                    }),
                                // Nearby Services
                                getHeight(context, 0.015),
                                gridTitleTile(context,
                                    title: "Nearest Services", callBack: () {
-                                     Get.toNamed(AppRoutes.AllServicesScreen,
+                                     Get.toNamed(AppRoutes.allServicesScreen,
                                          arguments: viewModel.serviceDashboardModel
                                              .value?.nearbyServices);
                                    }, fontSize: 14),
@@ -137,7 +138,7 @@ class ServicesView extends StatelessWidget {
                                          .nearbyServices![index];
                                      return ServicesBox(context, service,
                                          onClick: () {
-                                           Get.toNamed(AppRoutes.ServiceDetail,
+                                           Get.toNamed(AppRoutes.serviceDetail,
                                                arguments: service);
                                          });
                                    })
@@ -159,7 +160,7 @@ class ServicesView extends StatelessWidget {
                                        // title: context.local.topSellingServices,
                                        title: "Top Selling Services",
                                        callBack: () {
-                                         Get.toNamed(AppRoutes.AllServicesScreen,
+                                         Get.toNamed(AppRoutes.allServicesScreen,
                                              arguments: viewModel
                                                  .serviceDashboardModel
                                                  .value
@@ -196,7 +197,7 @@ class ServicesView extends StatelessWidget {
                                            .topsellingServices![index];
                                        return ServicesBox(context, service,
                                            onClick: () {
-                                             Get.toNamed(AppRoutes.ServiceDetail,
+                                             Get.toNamed(AppRoutes.serviceDetail,
                                                  arguments: service);
                                            });
                                      })
@@ -206,51 +207,51 @@ class ServicesView extends StatelessWidget {
                                const SizedBox(
                                  height: 10,
                                ),
-                               FutureBuilder(
-                                   future:
-                                   viewModel.getPaginationServices(context),
-                                   builder: (context, snapshot) {
-                                     if (snapshot.connectionState ==
-                                         ConnectionState.waiting) {
-                                       return const Center(
-                                         child: CircularProgressIndicator(
-                                           color: AppColor.buttonColor,
-                                         ),
-                                       );
-                                     }
-                                     if (snapshot.connectionState ==
-                                         ConnectionState.done) {
-                                       ServicePaginationModel? serviceModel =
-                                           snapshot.data;
-                                       List<SellingServices> services =
-                                           serviceModel?.results ?? [];
-                                       return Column(
-                                         children: [
-                                           gridTitleTile(context,
-                                               // title: context.local.topSellingServices,
-                                               title: "Other Services",
-                                               callBack: () {
-                                                 Get.toNamed(
-                                                     AppRoutes.AllServicesScreen,
-                                                     arguments: services);
-                                               }, fontSize: 14),
-                                           ListView.builder(
-                                               physics: const BouncingScrollPhysics(),
-                                               padding: const EdgeInsets.all(0),
-                                               shrinkWrap: true,
-                                               itemCount: services.length,
-                                               itemBuilder: (context, index) {
-                                                 return Padding(
-                                                   padding: const EdgeInsets.symmetric(horizontal: 10),
-                                                   child: serviceTile(context,
-                                                       service: services[index]),
-                                                 );
-                                               }),
-                                         ],
-                                       );
-                                     }
-                                     return const SizedBox();
-                                   })
+                               // FutureBuilder(
+                               //     future:
+                               //     viewModel.getPaginationServices(context),
+                               //     builder: (context, snapshot) {
+                               //       if (snapshot.connectionState ==
+                               //           ConnectionState.waiting) {
+                               //         return const Center(
+                               //           child: CircularProgressIndicator(
+                               //             color: AppColor.buttonColor,
+                               //           ),
+                               //         );
+                               //       }
+                               //       if (snapshot.connectionState ==
+                               //           ConnectionState.done) {
+                               //         ServicePaginationModel? serviceModel =
+                               //             snapshot.data;
+                               //         List<SellingServices> services =
+                               //             serviceModel?.results ?? [];
+                               //         return Column(
+                               //           children: [
+                               //             gridTitleTile(context,
+                               //                 // title: context.local.topSellingServices,
+                               //                 title: "Other Services",
+                               //                 callBack: () {
+                               //                   Get.toNamed(
+                               //                       AppRoutes.allServicesScreen,
+                               //                       arguments: services);
+                               //                 }, fontSize: 14),
+                               //             ListView.builder(
+                               //                 physics: const BouncingScrollPhysics(),
+                               //                 padding: const EdgeInsets.all(0),
+                               //                 shrinkWrap: true,
+                               //                 itemCount: services.length,
+                               //                 itemBuilder: (context, index) {
+                               //                   return Padding(
+                               //                     padding: const EdgeInsets.symmetric(horizontal: 10),
+                               //                     child: serviceTile(context,
+                               //                         service: services[index]),
+                               //                   );
+                               //                 }),
+                               //           ],
+                               //         );
+                               //       }
+                               //       return const SizedBox();
+                               //     })
                              ],
                            ),
                          ),

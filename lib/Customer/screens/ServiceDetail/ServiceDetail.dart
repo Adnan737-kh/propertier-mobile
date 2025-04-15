@@ -159,7 +159,7 @@ class ServiceDetail extends GetView<ServiceDetailController> {
                     height: 39,
                     title: "Get Service",
                     onTap: () {
-                      Get.toNamed(AppRoutes.nearesServiceDetail,
+                      Get.toNamed(AppRoutes.nearServiceDetail,
                           arguments: controller.service);
                       // Get.bottomSheet(
                       //   Container(

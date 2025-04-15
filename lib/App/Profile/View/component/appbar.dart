@@ -170,9 +170,7 @@ PreferredSize profileAppBar(BuildContext context, ProfileViewModel viewModel,
                                   ? viewModel.profileModel.value.userProfile!
                                               .email !=
                                           null
-                                      ? viewModel.profileModel.value
-                                          .userProfile!.phoneNumberCountryCode
-                                          .toString()
+                                      ? "92"
                                       : ""
                                   : "",
                               fontSize: 10,
