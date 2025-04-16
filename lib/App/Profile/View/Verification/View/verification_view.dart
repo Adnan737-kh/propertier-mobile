@@ -141,6 +141,37 @@ class VerificationView extends StatelessWidget {
                                 .idVerificationView); // Handle any unknown status
                         }
                       },
+                    ),verifyTile(
+                      title: "Face Verification",
+                      verify: (() {
+                        switch (verificationVM.selfieVerificationStatus.value) {
+                          case 'pending':
+                            return "pending"; // Return "pending" if status is 'pending'
+                          case 'unverified':
+                            return "unverified"; // Return "unverified" if status is 'unverified'
+                          case 'verified':
+                            return "verified"; // Return "verified" if status is 'verified'
+                          default:
+                            return "unknown"; // Handle any unknown status
+                        }
+                      })(),
+                      onTap: () {
+                        switch (verificationVM.selfieVerificationStatus.value) {
+                          case 'pending':
+                            return toast(
+                                title: "Face Verification Verification in Progress",
+                                context: context);
+                          case 'unverified':
+                            return Get.toNamed(AppRoutes.faceRecognitionView);
+                          case 'verified':
+                            return toast(
+                                title: "Your Face Verification is Already Verified",
+                                context: context);
+                          default:
+                            return Get.toNamed(AppRoutes
+                                .faceRecognitionView); // Handle any unknown status
+                        }
+                      },
                     ),
                     getHeight(context, 0.06),
                     Row(

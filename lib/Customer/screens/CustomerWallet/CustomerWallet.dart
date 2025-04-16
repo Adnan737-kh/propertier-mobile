@@ -11,7 +11,7 @@ class CustomerWallet extends GetView<CustomerWalletController>{
     return Scaffold(
       // backgroundColor: Colors.blue.shade50,
       appBar: AppBar(
-        title: Text("Wallet"),
+        title: const Text("Wallet"),
         backgroundColor: AppColor.forgroundColor,
       ),
       body: Padding(

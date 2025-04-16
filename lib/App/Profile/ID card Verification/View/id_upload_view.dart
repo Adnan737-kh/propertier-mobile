@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -111,24 +110,25 @@ class _IDUploadViewState extends State<IDUploadView> {
                   const SizedBox(
                     height: 80,
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: textButton(
-                          onClick: () async {
-                            if (kDebugMode) {
-                              print("id card access token ${idCardVM.accessToken}");
-                              print("picked image $_pickedFrontImage");
-
-                            }
-                            await idCardVM.verifyIdCard(_pickedFrontImage, _pickedBackImage, idCardVM.accessToken!);
-                          },
-                          context: context,
-                          title: 'Next',
+                  Obx(() {
+                    return Row(
+                      children: [
+                        Expanded(
+                          child: idCardVM.isUploading.value
+                              ? const Center(child: CircularProgressIndicator())
+                              : textButton(
+                            onClick: () async {
+                              await idCardVM.verifyIdCard(
+                                  _pickedFrontImage, _pickedBackImage, idCardVM.accessToken!);
+                            },
+                            context: context,
+                            title: 'Next',
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    );
+                  }),
+
                   const SizedBox(
                     height: 45,
                   ),

@@ -1,7 +1,6 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import '../../../../Vendor/screens/dashboard/profile/model/profile_model.dart';
+import '../../../../RoutesAndBindings/app_routes.dart';
 import '../../../../repository/profile_repo/profile_update/profile_updat_repo.dart';
 import '../../../Auth/User/Token/token_preference_view_model/token_preference_view_model.dart';
 
@@ -13,7 +12,6 @@ class IDVerficationViewModel extends GetxController {
   @override
   void onInit() async {
     userPreference.getUserAccessToken().then((value) async {
-      print('edit ACCESS   !!! ${value.accessToken}');
       if (value.accessToken!.isNotEmpty ||
           value.accessToken.toString() != 'null') {
         _accessToken = value.accessToken;
@@ -23,8 +21,7 @@ class IDVerficationViewModel extends GetxController {
   }
 
   RxBool isUploading = false.obs;
-  final ProfileUpdateRepository _repo =
-      ProfileUpdateRepository(); // Replace with your actual repo class
+  final ProfileUpdateRepository _repo = ProfileUpdateRepository();
 
   Future<void> verifyIdCard(
       File? frontImage, File? backImage, String accessToken) async {
@@ -39,12 +36,10 @@ class IDVerficationViewModel extends GetxController {
       dynamic response =
           await _repo.idCardVerification(frontImage, backImage, accessToken);
 
-      if (response != null) {
-        Get.snackbar("Success", "User verification successful!");
+      if (response != null && response["statusCode"] == 201) {
+        Get.toNamed(AppRoutes.verificationView);
+        Get.snackbar("Success", "Card Verification submited!");
       } else {
-        if (kDebugMode) {
-          print('failed $response');
-        }
         Get.snackbar("Error", "User verification failed.");
       }
     } catch (e) {

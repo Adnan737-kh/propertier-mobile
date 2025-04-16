@@ -14,9 +14,11 @@ class VerficationViewModel extends GetxController {
   final _emailVerificationStatus = ''.obs;
   final _numberVerificationStatus = ''.obs;
   final _idCardVerificationStatus = ''.obs;
+  final _selfieVerificationStatus = ''.obs;
   RxString get emailVerificationStatus => _emailVerificationStatus;
   RxString get numberVerificationStatus => _numberVerificationStatus;
   RxString get idCardVerificationStatus => _idCardVerificationStatus;
+  RxString get selfieVerificationStatus => _selfieVerificationStatus;
   UserPreference userPreference = UserPreference();
 
   var isShowPassword = false.obs;
@@ -48,6 +50,7 @@ class VerficationViewModel extends GetxController {
       _numberVerificationStatus.value =
           userData.phoneNumberVerificationStatus ?? "";
       _idCardVerificationStatus.value = userData.cnicVerificationStatus ?? "";
+      _selfieVerificationStatus.value = userData.selfieVerificationStatus ?? "";
 
       update();
     }

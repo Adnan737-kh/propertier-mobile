@@ -435,7 +435,6 @@ class SignUpViewModel extends GetxController {
   void signUpPro() {
     isLoading(true);
 
-    // Create an instance of the SignUpModel with data from the form
     SignUpModel signUpData = SignUpModel(
       fullName: nameController.value.text,
       email: emailController.value.text,
@@ -444,32 +443,52 @@ class SignUpViewModel extends GetxController {
     );
 
     _api.signup(signUpData.toMap()).then((onValue) async {
-      if (kDebugMode) {
-        print('onValue $onValue');
-      }
-      if (onValue != null && onValue.containsKey('otp_token')) {
-        String otpToken = onValue['otp_token'];
-        if (kDebugMode) {
-          print('Save otpToken For Header $otpToken');
-        }
-
-        // 🔹 Save to SharedPreferences
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('otp_token', otpToken);
-
-        print('📌 otp_token stored successfully: $otpToken');
-      }
-      toast(title: 'OTP Sent to Your Gmail', context: Get.context!);
-      Get.toNamed(AppRoutes.otpVerifyView);
       isLoading(false);
+
+      int statusCode = onValue['statusCode'];
+      dynamic body = onValue['body'];
+
+      if (kDebugMode) {
+        print('StatusCode: $statusCode');
+        print('Body: $body');
+      }
+
+      if (statusCode == 200 || statusCode == 201) {
+        if (body != null && body.containsKey('otp_token')) {
+          String otpToken = body['otp_token'];
+
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setString('otp_token', otpToken);
+
+          if (kDebugMode) {
+            print('📌 otp_token stored: $otpToken');
+          }
+
+          toast(title: 'OTP Sent to Your Gmail', context: Get.context!);
+          Get.toNamed(AppRoutes.otpVerifyView);
+        } else {
+          toast(title: 'Signup successful, but no OTP token found.', context: Get.context!);
+        }
+      } else {
+        if (body is Map && body.containsKey('detail')) {
+          toast(title: body['detail'].toString(), context: Get.context!);
+        } else {
+          toast(title: 'Signup failed. Please try again.', context: Get.context!);
+        }
+      }
     }).onError((error, stackTrace) {
       isLoading(false);
+
       if (error is UserAlreadyExistsException) {
         toast(title: 'User with this email already exists', context: Get.context!);
       } else {
         toast(title: 'An error occurred: $error', context: Get.context!);
       }
-      print('$error and $stackTrace');
+
+      if (kDebugMode) {
+        print('Signup error: $error\n$stackTrace');
+      }
     });
   }
+
 }

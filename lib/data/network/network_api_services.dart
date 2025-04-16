@@ -20,7 +20,9 @@ class NetworkApiService extends BaseApiServices {
       final response = await http.get(Uri.parse(url), headers:headers,)
           .timeout(const Duration(seconds: 15));
       responseJson = returnResponse(response);
-      print('get Response is ${response.body}');
+      if (kDebugMode) {
+        print('get Response is ${response.body}');
+      }
     } on SocketException {
       throw InternetException('');
     } on RequestTimeOut {
@@ -31,31 +33,33 @@ class NetworkApiService extends BaseApiServices {
   }
 
   @override
-  Future postApi(var data, String url, {String? authToken}) async {
-    if (kDebugMode) {
-      print('the data $data');
-      print('the url $url');
-    }
-
-    dynamic responseJson;
+  Future<Map<String, dynamic>> postApi(var data, String url, {String? authToken}) async {
     try {
-      final response = await http.post(Uri.parse(url),
-          headers: {
-            "Content-Type": "application/json",
-            if (authToken != null) "Authorization": "Bearer $authToken",
-          },
-          body: jsonEncode(data));
-      responseJson = returnResponse(response);
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          "Content-Type": "application/json",
+          if (authToken != null) "Authorization": "Bearer $authToken",
+        },
+        body: jsonEncode(data),
+      );
+
+      dynamic responseJson = returnResponse(response);
       if (kDebugMode) {
-        print('the json response $responseJson');
+        print('The JSON response: $responseJson');
       }
+
+      return {
+        'statusCode': response.statusCode,
+        'body': responseJson,
+      };
     } on SocketException {
       throw InternetException('');
     } on RequestTimeOut {
       throw TimeoutException('');
     }
-    return responseJson;
   }
+
 
   @override
   Future patchApi(var data, String url, {String? authToken}) async {

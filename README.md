@@ -41,3 +41,5 @@ API Location: Services API -> Orders -> Accept Submission from Customer Side
 •	Leave Reviews After Order Completion:
 Both customer and vendor can leave reviews.
 API Location: Services API -> Feedbacks -> Vendor to Customer, Services API -> Feedbacks -> Customer to Vendor
+
+[//]: # (https://github.com/propertier/propertier_app_production.git)

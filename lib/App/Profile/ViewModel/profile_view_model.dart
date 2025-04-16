@@ -109,14 +109,18 @@ class ProfileViewModel extends GetxController {
           print('Profile Data Saved $result');
         }
       }).onError((error, stackTrace) {
-        print('Profile Data Error $error');
+        if (kDebugMode) {
+          print('Profile Data Error $error');
+        }
       });
         //     if (profileModel.value.userProfile!.requiresProfileCompletion == true) {
       //   showProfileCompletionDialog(Get.context!, profileModel);
       // }
       isLoading(false);
     }).onError((error, stackTrace) {
-      print('aa Data to login $error');
+      if (kDebugMode) {
+        print('aa Data to login $error');
+      }
       Get.offAllNamed(AppRoutes.loginView);
       isLoading(false);
       if (kDebugMode) {

@@ -100,7 +100,7 @@ PreferredSize servicesAppBar(BuildContext context,
                       if (kDebugMode) {
                         print("general status ${user.verificationStatus}");
                       }
-                      if (user.verificationStatus == "pending") {
+                      if (user.verificationStatus == "incomplete") {
                         Get.toNamed(AppRoutes.verificationView);
                       } else {
                         if (user.vendor == null) {

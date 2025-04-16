@@ -159,51 +159,52 @@ class LoginViewModel extends GetxController {
   void loginUser() {
     isLoading(true);
 
-    // Create an instance of the SignUpModel with data from the form
     SignInModel loginUser = SignInModel(
       email: userEmailController.value.text,
       password: passwordController.value.text,
     );
 
-    // // Send the model data as a Map to the API
     _api.login(loginUser.toMap()).then((onValue) async {
-      print('only API Response: $onValue');
-      if (onValue != null && onValue.containsKey('token')) {
-        print('the API Response: $onValue');
-        String? accessToken = onValue['token']['access'];
+      isLoading(false);
+
+      int statusCode = onValue['statusCode'];
+      dynamic body = onValue['body'];
+
+      if (kDebugMode) {
+        print('Login API Response: $body');
+        print('Status Code: $statusCode');
+      }
+
+      if (statusCode == 200 && body != null && body.containsKey('token')) {
+        String? accessToken = body['token']['access'];
+
         if (kDebugMode) {
-          print('the access token !!! $accessToken');
+          print('Access Token: $accessToken');
         }
 
-        if (accessToken != null) {
-          await userPreference
-              .saveUserAccessToken(TokenModel.fromJson(onValue))
-              .then((onValue) {
-            Get.toNamed(AppRoutes.navBarView);
-            toast(title: 'Login Successfully', context: Get.context!);
-          }).onError((error, stackTrace) {});
-
+        await userPreference.saveUserAccessToken(TokenModel.fromJson(body)).then((onValue) {
+          Get.toNamed(AppRoutes.navBarView);
+          toast(title: 'Login Successfully', context: Get.context!);
+        }).onError((error, stackTrace) {
+          toast(title: 'Failed to save token', context: Get.context!);
+        });
+      } else {
+        // handle error message from backend
+        if (body is Map && body.containsKey('detail')) {
+          toast(title: body['detail'].toString(), context: Get.context!);
+        } else {
+          toast(title: 'Login failed. Please try again.', context: Get.context!);
         }
       }
-      // else if(onValue != null && onValue.containsKey('errors')){
-      //   print('the msg is !!! ');
-      //   List<dynamic>? errorMessages = onValue['errors']['non_field_errors'];
-      //   if (errorMessages != null && errorMessages.isNotEmpty) {
-      //     String msg = errorMessages.first.toString();  // Extracts first error message
-      //     if (kDebugMode) {
-      //       print('the msg is !!! $msg');
-      //     }
-      //     toast(title: msg, context: Get.context!);
-      //   }
-      // }
-      isLoading(false);
     }).onError((error, stackTrace) {
+      isLoading(false);
+
       if (error is EmailOrPasswordIncorrect) {
         toast(title: 'Email Or Password is Incorrect', context: Get.context!);
       } else {
         toast(title: 'An error occurred: $error', context: Get.context!);
       }
-      isLoading(false);
+
       if (kDebugMode) {
         print('$error and $stackTrace');
       }

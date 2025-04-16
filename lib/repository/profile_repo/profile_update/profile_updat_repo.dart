@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:propertier/data/network/network_api_services.dart';
 import 'package:propertier/res/app_urls/app_url.dart';
 import 'package:http/http.dart' as http;
@@ -23,7 +24,11 @@ class ProfileUpdateRepository {
     return response;
   }
 
-  Future<dynamic> idCardVerification(File frontImage, File backImage, String accessToken) async {
+  Future<Map<String, dynamic>?> idCardVerification(
+      File frontImage,
+      File backImage,
+      String accessToken,
+      ) async {
     try {
       var uri = Uri.parse(AppUrls.userVerificationUrl);
 
@@ -38,18 +43,33 @@ class ProfileUpdateRepository {
       // Convert the streamed response into a string
       String responseString = await response.stream.bytesToString();
 
-      if (response.statusCode == 200) {
-        if (kDebugMode) {
-          print("Response Success: $responseString");
-        }
-        return responseString;
-      } else {
-        if (kDebugMode) {
-          print("Response Status Code: ${response.statusCode}");
-          print("Response Error: $responseString");
-        }
-        return responseString; // Return the actual response instead of null
+      return {
+        "statusCode": response.statusCode,
+        "body": responseString,
+      };
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error: $e");
       }
+      return null;
+    }
+  }
+  Future<Map<String, dynamic>?> faceVerification(File selfie, String accessToken) async {
+    try {
+      var uri = Uri.parse(AppUrls.userVerificationUrl);
+
+      var request = http.MultipartRequest("POST", uri)
+        ..headers['Authorization'] = "Bearer $accessToken"
+        ..fields['verification_type'] = "selfie"
+        ..files.add(await http.MultipartFile.fromPath("selfie", selfie.path));
+
+      var response = await request.send();
+      String responseString = await response.stream.bytesToString();
+
+      return {
+        "statusCode": response.statusCode,
+        "body": responseString,
+      };
     } catch (e) {
       if (kDebugMode) {
         print("Error: $e");
@@ -58,10 +78,8 @@ class ProfileUpdateRepository {
     }
   }
 
-  Future<dynamic> emailAndNumberVerification(var data,String accessToken)async {
-
-    dynamic response = _apiServices.postApi(data,AppUrls.userVerificationUrl,authToken:accessToken );
-    return response;
+  Future<Map<String, dynamic>> emailAndNumberVerification(var data, String accessToken) async {
+    return await _apiServices.postApi(data, AppUrls.userVerificationUrl, authToken: accessToken);
   }
 
 

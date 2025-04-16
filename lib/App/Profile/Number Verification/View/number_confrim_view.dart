@@ -66,24 +66,30 @@ class NumberConfirmView extends StatelessWidget {
                     const SizedBox(
                       height: 80,
                     ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: textButton(
-                            onClick: () async {
-                              if (numberVerificationVM.emailFormKey.currentState!
-                                  .validate()) {
-                                numberVerificationVM.emailFormKey.currentState?.save();
-                                numberVerificationVM.phoneNumberVerification(context,numberVerificationVM.accessToken!);
-                                // Get.toNamed(AppRoutes.numberOTPView);
-                              } else {}
-                            },
-                            context: context,
-                            title: 'Send',
+                    Obx(() {
+                      return Row(
+                        children: [
+                          Expanded(
+                            child: numberVerificationVM.isLoading.value
+                                ? const Center(child: CircularProgressIndicator())
+                                : textButton(
+                              onClick: () async {
+                                if (numberVerificationVM.emailFormKey.currentState!.validate()) {
+                                  numberVerificationVM.emailFormKey.currentState?.save();
+                                  numberVerificationVM.phoneNumberVerification(
+                                    context,
+                                    numberVerificationVM.accessToken!,
+                                  );
+                                }
+                              },
+                              context: context,
+                              title: 'Send',
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      );
+                    }),
+
                     const SizedBox(
                       height: 45,
                     ),

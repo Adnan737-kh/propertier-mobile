@@ -33,66 +33,66 @@ class ForgotPasswordViewModel extends GetxController {
     super.dispose();
   }
 
-  void restPasswordViaEmail(
-      {required String email, required BuildContext context}) {
+  void forgetPasswordViaEmail({
+    required String email,
+    required BuildContext context,
+  }) {
     if (!isValidEmail(email)) {
       toast(title: 'Please Enter valid Email', context: context);
       return;
     }
+
     isLoading(true);
 
-    Map data = {
-      'email': email,
-    };
-    // Send the model data as a Map to the API
+    Map data = {'email': email};
+
     _api.forgotPassword(data).then((onValue) async {
+      isLoading(false);
+
+      int statusCode = onValue['statusCode'];
+      dynamic body = onValue['body'];
+
       if (kDebugMode) {
-        print('the response $onValue');
+        print('Forgot Password Response: $body');
+        print('Status Code: $statusCode');
       }
 
-      // Extract `uid` and `token` from response
-      String? uid = onValue['uid'];
-      String? token = onValue['token'];
+      if (statusCode == 200 || statusCode == 201) {
+        // Extract `uid` and `token`
+        String? uid = body['uid'];
+        String? token = body['token'];
 
-      // Save to SharedPreferences
-      SharedPreferences forgotPref = await SharedPreferences.getInstance();
-      await forgotPref.setString('uid', uid ?? '');
-      await forgotPref.setString('token', token ?? '');
-      if (kDebugMode) {
-        print(' user uid and token $uid and $token');
-      }
+        SharedPreferences forgotPref = await SharedPreferences.getInstance();
+        await forgotPref.setString('uid', uid ?? '');
+        await forgotPref.setString('token', token ?? '');
 
-      // Navigate to verification screen
-      Get.toNamed(AppRoutes.otpVerifyView);
-      toast(
+        if (kDebugMode) {
+          print('Saved UID and Token: $uid and $token');
+        }
+
+        Get.toNamed(AppRoutes.otpVerifyView);
+        toast(
           title: "Verification Email Sent to Your Gmail!",
-          context: Get.context!);
+          context: context,
+        );
+      } else {
+        if (body is Map && body.containsKey('detail')) {
+          toast(title: body['detail'].toString(), context: context);
+        } else {
+          toast(title: 'Failed to send verification email.', context: context);
+        }
+      }
     }).onError((error, stackTrace) {
       isLoading(false);
+
       if (kDebugMode) {
-        print('$error and $stackTrace');
+        print('Forgot Password Error: $error\n$stackTrace');
       }
+
+      toast(title: 'An error occurred. Please try again.', context: context);
     });
   }
 
-  // late stt.SpeechToText _speech;
-
-  // final bool _speechEnabled = false;
-  // final RxBool _isListening = false.obs;
-  // bool get isListening => _isListening.value;
-  // final RxString _lastWords = ''.obs;
-  // String get lastWord => _lastWords.value;
-
-  // void _initSpeechRecognizer() async {
-  //   bool available = await _speech.initialize(
-  //     onError: (error) => print('Error: $error'),
-  //   );
-  //   if (available) {
-  //     _isListening.value = false;
-  //   } else {
-  //     print('The user has denied the use of speech recognition.');
-  //   }
-  // }
 
   void startListening({required int textFieldNo}) async {
     // try {

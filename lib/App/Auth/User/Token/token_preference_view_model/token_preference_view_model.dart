@@ -41,8 +41,8 @@ class UserPreference {
           'email_verification_status', userModel.emailVerificationStatus.toString());
       sharedPreferences.setString('phone_number_verification_status',
           userModel.phoneNumberVerificationStatus.toString());
-      sharedPreferences.setString(
-          'cnic_verification_status', userModel.cnicVerificationStatus.toString());
+      sharedPreferences.setString('cnic_verification_status', userModel.cnicVerificationStatus.toString());
+      sharedPreferences.setString('selfie_verification_status', userModel.selfieVerificationStatus.toString());
       sharedPreferences.setString('business_address_verification_status',
           userModel.addressVerificationStatus.toString());
       sharedPreferences.setString('profile_picture_verification_status',
@@ -99,8 +99,8 @@ class UserPreference {
 
     String? phoneNumberVerificationStatus =
         sharedPreferences.getString('phone_number_verification_status');
-    String? cnicVerificationStatus =
-        sharedPreferences.getString('cnic_verification_status');
+    String? cnicVerificationStatus = sharedPreferences.getString('cnic_verification_status');
+    String? selfieVerificationStatus = sharedPreferences.getString('selfie_verification_status');
     String? addressVerificationStatus =
         sharedPreferences.getString('business_address_verification_status');
     String? profilePictureVerificationStatus =
@@ -123,6 +123,7 @@ class UserPreference {
       addressVerificationStatus: addressVerificationStatus,
       profilePictureVerificationStatus: profilePictureVerificationStatus,
       cnicVerificationStatus: cnicVerificationStatus,
+      selfieVerificationStatus: selfieVerificationStatus,
       createdAt: null,
     );
   }

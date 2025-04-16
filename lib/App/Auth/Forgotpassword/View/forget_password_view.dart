@@ -95,7 +95,7 @@ class ForgotPasswordView extends StatelessWidget {
                                 child: textButton(
                                   textFontWeight: FontWeight.bold,
                                   onClick: () async {
-                                    forgetPassVM.restPasswordViaEmail(
+                                    forgetPassVM.forgetPasswordViaEmail(
                                         email:
                                             forgetPassVM.emailController.text, context: context);
 

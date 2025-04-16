@@ -70,23 +70,27 @@ class EmailConfirmView extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: textButton(
-                            onClick: () async {
-                              if (confirmEmailVM.emailFormKey.currentState!
-                                  .validate()) {
-                                confirmEmailVM.emailFormKey.currentState
-                                    ?.save();
-                                confirmEmailVM.emailVerification(
-                                    context, confirmEmailVM.accessToken!);
-                                // Get.toNamed(AppRoutes.emailOTPView);
-                              } else {}
-                            },
-                            context: context,
-                            title: 'Send',
-                          ),
+                          child: Obx(() {
+                            return confirmEmailVM.isLoading.value
+                                ? const Center(child: CircularProgressIndicator())
+                                : textButton(
+                              onClick: () async {
+                                if (confirmEmailVM.emailFormKey.currentState!.validate()) {
+                                  confirmEmailVM.emailFormKey.currentState?.save();
+                                  confirmEmailVM.emailVerification(
+                                    context,
+                                    confirmEmailVM.accessToken!,
+                                  );
+                                }
+                              },
+                              context: context,
+                              title: 'Send',
+                            );
+                          }),
                         ),
                       ],
                     ),
+
                     const SizedBox(
                       height: 45,
                     ),

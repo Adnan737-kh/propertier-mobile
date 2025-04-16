@@ -144,6 +144,7 @@ class UserProfile {
     required this.phoneNumberVerificationStatus,
     required this.emailVerificationStatus,
     required this.cnicVerificationStatus,
+    required this.selfieVerificationStatus,
     required this.addressVerificationStatus,
     required this.profilePictureVerificationStatus,
     required this.createdAt,
@@ -162,6 +163,7 @@ class UserProfile {
   final String? phoneNumberVerificationStatus;
   final String? emailVerificationStatus;
   final String? cnicVerificationStatus;
+  final String? selfieVerificationStatus;
   final String? addressVerificationStatus;
   final String? profilePictureVerificationStatus;
   final DateTime? createdAt;
@@ -181,6 +183,7 @@ class UserProfile {
       emailVerificationStatus: json["email_verification_status"],
       phoneNumberVerificationStatus: json["phone_number_verification_status"],
       cnicVerificationStatus: json["cnic_verification_status"],
+      selfieVerificationStatus: json["selfie_verification_status"],
       addressVerificationStatus: json["business_address_verification_status"],
       profilePictureVerificationStatus: json["profile_picture_verification_status"],
       createdAt: DateTime.tryParse(json["created_at"] ?? ""),
@@ -201,6 +204,7 @@ class UserProfile {
     "email_verification_status": emailVerificationStatus,
     "phone_number_verification_status": phoneNumberVerificationStatus,
     "cnic_verification_status": cnicVerificationStatus,
+    "selfie_verification_status": selfieVerificationStatus,
     "business_address_verification_status": addressVerificationStatus,
     "profile_picture_verification_status": profilePictureVerificationStatus,
     "created_at": createdAt?.toIso8601String(),

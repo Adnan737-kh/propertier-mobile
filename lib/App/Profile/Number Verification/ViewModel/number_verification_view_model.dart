@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../RoutesAndBindings/app_routes.dart';
 import '../../../../constant/toast.dart';
 import '../../../../repository/profile_repo/profile_update/profile_updat_repo.dart';
 import '../../../Auth/User/Token/token_preference_view_model/token_preference_view_model.dart';
@@ -48,51 +49,66 @@ class NumberVerficationViewModel extends GetxController {
     _api.emailAndNumberVerification(data, accessToken).then((onValue) async {
       isLoading(false);
 
-      if (onValue != null) {
-        if (kDebugMode) {
-          print('API Response: $onValue'); // Debugging
+      if (onValue.containsKey('statusCode') &&
+          onValue.containsKey('body')) {
 
-          if (onValue is Map && onValue.containsKey('detail')) {
-            String errorMessage = onValue['detail'][0];
+        int statusCode = onValue['statusCode'];
+        dynamic body = onValue['body'];
+
+        if (kDebugMode) {
+          print(' Status Code: $statusCode');
+          print('Response Body: $body');
+        }
+
+        if (statusCode == 200 || statusCode == 201) {
+          toast(title: 'Number Verification Submitted', context: context);
+          Get.toNamed(AppRoutes.verificationView);
+        } else {
+          if (body is Map && body.containsKey('detail')) {
+            String errorMessage = body['detail'][0];
             toast(title: errorMessage, context: context);
-            return;
+          } else {
+            toast(
+              title: 'Verification failed. Please try again.',
+              context: context,
+            );
           }
         }
-        toast(title: 'Number Verification Submitted', context: context);
-        // Get.toNamed(AppRoutes.otpVerifyView);
       } else {
         toast(
-            title: 'Verification failed. Please try again.', context: context);
+          title: 'Invalid response from server.',
+            context: context,
+        );
       }
     }).catchError((error, stackTrace) {
       isLoading(false);
 
       try {
         String errorString = error.toString();
-
         RegExp regex = RegExp(r'\{.*\}');
         Match? match = regex.firstMatch(errorString);
         String? jsonPart = match?.group(0);
 
         if (jsonPart != null) {
           var errorResponse = jsonDecode(jsonPart);
-
           if (errorResponse is Map && errorResponse.containsKey('detail')) {
             String errorMessage = errorResponse['detail'][0];
-
             toast(title: errorMessage, context: context);
             return;
           }
         }
       } catch (e) {
         if (kDebugMode) {
-          print("Error parsing response: $e");
+          print(" Error  $e");
         }
       }
 
-      print("Error  $error");
+      toast(title: "Something went wrong. Please try again.", context: context);
 
-      toast(title: "Something went wrong. Please try again. $error", context: context);
+      if (kDebugMode) {
+        print(" Error: $error");
+        print(" StackTrace: $stackTrace");
+      }
     });
   }
 }

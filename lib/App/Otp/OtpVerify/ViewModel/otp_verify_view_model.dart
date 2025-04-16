@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:propertier/App/Otp/OtpVerify/Model/social_media_button_model.dart';
 import 'package:propertier/constant/constant.dart';
@@ -107,8 +108,11 @@ class OTPVerifyViewModel extends GetxController {
     String? uid = prefs.getString('uid');
     String? token = prefs.getString('token');
 
-    print("Stored UID: $uid");
-    print("Stored Token: $token");
+    if (kDebugMode) {
+      print("Stored Token: $token");
+      print("Stored UID: $uid");
+
+    }
 
     isLoading(true);
 
@@ -131,20 +135,23 @@ class OTPVerifyViewModel extends GetxController {
         Get.offAllNamed(AppRoutes.newPasswordView);
       }).onError((error, stackTrace) {
         isLoading(false);
-        print('$error and $stackTrace');
+        if (kDebugMode) {
+          print('$error and $stackTrace');
+        }
       });
     }else{
       Map data = {
         "code": code,
       };
       _api.verifyOtp(data).then((onValue) async {
-        // ✅ Extract and store otp_token
         isLoading(false);
         toast(title: 'OTP Verify Successfully', context: Get.context!);
         Get.offAllNamed(AppRoutes.navBarView);
       }).onError((error, stackTrace) {
         isLoading(false);
-        print('$error and $stackTrace');
+        if (kDebugMode) {
+          print('$error and $stackTrace');
+        }
       });
     }
 
