@@ -1,4 +1,3 @@
-
 {
     "about":"ہمارے بارے میں",
     "language":"زبان",
@@ -79,6 +78,42 @@
     "typeHereByYourSelf":"Type here by yourself ",
     "uploadWorkPhoto":"Upload Your Work Photo.",
     "descriptionAboutYourWork":"Please Write Description About your work.",
-    "complete_description_about_your_work":"Please Describe complete deception about your work here"
+    "complete_description_about_your_work":"Please Describe complete deception about your work here",
+
+    "servciesSearchNotificationRequestSend":"Your request has been sent to the Plumbers please wait for Notifications",
+    "accept":"Accept",
+    "reject":"Reject",
+    "cancel":"Cancel",
+    "notAnswering":"not answering",
+    "changeDecision":"Changed decision",
+    "orderCompleted":"Order Completed!",
+    "pleasePay":"Please pay",
+    "to":"To",
+    "continues":"Continue",
+    "satisfiedWithwork":"Are you satisfied with work?",
+    "workCompleted":"Is your work Completed",
+    "receiveWorkFromVendor":"Did you receive work from Vendor?",
+    "experiencewithVendor":"How was your experience with Vendor?",
+    "loremipsum":"Lorem ipsum....",
+    "giveRatingtoVendor":"Give Rating to Vendor",
+    "no":"No",
+    "yes":"Yes",
+    "done":"Done",
+
+    "price":"Price",
+    "see_profile":"See Profile",
+    "more_detail":"More Detail",
+    "not_reached": "Not Reached",
+    "privacy": "Privacy",
+    "private_account": "Private Account",
+    "activity": "Activity",
+    "post_you_searched_for": "Post You Searched For",
+    "videos_you_have_watched": "Videos You Have Watched",
+    "comments": "Comments",
+    "people_you_followed": "People You Followed",
+    "yourPost": "Your Post",
+    "what_are_you_searching_for": "Post What You are Searching For",
+    "size":"Size",
+    "delete_account":"Delete Account"
 }
 

@@ -749,12 +749,6 @@ abstract class AppLocalizations {
   /// **'Activity'**
   String get activity;
 
-  /// No description provided for @post_you_searched_for.
-  ///
-  /// In en, this message translates to:
-  /// **'Post You Searched For'**
-  String get post_you_searched_for;
-
   /// No description provided for @videos_you_have_watched.
   ///
   /// In en, this message translates to:
@@ -922,6 +916,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Dealer'**
   String get dealer;
+
+  /// No description provided for @post_you_searched_for.
+  ///
+  /// In en, this message translates to:
+  /// **'Post You Searched For'**
+  String get post_you_searched_for;
 
   /// No description provided for @this_month.
   ///

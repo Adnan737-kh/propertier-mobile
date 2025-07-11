@@ -334,9 +334,6 @@ class AppLocalizationsUr extends AppLocalizations {
   String get activity => 'Activity';
 
   @override
-  String get post_you_searched_for => 'Post You Searched For';
-
-  @override
   String get videos_you_have_watched => 'Videos You Have Watched';
 
   @override
@@ -419,6 +416,9 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get dealer => 'Dealer';
+
+  @override
+  String get post_you_searched_for => 'Post You Searched For';
 
   @override
   String get this_month => 'This Month';
