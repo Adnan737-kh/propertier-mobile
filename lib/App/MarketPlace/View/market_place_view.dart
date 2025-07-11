@@ -77,7 +77,7 @@ class MarketPlaceView extends StatelessWidget {
                       )),
                   getHeight(context, 0.030),
                   CustomText(
-                      title: context.local.postYourVideoShortVideo,
+                      title: context.local.post_your_video_short_video,
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
                       color: const Color(0xff4286F5)),
@@ -100,12 +100,12 @@ class MarketPlaceView extends StatelessWidget {
                       }),
                   getHeight(context, 0.025),
                   gridTitleTile(context,
-                      title: context.local.forRent, callBack: () {}),
+                      title: context.local.for_rent, callBack: () {}),
                   getHeight(context, 0.015),
                   const ForRentTile(),
                   getHeight(context, 0.025),
                   gridTitleTile(context,
-                      title: context.local.toBuy, callBack: () {}),
+                      title: context.local.to_buy, callBack: () {}),
                   getHeight(context, 0.015),
                   GridView.builder(
                       padding: const EdgeInsets.all(0),

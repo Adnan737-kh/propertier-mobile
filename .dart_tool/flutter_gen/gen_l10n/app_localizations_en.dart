@@ -34,7 +34,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings => 'Settings';
 
   @override
-  String get editProfile => 'Edit Profile';
+  String get edit_profile => 'Edit Profile';
 
   @override
   String get verification => 'Verification';
@@ -43,16 +43,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get earnings => 'Earnings';
 
   @override
-  String get myOrders => 'My Orders';
+  String get my_orders => 'My Orders';
 
   @override
-  String get officialTeam => 'Official Team';
+  String get official_team => 'Official Team';
 
   @override
-  String get marketingTeam => 'Marketing Team';
+  String get marketing_team => 'Marketing Team';
 
   @override
-  String get postYourVideoShortVideo => 'Post Your Video/Short Video?';
+  String get post_your_video_short_video => 'Post Your Video/Short Video?';
 
   @override
   String get view_more => 'View More';
@@ -70,19 +70,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get landscape => 'Landscape';
 
   @override
-  String get houseForSale => 'House for Sale';
+  String get house_for_sale => 'House for Sale';
 
   @override
-  String get lastBids => 'Last Bid';
+  String get last_bids => 'Last Bid';
 
   @override
-  String get viewDetails => 'View Detail';
+  String get view_details => 'View Detail';
 
   @override
-  String get forRent => 'For rent';
+  String get for_rent => 'For rent';
 
   @override
-  String get toBuy => 'To Buy';
+  String get to_buy => 'To Buy';
 
   @override
   String get plumber => 'Plumber';
@@ -91,22 +91,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get electrician => 'Electrician';
 
   @override
-  String get acTechnician => 'Ac Technician';
+  String get ac_technician => 'Ac Technician';
 
   @override
   String get gardener => 'Gardener';
 
   @override
-  String get carpanter => 'Carpanter';
+  String get car_painter => 'Carpanter';
 
   @override
   String get painter => 'Painter';
 
   @override
-  String get shortVideos => 'Short Videos';
+  String get short_videos => 'Short Videos';
 
   @override
-  String get topSellingServices => 'Top Selling Services';
+  String get top_selling_services => 'Top Selling Services';
 
   @override
   String get fixedPriceServices => 'Fixed Price Services';
@@ -217,7 +217,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get buy => 'Buy';
 
   @override
-  String get addtoCart => 'Add To Cart';
+  String get add_to_cart => 'Add To Cart';
 
   @override
   String get talkToSeller => 'Talk to Seller';
@@ -283,7 +283,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get continues => 'Continue';
 
   @override
-  String get satisfied_withwork => 'Are you satisfied with work?';
+  String get satisfied_with_work => 'Are you satisfied with work?';
 
   @override
   String get work_Completed => 'Is your work Completed';
@@ -332,9 +332,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get activity => 'Activity';
-
-  @override
-  String get post_you_searched_for => 'Post You Searched For';
 
   @override
   String get videos_you_have_watched => 'Videos You Have Watched';
@@ -388,9 +385,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get please_enter_new_password => 'Please Enter New Password';
 
   @override
-  String get for_rent => 'For_Rent';
-
-  @override
   String get pick_gallery_images => 'Pick Gallery Images';
 
   @override
@@ -419,6 +413,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dealer => 'Dealer';
+
+  @override
+  String get post_you_searched_for => 'Post You Searched For';
 
   @override
   String get this_month => 'This Month';
@@ -529,9 +526,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get account_status => 'Account Status';
 
   @override
-  String get edit_profile => 'Edit Profile';
-
-  @override
   String get change_password => 'Change Password';
 
   @override
@@ -596,9 +590,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get watch_time => 'Watch Time';
-
-  @override
-  String get my_orders => 'My Orders';
 
   @override
   String get order_id => 'Order ID:';
@@ -836,9 +827,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get top_sale => 'Top Sale';
-
-  @override
-  String get short_videos => 'Short Videos';
 
   @override
   String get no_data => 'No Data';

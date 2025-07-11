@@ -149,11 +149,11 @@ abstract class AppLocalizations {
   /// **'Settings'**
   String get settings;
 
-  /// No description provided for @editProfile.
+  /// No description provided for @edit_profile.
   ///
   /// In en, this message translates to:
   /// **'Edit Profile'**
-  String get editProfile;
+  String get edit_profile;
 
   /// No description provided for @verification.
   ///
@@ -167,29 +167,29 @@ abstract class AppLocalizations {
   /// **'Earnings'**
   String get earnings;
 
-  /// No description provided for @myOrders.
+  /// No description provided for @my_orders.
   ///
   /// In en, this message translates to:
   /// **'My Orders'**
-  String get myOrders;
+  String get my_orders;
 
-  /// No description provided for @officialTeam.
+  /// No description provided for @official_team.
   ///
   /// In en, this message translates to:
   /// **'Official Team'**
-  String get officialTeam;
+  String get official_team;
 
-  /// No description provided for @marketingTeam.
+  /// No description provided for @marketing_team.
   ///
   /// In en, this message translates to:
   /// **'Marketing Team'**
-  String get marketingTeam;
+  String get marketing_team;
 
-  /// No description provided for @postYourVideoShortVideo.
+  /// No description provided for @post_your_video_short_video.
   ///
   /// In en, this message translates to:
   /// **'Post Your Video/Short Video?'**
-  String get postYourVideoShortVideo;
+  String get post_your_video_short_video;
 
   /// No description provided for @view_more.
   ///
@@ -221,35 +221,35 @@ abstract class AppLocalizations {
   /// **'Landscape'**
   String get landscape;
 
-  /// No description provided for @houseForSale.
+  /// No description provided for @house_for_sale.
   ///
   /// In en, this message translates to:
   /// **'House for Sale'**
-  String get houseForSale;
+  String get house_for_sale;
 
-  /// No description provided for @lastBids.
+  /// No description provided for @last_bids.
   ///
   /// In en, this message translates to:
   /// **'Last Bid'**
-  String get lastBids;
+  String get last_bids;
 
-  /// No description provided for @viewDetails.
+  /// No description provided for @view_details.
   ///
   /// In en, this message translates to:
   /// **'View Detail'**
-  String get viewDetails;
+  String get view_details;
 
-  /// No description provided for @forRent.
+  /// No description provided for @for_rent.
   ///
   /// In en, this message translates to:
   /// **'For rent'**
-  String get forRent;
+  String get for_rent;
 
-  /// No description provided for @toBuy.
+  /// No description provided for @to_buy.
   ///
   /// In en, this message translates to:
   /// **'To Buy'**
-  String get toBuy;
+  String get to_buy;
 
   /// No description provided for @plumber.
   ///
@@ -263,11 +263,11 @@ abstract class AppLocalizations {
   /// **'Electrician'**
   String get electrician;
 
-  /// No description provided for @acTechnician.
+  /// No description provided for @ac_technician.
   ///
   /// In en, this message translates to:
   /// **'Ac Technician'**
-  String get acTechnician;
+  String get ac_technician;
 
   /// No description provided for @gardener.
   ///
@@ -275,11 +275,11 @@ abstract class AppLocalizations {
   /// **'Gardener'**
   String get gardener;
 
-  /// No description provided for @carpanter.
+  /// No description provided for @car_painter.
   ///
   /// In en, this message translates to:
   /// **'Carpanter'**
-  String get carpanter;
+  String get car_painter;
 
   /// No description provided for @painter.
   ///
@@ -287,17 +287,17 @@ abstract class AppLocalizations {
   /// **'Painter'**
   String get painter;
 
-  /// No description provided for @shortVideos.
+  /// No description provided for @short_videos.
   ///
   /// In en, this message translates to:
   /// **'Short Videos'**
-  String get shortVideos;
+  String get short_videos;
 
-  /// No description provided for @topSellingServices.
+  /// No description provided for @top_selling_services.
   ///
   /// In en, this message translates to:
   /// **'Top Selling Services'**
-  String get topSellingServices;
+  String get top_selling_services;
 
   /// No description provided for @fixedPriceServices.
   ///
@@ -515,11 +515,11 @@ abstract class AppLocalizations {
   /// **'Buy'**
   String get buy;
 
-  /// No description provided for @addtoCart.
+  /// No description provided for @add_to_cart.
   ///
   /// In en, this message translates to:
   /// **'Add To Cart'**
-  String get addtoCart;
+  String get add_to_cart;
 
   /// No description provided for @talkToSeller.
   ///
@@ -647,11 +647,11 @@ abstract class AppLocalizations {
   /// **'Continue'**
   String get continues;
 
-  /// No description provided for @satisfied_withwork.
+  /// No description provided for @satisfied_with_work.
   ///
   /// In en, this message translates to:
   /// **'Are you satisfied with work?'**
-  String get satisfied_withwork;
+  String get satisfied_with_work;
 
   /// No description provided for @work_Completed.
   ///
@@ -850,12 +850,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please Enter New Password'**
   String get please_enter_new_password;
-
-  /// No description provided for @for_rent.
-  ///
-  /// In en, this message translates to:
-  /// **'For_Rent'**
-  String get for_rent;
 
   /// No description provided for @pick_gallery_images.
   ///
@@ -1139,12 +1133,6 @@ abstract class AppLocalizations {
   /// **'Account Status'**
   String get account_status;
 
-  /// No description provided for @edit_profile.
-  ///
-  /// In en, this message translates to:
-  /// **'Edit Profile'**
-  String get edit_profile;
-
   /// No description provided for @change_password.
   ///
   /// In en, this message translates to:
@@ -1276,12 +1264,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Watch Time'**
   String get watch_time;
-
-  /// No description provided for @my_orders.
-  ///
-  /// In en, this message translates to:
-  /// **'My Orders'**
-  String get my_orders;
 
   /// No description provided for @order_id.
   ///
@@ -1756,12 +1738,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Top Sale'**
   String get top_sale;
-
-  /// No description provided for @short_videos.
-  ///
-  /// In en, this message translates to:
-  /// **'Short Videos'**
-  String get short_videos;
 
   /// No description provided for @no_data.
   ///

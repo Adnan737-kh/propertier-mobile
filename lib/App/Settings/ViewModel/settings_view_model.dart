@@ -13,7 +13,7 @@ class SettingsViewModel extends GetxController {
         onTap: () {
           Get.toNamed(AppRoutes.editProfileView);
         },
-        title: Get.context!.local.editProfile),
+        title: Get.context!.local.edit_profile),
     SettingsModel(
         onTap: () {
           Get.toNamed(AppRoutes.verificationView);
@@ -24,9 +24,9 @@ class SettingsViewModel extends GetxController {
           Get.toNamed(AppRoutes.earningsView);
         },
         title: Get.context!.local.earnings),
-    SettingsModel(onTap: () {}, title: Get.context!.local.myOrders),
-    SettingsModel(onTap: () {}, title: Get.context!.local.officialTeam),
-    SettingsModel(onTap: () {}, title: Get.context!.local.marketingTeam),
+    SettingsModel(onTap: () {}, title: Get.context!.local.my_orders),
+    SettingsModel(onTap: () {}, title: Get.context!.local.official_team),
+    SettingsModel(onTap: () {}, title: Get.context!.local.marketing_team),
     SettingsModel(
         onTap: () {
           Get.toNamed(AppRoutes.languageView);

@@ -172,7 +172,7 @@ class ForRentTile extends StatelessWidget {
                 getHeight(context, 0.015),
                 CustomText(
                   textAlign: TextAlign.start,
-                  title: context.local.houseForSale,
+                  title: context.local.house_for_sale,
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                 ),
@@ -226,7 +226,7 @@ class ForRentTile extends StatelessWidget {
                           height: context.getSize.height * 0.01,
                         ),
                         CustomText(
-                            title: context.local.lastBids,
+                            title: context.local.last_bids,
                             colorOpecity: 1,
                             fontSize: 10,
                             fontWeight: FontWeight.w400),
@@ -246,7 +246,7 @@ class ForRentTile extends StatelessWidget {
                     onTap: () {},
                     child: CustomText(
                         color: AppColor.greenColor,
-                        title: context.local.viewDetails,
+                        title: context.local.view_details,
                         colorOpecity: 1,
                         fontSize: 10,
                         fontWeight: FontWeight.w400),

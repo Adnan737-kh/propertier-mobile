@@ -69,10 +69,10 @@ class ServicesViewModel extends GetxController {
    ServicesModel(
        title: Get.context!.local.electrician, icon: Constant.electrician),
    ServicesModel(
-       title: Get.context!.local.acTechnician, icon: Constant.acMechanic),
+       title: Get.context!.local.ac_technician, icon: Constant.acMechanic),
    ServicesModel(title: Get.context!.local.gardener, icon: Constant.gardner),
    ServicesModel(
-       title: Get.context!.local.carpanter, icon: Constant.carPanter),
+       title: Get.context!.local.car_painter, icon: Constant.carPanter),
    ServicesModel(title: Get.context!.local.painter, icon: Constant.painter),
  ];
 

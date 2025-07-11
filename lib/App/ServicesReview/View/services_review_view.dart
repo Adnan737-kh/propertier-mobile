@@ -27,7 +27,7 @@ class ServicesReviewView extends StatelessWidget {
               children: [
                 getHeight(context, 0.1),
                 CustomText(
-                    title: context.local.satisfied_withwork,
+                    title: context.local.satisfied_with_work,
                     fontSize: 14,
                     fontWeight: FontWeight.w500),
                 getHeight(context, 0.01),

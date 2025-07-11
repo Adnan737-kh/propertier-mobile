@@ -51,7 +51,7 @@ class ShortVideosTile extends StatelessWidget {
               Row(
                 children: [
                   CustomText(
-                    title: context.local.shortVideos,
+                    title: context.local.short_videos,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                   ),

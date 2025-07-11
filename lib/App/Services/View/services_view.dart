@@ -136,7 +136,7 @@ class ServicesView extends StatelessWidget {
                                           viewModel.serviceDashboardModel.value!.topSellingServices
                                           !.isNotEmpty)
                                         gridTitleTile(context,
-                                            title: context.local.topSellingServices,
+                                            title: context.local.top_selling_services,
                                             // title: "Top Selling Services",
                                             callBack: () {
                                           Get.toNamed(
@@ -247,7 +247,7 @@ class ServicesView extends StatelessWidget {
                             }),
                         getHeight(context, 0.015),
                         gridTitleTile(context,
-                            title: context.local.topSellingServices,
+                            title: context.local.top_selling_services,
                             callBack: () {},
                             fontSize: 14),
                         getHeight(context, 0.008),
