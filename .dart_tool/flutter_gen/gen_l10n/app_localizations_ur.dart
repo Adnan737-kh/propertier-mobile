@@ -253,34 +253,34 @@ class AppLocalizationsUr extends AppLocalizations {
   String get complete_description_about_your_work => 'Please Describe complete deception about your work here';
 
   @override
-  String get services_search_notification_request_send => 'آپ کی درخواست پلمبرز کو بھیج دی گئی ہے، براہ کرم نوٹیفکیشن کا انتظار کریں';
+  String get services_search_notification_request_send => 'Your request has been sent to the Plumbers please wait for Notifications';
 
   @override
-  String get accept => 'قبول کریں';
+  String get accept => 'Accept';
 
   @override
-  String get reject => 'مسترد کریں';
+  String get reject => 'Reject';
 
   @override
-  String get cancel => 'منسوخ کریں';
+  String get cancel => 'Cancel';
 
   @override
-  String get not_answering => 'جواب نہیں دے رہا';
+  String get not_answering => 'not answering';
 
   @override
-  String get change_decision => 'فیصلہ تبدیل کیا گیا';
+  String get change_decision => 'Changed decision';
 
   @override
-  String get order_completed => 'آرڈر مکمل ہو گیا!';
+  String get order_completed => 'Order Completed!';
 
   @override
-  String get please_pay => 'براہ کرم ادائیگی کریں';
+  String get please_pay => 'Please pay';
 
   @override
-  String get to => 'کو';
+  String get to => 'To';
 
   @override
-  String get continues => 'جاری رکھیں';
+  String get continues => 'Continue';
 
   @override
   String get satisfied_withwork => 'Are you satisfied with work?';
@@ -301,16 +301,16 @@ class AppLocalizationsUr extends AppLocalizations {
   String get give_Rating_to_Vendor => 'Give Rating to Vendor';
 
   @override
-  String get no => 'نہیں';
+  String get no => 'No';
 
   @override
-  String get yes => 'ہاں';
+  String get yes => 'Yes';
 
   @override
-  String get done => 'مکمل';
+  String get done => 'Done';
 
   @override
-  String get price => 'قیمت';
+  String get price => 'Price';
 
   @override
   String get rent => 'rent';
@@ -325,763 +325,763 @@ class AppLocalizationsUr extends AppLocalizations {
   String get notReached => 'Not Reached';
 
   @override
-  String get privacy => 'رازداری';
+  String get privacy => 'Privacy';
 
   @override
   String get privateAccount => 'Private Account';
 
   @override
-  String get activity => 'سرگرمی';
+  String get activity => 'Activity';
 
   @override
-  String get post_you_searched_for => 'آپ جس پوسٹ کی تلاش کر رہے تھے';
+  String get post_you_searched_for => 'Post You Searched For';
 
   @override
-  String get videos_you_have_watched => 'وہ ویڈیوز جو آپ دیکھ چکے ہیں';
+  String get videos_you_have_watched => 'Videos You Have Watched';
 
   @override
-  String get comments => 'تبصرے';
+  String get comments => 'Comments';
 
   @override
-  String get people_you_followed => 'وہ لوگ جنہیں آپ نے فالو کیا';
+  String get people_you_followed => 'People You Followed';
 
   @override
-  String get your_post => 'آپ کی پوسٹ';
+  String get your_post => 'Your Post';
 
   @override
-  String get what_are_you_searching_for => 'آپ کیا تلاش کر رہے ہیں؟';
+  String get what_are_you_searching_for => 'Post What You are Searching For';
 
   @override
-  String get size => 'سائز';
+  String get size => 'Size';
 
   @override
   String get deleteAccount => 'Delete Account';
 
   @override
-  String get title => 'عنوان';
+  String get title => 'Title';
 
   @override
-  String get select_country => 'ملک کا انتخاب کریں';
+  String get select_country => 'Select Country';
 
   @override
-  String get please_enter_title => 'براہ کرم عنوان درج کریں';
+  String get please_enter_title => 'Please Enter Title';
 
   @override
-  String get please_enter_description => 'براہ کرم تفصیل درج کریں';
+  String get please_enter_description => 'Please enter description';
 
   @override
-  String get please_enter_city => 'براہ کرم شہر درج کریں';
+  String get please_enter_city => 'Please Enter City';
 
   @override
-  String get select_currency => 'کرنسی کا انتخاب کریں';
+  String get select_currency => 'Select Currency';
 
   @override
-  String get please_enter_price => 'براہ کرم قیمت درج کریں';
+  String get please_enter_price => 'Please Enter Price';
 
   @override
-  String get size_area => 'رقبہ/سائز';
+  String get size_area => 'Size/Area';
 
   @override
-  String get please_enter_size_area => 'براہ کرم رقبہ/سائز درج کریں';
+  String get please_enter_size_area => 'Please Enter Size/Area';
 
   @override
   String get please_enter_new_password => 'Please Enter New Password';
 
   @override
-  String get for_rent => 'کرایہ کے لیے';
+  String get for_rent => 'For_Rent';
 
   @override
-  String get pick_gallery_images => 'گیلری سے تصاویر منتخب کریں';
+  String get pick_gallery_images => 'Pick Gallery Images';
 
   @override
-  String get error => 'خرابی';
+  String get error => 'Error';
 
   @override
-  String get title_is_required => 'عنوان ضروری ہے';
+  String get title_is_required => 'Title is required';
 
   @override
-  String get description_is_required => 'تفصیل ضروری ہے';
+  String get description_is_required => 'Description is required';
 
   @override
-  String get city_is_required => 'شہر ضروری ہے';
+  String get city_is_required => 'City is required';
 
   @override
-  String get price_is_required => 'قیمت ضروری ہے';
+  String get price_is_required => 'Price is required';
 
   @override
-  String get size_area_is_required => 'رقبہ/سائز ضروری ہے';
+  String get size_area_is_required => 'Size/Area is required';
 
   @override
-  String get please_upload_a_thumbnail_image => 'براہ کرم تھمب نیل تصویر اپ لوڈ کریں';
+  String get please_upload_a_thumbnail_image => 'Please upload a Thumbnail Image';
 
   @override
-  String get post => 'اشاعت کریں';
+  String get post => 'Post';
 
   @override
-  String get dealer => 'ڈیلر';
+  String get dealer => 'Dealer';
 
   @override
-  String get this_month => 'اس مہینے';
+  String get this_month => 'This Month';
 
   @override
-  String get this_week => 'اس ہفتے';
+  String get this_week => 'This Week';
 
   @override
-  String get sale_overview => 'سیل کا جائزہ';
+  String get sale_overview => 'Sale Overview';
 
   @override
-  String get ads_overview => 'اشتہارات کا جائزہ';
+  String get ads_overview => 'Ads Overview';
 
   @override
-  String get ads => 'اشتہارات';
+  String get ads => 'Ads';
 
   @override
-  String get costs => 'اخراجات';
+  String get costs => 'Costs';
 
   @override
-  String get analytics => 'تجزیات';
+  String get analytics => 'Analytics';
 
   @override
-  String get followers_overview => 'فالورز کا جائزہ';
+  String get followers_overview => 'Followers Overview';
 
   @override
-  String get followers_gain => 'فالورز میں اضافہ';
+  String get followers_gain => 'Followers Gain';
 
   @override
-  String get followers_lost => 'فالورز میں کمی';
+  String get followers_lost => 'Followers Lost';
 
   @override
-  String get decline => 'کمی';
+  String get decline => 'Decline';
 
   @override
-  String get collect_info => 'معلومات جمع کریں';
+  String get collect_info => 'Collect Info';
 
   @override
-  String get forgot_password => 'پاس ورڈ بھول گئے؟';
+  String get forgot_password => 'Forgot Password';
 
   @override
-  String get please_enter_your_email_to_receive_a_verification_code => 'براہ کرم تصدیقی کوڈ حاصل کرنے کے لیے اپنا ای میل درج کریں';
+  String get please_enter_your_email_to_receive_a_verification_code => 'Please Enter Your Email To Receive a Verification Code';
 
   @override
-  String get email => 'ای میل';
+  String get email => 'Email';
 
   @override
-  String get enter_your_email => 'اپنا ای میل درج کریں';
+  String get enter_your_email => 'Enter Your Email';
 
   @override
-  String get please_enter_valid_email => 'براہ کرم درست ای میل درج کریں';
+  String get please_enter_valid_email => 'Please enter valid Email';
 
   @override
-  String get sign_up => 'سائن اپ';
+  String get sign_up => 'Sign Up';
 
   @override
-  String get sign_in => 'سائن ان';
+  String get sign_in => 'Sign In';
 
   @override
-  String get sign_out => 'سائن آؤٹ';
+  String get sign_out => 'Sign Out';
 
   @override
-  String get dont_have_an_account => 'اکاؤنٹ نہیں ہے؟';
+  String get dont_have_an_account => 'Don\'t have an account?';
 
   @override
-  String get privacy_policy => 'رازداری کی پالیسی';
+  String get privacy_policy => 'Privacy Policy';
 
   @override
-  String get enter_email_phone_number => 'ای میل/فون نمبر درج کریں';
+  String get enter_email_phone_number => 'Enter Email/Phone Number';
 
   @override
-  String get password => 'پاس ورڈ';
+  String get password => 'Password';
 
   @override
-  String get enter_your_password => 'اپنا پاس ورڈ درج کریں';
+  String get enter_your_password => 'Enter your Password';
 
   @override
-  String get new_password => 'نیا پاس ورڈ';
+  String get new_password => 'New Password';
 
   @override
-  String get oops_we_could_not_find_matching_credentials => 'معذرت! ہم سے میل نہ کھانے والے اسناد نہ مل سکیں۔';
+  String get oops_we_could_not_find_matching_credentials => 'Oops! we could not find matching credentials.';
 
   @override
-  String get your_new_password_must_be_different_from_previously_used_password => 'آپ کا نیا پاس ورڈ پچھلے استعمال شدہ پاس ورڈ سے مختلف ہونا چاہیے۔';
+  String get your_new_password_must_be_different_from_previously_used_password => 'Your new Password must be different from previously used Password.';
 
   @override
-  String get confirm_password => 'پاس ورڈ کی تصدیق کریں';
+  String get confirm_password => 'Confirm Password';
 
   @override
-  String get enter_password_again => 'پاس ورڈ دوبارہ درج کریں';
+  String get enter_password_again => 'Enter Password Again';
 
   @override
-  String get please_enter_password_again => 'براہ کرم پاس ورڈ دوبارہ درج کریں';
+  String get please_enter_password_again => 'Please Enter Password Again';
 
   @override
-  String get password_mismatch => 'پاس ورڈ میل نہیں کھاتا';
+  String get password_mismatch => 'Password Mismatch';
 
   @override
-  String get save => 'محفوظ کریں';
+  String get save => 'Save';
 
   @override
-  String get sms => 'ایس ایم ایس';
+  String get sms => 'SMS';
 
   @override
-  String get dashboard => 'ڈیش بورڈ';
+  String get dashboard => 'Dashboard';
 
   @override
-  String get account_status => 'اکاؤنٹ کی صورتحال';
+  String get account_status => 'Account Status';
 
   @override
-  String get edit_profile => 'پروفائل میں ترمیم کریں';
+  String get edit_profile => 'Edit Profile';
 
   @override
-  String get change_password => 'پاس ورڈ تبدیل کریں';
+  String get change_password => 'Change Password';
 
   @override
-  String get request_properties => 'املاک کی درخواست کریں';
+  String get request_properties => 'Request Properties';
 
   @override
-  String get policy => 'پالیسی';
+  String get policy => 'Policy';
 
   @override
-  String get support => 'سپورٹ';
+  String get support => 'Support';
 
   @override
-  String get wallet => 'والیٹ';
+  String get wallet => 'Wallet';
 
   @override
-  String get less => 'کم';
+  String get less => 'Less';
 
   @override
-  String get more => 'مزید';
+  String get more => 'More';
 
   @override
   String get pkr => 'PKR';
 
   @override
-  String get no_data_available => 'کوئی ڈیٹا دستیاب نہیں';
+  String get no_data_available => 'No Data Available';
 
   @override
-  String get rent_for_me => 'میرے لیے کرایہ';
+  String get rent_for_me => 'Rent For Me';
 
   @override
-  String get join_as => 'کے طور پر شامل ہوں';
+  String get join_as => 'Join as';
 
   @override
-  String get guest => 'مہمان';
+  String get guest => 'Guest';
 
   @override
-  String get seller => 'بیچنے والا';
+  String get seller => 'Seller';
 
   @override
-  String get supplier => 'سپلائر';
+  String get supplier => 'Supplier';
 
   @override
-  String get service_provider => 'سروس فراہم کنندہ';
+  String get service_provider => 'Service Provider';
 
   @override
-  String get corporate_service => 'کارپوریٹ سروس';
+  String get corporate_service => 'Corporate Service';
 
   @override
-  String get search_language => 'تلاش کی زبان';
+  String get search_language => 'Search Language';
 
   @override
-  String get weekly_earning => 'ہفتہ وار کمائی';
+  String get weekly_earning => 'Weekly Earning';
 
   @override
-  String get withdrawal_amount => 'رقم نکلوانا';
+  String get withdrawal_amount => 'Withdrawal Amount';
 
   @override
-  String get followers => 'فالورز';
+  String get followers => 'Followers';
 
   @override
-  String get monetization => 'مانیٹائزیشن';
+  String get monetization => 'Monetization';
 
   @override
-  String get watch_time => 'دیکھنے کا وقت';
+  String get watch_time => 'Watch Time';
 
   @override
-  String get my_orders => 'میرے آرڈرز';
+  String get my_orders => 'My Orders';
 
   @override
-  String get order_id => 'آرڈر آئی ڈی:';
+  String get order_id => 'Order ID:';
 
   @override
-  String get pending => 'زیر التواء';
+  String get pending => 'Pending';
 
   @override
-  String get all => 'تمام';
+  String get all => 'All';
 
   @override
-  String get completed => 'مکمل';
+  String get completed => 'Completed';
 
   @override
-  String get cancelled => 'منسوخ شدہ';
+  String get cancelled => 'Cancelled';
 
   @override
-  String get review_work => 'کام کا جائزہ لیں';
+  String get review_work => 'Review Work';
 
   @override
-  String get orders => 'آرڈرز';
+  String get orders => 'Orders';
 
   @override
-  String get work_detail => 'کام کی تفصیل';
+  String get work_detail => 'Work Detail';
 
   @override
-  String get work_not_submitted_yet => 'کام ابھی جمع نہیں ہوا!';
+  String get work_not_submitted_yet => 'Work not submitted yet!';
 
   @override
-  String get extra_price => 'اضافی قیمت';
+  String get extra_price => 'Extra Price';
 
   @override
-  String get order_accepted_successfully => 'آرڈر کامیابی کے ساتھ قبول ہوگیا';
+  String get order_accepted_successfully => 'Order accepted successfully';
 
   @override
-  String get order_rejected_successfully => 'آرڈر کامیابی کے ساتھ مسترد ہوگیا';
+  String get order_rejected_successfully => 'Order rejected successfully';
 
   @override
-  String get updates => 'تازہ ترین معلومات';
+  String get updates => 'Updates';
 
   @override
-  String get post_ad => 'اشتہار لگائیں';
+  String get post_ad => 'Post_Ad';
 
   @override
-  String get services => 'خدمات';
+  String get services => 'Services';
 
   @override
-  String get profile => 'پروفائل';
+  String get profile => 'Profile';
 
   @override
-  String get select_service => 'سروس منتخب کریں';
+  String get select_service => 'Select Service';
 
   @override
-  String get select_an_option => 'ایک آپشن منتخب کریں';
+  String get select_an_option => 'Select an option';
 
   @override
-  String get remove => 'ہٹائیں';
+  String get remove => 'Remove';
 
   @override
-  String get add_your_service => 'اپنی سروس شامل کریں';
+  String get add_your_service => 'Add Your Service';
 
   @override
-  String get add => 'شامل کریں';
+  String get add => 'Add';
 
   @override
-  String get no_features_available => 'کوئی فیچرز دستیاب نہیں';
+  String get no_features_available => 'No features available';
 
   @override
-  String get property_information => 'جائیداد کی معلومات';
+  String get property_information => 'Property Information';
 
   @override
-  String get bedrooms => 'بیڈرومز';
+  String get bedrooms => 'Bedrooms';
 
   @override
-  String get select_how_many => 'کتنے منتخب کریں؟';
+  String get select_how_many => 'Select How Many\'';
 
   @override
-  String get bathrooms => 'بیت الخلاء';
+  String get bathrooms => 'Bathrooms';
 
   @override
-  String get floors => 'فلورز';
+  String get floors => 'Floors';
 
   @override
-  String get thumbnail => 'تھمب نیل';
+  String get thumbnail => 'Thumbnail';
 
   @override
-  String get upload_thumbnail_image => 'تھمب نیل تصویر اپلوڈ کریں';
+  String get upload_thumbnail_image => 'Upload Thumbnail Image';
 
   @override
-  String get upload_short_video => 'مختصر ویڈیو اپلوڈ کریں';
+  String get upload_short_video => 'Upload Short Video';
 
   @override
-  String get upload_video => 'ویڈیو اپلوڈ کریں';
+  String get upload_video => 'Upload Video';
 
   @override
-  String get past_video_url_here => 'یہاں ویڈیو کا URL چسپاں کریں';
+  String get past_video_url_here => 'Past Video Url here';
 
   @override
-  String get upload_video_less_than_25MB => 'ویڈیو 25MB سے کم اپ لوڈ کریں';
+  String get upload_video_less_than_25MB => 'Upload Video Less Then 25MB';
 
   @override
-  String get area_type => 'رقبے کی قسم';
+  String get area_type => 'Area type';
 
   @override
-  String get select_area_type => 'رقبے کی قسم منتخب کریں';
+  String get select_area_type => 'Select Area type';
 
   @override
-  String get property_type => 'جائیداد کی قسم';
+  String get property_type => 'Property Type';
 
   @override
-  String get select_property_type => 'جائیداد کی قسم منتخب کریں';
+  String get select_property_type => 'Select PropertyType';
 
   @override
-  String get area_unit => 'رقبے کی اکائی';
+  String get area_unit => 'Area Unit';
 
   @override
-  String get select_area_unit => 'رقبے کی اکائی منتخب کریں';
+  String get select_area_unit => 'Select Area Unit';
 
   @override
-  String get uploading_property => 'جائیداد اپلوڈ ہو رہی ہے';
+  String get uploading_property => 'Uploading Property';
 
   @override
-  String get next => 'اگلا';
+  String get next => 'Next';
 
   @override
-  String get please_take_photo_of_your_in_corporate_text_document => 'براہ کرم اپنا کارپوریٹ ٹیکسٹ ڈاکومنٹ فوٹو لیں';
+  String get please_take_photo_of_your_in_corporate_text_document => 'Please Take photo of your In Corporate Text Document';
 
   @override
-  String get confirm_verification => 'تصدیق کی تصدیق کریں';
+  String get confirm_verification => 'Confirm Verification';
 
   @override
-  String get number => 'نمبر';
+  String get number => 'Number';
 
   @override
-  String get id_card => 'شناختی کارڈ';
+  String get id_card => 'ID Card';
 
   @override
-  String get face_verification => 'چہرے کی تصدیق';
+  String get face_verification => 'Face Verification';
 
   @override
-  String get email_verification_in_progress => 'ای میل کی تصدیق جاری ہے';
+  String get email_verification_in_progress => 'Email Verification in Progress';
 
   @override
-  String get your_email_is_already_verified => 'آپ کا ای میل پہلے ہی تصدیق شدہ ہے';
+  String get your_email_is_already_verified => 'Your Email is Already Verified';
 
   @override
-  String get phone_number_verification_in_progress => 'فون نمبر کی تصدیق جاری ہے';
+  String get phone_number_verification_in_progress => 'Phone Number Verification in Progress';
 
   @override
-  String get your_phone_number_is_already_verified => 'آپ کا فون نمبر پہلے ہی تصدیق شدہ ہے';
+  String get your_phone_number_is_already_verified => 'Your Phone Number is Already Verified';
 
   @override
-  String get id_card_verification_in_progress => 'شناختی کارڈ کی تصدیق جاری ہے';
+  String get id_card_verification_in_progress => 'Your Phone Number is Already Verified';
 
   @override
-  String get your_id_card_is_already_verified => 'آپ کا شناختی کارڈ پہلے ہی تصدیق شدہ ہے';
+  String get your_id_card_is_already_verified => 'Your ID Card is Already Verified';
 
   @override
-  String get submit => 'جمع کروائیں';
+  String get submit => 'Submit';
 
   @override
-  String get face_Verification_in_progress => 'چہرے کی تصدیق جاری ہے';
+  String get face_Verification_in_progress => 'Face Verification in Progress';
 
   @override
-  String get your_face_is_already_verified => 'آپ کا چہرہ پہلے ہی تصدیق شدہ ہے';
+  String get your_face_is_already_verified => 'Your Face is Already Verified';
 
   @override
-  String get add_award => 'ایوارڈ شامل کریں';
+  String get add_award => 'Add Award';
 
   @override
-  String get add_award_information => 'ایوارڈ کی معلومات شامل کریں';
+  String get add_award_information => 'Add Award Information';
 
   @override
-  String get please_upload_your_information_for_propertier_account => 'براہ کرم پروپرٹیر اکاؤنٹ کے لیے اپنی معلومات اپ لوڈ کریں۔';
+  String get please_upload_your_information_for_propertier_account => 'Please Upload your information for propertier account.';
 
   @override
-  String get please_select_award_date_and_time => 'براہ کرم ایوارڈ کی تاریخ اور وقت منتخب کریں';
+  String get please_select_award_date_and_time => 'Please select award date and time';
 
   @override
-  String get select => 'منتخب کریں';
+  String get select => 'Select';
 
   @override
-  String get current_password => 'موجودہ پاس ورڈ';
+  String get current_password => 'Current Password';
 
   @override
-  String get enter_current_password => 'موجودہ پاس ورڈ درج کریں';
+  String get enter_current_password => 'Enter Current Password';
 
   @override
-  String get please_enter_your_current_password => 'براہ کرم اپنا موجودہ پاس ورڈ درج کریں';
+  String get please_enter_your_current_password => 'Please Enter Your Current Password';
 
   @override
-  String get enter_new_password => 'نیا پاس ورڈ درج کریں';
+  String get enter_new_password => 'Enter New Password';
 
   @override
-  String get please_enter_your_new_password => 'براہ کرم اپنا نیا پاس ورڈ درج کریں';
+  String get please_enter_your_new_password => 'Please Enter Your New Password';
 
   @override
-  String get confirm_new_password => 'نئے پاس ورڈ کی تصدیق کریں';
+  String get confirm_new_password => 'Confirm New Password';
 
   @override
-  String get re_enter_new_password => 'نیا پاس ورڈ دوبارہ درج کریں';
+  String get re_enter_new_password => 'Re-Enter New Password';
 
   @override
-  String get team => 'ٹیم';
+  String get team => 'Team';
 
   @override
-  String get sales => 'فروخت';
+  String get sales => 'Sales';
 
   @override
-  String get following => 'فالو کر رہے ہیں';
+  String get following => 'Following';
 
   @override
-  String get phone_number => 'فون نمبر';
+  String get phone_number => 'Phone Number';
 
   @override
-  String get address => 'پتہ';
+  String get address => 'Address';
 
   @override
-  String get since => 'سے';
+  String get since => 'Since';
 
   @override
-  String get post_here => 'یہاں پوسٹ کریں';
+  String get post_here => 'Post Here';
 
   @override
-  String get chat => 'چیٹ';
+  String get chat => 'Chat';
 
   @override
-  String get awards => 'ایوارڈز';
+  String get awards => 'Awards';
 
   @override
-  String get no_awards => 'کوئی ایوارڈز نہیں';
+  String get no_awards => 'No Awards';
 
   @override
-  String get top_search => 'ٹاپ تلاش';
+  String get top_search => 'Top Search';
 
   @override
-  String get top_sale => 'ٹاپ فروخت';
+  String get top_sale => 'Top Sale';
 
   @override
-  String get short_videos => 'مختصر ویڈیوز';
+  String get short_videos => 'Short Videos';
 
   @override
-  String get no_data => 'کوئی ڈیٹا نہیں';
+  String get no_data => 'No Data';
 
   @override
-  String get error_generating_thumbnail => 'تھمب نیل بنانے میں خرابی';
+  String get error_generating_thumbnail => 'Error generating thumbnail';
 
   @override
-  String get click_to_feature_ad => 'اشتہار نمایاں کرنے کے لیے کلک کریں';
+  String get click_to_feature_ad => 'Click to Feature Ad';
 
   @override
-  String get confirm_deletion => 'حذف کی تصدیق کریں';
+  String get confirm_deletion => 'Confirm Deletion';
 
   @override
-  String get are_you_sure_you_want_to_delete_this_property => 'کیا آپ واقعی اس پراپرٹی کو حذف کرنا چاہتے ہیں؟';
+  String get are_you_sure_you_want_to_delete_this_property => 'Are you sure you want to delete this property?';
 
   @override
-  String get delete => 'حذف کریں';
+  String get delete => 'Delete';
 
   @override
-  String get please_enter_full_name => 'براہ کرم مکمل نام درج کریں';
+  String get please_enter_full_name => 'Please enter Full Name';
 
   @override
-  String get please_enter_your_email => 'براہ کرم اپنا ای میل درج کریں';
+  String get please_enter_your_email => 'Please enter Your Email';
 
   @override
-  String get please_enter_your_password => 'براہ کرم اپنا پاس ورڈ درج کریں';
+  String get please_enter_your_password => 'Please Enter Your Password';
 
   @override
-  String get enter_your_phone_number => 'اپنا فون نمبر درج کریں';
+  String get enter_your_phone_number => 'Enter Your Phone Number';
 
   @override
-  String get please_enter_your_address => 'براہ کرم اپنا پتہ درج کریں';
+  String get please_enter_your_address => 'Please Enter Your Address';
 
   @override
-  String get click_here => 'یہاں کلک کریں';
+  String get click_here => 'Click here';
 
   @override
-  String get get_your_ad_featured => 'اپنا اشتہار نمایاں کریں:';
+  String get get_your_ad_featured => 'Get your Ad Featured:';
 
   @override
-  String get reach_up_to_10x_more_buyers => '10 گنا زیادہ خریداروں تک رسائی حاصل کریں۔';
+  String get reach_up_to_10x_more_buyers => 'Reach up to 10x more buyers.';
 
   @override
-  String get show_your_ad_in_top_position => 'اپنا اشتہار اوپر والی پوزیشن میں دکھائیں۔';
+  String get show_your_ad_in_top_position => 'Show your Ad in top position.';
 
   @override
-  String get get_noticed_with_a_feature_ad_tag => 'نمایاں اشتہار ٹیگ کے ساتھ توجہ حاصل کریں۔';
+  String get get_noticed_with_a_feature_ad_tag => 'Get noticed with a Feature Ad tag.';
 
   @override
-  String get all_types => 'تمام اقسام';
+  String get all_types => 'All Types';
 
   @override
-  String get call => 'کال کریں';
+  String get call => 'Call';
 
   @override
-  String get sorry_no_data_available => 'معذرت! \\nکوئی ڈیٹا دستیاب نہیں';
+  String get sorry_no_data_available => 'Sorry! \\nNo data Available';
 
   @override
-  String get provide_description => 'تفصیل فراہم کریں';
+  String get provide_description => 'Provide Description';
 
   @override
-  String get inspection_report => 'معائنہ رپورٹ';
+  String get inspection_report => 'Inspection Report';
 
   @override
-  String get near_by_propertire_office => 'قریبی پروپرٹیر دفتر';
+  String get near_by_propertire_office => 'Near By Propertire Office';
 
   @override
-  String get upload_pdf_file_or_images => 'پی ڈی ایف فائل یا تصاویر اپ لوڈ کریں';
+  String get upload_pdf_file_or_images => 'Upload PDf File / Images';
 
   @override
-  String get review => 'جائزہ';
+  String get review => 'Review';
 
   @override
-  String get customer_reviews => 'صارفین کے جائزے';
+  String get customer_reviews => 'Customer Reviews';
 
   @override
-  String get no_data_search_yet => 'ابھی تک کوئی ڈیٹا تلاش نہیں ہوا';
+  String get no_data_search_yet => 'No Data Search Yet';
 
   @override
-  String get please_select_a_category => 'براہ کرم ایک زمرہ منتخب کریں';
+  String get please_select_a_category => 'Please Select a Category';
 
   @override
-  String get please_wait => 'براہ کرم انتظار کریں...';
+  String get please_wait => 'Please Wait...';
 
   @override
-  String get switch_to_vendor => 'وینڈر میں تبدیل کریں';
+  String get switch_to_vendor => 'Switch to Vendor';
 
   @override
-  String get what_are_you_looking_for => 'آپ کیا تلاش کر رہے ہیں؟';
+  String get what_are_you_looking_for => 'What are you looking for';
 
   @override
-  String get other => 'دیگر';
+  String get other => 'Other';
 
   @override
-  String get nearest_services => 'قریبی خدمات';
+  String get nearest_services => 'Nearest Services';
 
   @override
-  String get other_services => 'دیگر خدمات';
+  String get other_services => 'Other Services';
 
   @override
-  String get on_the_way => 'راستے میں';
+  String get on_the_way => 'On the way';
 
   @override
-  String get select_services_you_want => 'وہ خدمات منتخب کریں جو آپ چاہتے ہیں';
+  String get select_services_you_want => 'Select Services You Want';
 
   @override
-  String get delete_account => 'اکاؤنٹ حذف کریں';
+  String get delete_account => 'Delete Account';
 
   @override
-  String get we_re_sorry_to_see_you_go => 'ہمیں افسوس ہے کہ آپ جا رہے ہیں';
+  String get we_re_sorry_to_see_you_go => 'We\\\'re sorry to see you go';
 
   @override
-  String get before_you_proceed_with_deleting_your_account_please_note => 'اپنا اکاؤنٹ حذف کرنے سے پہلے براہ کرم نوٹ کریں:';
+  String get before_you_proceed_with_deleting_your_account_please_note => 'Before you proceed with deleting your account, please note:';
 
   @override
-  String get all_your_personal_information_and_data_will_be_permanently_removed => 'آپ کی تمام ذاتی معلومات اور ڈیٹا مستقل طور پر حذف کر دیا جائے گا۔';
+  String get all_your_personal_information_and_data_will_be_permanently_removed => 'Before you proceed with deleting your account, please note:';
 
   @override
-  String get your_profile_saved_preferences_and_history_will_be_erased => 'آپ کا پروفائل، محفوظ ترجیحات اور تاریخ حذف کر دی جائے گی۔';
+  String get your_profile_saved_preferences_and_history_will_be_erased => 'Your profile, saved preferences, and history will be erased.';
 
   @override
-  String get this_action_cannot_be_undone => 'یہ عمل واپس نہیں لیا جا سکتا۔';
+  String get this_action_cannot_be_undone => 'This action cannot be undone.';
 
   @override
-  String get if_you_re_sure_you_want_to_delete_your_account_please_click_the_button_below => 'اگر آپ واقعی اپنا اکاؤنٹ حذف کرنا چاہتے ہیں تو نیچے دیے گئے بٹن پر کلک کریں۔ بصورت دیگر، اس اسکرین کو بند کریں۔';
+  String get if_you_re_sure_you_want_to_delete_your_account_please_click_the_button_below => 'If you\\\'re sure you want to delete your account, please click the button below. Otherwise, you can simply close this screen to keep your account active.';
 
   @override
-  String get delete_my_account => 'میرا اکاؤنٹ حذف کریں';
+  String get delete_my_account => 'Delete My Account';
 
   @override
-  String get thank_you_for_being_a_part_of_our_community => 'ہماری کمیونٹی کا حصہ بننے کے لیے آپ کا شکریہ۔';
+  String get thank_you_for_being_a_part_of_our_community => 'Thank you for being a part of our community.';
 
   @override
-  String get confirm_account_deletion => 'اکاؤنٹ حذف کرنے کی تصدیق کریں';
+  String get confirm_account_deletion => 'Confirm Account Deletion';
 
   @override
-  String get are_you_absolutely_sure_you_want_to_delete_your_account_This_action_cannot_be_undone => 'کیا آپ واقعی اپنا اکاؤنٹ حذف کرنا چاہتے ہیں؟ یہ عمل ناقابل واپسی ہے۔';
+  String get are_you_absolutely_sure_you_want_to_delete_your_account_This_action_cannot_be_undone => 'Are you absolutely sure you want to delete your account? This action cannot be undone.';
 
   @override
-  String get no_service_available => 'کوئی سروس دستیاب نہیں';
+  String get no_service_available => 'No Service Available';
 
   @override
-  String get water_provider => 'پانی فراہم کنندہ';
+  String get water_provider => 'Water Provider';
 
   @override
-  String get property_related_service => 'جائیداد سے متعلق خدمات';
+  String get property_related_service => 'Property Related Service';
 
   @override
-  String get kitchen_expert => 'کچن ایکسپرٹ';
+  String get kitchen_expert => 'Kitchen Expert';
 
   @override
-  String get to_see_support_visit_propertier_website => 'سپورٹ دیکھنے کے لیے \\nپروپرٹیر ویب سائٹ ملاحظہ کریں۔';
+  String get to_see_support_visit_propertier_website => 'To See Support visit \\nPropertier Website.';
 
   @override
-  String get visit_propertier_website => 'پروپرٹیر ویب سائٹ ملاحظہ کریں؟';
+  String get visit_propertier_website => 'Visit Propertier website?';
 
   @override
-  String get team_earning => 'ٹیم کی کمائی';
+  String get team_earning => 'Team Earning';
 
   @override
-  String get criteria => 'معیار';
+  String get criteria => 'Criteria';
 
   @override
-  String get time_watch => 'دیکھنے کا وقت';
+  String get time_watch => 'Time Watch';
 
   @override
-  String get all_time => 'ہمیشہ';
+  String get all_time => 'All Time';
 
   @override
-  String get followers_gained => 'فالورز میں اضافہ';
+  String get followers_gained => 'Followers Gained';
 
   @override
-  String get using_more_features_kindly_login_first => 'مزید فیچرز استعمال کرنے کے لیے\\nبراہ کرم پہلے لاگ ان کریں';
+  String get using_more_features_kindly_login_first => 'Using more features kindly\\nlogin first';
 
   @override
-  String get price_range => 'قیمت کی حد';
+  String get price_range => 'Price Range';
 
   @override
-  String get please_select_location => 'براہ کرم مقام منتخب کریں';
+  String get please_select_location => 'Please Select Location';
 
   @override
-  String get apply => 'لاگو کریں';
+  String get apply => 'Apply';
 
   @override
-  String get clear_all => 'سب صاف کریں';
+  String get clear_all => 'Clear All';
 
   @override
-  String get additional_details => 'اضافی تفصیلات';
+  String get additional_details => 'Additional Details';
 
   @override
-  String get name => 'نام:';
+  String get name => 'Name:';
 
   @override
-  String get enter_custom_size => 'اپنا سائز درج کریں:';
+  String get enter_custom_size => 'Enter Custom Size:';
 
   @override
-  String get add_custom => 'اپنا شامل کریں';
+  String get add_custom => 'Add Custom';
 
   @override
-  String get detail_here => 'یہاں تفصیل درج کریں...';
+  String get detail_here => 'Detail here...';
 
   @override
-  String get set_location => 'مقام سیٹ کریں';
+  String get set_location => 'Set Location';
 
   @override
-  String get search_here => 'یہاں تلاش کریں...';
+  String get search_here => 'Search here...';
 
   @override
-  String get map => 'نقشہ';
+  String get map => 'Map';
 
   @override
-  String get current_locations => 'موجودہ مقامات:';
+  String get current_locations => 'Current Locations:';
 
   @override
-  String get selected => 'منتخب شدہ:';
+  String get selected => 'Selected:';
 
   @override
-  String get locations => 'مقامات:';
+  String get locations => 'Locations:';
 
   @override
-  String get confirm => 'تصدیق کریں';
+  String get confirm => 'Confirm';
 
   @override
-  String get search_country_region => 'ملک/علاقہ تلاش کریں';
+  String get search_country_region => 'Search Country/Region';
 
   @override
-  String get no_title => 'کوئی عنوان نہیں';
+  String get no_title => 'No Title';
 
   @override
-  String get rs => 'روپے';
+  String get rs => 'Rs';
 
   @override
-  String get price_not_available => 'قیمت دستیاب نہیں';
+  String get price_not_available => 'Price Not Available';
 
   @override
-  String get are_you_sure => 'کیا آپ کو یقین ہے؟';
+  String get are_you_sure => 'Are you sure';
 
   @override
-  String get do_you_want_to_go_back => 'کیا آپ واپس جانا چاہتے ہیں؟';
+  String get do_you_want_to_go_back => 'Do you want to go back!';
 
   @override
-  String get back => 'واپس';
+  String get back => 'Back';
 
   @override
   String get no_address => 'No Address';
