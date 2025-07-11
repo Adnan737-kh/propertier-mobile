@@ -139,7 +139,7 @@ Widget videoTile(
                         color: AppColor.buttonColor,
                       ),
                       child: CustomText(
-                          title: context.local.viewDetail,
+                          title: context.local.view_detail,
                           fontSize: 11,
                           fontWeight: FontWeight.w400,
                           colorOpecity: 0.9),

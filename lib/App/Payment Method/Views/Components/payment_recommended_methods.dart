@@ -16,7 +16,7 @@ Widget recommendedMethod(
         Row(
           children: [
             CustomText(
-                title: context.local.recommended_Method,
+                title: context.local.recommended_method,
                 colorOpecity: 0.7,
                 fontWeight: FontWeight.bold)
           ],

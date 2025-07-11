@@ -209,7 +209,7 @@ class ServiceDetail extends GetView<NearestServiceDetailViewModel> {
                     CustomText(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      title: context.local.uploadWorkPhoto,
+                      title: context.local.upload_work_photo,
                     ),
                     getHeight(context, 0.008),
                     const UploadWorkPhotosWidget(),
@@ -217,7 +217,7 @@ class ServiceDetail extends GetView<NearestServiceDetailViewModel> {
                     CustomText(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      title: context.local.descriptionAboutYourWork,
+                      title: context.local.description_about_your_work,
                     ),
                     getHeight(context, 0.008),
                     DescriptionTextField(

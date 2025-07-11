@@ -1,10 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:propertier/App/ServicesMap/Services/MapService.dart';
 import 'package:propertier/extensions/localization_extension.dart';
 
-class ServicesMapViewModel extends GetxController with GetTickerProviderStateMixin{
+class ServicesMapViewModel extends GetxController
+    with GetTickerProviderStateMixin {
   late AnimationController animationController;
   late Animation<LatLng> animation;
   var markerPosition = const LatLng(37.7749, -122.4194).obs; // Initial position
@@ -12,7 +14,6 @@ class ServicesMapViewModel extends GetxController with GetTickerProviderStateMix
   GoogleMapController? mapController; // Add map controller
 
   ServicesMapViewModel(this.customIcon);
-
 
   @override
   void onInit() {
@@ -29,19 +30,21 @@ class ServicesMapViewModel extends GetxController with GetTickerProviderStateMix
     mapController = controller;
   }
 
-
-
-  void startTracking(String? id)async{
-    if(id == null){
+  void startTracking(String? id) async {
+    if (id == null) {
       return;
     }
-    print("******** Starting ********");
-    Map<String,dynamic>? data = await MapService().getLocation(id);
-    if(data != null){
-      double lat = double.parse(data['latitude_position']??"37.7749");
-      double lng = double.parse(data['longitude_position']??"-122.4194");
-      print(lat);
-      print(lng);
+    if (kDebugMode) {
+      print("******** Starting ********");
+    }
+    Map<String, dynamic>? data = await MapService().getLocation(id);
+    if (data != null) {
+      double lat = double.parse(data['latitude_position'] ?? "37.7749");
+      double lng = double.parse(data['longitude_position'] ?? "-122.4194");
+      if (kDebugMode) {
+        print(lat);
+        print(lng);
+      }
       moveMarker(LatLng(lat, lng));
       await Future.delayed(const Duration(seconds: 10));
       startTracking(id);
@@ -69,11 +72,9 @@ class ServicesMapViewModel extends GetxController with GetTickerProviderStateMix
     animationController.forward(from: 0.0);
   }
 
-
-  Future cancelOrder(String id, String reason)async{
+  Future cancelOrder(String id, String reason) async {
     MapService().cancelOrder(id, reason);
   }
-
 
   @override
   void onClose() {
@@ -81,7 +82,7 @@ class ServicesMapViewModel extends GetxController with GetTickerProviderStateMix
     super.onClose();
   }
 
-    final RxBool _showMap = false.obs;
+  final RxBool _showMap = false.obs;
   bool get showMap => _showMap.value;
 
   final RxInt _selectedCancelIssue = 0.obs;
@@ -99,7 +100,7 @@ class ServicesMapViewModel extends GetxController with GetTickerProviderStateMix
   RxList<String> cencelJobIssue = <String>[
     Get.context!.local.not_answering,
     Get.context!.local.change_decision,
-    Get.context!.local.notReached
+    Get.context!.local.not_reached
   ].obs;
 }
 

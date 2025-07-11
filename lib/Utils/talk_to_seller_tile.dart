@@ -51,7 +51,7 @@ Widget talkToSellerTile(BuildContext context,
                 horizontal: context.getSize.width * 0.020,
                 vertical: context.getSize.width * 0.020),
             child: CustomText(
-                title: context.local.talkToSeller,
+                title: context.local.talk_to_seller,
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
                 ),

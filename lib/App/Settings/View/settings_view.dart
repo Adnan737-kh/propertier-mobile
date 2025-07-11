@@ -51,10 +51,10 @@ class SettingsView extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 CustomText(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    title: viewModel.settingsList[index].title,
-                                    ),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  title: viewModel.settingsList[index].title,
+                                ),
                                 const Icon(Icons.keyboard_arrow_right)
                               ],
                             ),

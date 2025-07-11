@@ -123,7 +123,7 @@ Widget detailTile(BuildContext context,
         getHeight(context, 0.007),
         detailsTitle(
           context: context,
-          title: context.local.otherFeatures,),
+          title: context.local.other_features,),
         getHeight(context, 0.01),
         Wrap(
           spacing: 12,
@@ -175,7 +175,7 @@ Widget detailTile(BuildContext context,
         divider(context: context, color: const Color(0xffCFCFCF)),
         getHeight(context, 0.015),
         const SizedBox(height: 50, child: AppBannerAd()),
-        detailsTitle(context: context, title: context.local.detailShortVideo),
+        detailsTitle(context: context, title: context.local.detail_short_video),
         getHeight(context, 0.005),
         dataModel.property!.shortVideo != null
             ? DetailPageShortVideo(
@@ -192,7 +192,7 @@ Widget detailTile(BuildContext context,
         getHeight(context, 0.010),
         divider(context: context, color: const Color(0xffCFCFCF)),
         getHeight(context, 0.015),
-        detailsTitle(context: context, title: context.local.recommenderForYou),
+        detailsTitle(context: context, title: context.local.recommender_for_you),
         getHeight(context, 0.010),
         ListView.builder(
             shrinkWrap: true,

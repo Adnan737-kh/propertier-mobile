@@ -68,7 +68,7 @@ Widget topSellingListTile(BuildContext context,
               width: context.getSize.width * 0.3,
               child: CustomText(
                   textAlign: TextAlign.start,
-                  title: context.local.basicPrice,
+                  title: context.local.basic_price,
                   fontSize: 12,
                   fontWeight: FontWeight.w500),
             ),

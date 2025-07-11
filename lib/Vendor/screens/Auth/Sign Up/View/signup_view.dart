@@ -14,13 +14,6 @@ import 'package:propertier/constant/constant.dart';
 import 'package:propertier/constant/toast.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
-// import '../../../../Utils/appbar.dart';
-// import '../../../../Utils/logo_tile.dart';
-// import '../../../../constant/AppButton/text_button.dart';
-// import '../../../../constant/AppTextField/app_textfield.dart';
-// import '../../../../constant/colors.dart';
-// import '../../../../constant/constant.dart';
-// import '../../../../Utils/height_width_box.dart';
 import '../../Components/social_links.dart';
 
 
@@ -62,7 +55,9 @@ class SignUpView extends StatelessWidget {
                     textInputType: TextInputType.name,
                     suffix: GestureDetector(
                       onTap: () {
-                        print("Start Listing");
+                        if (kDebugMode) {
+                          print("Start Listing");
+                        }
                         signupVM.startListening(textFieldNo: 0);
                       },
                       child: Image.asset(

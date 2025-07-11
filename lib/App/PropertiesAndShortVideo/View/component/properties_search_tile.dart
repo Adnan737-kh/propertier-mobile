@@ -45,7 +45,7 @@ propertiesSearchTile(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
                         color: AppColor.blackColor.withOpacity(0.3)),
-                    hintText: context.local.searchHere,
+                    hintText: context.local.search_here,
                     contentPadding:
                         const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                     fillColor: AppColor.white,

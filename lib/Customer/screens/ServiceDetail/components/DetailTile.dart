@@ -137,7 +137,7 @@ Widget detailTile(BuildContext context,
         getHeight(context, 0.015),
         controller.serviceDetails.value.youtubeVideoUrl == null
             ? const SizedBox.shrink()
-            : detailsTitle(context: context, title: context.local.videoTour),
+            : detailsTitle(context: context, title: context.local.video_tour),
         controller.serviceDetails.value.youtubeVideoUrl== null
             ? const SizedBox.shrink()
             : getHeight(context, 0.005),
@@ -150,7 +150,7 @@ Widget detailTile(BuildContext context,
        const SizedBox(
             height: 50,
             child: Center(child: AppBannerAd())),
-        detailsTitle(context: context, title: context.local.detailShortVideo),
+        detailsTitle(context: context, title: context.local.detail_short_video),
         getHeight(context, 0.005),
         controller.serviceDetails.value.shortVideo != null
             ? DetailPageShortVideo(

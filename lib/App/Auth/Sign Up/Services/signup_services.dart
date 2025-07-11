@@ -53,7 +53,7 @@ class SignupServices {
         return false;
       }
     } catch (e) {
-      ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(Get.context!).showSnackBar(const SnackBar(
           content: CustomText(
               title: 'Something went wrong.',
               color: AppColor.white)));

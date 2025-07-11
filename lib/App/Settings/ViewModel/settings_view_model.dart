@@ -6,8 +6,6 @@ import 'package:propertier/extensions/localization_extension.dart';
 import '../Account Delete/View/account_deleting_view.dart';
 
 class SettingsViewModel extends GetxController {
-
-
   RxList<SettingsModel> settingsList = <SettingsModel>[
     SettingsModel(
         onTap: () {
@@ -39,8 +37,8 @@ class SettingsViewModel extends GetxController {
         title: Get.context!.local.payout),
     SettingsModel(
         onTap: () {
-          Get.to(() =>  AccountDeletionScreen());
+          Get.to(() => AccountDeletionScreen());
         },
-        title: Get.context!.local.deleteAccount),
+        title: Get.context!.local.delete_account),
   ].obs;
 }

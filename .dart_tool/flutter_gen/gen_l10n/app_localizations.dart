@@ -278,7 +278,7 @@ abstract class AppLocalizations {
   /// No description provided for @car_painter.
   ///
   /// In en, this message translates to:
-  /// **'Carpanter'**
+  /// **'Car Painter'**
   String get car_painter;
 
   /// No description provided for @painter.
@@ -299,11 +299,11 @@ abstract class AppLocalizations {
   /// **'Top Selling Services'**
   String get top_selling_services;
 
-  /// No description provided for @fixedPriceServices.
+  /// No description provided for @fixed_price_services.
   ///
   /// In en, this message translates to:
   /// **'Fixed Price Services'**
-  String get fixedPriceServices;
+  String get fixed_price_services;
 
   /// No description provided for @videos.
   ///
@@ -323,17 +323,17 @@ abstract class AppLocalizations {
   /// **'Location'**
   String get location;
 
-  /// No description provided for @searchHere.
+  /// No description provided for @search_here.
   ///
   /// In en, this message translates to:
   /// **'Search here ...'**
-  String get searchHere;
+  String get search_here;
 
-  /// No description provided for @basicPrice.
+  /// No description provided for @basic_price.
   ///
   /// In en, this message translates to:
   /// **'Basic Price : '**
-  String get basicPrice;
+  String get basic_price;
 
   /// No description provided for @area.
   ///
@@ -359,11 +359,11 @@ abstract class AppLocalizations {
   /// **'Flat'**
   String get flat;
 
-  /// No description provided for @viewDetail.
+  /// No description provided for @view_detail.
   ///
   /// In en, this message translates to:
   /// **'View Detail'**
-  String get viewDetail;
+  String get view_detail;
 
   /// No description provided for @rental.
   ///
@@ -419,11 +419,11 @@ abstract class AppLocalizations {
   /// **'Develop Satiation'**
   String get develop_satiation;
 
-  /// No description provided for @recommended_Method.
+  /// No description provided for @recommended_method.
   ///
   /// In en, this message translates to:
   /// **'Recommended Method(s)'**
-  String get recommended_Method;
+  String get recommended_method;
 
   /// No description provided for @other_saved_payment_method.
   ///
@@ -521,65 +521,65 @@ abstract class AppLocalizations {
   /// **'Add To Cart'**
   String get add_to_cart;
 
-  /// No description provided for @talkToSeller.
+  /// No description provided for @talk_to_seller.
   ///
   /// In en, this message translates to:
   /// **'Talk to Seller'**
-  String get talkToSeller;
+  String get talk_to_seller;
 
-  /// No description provided for @otherFeatures.
+  /// No description provided for @other_features.
   ///
   /// In en, this message translates to:
   /// **'Other Features'**
-  String get otherFeatures;
+  String get other_features;
 
-  /// No description provided for @videoTour.
+  /// No description provided for @video_tour.
   ///
   /// In en, this message translates to:
   /// **'Video Tour'**
-  String get videoTour;
+  String get video_tour;
 
-  /// No description provided for @addToFav.
+  /// No description provided for @add_to_fav.
   ///
   /// In en, this message translates to:
   /// **'Add To Favorite'**
-  String get addToFav;
+  String get add_to_fav;
 
-  /// No description provided for @nearbyServices.
+  /// No description provided for @near_by_services.
   ///
   /// In en, this message translates to:
   /// **'Nearby Services'**
-  String get nearbyServices;
+  String get near_by_services;
 
-  /// No description provided for @detailShortVideo.
+  /// No description provided for @detail_short_video.
   ///
   /// In en, this message translates to:
   /// **'Short Video'**
-  String get detailShortVideo;
+  String get detail_short_video;
 
-  /// No description provided for @recommenderForYou.
+  /// No description provided for @recommender_for_you.
   ///
   /// In en, this message translates to:
   /// **'Recommended for you'**
-  String get recommenderForYou;
+  String get recommender_for_you;
 
-  /// No description provided for @typeHereByYourSelf.
+  /// No description provided for @type_here_by_your_self.
   ///
   /// In en, this message translates to:
   /// **'Type here by yourself '**
-  String get typeHereByYourSelf;
+  String get type_here_by_your_self;
 
-  /// No description provided for @uploadWorkPhoto.
+  /// No description provided for @upload_work_photo.
   ///
   /// In en, this message translates to:
   /// **'Upload Your Work Photo.'**
-  String get uploadWorkPhoto;
+  String get upload_work_photo;
 
-  /// No description provided for @descriptionAboutYourWork.
+  /// No description provided for @description_about_your_work.
   ///
   /// In en, this message translates to:
   /// **'Please Write Description About your work.'**
-  String get descriptionAboutYourWork;
+  String get description_about_your_work;
 
   /// No description provided for @complete_description_about_your_work.
   ///
@@ -713,23 +713,23 @@ abstract class AppLocalizations {
   /// **'rent'**
   String get rent;
 
-  /// No description provided for @seeProfile.
+  /// No description provided for @see_profile.
   ///
   /// In en, this message translates to:
   /// **'See Profile'**
-  String get seeProfile;
+  String get see_profile;
 
-  /// No description provided for @moreDetail.
+  /// No description provided for @more_detail.
   ///
   /// In en, this message translates to:
   /// **'More Detail'**
-  String get moreDetail;
+  String get more_detail;
 
-  /// No description provided for @notReached.
+  /// No description provided for @not_reached.
   ///
   /// In en, this message translates to:
   /// **'Not Reached'**
-  String get notReached;
+  String get not_reached;
 
   /// No description provided for @privacy.
   ///
@@ -737,11 +737,11 @@ abstract class AppLocalizations {
   /// **'Privacy'**
   String get privacy;
 
-  /// No description provided for @privateAccount.
+  /// No description provided for @private_account.
   ///
   /// In en, this message translates to:
   /// **'Private Account'**
-  String get privateAccount;
+  String get private_account;
 
   /// No description provided for @activity.
   ///
@@ -785,11 +785,11 @@ abstract class AppLocalizations {
   /// **'Size'**
   String get size;
 
-  /// No description provided for @deleteAccount.
+  /// No description provided for @delete_account.
   ///
   /// In en, this message translates to:
   /// **'Delete Account'**
-  String get deleteAccount;
+  String get delete_account;
 
   /// No description provided for @title.
   ///
@@ -1949,12 +1949,6 @@ abstract class AppLocalizations {
   /// **'Select Services You Want'**
   String get select_services_you_want;
 
-  /// No description provided for @delete_account.
-  ///
-  /// In en, this message translates to:
-  /// **'Delete Account'**
-  String get delete_account;
-
   /// No description provided for @we_re_sorry_to_see_you_go.
   ///
   /// In en, this message translates to:
@@ -2146,12 +2140,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Set Location'**
   String get set_location;
-
-  /// No description provided for @search_here.
-  ///
-  /// In en, this message translates to:
-  /// **'Search here...'**
-  String get search_here;
 
   /// No description provided for @map.
   ///

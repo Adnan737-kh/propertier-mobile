@@ -97,7 +97,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gardener => 'Gardener';
 
   @override
-  String get car_painter => 'Carpanter';
+  String get car_painter => 'Car Painter';
 
   @override
   String get painter => 'Painter';
@@ -109,7 +109,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get top_selling_services => 'Top Selling Services';
 
   @override
-  String get fixedPriceServices => 'Fixed Price Services';
+  String get fixed_price_services => 'Fixed Price Services';
 
   @override
   String get videos => 'Videos';
@@ -121,10 +121,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get location => 'Location';
 
   @override
-  String get searchHere => 'Search here ...';
+  String get search_here => 'Search here ...';
 
   @override
-  String get basicPrice => 'Basic Price : ';
+  String get basic_price => 'Basic Price : ';
 
   @override
   String get area => 'Area';
@@ -139,7 +139,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get flat => 'Flat';
 
   @override
-  String get viewDetail => 'View Detail';
+  String get view_detail => 'View Detail';
 
   @override
   String get rental => 'Rental';
@@ -169,7 +169,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get develop_satiation => 'Develop Satiation';
 
   @override
-  String get recommended_Method => 'Recommended Method(s)';
+  String get recommended_method => 'Recommended Method(s)';
 
   @override
   String get other_saved_payment_method => 'Other Saved Payment Method';
@@ -220,34 +220,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get add_to_cart => 'Add To Cart';
 
   @override
-  String get talkToSeller => 'Talk to Seller';
+  String get talk_to_seller => 'Talk to Seller';
 
   @override
-  String get otherFeatures => 'Other Features';
+  String get other_features => 'Other Features';
 
   @override
-  String get videoTour => 'Video Tour';
+  String get video_tour => 'Video Tour';
 
   @override
-  String get addToFav => 'Add To Favorite';
+  String get add_to_fav => 'Add To Favorite';
 
   @override
-  String get nearbyServices => 'Nearby Services';
+  String get near_by_services => 'Nearby Services';
 
   @override
-  String get detailShortVideo => 'Short Video';
+  String get detail_short_video => 'Short Video';
 
   @override
-  String get recommenderForYou => 'Recommended for you';
+  String get recommender_for_you => 'Recommended for you';
 
   @override
-  String get typeHereByYourSelf => 'Type here by yourself ';
+  String get type_here_by_your_self => 'Type here by yourself ';
 
   @override
-  String get uploadWorkPhoto => 'Upload Your Work Photo.';
+  String get upload_work_photo => 'Upload Your Work Photo.';
 
   @override
-  String get descriptionAboutYourWork => 'Please Write Description About your work.';
+  String get description_about_your_work => 'Please Write Description About your work.';
 
   @override
   String get complete_description_about_your_work => 'Please Describe complete deception about your work here';
@@ -316,19 +316,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get rent => 'rent';
 
   @override
-  String get seeProfile => 'See Profile';
+  String get see_profile => 'See Profile';
 
   @override
-  String get moreDetail => 'More Detail';
+  String get more_detail => 'More Detail';
 
   @override
-  String get notReached => 'Not Reached';
+  String get not_reached => 'Not Reached';
 
   @override
   String get privacy => 'Privacy';
 
   @override
-  String get privateAccount => 'Private Account';
+  String get private_account => 'Private Account';
 
   @override
   String get activity => 'Activity';
@@ -352,7 +352,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get size => 'Size';
 
   @override
-  String get deleteAccount => 'Delete Account';
+  String get delete_account => 'Delete Account';
 
   @override
   String get title => 'Title';
@@ -934,9 +934,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get select_services_you_want => 'Select Services You Want';
 
   @override
-  String get delete_account => 'Delete Account';
-
-  @override
   String get we_re_sorry_to_see_you_go => 'We\\\'re sorry to see you go';
 
   @override
@@ -1031,9 +1028,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get set_location => 'Set Location';
-
-  @override
-  String get search_here => 'Search here...';
 
   @override
   String get map => 'Map';
