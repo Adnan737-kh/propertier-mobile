@@ -30,25 +30,22 @@ class PaymentDoneView extends StatelessWidget {
                 },
               ),
               getHeight(context, 0.292),
-              appText(
+              CustomText(
                   textAlign: TextAlign.start,
                   title: "✓",
-                  context: context,
                   fontSize: 120,
                   color: AppColor.buttonColor,
                   colorOpecity: 0.9),
               getHeight(context, 0.008),
-              appText(
+              CustomText(
                   textAlign: TextAlign.start,
                   title: context.local.congratulation,
-                  context: context,
                   fontSize: 16,
                   colorOpecity: 0.6),
               getHeight(context, 0.008),
-              appText(
+              CustomText(
                   textAlign: TextAlign.start,
                   title: context.local.your_amount_is_sended,
-                  context: context,
                   fontSize: 16,
                   colorOpecity: 0.6),
             ],

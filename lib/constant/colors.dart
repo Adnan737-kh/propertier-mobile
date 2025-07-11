@@ -6,7 +6,7 @@ class AppColor {
   static const darkBack = Color(0xff2A2626);
   static const secondaryColor = Color(0xffFCD4A6);
   static const primaryColor = Color(0xff131A22);
-  static const forgroundColor = Color(0xffFFCE58);
+  static const forGroundColor = Color(0xffFFCE58);
   static const buttonColor = Color(0xffFECE55);
   static const textColor = Color.fromRGBO(31, 1, 1, 1);
   static const white = Colors.white;

@@ -1,15 +1,13 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:path/path.dart';
 import 'package:http/http.dart' as http;
 import 'package:propertier/App/Auth/Login/Model/login_response_model.dart';
 import '../../../../../Network/api_urls.dart';
-import '../../../../../Utils/app_text.dart';
-import '../../../../../constant/colors.dart';
 
 
-class Homeservice{
+
+class HomeService{
 
   Future<UserData?> getUser(String id)async{
 
@@ -25,15 +23,17 @@ class Homeservice{
       }
     }
     catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return null;
   }
 
 
-  Future<bool> AddOffer(String bidId, String amount, String message)async{
+  Future<bool> addOffer(String bidId, String amount, String message)async{
     try{
-      String url = "${API.offerByVendor}";
+      String url = API.offerByVendor;
 
       final Map<String, dynamic> data = {
         "bid": bidId,
@@ -44,21 +44,29 @@ class Homeservice{
 
       final encodedData = jsonEncode(data);
 
-      print(encodedData);
+      if (kDebugMode) {
+        print(encodedData);
+      }
       final response = await http.post(
         Uri.parse(url),
         headers: <String, String>{'Content-Type': 'application/json'},
         body: encodedData,
       );
-      print(response.statusCode);
+      if (kDebugMode) {
+        print(response.statusCode);
+      }
       if(response.statusCode == 201){
         var data = jsonDecode(response.body);
-        print(data);
+        if (kDebugMode) {
+          print(data);
+        }
         return true;
       }
     }
     catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
 
     return false;

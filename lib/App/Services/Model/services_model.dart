@@ -12,60 +12,63 @@ class ServicesModel {
 
 class ParentServicesModel {
   int? id;
-  List<Subservices>? subservices;
+  List<Subservices>? subServices;
   String? title;
   String? description;
-  String? coverImageUrl;
-  String? imageUrl;
+  // String? coverImageUrl;
+  String? image;
   String? rating;
   String? createdAt;
   String? updatedAt;
   List<int>? vendors;
+  String? mainCategory;
 
   ParentServicesModel(
       {this.id,
-        this.subservices,
-        this.title,
-        this.description,
-        this.coverImageUrl,
-        this.imageUrl,
-        this.rating,
-        this.createdAt,
-        this.updatedAt,
-        this.vendors});
+      // this.subservices,
+      this.title,
+      this.description,
+      // this.coverImageUrl,
+      this.image,
+      this.rating,
+      this.createdAt,
+      this.updatedAt,
+      this.vendors});
 
   ParentServicesModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     if (json['subservices'] != null) {
-      subservices = <Subservices>[];
+      subServices = <Subservices>[];
       json['subservices'].forEach((v) {
-        subservices!.add(new Subservices.fromJson(v));
+        subServices!.add( Subservices.fromJson(v));
       });
     }
     title = json['title'];
     description = json['description'];
-    coverImageUrl = json['cover_image_url'];
-    imageUrl = json['image'];
+    // coverImageUrl = json['cover_image_url'];
+    image = json['image'];
     rating = json['rating'];
+    mainCategory = json['main_category'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     vendors = json['vendors'].cast<int>();
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    if (this.subservices != null) {
-      data['subservices'] = this.subservices!.map((v) => v.toJson()).toList();
-    }
-    data['title'] = this.title;
-    data['description'] = this.description;
-    data['cover_image_url'] = this.coverImageUrl;
-    data['image'] = this.imageUrl;
-    data['rating'] = this.rating;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['vendors'] = this.vendors;
+    final Map<String, dynamic> data =  Map<String, dynamic>();
+    data['id'] = id;
+    // if (this.subservices != null) {
+    //   data['subservices'] = this.subservices!.map((v) => v.toJson()).toList();
+    // }
+    data['title'] = title;
+    data['description'] = description;
+    // data['cover_image_url'] = this.coverImageUrl;
+    data['image'] = image;
+    data['rating'] = rating;
+    data['main_category'] = rating;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['vendors'] = vendors;
     return data;
   }
 }
@@ -83,14 +86,14 @@ class Subservices {
 
   Subservices(
       {this.id,
-        this.title,
-        this.description,
-        this.coverImageUrl,
-        this.iconUrl,
-        this.createdAt,
-        this.updatedAt,
-        this.parentServiceName,
-        this.parentService});
+      this.title,
+      this.description,
+      this.coverImageUrl,
+      this.iconUrl,
+      this.createdAt,
+      this.updatedAt,
+      this.parentServiceName,
+      this.parentService});
 
   Subservices.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -105,17 +108,16 @@ class Subservices {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['description'] = this.description;
-    data['cover_image_url'] = this.coverImageUrl;
-    data['icon_url'] = this.iconUrl;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['parent_service_name'] = this.parentServiceName;
-    data['parent_service'] = this.parentService;
+    final Map<String, dynamic> data =  Map<String, dynamic>();
+    data['id'] = id;
+    data['title'] = title;
+    data['description'] = description;
+    data['cover_image_url'] = coverImageUrl;
+    data['icon_url'] = iconUrl;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['parent_service_name'] = parentServiceName;
+    data['parent_service'] = parentService;
     return data;
   }
 }
-

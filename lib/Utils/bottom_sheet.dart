@@ -35,11 +35,11 @@ showLocationBottomSheet({
                         ? AppColor.buttonColor
                         : AppColor.white,
                   ),
-                  child: appText(
+                  child: CustomText(
                       textAlign: TextAlign.start,
                       title: "All Locations",
                       fontSize: 16,
-                      context: context),
+                      ),
                 ),
               ),
               SizedBox(
@@ -62,11 +62,11 @@ showLocationBottomSheet({
                                 ? AppColor.buttonColor
                                 : AppColor.white,
                           ),
-                          child: appText(
+                          child: CustomText(
                               textAlign: TextAlign.start,
                               title: dataList[index],
                               fontSize: 16,
-                              context: context),
+                              ),
                         ),
                       );
                     }),

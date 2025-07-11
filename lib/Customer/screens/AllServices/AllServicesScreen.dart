@@ -5,14 +5,19 @@ import 'package:propertier/constant/colors.dart';
 
 import 'components/serviceTile.dart';
 
+class AllServicesScreen extends GetView<AllServicesScreenController> {
+  const AllServicesScreen({super.key});
 
-class AllServicesScreen extends GetView<AllServicesScreenController>{
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: ()=> {Get.back()}, icon: Icon(Icons.arrow_back,color: AppColor.blackColor,)),
+        leading: IconButton(
+            onPressed: () => {Get.back()},
+            icon: const Icon(
+              Icons.arrow_back,
+              color: AppColor.blackColor,
+            )),
       ),
       body: ListView.builder(
           physics: const BouncingScrollPhysics(),
@@ -21,9 +26,8 @@ class AllServicesScreen extends GetView<AllServicesScreenController>{
           itemCount: controller.services.length,
           itemBuilder: (context, index) {
             return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: serviceTile(context,
-                  service: controller.services[index]),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: serviceTile(context, service: controller.services[index]),
             );
           }),
     );

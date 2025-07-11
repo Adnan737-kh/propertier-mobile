@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -44,40 +43,49 @@ class BidViewModel extends GetxController{
             (data) {
           final jsonData = jsonDecode(data);
           VendorOfferModel vendorOfferModel = VendorOfferModel.fromJson(jsonData);
-          print(vendorOfferModel.bidResponse?.amount);
+          if (kDebugMode) {
+            print(vendorOfferModel.bidResponse?.amount);
+          }
           if(vendorOfferModel.bidResponse?.id != null){
             offers.clear();
             offers.add(vendorOfferModel);
           }
         },
         onError: (error) {
-          print('WebSocket Error: $error');
+          if (kDebugMode) {
+            print('WebSocket Error: $error');
+          }
         },
         onDone: () {
-          print('WebSocket connection closed.');
+          if (kDebugMode) {
+            print('WebSocket connection closed.');
+          }
         },
       );
     } catch (e) {
-      print('Error connecting to WebSocket: $e');
+      if (kDebugMode) {
+        print('Error connecting to WebSocket: $e');
+      }
     }
   }
 
 
   Future acceptBid(BuildContext context, String id, String status)async{
-    ServicessearchService().acceptBid(context, id, status);
+    ServicesSearchService().acceptBid(context, id, status);
   }
 
   Future finalizeBid(BuildContext context, String id, String status,String vendorId)async{
-    ServicessearchService().finalizeBid(context, id, status, vendorId);
+    ServicesSearchService().finalizeBid(context, id, status, vendorId);
   }
 
   Future<bool> createOrder({required BuildContext context,required String bidId,required String vendorId,required String customerId,required String serviceLocation,required String status, required String paymentStatus})async{
-    bool res = await ServicessearchService().createOrder(context: context, bidId: bidId, vendorId: vendorId, customerId: customerId, serviceId: serviceId??"", subServiceId: subServiceId??"", serviceLocation: serviceLocation, status: status, paymentStatus: paymentStatus);
+    bool res = await ServicesSearchService().createOrder(context: context, bidId: bidId, vendorId: vendorId, customerId: customerId,
+
+        serviceId: serviceId, subServiceId: subServiceId, serviceLocation: serviceLocation, status: status, paymentStatus: paymentStatus);
     if(res){
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: appText(
+          content: CustomText(
               title: "Order Created Successfully",
-              context: context,
               color: AppColor.white)));
     }
     return res;

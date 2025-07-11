@@ -44,10 +44,10 @@ class SaleDetailView extends GetView<SaleDetailViewModel> {
               getHeight(context, 0.008),
               GestureDetector(
                 onTap: () {},
-                child: appText(
-                    title: "Post Your Property",
+                child: CustomText(
+                    title: context.local.post_your_property,
                     color: AppColor.facebookColor,
-                    context: context),
+                     ),
               ),
               getHeight(context, 0.015),
               Container(
@@ -75,9 +75,8 @@ class SaleDetailView extends GetView<SaleDetailViewModel> {
                 ),
               ),
               getHeight(context, 0.015),
-              appText(
+              const CustomText(
                   title: "-05:35:10",
-                  context: context,
                   fontSize: 18,
                   colorOpecity: 0.7),
               getHeight(context, 0.015),
@@ -98,13 +97,12 @@ class SaleDetailView extends GetView<SaleDetailViewModel> {
               saleDetailAtribute(
                   context: context, title: "Adjustment Offer", data: "50%"),
               getHeight(context, 0.021),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  appText(title: "Last Bid", context: context),
-                  appText(
+                  CustomText(title: "Last Bid",  ),
+                  CustomText(
                       title: "1.6 Crore",
-                      context: context,
                       color: AppColor.facebookColor,
                       fontSize: 10,
                       colorOpecity: 0.7)

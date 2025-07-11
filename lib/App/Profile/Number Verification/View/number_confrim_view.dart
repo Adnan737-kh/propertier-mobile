@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import '../../../../RoutesAndBindings/app_routes.dart';
 import '../../../../constant/AppTextField/app_textfield.dart';
 import '../../../../constant/colors.dart';
 import '../../../../Utils/app_text.dart';
@@ -10,7 +8,7 @@ import '../ViewModel/number_verification_view_model.dart';
 
 class NumberConfirmView extends StatelessWidget {
   NumberConfirmView({super.key});
-  final numberVerificationVM = Get.find<NumberVerficationViewModel>();
+  final numberVerificationVM = Get.find<NumberVerificationViewModel>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,10 +35,9 @@ class NumberConfirmView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    appText(
+                    CustomText(
                         title:
                             "Please enter your Number to \nreceive a verification code.",
-                        context: context,
                         fontSize: 16,
                         color: const Color(0xFF6D6E6F),
                         fontWeight: FontWeight.bold),
@@ -48,7 +45,7 @@ class NumberConfirmView extends StatelessWidget {
                       height: 30,
                     ),
                     customPhoneNumberTextField(
-                      labal: "Enter your email",
+                      label: "Enter your email",
                       hintText: 'Enter your email',
                       controller: numberVerificationVM.numberController,
                       textInputType: TextInputType.emailAddress,

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/App/Post%20Add/Add%20Properties/ViewModel/add_properties_view_model.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 class OverlayWidget extends StatelessWidget {
@@ -25,7 +27,7 @@ class OverlayWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                appText(title: 'Uploading Property', context: context),
+                CustomText(title: context.local.uploading_property,),
                 progressText(vm.progress, context)
               ],
             ),
@@ -39,8 +41,8 @@ class OverlayWidget extends StatelessWidget {
 
   Obx progressText(RxDouble progress, BuildContext context) {
     return Obx(() {
-      return appText(
-          title: '${(progress.value * 100).toInt()} %', context: context);
+      return CustomText(
+          title: '${(progress.value * 100).toInt()} %');
     });
   }
 

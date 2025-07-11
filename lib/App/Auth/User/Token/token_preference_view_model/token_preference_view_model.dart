@@ -24,7 +24,9 @@ class UserPreference {
   Future<bool> saveUserProfileData(UserProfile userModel) async {
     try {
 
-      print('save number status ${userModel.verificationStatus.toString()}');
+      if (kDebugMode) {
+        print('save number status ${userModel.verificationStatus.toString()}');
+      }
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
       sharedPreferences.setString('user_name', userModel.name.toString());
@@ -48,6 +50,7 @@ class UserPreference {
       sharedPreferences.setString('profile_picture_verification_status',
           userModel.profilePictureVerificationStatus.toString());
       sharedPreferences.setString('vendor', userModel.vendor.toString());
+      sharedPreferences.setBool('requires_profile_completion', userModel.requiresProfileCompletion!);
       if (userModel.id != null) {
         sharedPreferences.setInt('id', userModel.id!);
       }
@@ -72,12 +75,11 @@ class UserPreference {
     String? email = sharedPreferences.getString('user_email');
     String? phone = sharedPreferences.getString('user_phone');
     String? address = sharedPreferences.getString('user_address');
-    String? profilePicture =
-        sharedPreferences.getString('user_profile_picture');
+    String? profilePicture = sharedPreferences.getString('user_profile_picture');
     String? about = sharedPreferences.getString('user_about');
-    String? verificationStatus =
-        sharedPreferences.getString('general_verification_status');
+    String? verificationStatus = sharedPreferences.getString('general_verification_status');
     String? emailVerificationStatus = sharedPreferences.getString('email_verification_status');
+    bool? requiresProfileCompletion = sharedPreferences.getBool('requires_profile_completion');
     Vendor? vendor;
     String? vendorJson = sharedPreferences.getString('vendor');
 
@@ -87,13 +89,19 @@ class UserPreference {
         if (decoded is Map<String, dynamic>) {
           vendor = Vendor.fromJson(decoded);
         } else {
-          print("Decoded vendor is not a valid Map.");
+          if (kDebugMode) {
+            print("Decoded vendor is not a valid Map.");
+          }
         }
       } catch (e) {
-        print("Error decoding vendor JSON: $e");
+        if (kDebugMode) {
+          print("Error decoding vendor JSON: $e");
+        }
       }
     } else {
-      print("Vendor is not set or marked as 'no vendor'");
+      if (kDebugMode) {
+        print("Vendor is not set or marked as 'no vendor'");
+      }
       vendor = null;
     }
 
@@ -124,13 +132,21 @@ class UserPreference {
       profilePictureVerificationStatus: profilePictureVerificationStatus,
       cnicVerificationStatus: cnicVerificationStatus,
       selfieVerificationStatus: selfieVerificationStatus,
+      requiresProfileCompletion: requiresProfileCompletion,
       createdAt: null,
     );
   }
-
   Future<bool> logOut() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.clear();
-    return true;
+    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final success = await sharedPreferences.clear();
+    if (kDebugMode) {
+      print('🔁 Logout Clear Success: $success');
+      // Optional: log remaining keys
+      print('🔍 Remaining Keys After Clear: ${sharedPreferences.getKeys()}');
+
+    }
+
+
+    return success;
   }
 }

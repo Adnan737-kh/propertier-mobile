@@ -10,8 +10,8 @@ import 'package:propertier/constant/colors.dart';
 
 import '../../ViewModel/my_orders_view_model.dart';
 
-class TopWidgetwithAppBar extends StatelessWidget {
-  const TopWidgetwithAppBar({
+class TopWidgetWithAppBar extends StatelessWidget {
+  const TopWidgetWithAppBar({
     super.key,
     required this.viewModel,
   });
@@ -53,9 +53,8 @@ class TopWidgetwithAppBar extends StatelessWidget {
                                   ))
                                 : null),
                         child: Obx(
-                          () => appText(
+                          () => CustomText(
                               title: viewModel.tabList[index],
-                              context: context,
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
                               color: viewModel.seletcedTabIndex == index

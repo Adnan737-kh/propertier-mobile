@@ -36,6 +36,9 @@ class FetchDataException extends AppException{
 class UserAlreadyExistsException extends AppException{
   UserAlreadyExistsException ([String? message]) : super(message,'user with this email already exists');
 }
+class InValidOtpException extends AppException{
+  InValidOtpException ([String? message]) : super(message,'');
+}
 
 class EmailOrPasswordIncorrect extends AppException{
   EmailOrPasswordIncorrect ([String? message]) : super(message,'Email Or is Incorrect ');

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:propertier/Utils/textStyle.dart';
 import 'package:propertier/constant/colors.dart';
-import 'package:propertier/extensions/localization_extension.dart';
 
-class YourSelfTextField extends StatelessWidget {
+class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
-  YourSelfTextField({super.key, required this.controller});
-  var border = InputBorder.none;
+  const CustomTextField({super.key, required this.controller, this.hintText});
+  final border = InputBorder.none;
+  final String? hintText;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,7 +36,7 @@ class YourSelfTextField extends StatelessWidget {
                   errorBorder: border,
                   contentPadding:
                       const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                  hintText: context.local.typeHereByYourSelf,
+                  hintText: hintText,
                   hintStyle: textStyle(
                       context: context,
                       fontSize: 10,

@@ -143,7 +143,7 @@ Future<void> _sendCnic() async {
               children: [
                 DottedBorder(
                     color: Colors.grey.shade600,
-                    dashPattern: [9, 4],
+                    dashPattern: const [9, 4],
                     child: InkWell(
                       onTap: () {
                         _updateCnicFront();
@@ -181,7 +181,7 @@ Future<void> _sendCnic() async {
                 const SizedBox(height: 35),
                 DottedBorder(
                     color: Colors.grey.shade600,
-                    dashPattern: [9, 4],
+                    dashPattern: const [9, 4],
                     child: InkWell(
                       onTap: () {
                         _updateCnicBack();

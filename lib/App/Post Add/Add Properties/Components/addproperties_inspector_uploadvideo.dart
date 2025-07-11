@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/App/Post%20Add/Add%20Properties/ViewModel/add_properties_view_model.dart';
 import 'package:propertier/constant/toast.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import '../../../../Utils/app_text.dart';
 import '../../../../Utils/height_width_box.dart';
@@ -38,9 +40,8 @@ class _AddPropertyUploadVideoViewState
           mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            appText(
-              title: "Upload Video",
-              context: context,
+            CustomText(
+              title: context.local.upload_video,
               fontSize: 18,
               fontWeight: FontWeight.normal,
             ),
@@ -55,7 +56,7 @@ class _AddPropertyUploadVideoViewState
             CustomAddTextField(
               textEditingController: controller.urlController,
               border: InputBorder.none,
-              labelText: "Past Video Url here",
+              labelText: context.local.past_video_url_here,
               onChanged: (p0) {
                 try {
                   // urlController.text="https://www.youtube.com/watch?v=WP0h7utvaUc&ab_channel=MitchKoko";
@@ -71,7 +72,7 @@ class _AddPropertyUploadVideoViewState
                   showVideo.value = true;
                 } catch (e) {
                   // Get.snackbar("error", e.toString());
-                  toast(title: e.toString(), context: context);
+                  CustomToast.show(title: e.toString(), context: context);
                 }
               },
               suffixIcon: IconButton(
@@ -90,7 +91,7 @@ class _AddPropertyUploadVideoViewState
                     showVideo.value = true;
                   } catch (e) {
                     // Get.snackbar("error", e.toString());
-                    toast(title: e.toString(), context: context);
+                    CustomToast.show(title: e.toString(), context: context);
                   }
                 },
                 icon: const Icon(Icons.check),
@@ -138,9 +139,8 @@ Widget iDUploadTile(
                     color: Colors.white,
                     size: 38,
                   ),
-                  appText(
-                      title: "Upload Video Less Then 25MB",
-                      context: context,
+                  CustomText(
+                      title: context.local.upload_video_less_than_25MB,
                       fontSize: 16,
                       color: AppColor.white,
                       fontWeight: FontWeight.bold),

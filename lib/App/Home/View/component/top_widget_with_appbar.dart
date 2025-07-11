@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:propertier/Utils/animated_toggle.dart';
 import 'package:propertier/App/Home/View/component/carousel_slider_widget.dart';
 import 'package:propertier/App/Home/ViewModel/home_view_model.dart';
@@ -57,19 +56,17 @@ PreferredSize homeAppBar(
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Get.find<NavBarViewModel>().changeSelectedTab(2);
+                      Get.find<NavBarViewModel>().changeSelectedTab(4);
                     },
                     child: CircleAvatar(
                         radius: context.isPhone ? 20 : 40,
                         backgroundImage: NetworkImage(viewModel.profileImage ??
-                            "https://images.unsplash.com/photo-1511367461989-f85a21fda167"
-                                "?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")),
+                            Constant.dummyImage)),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 0),
-                    child: appText(
+                    child: CustomText(
                       title: viewModel.userName ?? "",
-                      context: context,
                       fontSize: 14,
                       fontFamily: 'Rubik',
                       fontWeight: FontWeight.w500,
@@ -114,13 +111,13 @@ PreferredSize homeAppBar(
                         });
                       }),
                   const Gap(30),
-                  Row(
-                    children: [
-                      const Icon(Ionicons.cart_outline),
-                      getWidth(context, 0.020),
-                      const Icon(Icons.favorite_border_outlined)
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     const Icon(Ionicons.cart_outline),
+                  //     getWidth(context, 0.020),
+                  //     const Icon(Icons.favorite_border_outlined)
+                  //   ],
+                  // ),
                 ],
               )
             ],
@@ -136,7 +133,7 @@ PreferredSize homeAppBar(
             scrollDirection: Axis.horizontal,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(viewModel.tabList.length, (index) {
+              children: List.generate(viewModel.areaTypeList.length, (index) {
                 return Row(
                   children: [
                     GestureDetector(
@@ -164,9 +161,8 @@ PreferredSize homeAppBar(
                                     ))
                                   : null),
                           child: Obx(
-                            () => appText(
-                                title: viewModel.tabList[index],
-                                context: context,
+                            () => CustomText(
+                                title: viewModel.areaTypeList[index].name,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
                                 color: viewModel.selectedTabIndex == index
@@ -176,7 +172,7 @@ PreferredSize homeAppBar(
                         ),
                       ),
                     ),
-                    index == viewModel.tabList.length - 1
+                    index == viewModel.areaTypeList.length - 1
                         ? const SizedBox.shrink()
                         : Container(
                             height: context.getSize.height * 0.03,

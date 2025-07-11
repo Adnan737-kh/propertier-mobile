@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:propertier/App/Services/Model/services_model.dart';
-import 'package:propertier/App/ServicesSearch/Service/ServicesSearch_Service.dart';
 import 'package:propertier/App/ServicesSearch/View/component/accept_reject_button.dart';
 import 'package:propertier/App/ServicesSearch/ViewModel/services_search_view_model_2.dart';
 import 'package:propertier/App/ServicesSearch/model/VendorResponseModel.dart';
@@ -19,13 +15,12 @@ import 'package:propertier/Utils/scrollableText.dart';
 import 'package:propertier/Utils/textStyle.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
-import 'package:propertier/extensions/font_size_extension.dart';
 import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 
 class ServicesSearch2View extends GetView<ServicesSearhViewModel2> {
-  ServicesSearch2View({super.key});
+  const ServicesSearch2View({super.key});
   @override
   Widget build(BuildContext context) {
     final day = DateFormat.d().format(DateTime.now());
@@ -55,9 +50,8 @@ class ServicesSearch2View extends GetView<ServicesSearhViewModel2> {
                 getHeight(context, 0.01),
                 SizedBox(
                   width: context.getSize.width * 0.7,
-                  child: appText(
-                    title: context.local.servciesSearchNotificationRequestSend,
-                    context: context,
+                  child: CustomText(
+                    title: context.local.services_search_notification_request_send,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                   ),
@@ -118,18 +112,18 @@ class ServicesSearch2View extends GetView<ServicesSearhViewModel2> {
                                     //               fontSize: context.fontSize(8),
                                     //               fontWeight: FontWeight.w400))
                                     //     ])),
-                                    appText(
+                                    CustomText(
                                         colorOpecity: 0.5,
                                         fontSize: 8,
                                         fontWeight: FontWeight.w400,
                                         title: "$day-$month-$year",
-                                        context: context),
-                                    appText(
+                                        ),
+                                    CustomText(
                                       color: offer.bidResponse?.status == "accepted"?AppColor.joinAsBtnColor:AppColor.appleColor,
                                         fontSize: 8,
                                         fontWeight: FontWeight.w400,
-                                        title: "${offer.bidResponse?.status??"pending."}",
-                                        context: context),
+                                        title: offer.bidResponse?.status??"pending.",
+                                        ),
                                   ],
                                 ),
                               ),
@@ -158,7 +152,7 @@ class ServicesSearch2View extends GetView<ServicesSearhViewModel2> {
                                             CircleAvatar(
                                               radius: 16,
                                               backgroundImage: NetworkImage(
-                                                  offer.bidResponse?.vendor?.profilePictureUrl??Constant.dumyImage2),
+                                                  offer.bidResponse?.vendor?.profilePictureUrl??Constant.dummyImage2),
                                             ),
                                             getWidth(context, 0.01),
                                             Column(
@@ -252,11 +246,11 @@ class ServicesSearch2View extends GetView<ServicesSearhViewModel2> {
                                                   controller.acceptBid(context, offer.bidResponse?.id.toString()??"", "rejected");
                                                 }),
                                             getHeight(context, 0.01),
-                                            appText(
+                                            const CustomText(
                                                 title: '00:15',
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.w500,
-                                                context: context)
+                                            )
                                           ],
                                         )
                                       ],

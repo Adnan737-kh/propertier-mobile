@@ -31,7 +31,7 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
               decoration: const ShapeDecoration(
                 color: Color(0xFF131A22),
                 shape: RoundedRectangleBorder(
-                  borderRadius: const BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(40),
                     bottomRight: Radius.circular(40),
                   ),
@@ -195,9 +195,9 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
             height: 38,
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: ShapeDecoration(
-              color: Color(0xFFFDCD54),
+              color: const Color(0xFFFDCD54),
               shape: RoundedRectangleBorder(
-                side: BorderSide(
+                side:const  BorderSide(
                   width: 0.40,
                   strokeAlign: BorderSide.strokeAlignCenter,
                   color: Color(0x19131A22),
@@ -205,13 +205,12 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                 borderRadius: BorderRadius.circular(30),
               ),
             ),
-            child: Row(
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   'Confirm',
                   style: TextStyle(
-                    color: Color(0xFF131A22),
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                   ),

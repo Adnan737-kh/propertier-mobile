@@ -33,7 +33,6 @@ class ServiceFormController extends GetxController {
   void onInit() {
     super.onInit();
     category = Get.arguments['category'];
-    print('category is $category');
     userPreference.getUserAccessToken().then((value) async {
       if (kDebugMode) {
         print('number verification ACCESS   !!! ${value.accessToken}');
@@ -203,7 +202,7 @@ class ServiceFormController extends GetxController {
 
     isLoading.value = false;
     AuthService().logout();
-    GoogleSiginServices().logout();
+    GoogleSigInServices().logout();
     Get.offAllNamed(AppRoutes.loginView);
   }
 

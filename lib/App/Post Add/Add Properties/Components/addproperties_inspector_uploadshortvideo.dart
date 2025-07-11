@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/App/Post%20Add/Add%20Properties/ViewModel/add_properties_view_model.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 import '../../../../Utils/app_text.dart';
@@ -47,9 +49,8 @@ class _AddPropertyUploadShortVideoViewState
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            appText(
-              title: "Upload Short Video",
-              context: context,
+            CustomText(
+              title: context.local.upload_short_video,
               fontSize: 18,
               fontWeight: FontWeight.normal,
             ),

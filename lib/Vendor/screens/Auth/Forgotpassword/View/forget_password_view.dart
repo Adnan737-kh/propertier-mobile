@@ -55,11 +55,10 @@ class ForgotPasswordView extends StatelessWidget {
                   const SizedBox(
                     height: 80,
                   ),
-                  appText(
+                  CustomText(
                       textAlign: TextAlign.left,
                       title:
                           'Please enter your Email/Phone number to receive a verification code',
-                      context: context,
                       fontSize: 12,
                       color: const Color(0xFF6D6E6F),
                       fontWeight: FontWeight.bold),

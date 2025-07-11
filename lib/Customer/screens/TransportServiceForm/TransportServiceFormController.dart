@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:bottom_picker/bottom_picker.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -8,9 +7,9 @@ import 'package:get/get.dart';
 import 'package:propertier/constant/colors.dart';
 import '../../../App/What are you searching/ViewModel/what_are_viewmodel.dart';
 import '../../../constant/constant.dart';
-import 'package:geocoding/geocoding.dart' as geocode;
-import 'package:geolocator/geolocator.dart' as geolocator;
-import 'dart:math' show cos, sqrt, asin;
+// import 'package:geocoding/geocoding.dart' as geocode;
+// import 'package:geolocator/geolocator.dart' as geolocator;
+// import 'dart:math' show cos, sqrt, asin;
 
 
 class TransportServiceFormController extends GetxController{
@@ -149,7 +148,7 @@ class TransportServiceFormController extends GetxController{
 
   void showDateTimePicker(BuildContext context) {
     BottomPicker.dateTime(
-      pickerTitle: Text(
+      pickerTitle: const Text(
         'Set the event exact time and date',
         style: TextStyle(
           fontWeight: FontWeight.bold,
@@ -165,9 +164,9 @@ class TransportServiceFormController extends GetxController{
         Get.back();
       },
       minDateTime: DateTime.now(),
-      maxDateTime: DateTime.now().add(Duration(days: 7)),
+      maxDateTime: DateTime.now().add(const Duration(days: 7)),
       initialDateTime: DateTime.now(),
-      gradientColors: [
+      gradientColors: const [
         AppColor.buttonColor,
         AppColor.buttonColor,
       ],

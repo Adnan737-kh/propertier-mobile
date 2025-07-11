@@ -1,210 +1,4 @@
-// class ProfileModel {
-//   int? id;
-
-//   String? name;
-//   String? about;
-//   String? phoneNumberCountryCode;
-//   String? phoneNumber;
-//   String? email;
-//   String? profilePictureUrl;
-//   String? coverPhotoUrl;
-//   String? type;
-//   String? accountStatus;
-//   bool? isStaff;
-//   bool? isActive;
-//   // NotificationsEnabled? notificationsEnabled;
-//   String? createdAt;
-//   String? updatedAt;
-//   String? gender;
-//   String? language;
-//   String? designation;
-//   String? address;
-//   String? latitudePosition;
-//   String? longitudePosition;
-//   String? profileDescription;
-//   String? cnicFrontUrl;
-//   String? cnicBackUrl;
-
-//   String? bankAccountDetails;
-//   int? totalIncome;
-//   int? monthlyIncome;
-//   int? deductions;
-//   int? rating;
-//   int? visitingCharges;
-//   String? availabilityHours;
-//   int? level;
-//   int? balance;
-//   bool? onlineStatus;
-//   String? facebookLink;
-//   String? instagramLink;
-//   String? twitterLink;
-//   bool? letterHeadVerified;
-//   bool? cnicVerified;
-//   bool? profilePictureVerified;
-//   bool? shopVisitingCardVerified;
-//   List<int>? followers;
-//   List<int>? likes;
-
-//   ProfileModel(
-//       {this.id,
-//       this.name,
-//       this.about,
-//       this.phoneNumberCountryCode,
-//       this.phoneNumber,
-//       this.email,
-//       this.profilePictureUrl,
-//       this.coverPhotoUrl,
-//       this.type,
-//       this.accountStatus,
-//       this.isStaff,
-//       this.isActive,
-//       // this.notificationsEnabled,
-//       this.createdAt,
-//       this.updatedAt,
-//       this.gender,
-//       this.language,
-//       this.designation,
-//       this.address,
-//       this.latitudePosition,
-//       this.longitudePosition,
-//       this.profileDescription,
-//       this.cnicFrontUrl,
-//       this.cnicBackUrl,
-//       this.bankAccountDetails,
-//       this.totalIncome,
-//       this.monthlyIncome,
-//       this.deductions,
-//       this.rating,
-//       this.visitingCharges,
-//       this.availabilityHours,
-//       this.level,
-//       this.balance,
-//       this.onlineStatus,
-//       this.facebookLink,
-//       this.instagramLink,
-//       this.twitterLink,
-//       this.letterHeadVerified,
-//       this.cnicVerified,
-//       this.profilePictureVerified,
-//       this.shopVisitingCardVerified,
-//       this.followers,
-//       this.likes});
-
-//   ProfileModel.fromJson(Map<String, dynamic> json) {
-//     id = json['id'];
-
-//     name = json['name'];
-//     about = json['about'];
-//     phoneNumberCountryCode = json['phone_number_country_code'];
-//     phoneNumber = json['phone_number'];
-//     email = json['email'];
-//     profilePictureUrl = json['profile_picture_url'];
-//     coverPhotoUrl = json['cover_photo_url'];
-//     type = json['type'];
-//     accountStatus = json['account_status'];
-//     isStaff = json['is_staff'];
-//     isActive = json['is_active'];
-//     // notificationsEnabled = json['notifications_enabled'] != null ? NotificationsEnabled.fromJson(json['notifications_enabled']) : null;
-//     createdAt = json['created_at'];
-//     updatedAt = json['updated_at'];
-//     gender = json['gender'];
-//     language = json['language'];
-//     designation = json['designation'];
-//     address = json['address'];
-//     latitudePosition = json['latitude_position'];
-//     longitudePosition = json['longitude_position'];
-//     profileDescription = json['profile_description'];
-//     cnicFrontUrl = json['cnic_front_url'];
-//     cnicBackUrl = json['cnic_back_url'];
-//     bankAccountDetails = json['bank_account_details'];
-//     totalIncome = json['total_income'];
-//     monthlyIncome = json['monthly_income'];
-//     deductions = json['deductions'];
-//     rating = json['rating'];
-//     visitingCharges = json['visiting_charges'];
-//     availabilityHours = json['availability_hours'];
-//     level = json['level'];
-//     balance = json['balance'];
-//     onlineStatus = json['online_status'];
-//     facebookLink = json['facebook_link'];
-//     instagramLink = json['instagram_link'];
-//     twitterLink = json['twitter_link'];
-//     letterHeadVerified = json['letter_head_verified'];
-//     cnicVerified = json['cnic_verified'];
-//     profilePictureVerified = json['profile_picture_verified'];
-//     shopVisitingCardVerified = json['shop_visiting_card_verified'];
-
-//     followers = json['followers'].cast<int>();
-//     likes = json['likes'].cast<int>();
-//   }
-
-//   Map<String, dynamic> toJson() {
-//     final Map<String, dynamic> data = Map<String, dynamic>();
-//     data['id'] = id;
-
-//     data['name'] = name;
-//     data['about'] = about;
-//     data['phone_number_country_code'] = phoneNumberCountryCode;
-//     data['phone_number'] = phoneNumber;
-//     data['email'] = email;
-//     data['profile_picture_url'] = profilePictureUrl;
-//     data['cover_photo_url'] = coverPhotoUrl;
-//     data['type'] = type;
-//     data['account_status'] = accountStatus;
-//     data['is_staff'] = isStaff;
-//     data['is_active'] = isActive;
-//     // if (notificationsEnabled != null) {
-//     //   data['notifications_enabled'] = notificationsEnabled!.toJson();
-//     // }
-//     data['created_at'] = createdAt;
-//     data['updated_at'] = updatedAt;
-//     data['gender'] = gender;
-//     data['language'] = language;
-//     data['designation'] = designation;
-//     data['address'] = address;
-//     data['latitude_position'] = latitudePosition;
-//     data['longitude_position'] = longitudePosition;
-//     data['profile_description'] = profileDescription;
-//     data['cnic_front_url'] = this.cnicFrontUrl;
-//     data['cnic_back_url'] = this.cnicBackUrl;
-
-//     data['bank_account_details'] = bankAccountDetails;
-//     data['total_income'] = totalIncome;
-//     data['monthly_income'] = monthlyIncome;
-//     data['deductions'] = deductions;
-//     data['rating'] = rating;
-//     data['visiting_charges'] = visitingCharges;
-//     data['availability_hours'] = availabilityHours;
-//     data['level'] = level;
-//     data['balance'] = balance;
-//     data['online_status'] = onlineStatus;
-//     data['facebook_link'] = facebookLink;
-//     data['instagram_link'] = instagramLink;
-//     data['twitter_link'] = twitterLink;
-//     data['letter_head_verified'] = letterHeadVerified;
-//     data['cnic_verified'] = cnicVerified;
-//     data['profile_picture_verified'] = profilePictureVerified;
-//     data['shop_visiting_card_verified'] = shopVisitingCardVerified;
-//     data['followers'] = followers;
-//     data['likes'] = likes;
-//     return data;
-//   }
-// }
-
-// // class NotificationsEnabled {
-
-// // 	NotificationsEnabled({super.key});
-
-// // 	NotificationsEnabled.fromJson(Map<String, dynamic> json) {
-// // 	}
-
-// // 	Map<String, dynamic> toJson() {
-// // 		final Map<String, dynamic> data = Map<String, dynamic>();
-// // 		return data;
-// // 	}
-// // }
 class ProfileModel {
-  
   int? id;
   bool? isSuperuser;
   String? firebaseId;
@@ -266,69 +60,68 @@ class ProfileModel {
   String? drivingLicenseBackUrl;
   bool? drivingLicenseVerified;
   List<String>? professionTypes;
-  ProfileModel({
-    this.id,
-    this.isSuperuser,
-    this.firebaseId,
-    this.name,
-    this.about,
-    this.phoneNumberCountryCode,
-    this.phoneNumber,
-    this.email,
-    this.profilePictureUrl,
-    this.coverPhotoUrl,
-    this.type,
-    this.accountStatus,
-    this.isStaff,
-    this.isActive,
-    this.createdAt,
-    this.updatedAt,
-    this.gender,
-    this.language,
-    this.designation,
-    this.address,
-    this.latitudePosition,
-    this.longitudePosition,
-    this.profileDescription,
-    this.cnicFrontUrl,
-    this.cnicBackUrl,
-    this.letterHeadUrl,
-    this.shopVisitingCardUrl,
-    this.certificateOfIncorporationUrl,
-    this.artificialOfAssociationUrl,
-    this.memberOfAssociationUrl,
-    this.incorporateDocumentUrl,
-    this.solePropertiierDocumentUrl,
-    this.bankAccountDetails,
-    this.totalIncome,
-    this.monthlyIncome,
-    this.deductions,
-    this.rating,
-    this.visitingCharges,
-    this.availabilityHours,
-    this.level,
-    this.balance,
-    this.onlineStatus,
-    this.facebookLink,
-    this.instagramLink,
-    this.twitterLink,
-    this.letterHeadVerified,
-    this.cnicVerified,
-    this.profilePictureVerified,
-    this.shopVisitingCardVerified,
-    this.emailVerified,
-    this.certificateOfIncorporationVerified,
-    this.artificialOfAssociationVerified,
-    this.memberOfAssociationVerified,
-    this.incorporateDocumentVerified,
-    this.solePropertiierDocumentVerified,
-    this.followers,
-    this.likes,
-    this.drivingLicenseFrontUrl,
-    this.drivingLicenseBackUrl,
-    this.drivingLicenseVerified,
-    this.professionTypes
-  });
+  ProfileModel(
+      {this.id,
+      this.isSuperuser,
+      this.firebaseId,
+      this.name,
+      this.about,
+      this.phoneNumberCountryCode,
+      this.phoneNumber,
+      this.email,
+      this.profilePictureUrl,
+      this.coverPhotoUrl,
+      this.type,
+      this.accountStatus,
+      this.isStaff,
+      this.isActive,
+      this.createdAt,
+      this.updatedAt,
+      this.gender,
+      this.language,
+      this.designation,
+      this.address,
+      this.latitudePosition,
+      this.longitudePosition,
+      this.profileDescription,
+      this.cnicFrontUrl,
+      this.cnicBackUrl,
+      this.letterHeadUrl,
+      this.shopVisitingCardUrl,
+      this.certificateOfIncorporationUrl,
+      this.artificialOfAssociationUrl,
+      this.memberOfAssociationUrl,
+      this.incorporateDocumentUrl,
+      this.solePropertiierDocumentUrl,
+      this.bankAccountDetails,
+      this.totalIncome,
+      this.monthlyIncome,
+      this.deductions,
+      this.rating,
+      this.visitingCharges,
+      this.availabilityHours,
+      this.level,
+      this.balance,
+      this.onlineStatus,
+      this.facebookLink,
+      this.instagramLink,
+      this.twitterLink,
+      this.letterHeadVerified,
+      this.cnicVerified,
+      this.profilePictureVerified,
+      this.shopVisitingCardVerified,
+      this.emailVerified,
+      this.certificateOfIncorporationVerified,
+      this.artificialOfAssociationVerified,
+      this.memberOfAssociationVerified,
+      this.incorporateDocumentVerified,
+      this.solePropertiierDocumentVerified,
+      this.followers,
+      this.likes,
+      this.drivingLicenseFrontUrl,
+      this.drivingLicenseBackUrl,
+      this.drivingLicenseVerified,
+      this.professionTypes});
 
   ProfileModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -381,17 +174,23 @@ class ProfileModel {
     profilePictureVerified = json['profile_picture_verified'];
     shopVisitingCardVerified = json['shop_visiting_card_verified'];
     emailVerified = json['email_verified'];
-    certificateOfIncorporationVerified = json['certificate_of_incorporation_verified'];
-    artificialOfAssociationVerified = json['artificial_of_association_verified'];
+    certificateOfIncorporationVerified =
+        json['certificate_of_incorporation_verified'];
+    artificialOfAssociationVerified =
+        json['artificial_of_association_verified'];
     memberOfAssociationVerified = json['member_of_association_verified'];
     incorporateDocumentVerified = json['incorporate_document_verified'];
-    solePropertiierDocumentVerified = json['sole_propertiier_document_verified'];
-    followers = json['followers'] != null ? List<int>.from(json['followers']) : [];
+    solePropertiierDocumentVerified =
+        json['sole_propertiier_document_verified'];
+    followers =
+        json['followers'] != null ? List<int>.from(json['followers']) : [];
     likes = json['likes'] != null ? List<int>.from(json['likes']) : [];
     drivingLicenseFrontUrl = json['driving_licence_front_url'];
     drivingLicenseBackUrl = json['driving_licence_back_url'];
     drivingLicenseVerified = json['driving_licence_verified'];
-    professionTypes = json['profession_types'] != null ? List<String>.from(json['profession_types']):[];
+    professionTypes = json['profession_types'] != null
+        ? List<String>.from(json['profession_types'])
+        : [];
   }
 
   Map<String, dynamic> toJson() {
@@ -446,11 +245,14 @@ class ProfileModel {
     data['profile_picture_verified'] = profilePictureVerified;
     data['shop_visiting_card_verified'] = shopVisitingCardVerified;
     data['email_verified'] = emailVerified;
-    data['certificate_of_incorporation_verified'] = certificateOfIncorporationVerified;
-    data['artificial_of_association_verified'] = artificialOfAssociationVerified;
+    data['certificate_of_incorporation_verified'] =
+        certificateOfIncorporationVerified;
+    data['artificial_of_association_verified'] =
+        artificialOfAssociationVerified;
     data['member_of_association_verified'] = memberOfAssociationVerified;
     data['incorporate_document_verified'] = incorporateDocumentVerified;
-    data['sole_propertiier_document_verified'] = solePropertiierDocumentVerified;
+    data['sole_propertiier_document_verified'] =
+        solePropertiierDocumentVerified;
 
     data['followers'] = followers;
     data['likes'] = likes;
@@ -461,76 +263,76 @@ class ProfileModel {
     return data;
   }
 
-  ProfileModel copyWith({
-    int? id,
-    bool? isSuperuser,
-    String? firebaseId,
-    String? name,
-    String? about,
-    String? phoneNumberCountryCode,
-    String? phoneNumber,
-    String? email,
-    String? profilePictureUrl,
-    String? coverPhotoUrl,
-    String? type,
-    String? accountStatus,
-    bool? isStaff,
-    bool? isActive,
-    String? createdAt,
-    String? updatedAt,
-    String? gender,
-    String? language,
-    String? designation,
-    String? copyaddress,
-    String? latitudePosition,
-    String? longitudePosition,
-    String? profileDescription,
-    String? cnicFrontUrl,
-    String? cnicBackUrl,
-    String? letterHeadUrl,
-    String? shopVisitingCardUrl,
-    String? certificateOfIncorporationUrl,
-    String? artificialOfAssociationUrl,
-    String? memberOfAssociationUrl,
-    String? incorporateDocumentUrl,
-    String? solePropertiierDocumentUrl,
-    String? bankAccountDetails,
-    int? totalIncome,
-    int? monthlyIncome,
-    int? deductions,
-    int? rating,
-    int? visitingCharges,
-    String? availabilityHours,
-    int? level,
-    int? balance,
-    bool? onlineStatus,
-    String? facebookLink,
-    String? instagramLink,
-    String? twitterLink,
-    bool? letterHeadVerified,
-    bool? cnicVerified,
-    bool? profilePictureVerified,
-    bool? shopVisitingCardVerified,
-    bool? emailVerified,
-    bool? certificateOfIncorporationVerified,
-    bool? artificialOfAssociationVerified,
-    bool? memberOfAssociationVerified,
-    bool? incorporateDocumentVerified,
-    bool? solePropertiierDocumentVerified,
-    List<int>? followers,
-    List<int>? likes,
-    String? drivingLicenseFrontUrl,
-    String? drivingLicenseBackUrl,
-    bool? drivingLicenseVerified,
-    List<String>? professionTypes
-  }) {
+  ProfileModel copyWith(
+      {int? id,
+      bool? isSuperuser,
+      String? firebaseId,
+      String? name,
+      String? about,
+      String? phoneNumberCountryCode,
+      String? phoneNumber,
+      String? email,
+      String? profilePictureUrl,
+      String? coverPhotoUrl,
+      String? type,
+      String? accountStatus,
+      bool? isStaff,
+      bool? isActive,
+      String? createdAt,
+      String? updatedAt,
+      String? gender,
+      String? language,
+      String? designation,
+      String? copyaddress,
+      String? latitudePosition,
+      String? longitudePosition,
+      String? profileDescription,
+      String? cnicFrontUrl,
+      String? cnicBackUrl,
+      String? letterHeadUrl,
+      String? shopVisitingCardUrl,
+      String? certificateOfIncorporationUrl,
+      String? artificialOfAssociationUrl,
+      String? memberOfAssociationUrl,
+      String? incorporateDocumentUrl,
+      String? solePropertiierDocumentUrl,
+      String? bankAccountDetails,
+      int? totalIncome,
+      int? monthlyIncome,
+      int? deductions,
+      int? rating,
+      int? visitingCharges,
+      String? availabilityHours,
+      int? level,
+      int? balance,
+      bool? onlineStatus,
+      String? facebookLink,
+      String? instagramLink,
+      String? twitterLink,
+      bool? letterHeadVerified,
+      bool? cnicVerified,
+      bool? profilePictureVerified,
+      bool? shopVisitingCardVerified,
+      bool? emailVerified,
+      bool? certificateOfIncorporationVerified,
+      bool? artificialOfAssociationVerified,
+      bool? memberOfAssociationVerified,
+      bool? incorporateDocumentVerified,
+      bool? solePropertiierDocumentVerified,
+      List<int>? followers,
+      List<int>? likes,
+      String? drivingLicenseFrontUrl,
+      String? drivingLicenseBackUrl,
+      bool? drivingLicenseVerified,
+      List<String>? professionTypes}) {
     return ProfileModel(
       id: id ?? this.id,
       isSuperuser: isSuperuser ?? this.isSuperuser,
       firebaseId: firebaseId ?? this.firebaseId,
       name: name ?? this.name,
       about: about ?? this.about,
-      phoneNumberCountryCode: phoneNumberCountryCode ?? this.phoneNumberCountryCode,
+      phoneNumberCountryCode:
+          phoneNumberCountryCode ?? this.phoneNumberCountryCode,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       email: email ?? this.email,
       profilePictureUrl: profilePictureUrl ?? this.profilePictureUrl,
@@ -552,11 +354,16 @@ class ProfileModel {
       cnicBackUrl: cnicBackUrl ?? this.cnicBackUrl,
       letterHeadUrl: letterHeadUrl ?? this.letterHeadUrl,
       shopVisitingCardUrl: shopVisitingCardUrl ?? this.shopVisitingCardUrl,
-      certificateOfIncorporationUrl: certificateOfIncorporationUrl ?? this.certificateOfIncorporationUrl,
-      artificialOfAssociationUrl: artificialOfAssociationUrl ?? this.artificialOfAssociationUrl,
-      memberOfAssociationUrl: memberOfAssociationUrl ?? this.memberOfAssociationUrl,
-      incorporateDocumentUrl: incorporateDocumentUrl ?? this.incorporateDocumentUrl,
-      solePropertiierDocumentUrl: solePropertiierDocumentUrl ?? this.solePropertiierDocumentUrl,
+      certificateOfIncorporationUrl:
+          certificateOfIncorporationUrl ?? this.certificateOfIncorporationUrl,
+      artificialOfAssociationUrl:
+          artificialOfAssociationUrl ?? this.artificialOfAssociationUrl,
+      memberOfAssociationUrl:
+          memberOfAssociationUrl ?? this.memberOfAssociationUrl,
+      incorporateDocumentUrl:
+          incorporateDocumentUrl ?? this.incorporateDocumentUrl,
+      solePropertiierDocumentUrl:
+          solePropertiierDocumentUrl ?? this.solePropertiierDocumentUrl,
       bankAccountDetails: bankAccountDetails ?? this.bankAccountDetails,
       totalIncome: totalIncome ?? this.totalIncome,
       monthlyIncome: monthlyIncome ?? this.monthlyIncome,
@@ -572,20 +379,273 @@ class ProfileModel {
       twitterLink: twitterLink ?? this.twitterLink,
       letterHeadVerified: letterHeadVerified ?? this.letterHeadVerified,
       cnicVerified: cnicVerified ?? this.cnicVerified,
-      profilePictureVerified: profilePictureVerified ?? this.profilePictureVerified,
-      shopVisitingCardVerified: shopVisitingCardVerified ?? this.shopVisitingCardVerified,
+      profilePictureVerified:
+          profilePictureVerified ?? this.profilePictureVerified,
+      shopVisitingCardVerified:
+          shopVisitingCardVerified ?? this.shopVisitingCardVerified,
       emailVerified: emailVerified ?? this.emailVerified,
-      certificateOfIncorporationVerified: certificateOfIncorporationVerified ?? this.certificateOfIncorporationVerified,
-      artificialOfAssociationVerified: artificialOfAssociationVerified ?? this.artificialOfAssociationVerified,
-      memberOfAssociationVerified: memberOfAssociationVerified ?? this.memberOfAssociationVerified,
-      incorporateDocumentVerified: incorporateDocumentVerified ?? this.incorporateDocumentVerified,
-      solePropertiierDocumentVerified: solePropertiierDocumentVerified ?? this.solePropertiierDocumentVerified,
+      certificateOfIncorporationVerified: certificateOfIncorporationVerified ??
+          this.certificateOfIncorporationVerified,
+      artificialOfAssociationVerified: artificialOfAssociationVerified ??
+          this.artificialOfAssociationVerified,
+      memberOfAssociationVerified:
+          memberOfAssociationVerified ?? this.memberOfAssociationVerified,
+      incorporateDocumentVerified:
+          incorporateDocumentVerified ?? this.incorporateDocumentVerified,
+      solePropertiierDocumentVerified: solePropertiierDocumentVerified ??
+          this.solePropertiierDocumentVerified,
       followers: followers ?? this.followers,
       likes: likes ?? this.likes,
-      drivingLicenseFrontUrl: drivingLicenseFrontUrl ?? this.drivingLicenseFrontUrl,
-      drivingLicenseBackUrl: drivingLicenseBackUrl ?? this.drivingLicenseBackUrl,
-      drivingLicenseVerified: drivingLicenseVerified ?? this.drivingLicenseVerified,
+      drivingLicenseFrontUrl:
+          drivingLicenseFrontUrl ?? this.drivingLicenseFrontUrl,
+      drivingLicenseBackUrl:
+          drivingLicenseBackUrl ?? this.drivingLicenseBackUrl,
+      drivingLicenseVerified:
+          drivingLicenseVerified ?? this.drivingLicenseVerified,
       professionTypes: professionTypes ?? this.professionTypes,
+    );
+  }
+}
+
+class VendorProfileModel {
+  final int? id;
+  final VendorUser? user;
+  final AssignedService? assignedService;
+  final SubmittedRequirements? submittedRequirements;
+  final String? profileDescription;
+  final VerificationStatus? verificationStatus;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+
+  VendorProfileModel({
+    this.id,
+    this.user,
+    this.assignedService,
+    this.submittedRequirements,
+    this.profileDescription,
+    this.verificationStatus,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  factory VendorProfileModel.fromJson(Map<String, dynamic> json) {
+    return VendorProfileModel(
+      id: json['id'],
+      user: json['user'] != null ? VendorUser.fromJson(json['user']) : null,
+      assignedService: json['assigned_service'] != null
+          ? AssignedService.fromJson(json['assigned_service'])
+          : null,
+      submittedRequirements: json['submitted_requirements'] != null
+          ? SubmittedRequirements.fromJson(json['submitted_requirements'])
+          : null,
+      profileDescription: json['profile_description'],
+      verificationStatus: json['verification_status'] != null
+          ? VerificationStatus.fromJson(json['verification_status'])
+          : null,
+      createdAt: json['created_at'] != null
+          ? DateTime.parse(json['created_at'])
+          : null,
+      updatedAt: json['updated_at'] != null
+          ? DateTime.parse(json['updated_at'])
+          : null,
+    );
+  }
+}
+
+class VendorUser {
+  final String emailVerificationStatus;
+  final String phoneNumberVerificationStatus;
+  final String cnicVerificationStatus;
+  final String selfieVerificationStatus;
+  final bool isVerifiedUser;
+  final String generalVerificationStatus;
+  final String email;
+  final String fullName;
+  final String phoneNumber;
+  final String address;
+  final String profilePicture;
+  final String gender;
+  final String about;
+  final String coverPhoto;
+  final String type;
+  final String accountStatus;
+  final bool isStaff;
+  final bool isActive;
+  final List<dynamic> languages;
+  final String? designation;
+  final String longitudePosition;
+  final String latitudePosition;
+  final List<dynamic> followers;
+  final List<dynamic> likes;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final Map<String, dynamic> notificationsEnabled;
+
+  VendorUser({
+    required this.emailVerificationStatus,
+    required this.phoneNumberVerificationStatus,
+    required this.cnicVerificationStatus,
+    required this.selfieVerificationStatus,
+    required this.isVerifiedUser,
+    required this.generalVerificationStatus,
+    required this.email,
+    required this.fullName,
+    required this.phoneNumber,
+    required this.address,
+    required this.profilePicture,
+    required this.gender,
+    required this.about,
+    required this.coverPhoto,
+    required this.type,
+    required this.accountStatus,
+    required this.isStaff,
+    required this.isActive,
+    required this.languages,
+    required this.designation,
+    required this.longitudePosition,
+    required this.latitudePosition,
+    required this.followers,
+    required this.likes,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.notificationsEnabled,
+  });
+
+  factory VendorUser.fromJson(Map<String, dynamic> json) {
+    return VendorUser(
+      emailVerificationStatus: json['email_verification_status'],
+      phoneNumberVerificationStatus: json['phone_number_verification_status'],
+      cnicVerificationStatus: json['cnic_verification_status'],
+      selfieVerificationStatus: json['selfie_verification_status'],
+      isVerifiedUser: json['is_verified_user'],
+      generalVerificationStatus: json['general_verification_status'],
+      email: json['email'],
+      fullName: json['full_name'],
+      phoneNumber: json['phone_number'],
+      address: json['address'],
+      profilePicture: json['profile_picture'],
+      gender: json['gender'],
+      about: json['about'],
+      coverPhoto: json['cover_photo'],
+      type: json['type'],
+      accountStatus: json['account_status'],
+      isStaff: json['is_staff'],
+      isActive: json['is_active'],
+      languages: json['languages'],
+      designation: json['designation'],
+      longitudePosition: json['longitude_position'],
+      latitudePosition: json['latitude_position'],
+      followers: json['followers'],
+      likes: json['likes'],
+      createdAt: DateTime.parse(json['created_at']),
+      updatedAt: DateTime.parse(json['updated_at']),
+      notificationsEnabled:
+          Map<String, dynamic>.from(json['notifications_enabled']),
+    );
+  }
+}
+
+class AssignedService {
+  final int id;
+  final String title;
+  final String description;
+  final String status;
+  final String? image;
+  final String rating;
+  final String mainCategory;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  // final int biddingForm;
+  final int requirementTemplate;
+
+  AssignedService({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.status,
+    required this.image,
+    required this.rating,
+    required this.mainCategory,
+    required this.createdAt,
+    required this.updatedAt,
+    // required this.biddingForm,
+    required this.requirementTemplate,
+  });
+
+  factory AssignedService.fromJson(Map<String, dynamic> json) {
+    return AssignedService(
+      id: json['id'],
+      title: json['title'],
+      description: json['description'],
+      status: json['status'],
+      image: json['image'],
+      rating: json['rating'],
+      mainCategory: json['main_category'],
+      createdAt: DateTime.parse(json['created_at']),
+      updatedAt: DateTime.parse(json['updated_at']),
+      // biddingForm: json['bidding_form'],
+      requirementTemplate: json['requirement_template'],
+    );
+  }
+}
+
+class SubmittedRequirements {
+  final int id;
+  final int template;
+  final String status;
+  final String serviceType;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final String waterQualityCertificate;
+  final int deliveryRadiusKm;
+  final String waterType;
+
+  SubmittedRequirements({
+    required this.id,
+    required this.template,
+    required this.status,
+    required this.serviceType,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.waterQualityCertificate,
+    required this.deliveryRadiusKm,
+    required this.waterType,
+  });
+
+  factory SubmittedRequirements.fromJson(Map<String, dynamic> json) {
+    return SubmittedRequirements(
+      id: json['id'] ?? '',
+      template: json['template'] ?? '',
+      status: json['status'] ?? '',
+      serviceType: json['service_type'] ?? '',
+      createdAt: DateTime.parse(json['created_at'] ?? ''),
+      updatedAt: DateTime.parse(json['updated_at'] ?? ''),
+      waterQualityCertificate: json['water_quality_certificate'] ?? '',
+      deliveryRadiusKm: json['delivery_radius_km'] ?? 0,
+      waterType: json['water_type'] ?? '',
+    );
+  }
+}
+
+class VerificationStatus {
+  final String general;
+  final String email;
+  final String phone;
+  final String cnic;
+
+  VerificationStatus({
+    required this.general,
+    required this.email,
+    required this.phone,
+    required this.cnic,
+  });
+
+  factory VerificationStatus.fromJson(Map<String, dynamic> json) {
+    return VerificationStatus(
+      general: json['general'],
+      email: json['email'],
+      phone: json['phone'],
+      cnic: json['cnic'],
     );
   }
 }

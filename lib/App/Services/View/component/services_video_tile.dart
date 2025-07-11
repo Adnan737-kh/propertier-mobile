@@ -6,6 +6,7 @@ import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/font_size_extension.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 import 'package:text_scroll/text_scroll.dart';
 
@@ -66,9 +67,8 @@ class ServicesVideoTile extends StatelessWidget {
                           selectable: true,
                         ),
                       ),
-                      appText(
-                          title: 'Residential',
-                          context: context,
+                      CustomText(
+                          title: context.local.residential,
                           color: AppColor.white,
                           fontSize: 8,
                           fontWeight: FontWeight.w500)
@@ -112,9 +112,8 @@ class ServicesVideoTile extends StatelessWidget {
                               size: context.getSize.height * 0.030,
                             ),
                             getWidth(context, 0.024),
-                            appText(
+                            CustomText(
                               title: index == 9 - 1 ? 'ISB' : '1',
-                              context: context,
                               fontSize: 14,
                               fontWeight: FontWeight.w400,
                               color: AppColor.white,

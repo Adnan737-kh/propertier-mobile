@@ -69,28 +69,28 @@ class ServiceOrderModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['extra_price'] = this.extraPrice;
-    data['status'] = this.status;
-    data['status_reason'] = this.statusReason;
-    data['payment_status'] = this.paymentStatus;
-    data['order_tracking'] = this.orderTracking;
-    data['total_amount'] = this.totalAmount;
-    data['service_location'] = this.serviceLocation;
-    data['vendor_deduction_amount'] = this.vendorDeductionAmount;
-    data['work_description'] = this.workDescription;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['image_urls'] = this.imageUrls;
-    data['submission_status'] = this.submissionStatus;
-    data['vendor'] = this.vendor;
-    data['customer'] = this.customer;
-    data['service'] = this.service;
-    data['bid'] = this.bid;
-    data['customer_coupon'] = this.customerCoupon;
-    data['vendor_coupon'] = this.vendorCoupon;
-    data['selected_sub_services'] = this.selectedSubServices;
+    final Map<String, dynamic> data =  Map<String, dynamic>();
+    data['id'] = id;
+    data['extra_price'] = extraPrice;
+    data['status'] = status;
+    data['status_reason'] = statusReason;
+    data['payment_status'] =paymentStatus;
+    data['order_tracking'] =orderTracking;
+    data['total_amount'] = totalAmount;
+    data['service_location'] = serviceLocation;
+    data['vendor_deduction_amount'] = vendorDeductionAmount;
+    data['work_description'] = workDescription;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['image_urls'] = imageUrls;
+    data['submission_status'] =submissionStatus;
+    data['vendor'] = vendor;
+    data['customer'] =customer;
+    data['service'] = service;
+    data['bid'] = bid;
+    data['customer_coupon'] =customerCoupon;
+    data['vendor_coupon'] = vendorCoupon;
+    data['selected_sub_services'] = selectedSubServices;
     return data;
   }
 }

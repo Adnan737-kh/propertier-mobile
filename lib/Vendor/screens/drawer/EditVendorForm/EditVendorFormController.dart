@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import '../../../../Handlers/permissions_handler.dart';
 import '../../../../Network/api_urls.dart';
-import '../../ServiceForm/model/ServiceFormModel.dart';
 import '../../ServiceForm/model/TransportModel.dart';
 import '../VendorForm/model/VendorFormModal.dart';
 

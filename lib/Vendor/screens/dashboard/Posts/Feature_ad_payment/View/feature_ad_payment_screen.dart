@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/Vendor/screens/dashboard/Posts/Feature_ad_payment/Controller/feature_ad_controller.dart';
 import 'package:propertier/Vendor/screens/dashboard/Posts/Feature_ad_payment/Model/feature_ad_model.dart';
 import 'package:propertier/Vendor/screens/widgets/round_checkbox.dart';
+import 'package:propertier/constant/colors.dart';
+import 'package:propertier/constant/constant.dart';
 
 class FeatureAdPaymentScreen extends StatefulWidget {
   const FeatureAdPaymentScreen({super.key});
@@ -28,11 +32,11 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
 
   void updateFeatureDetails() {
     if (isWeek) {
-      featureDuration = formatFeatureDuration(Duration(days: 7));
+      featureDuration = formatFeatureDuration(const Duration(days: 7));
       price = '500 PKR';
       status = 'active';
     } else if (isFifteen) {
-      featureDuration = formatFeatureDuration(Duration(days: 15));
+      featureDuration = formatFeatureDuration(const Duration(days: 15));
       price = '1000 PKR';
       status = 'active';
     } else if (isMonth) {
@@ -84,6 +88,63 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
     Get.back();
   }
 
+  bool _dialogShown = false;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (!_dialogShown) {
+      _dialogShown = true;
+      // Delay dialog until the first frame is rendered
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showDialog(
+          context: context,
+          barrierDismissible: false, // if you want to prevent closing
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text(
+                "Coming Soon!",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: AppColor
+                      .forGroundColor, // You can change this to any color you like
+                  letterSpacing: 1.2,
+                ),
+              ),
+              content: const Text(
+                "This feature is under development.",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey,
+                  height: 1.5,
+                  letterSpacing: 0.5,
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Get.toNamed(AppRoutes.vendorAddPostScreen);
+                  },
+                  child: const Text(
+                    "OK",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: AppColor
+                          .forGroundColor, // You can change this to any color you like
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,8 +193,8 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
                         side: BorderSide(
                           width: isEasyPaisaSelected ? 2 : 1,
                           color: isEasyPaisaSelected
-                              ? Color(0xFF41A2FB)
-                              : Color(0xFFF3F3F3),
+                              ? const Color(0xFF41A2FB)
+                              : const Color(0xFFF3F3F3),
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -141,7 +202,11 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset('assets/easy.png'),
+                        SvgPicture.asset(
+                          "assets/icons/easypaisa.svg",
+                          height: 30, // customize as needed
+                          width: 30,
+                        ),
                         const SizedBox(height: 4.60),
                         const Text(
                           'easypaisa',
@@ -171,8 +236,8 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
                         side: BorderSide(
                           width: isJazzCashSelected ? 2 : 1,
                           color: isJazzCashSelected
-                              ? Color(0xFF41A2FB)
-                              : Color(0xFFF3F3F3),
+                              ? const Color(0xFF41A2FB)
+                              : const Color(0xFFF3F3F3),
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -180,7 +245,7 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset('assets/jazz.png'),
+                        Image.asset(Constant.jassCashIcon),
                         const SizedBox(height: 4.75),
                         const Text(
                           'Jazz Cash',
@@ -210,8 +275,8 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
                         side: BorderSide(
                           width: isBankSelected ? 2 : 1,
                           color: isBankSelected
-                              ? Color(0xFF41A2FB)
-                              : Color(0xFFF3F3F3),
+                              ? const Color(0xFF41A2FB)
+                              : const Color(0xFFF3F3F3),
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -319,7 +384,7 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
                 Row(
                   children: [
                     Checkbox(
-                      side: BorderSide(color: Colors.black38),
+                      side: const BorderSide(color: Colors.black38),
                       activeColor: Colors.amber,
                       value: isFifteen,
                       onChanged: (value) {
@@ -360,7 +425,7 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
                 Row(
                   children: [
                     Checkbox(
-                      side: BorderSide(color: Colors.black38),
+                      side: const BorderSide(color: Colors.black38),
                       activeColor: Colors.amber,
                       value: isMonth,
                       onChanged: (value) {
@@ -544,6 +609,45 @@ class _FeatureAdPaymentScreenState extends State<FeatureAdPaymentScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  void showFeatureDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible:
+          false, // prevents closing the dialog by tapping outside
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          title: const Text(
+            'Confirm Feature Ad',
+            style: TextStyle(
+              fontSize: 30,
+            ),
+          ),
+          content: const Text(
+            'Are you sure you want to continue with this featured ad plan?',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Get.toNamed(AppRoutes.vendorAddPostScreen);
+              },
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Get.toNamed(AppRoutes.vendorAddPostScreen);
+              },
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF41A2FB)),
+              child: const Text('Confirm'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

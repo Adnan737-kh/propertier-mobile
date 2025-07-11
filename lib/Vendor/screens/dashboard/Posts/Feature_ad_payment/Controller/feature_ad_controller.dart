@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:propertier/Vendor/helpers/api_service.dart';
@@ -17,7 +18,9 @@ class FeaturePackageController extends GetxController {
 
     if (packageId != null) {
       featurePackageId = packageId;
-      print('Feature package ID stored: $featurePackageId');
+      if (kDebugMode) {
+        print('Feature package ID stored: $featurePackageId');
+      }
       Get.snackbar('Success', 'Feature selected successfully');
 
       final box = GetStorage();

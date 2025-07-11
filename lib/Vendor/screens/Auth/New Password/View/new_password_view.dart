@@ -49,11 +49,10 @@ class NewPasswordView extends StatelessWidget {
                   getHeight(context, 0.079),
                   Align(alignment: Alignment.center, child: logoTile(context)),
                   getHeight(context, 0.101),
-                  appText(
+                  CustomText(
                       textAlign: TextAlign.left,
                       title:
                           'Your new Password must be different from previously used Password.',
-                      context: context,
                       fontSize: 14,
                       color: const Color(0xFF6D6E6F),
                       fontWeight: FontWeight.bold),

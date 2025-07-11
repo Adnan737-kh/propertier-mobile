@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/Features/Featured%20Pakages/Models/featured_pakages/featured_pakages.dart';
@@ -15,22 +16,25 @@ class FeaturedPakageService {
       final response = await http.get(Uri.parse(API.getFeaturesPackagesUrl));
       if (response.statusCode == 200) {
         final decodedJson = jsonDecode(response.body);
-        print(decodedJson);
+
+        if (kDebugMode) {
+          print(decodedJson);
+        }
         profileDetailModel = decodedJson
             .map((jsonItem) =>
                 FeaturedPakages.fromJson(jsonItem as Map<String, dynamic>))
             .toList();
       } else {
         ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-            content: appText(
+            content: CustomText(
                 title: response.body.toString(),
-                context: Get.context!,
+              
                 color: AppColor.white)));
       }
     } catch (e) {
       ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-        content: appText(
-            title: e.toString(), context: Get.context!, color: AppColor.white),
+        content: CustomText(
+            title: e.toString(), color: AppColor.white),
       ));
     }
     return profileDetailModel;

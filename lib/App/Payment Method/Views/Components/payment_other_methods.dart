@@ -16,9 +16,8 @@ Widget otherPaymentMethod(
         onTap: onTap,
         child: Row(
           children: [
-            appText(
+            CustomText(
                 title: context.local.other_saved_payment_method,
-                context: context,
                 colorOpecity: 0.7,
                 fontWeight: FontWeight.bold)
           ],
@@ -36,9 +35,8 @@ Widget otherPaymentMethod(
                 height: 13.17,
               ),
               const Gap(8),
-              appText(
+              CustomText(
                   title: "031******123",
-                  context: context,
                   fontSize: 12,
                   fontWeight: FontWeight.normal)
             ],

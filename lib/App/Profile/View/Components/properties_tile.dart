@@ -11,7 +11,7 @@ import 'package:propertier/Utils/textStyle.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
-import 'package:propertier/extensions/area_convert_extension.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/price_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 import '../../../../Model/property.dart';
@@ -19,7 +19,7 @@ import '../../../../extensions/ago_time_converter.dart';
 import '../../Service/profile_service.dart';
 
 Container propertiesTile(BuildContext context,
-    {required Property property,
+    {required Property property,String? accessToken,
     bool isItFromFeatured = false,
       bool isItSelected = false,
     void Function()? onFeaturedClick,
@@ -43,8 +43,8 @@ Container propertiesTile(BuildContext context,
       children: [
         InkWell(
           onTap: () {
-            Get.toNamed(AppRoutes.detailView,
-                arguments: {"id": property.id, "user": "user"});
+            Get.toNamed(AppRoutes.propertyDetailView,
+                arguments: {"slug": property.slug, "user": "user"});
           },
           child: Container(
             height: context.getSize.height * 0.190,
@@ -81,8 +81,8 @@ Container propertiesTile(BuildContext context,
                           topRight: Radius.circular(30),
                           bottomRight: Radius.circular(30),
                         )),
-                    child: appText(
-                        fontSize: 12, title: property.type!, context: context),
+                    child: CustomText(
+                        fontSize: 12, title: property.propertyType!,),
                   ),
                 ),
               ],
@@ -109,9 +109,8 @@ Container propertiesTile(BuildContext context,
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(5),
-                          child: appText(
-                              title: "Click to Feature Ad",
-                              context: context,
+                          child: CustomText(
+                              title: context.local.click_to_feature_ad,
                               textDecoration: TextDecoration.underline,
                               color: AppColor.greenColor,
                               fontSize: 10,
@@ -123,17 +122,15 @@ Container propertiesTile(BuildContext context,
                   )
                   : const Gap(0),
               getHeight(context, 0.008),
-              appText(
+              CustomText(
                   title: getTimeAgo(property.createdAt!),
-                  context: context,
                   colorOpecity: 0.7,
                   fontSize: 10,
                   fontWeight: FontWeight.w500),
               getHeight(context, 0.005),
-              appText(
+              CustomText(
                   textAlign: TextAlign.left,
                   title: property.title!,
-                  context: context,
                   colorOpecity: 1,
                   fontSize: 12,
                   overflow: TextOverflow.ellipsis,
@@ -154,15 +151,15 @@ Container propertiesTile(BuildContext context,
                 ]),
               ),
               getHeight(context, 0.008),
-              appText(
-                  textAlign: TextAlign.left,
-                  overflow: TextOverflow.ellipsis,
-                  title: property.address!,
-                  context: context,
-                  colorOpecity: 0.7,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w500),
-              getHeight(context, 0.008),
+              // appText(
+              //     textAlign: TextAlign.left,
+              //     overflow: TextOverflow.ellipsis,
+              //     title: property.address!,
+              //     context: context,
+              //     colorOpecity: 0.7,
+              //     fontSize: 10,
+              //     fontWeight: FontWeight.w500),
+              // getHeight(context, 0.008),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -173,10 +170,11 @@ Container propertiesTile(BuildContext context,
                         width: context.getSize.width * 0.050,
                         height: context.getSize.height * 0.02,
                       ),
-                      appText(
-                          title:
-                              " ${double.parse(property.area!.toString()).convertArea(areaType: property.areaUnit ?? '')} ${property.areaUnit ?? ''} ",
-                          context: context,
+                      CustomText(
+                          title: '${(property.area!.toString()).toString()} ${property.areaUnit ?? ''}',
+
+                          // title:
+                          //     " ${double.parse(property.area!.toString()).convertArea(areaType: property.areaUnit ?? '')} ${property.areaUnit ?? ''} ",
                           colorOpecity: 1,
                           fontSize: 10,
                           fontWeight: FontWeight.w400),
@@ -189,11 +187,11 @@ Container propertiesTile(BuildContext context,
                         size: 12,
                       ),
                       const Gap(4),
-                      appText(
+                      CustomText(
                           fontSize: 10,
                           colorOpecity: 0.60,
                           title: property.likes!.toString(),
-                          context: context),
+                          ),
                     ],
                   ),
                 ],
@@ -214,10 +212,9 @@ Container propertiesTile(BuildContext context,
                             backgroundColor:
                                 WidgetStatePropertyAll(AppColor.googleColor)),
                         // color: AppColor.googleColor,
-                        label: appText(
+                        label: CustomText(
                             title: "Delete",
-                            color: AppColor.white,
-                            context: context),
+                            color: AppColor.white,),
                         onPressed: () {
                           showDialog(
                             context: context,
@@ -238,17 +235,17 @@ Container propertiesTile(BuildContext context,
                                   TextButton(
                                     onPressed: () {
                                       // Proceed with delete action
-                                      Navigator.of(context)
-                                          .pop(); // Close the dialog
                                       viewModel.isLoading.value = true;
                                       ProfileService()
                                           .deleteProperty(
                                               context: context,
-                                              id: property.id!.toString())
+                                              id: property.id!.toString(),
+                                        accessToken: accessToken!
+                                      )
                                           .whenComplete(() {
-                                        viewModel.getProfilePageData(
+                                        viewModel.getProfile(
                                           context: context,
-                                          id: property.agent!.id!.toString(),
+                                          accessToken:viewModel.accessToken!
                                         );
                                       });
                                     },

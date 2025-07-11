@@ -9,7 +9,7 @@ import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 import '../../../App/ServicesSearch/View/component/description_text_field.dart';
 import '../../../App/ServicesSearch/View/component/upload_work_photos_tile.dart';
-import '../../../App/ServicesSearch/View/component/yourself_textfield.dart';
+import '../../../App/ServicesSearch/View/component/custom_textfield.dart';
 import '../../../RoutesAndBindings/app_routes.dart';
 import '../../../Utils/app_text.dart';
 import '../../../Utils/appbar.dart';
@@ -21,7 +21,9 @@ import '../../../Utils/text_botton.dart';
 import '../../../constant/colors.dart';
 import '../../../constant/constant.dart';
 
-class HouseWorkForm extends GetView<HouseWorkFormController>{
+class HouseWorkForm extends GetView<HouseWorkFormController> {
+  const HouseWorkForm({super.key});
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -46,25 +48,23 @@ class HouseWorkForm extends GetView<HouseWorkFormController>{
                       }),
                   getHeight(context, 0.04),
                   getHeight(context, 0.015),
-
                   SvgPicture.asset(
                     Constant.servicesSearchIcon,
                     height: 100,
                     width: 86,
                   ),
                   getHeight(context, 0.01),
-                  appText(
+                  CustomText(
                       title: "Domestic Service",
                       fontSize: 18,
                       colorOpecity: 0.6,
                       fontWeight: FontWeight.w500,
-                      context: context),
+                       ),
                   getHeight(context, 0.01),
                   Column(
                     children: [
                       InstaImageViewer(
-                        imageUrl:
-                        Constant.dumyImage2,
+                        imageUrl: Constant.dummyImage2,
                         child: Container(
                           alignment: Alignment.topCenter,
                           padding: EdgeInsets.only(
@@ -74,10 +74,10 @@ class HouseWorkForm extends GetView<HouseWorkFormController>{
                           width: context.getSize.width,
                           height: context.getSize.height * 0.20,
                           decoration: BoxDecoration(
-                            // border: Border.all(width: 5),
+                              // border: Border.all(width: 5),
                               boxShadow: [boxShadow()],
-                              image:  DecorationImage(
-                                  image: NetworkImage(Constant.dumyImage2),
+                              image: const DecorationImage(
+                                  image: NetworkImage(Constant.dummyImage2),
                                   fit: BoxFit.cover)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,8 +95,8 @@ class HouseWorkForm extends GetView<HouseWorkFormController>{
                         ),
                       ),
                       Container(
-                        padding:
-                        const EdgeInsets.symmetric(vertical: 10, horizontal: 36),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 36),
                         width: context.getSize.width,
                         decoration: BoxDecoration(
                             color: AppColor.white,
@@ -112,9 +112,8 @@ class HouseWorkForm extends GetView<HouseWorkFormController>{
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                appText(
+                                CustomText(
                                     title: "Sub service Name",
-                                    context: context,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600),
                                 getWidth(context, 0.010),
@@ -149,12 +148,11 @@ class HouseWorkForm extends GetView<HouseWorkFormController>{
                             getHeight(context, 0.020),
                             Align(
                               alignment: Alignment.centerLeft,
-                              child: appText(
+                              child: CustomText(
                                   colorOpecity: 0.6,
                                   title: "sub service short description.",
                                   fontSize: 10,
-                                  fontWeight: FontWeight.w600,
-                                  context: context),
+                                  fontWeight: FontWeight.w600,),
                             ),
                           ],
                         ),
@@ -170,63 +168,79 @@ class HouseWorkForm extends GetView<HouseWorkFormController>{
                           context: context,
                           color: AppColor.blackColor.withOpacity(0.75)),
                       getHeight(context, 0.015),
-                      appText(
+                      CustomText(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           title: context.local.uploadWorkPhoto,
-                          context: context),
+                           ),
                       getHeight(context, 0.008),
                       const UploadWorkPhotosTile(),
                       getHeight(context, 0.015),
-                      appText(
+                      CustomText(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           title: "Brief Overview",
-                          context: context) ,
-                      YourSelfTextField(
+                           ),
+                      CustomTextField(
                           controller: controller.overviewController),
                       getHeight(context, 0.008),
                       getHeight(context, 0.015),
-                      appText(
+                      CustomText(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           title: "Address Detail (Street, House/Office No)",
-                          context: context),
-                      YourSelfTextField(
-                          controller: controller.addressController),
+                          ),
+                      CustomTextField(controller: controller.addressController),
                       getHeight(context, 0.015),
                       // Property LOCATION
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          appText(title: "Work Location", context: context),
-                          TextButton(onPressed: (){
-                            controller.places.clear();
-                            Get.to(SelectLocation(isPickup: false));
-                          }, child: Text("Select"))
+                          CustomText(title: "Work Location",  ),
+                          TextButton(
+                              onPressed: () {
+                                controller.places.clear();
+                                Get.to(SelectLocation(isPickup: false));
+                              },
+                              child: const Text("Select"))
                         ],
                       ),
-                      Obx(()=> controller.dropLocation.value != null? appText(title: controller.dropLocation.value, context: context): appText(title: "Not Selected", context: context, fontSize: 12)),
+                      Obx(() => controller.dropLocation.value != null
+                          ? CustomText(
+                              title: controller.dropLocation.value,
+                              )
+                          : CustomText(
+                              title: "Not Selected",
+                              fontSize: 12)),
                       getHeight(context, 0.008),
-                      Divider(),
+                      const Divider(),
                       getHeight(context, 0.008),
                       // DATE TIME PICKER
                       getHeight(context, 0.008),
-                      Obx(()=> DropdownButton<String>(
-                        value: controller.selectedChargeBy.value,
-                        hint: const Text('Charge By'),
-                        isExpanded: true, // Ensures dropdown takes full width
-                        items: <String>['Hourly', 'Daily','Weekly', 'Monthly']
-                            .map((String value) => DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        ))
-                            .toList(),
-                        onChanged: (String? newValue) {
-                          controller.selectedChargeBy.value = newValue;
-                        },
-                        style: const TextStyle(fontSize: 14,color: AppColor.blackColor), // Customize text style
-                      )),
+                      Obx(() => DropdownButton<String>(
+                            value: controller.selectedChargeBy.value,
+                            hint: const Text('Charge By'),
+                            isExpanded:
+                                true, // Ensures dropdown takes full width
+                            items: <String>[
+                              'Hourly',
+                              'Daily',
+                              'Weekly',
+                              'Monthly'
+                            ]
+                                .map((String value) => DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    ))
+                                .toList(),
+                            onChanged: (String? newValue) {
+                              controller.selectedChargeBy.value = newValue;
+                            },
+                            style: const TextStyle(
+                                fontSize: 14,
+                                color: AppColor
+                                    .blackColor), // Customize text style
+                          )),
                       getHeight(context, 0.008),
                       // DATE TIME PICKER
                       Column(
@@ -235,27 +249,32 @@ class HouseWorkForm extends GetView<HouseWorkFormController>{
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              appText(title: "Work Start Date Time", context: context),
-                              TextButton(onPressed: (){
-                                controller.showDateTimePicker(context);
-                              }, child: Text("Select"))
+                              CustomText(
+                                  title: "Work Start Date Time",
+                                   ),
+                              TextButton(
+                                  onPressed: () {
+                                    controller.showDateTimePicker(context);
+                                  },
+                                  child: const Text("Select"))
                             ],
                           ),
-                          Obx(()=> controller.dateTime.value != null?
-                          Text(controller.dateTime.value.toString())
-                              :appText(title: "Not Selected", context: context, fontSize: 12)),
+                          Obx(() => controller.dateTime.value != null
+                              ? Text(controller.dateTime.value.toString())
+                              : CustomText(
+                                  title: "Not Selected",
+                                  fontSize: 12)),
                         ],
                       ),
                       getHeight(context, 0.015),
-                      appText(
+                      CustomText(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           title: context.local.descriptionAboutYourWork,
-                          context: context),
+                          ),
                       getHeight(context, 0.008),
                       DescriptionTextField(
-                        descriptionController:
-                        controller.descriptionController,
+                        descriptionController: controller.descriptionController,
                       ),
                       getHeight(context, 0.024),
                       textButton(
@@ -280,23 +299,25 @@ class HouseWorkForm extends GetView<HouseWorkFormController>{
   }
 }
 
-
-
 class SelectLocation extends StatelessWidget {
   SelectLocation({super.key, required this.isPickup});
   bool isPickup;
   @override
   Widget build(BuildContext context) {
-    final FocusNode _focusNode = FocusNode();
+    final FocusNode focusNode = FocusNode();
     TextEditingController searchAddressTextController = TextEditingController();
     HouseWorkFormController controller = Get.find();
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: (){Get.back();}, icon: Icon(Icons.arrow_back,color: AppColor.blackColor)),
+        leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(Icons.arrow_back, color: AppColor.blackColor)),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -304,24 +325,22 @@ class SelectLocation extends StatelessWidget {
                 height: 54,
                 // width: context.width * 0.688,
                 child: TextFormField(
-                  focusNode: _focusNode,
+                  focusNode: focusNode,
                   controller: searchAddressTextController,
                   style: textStyle(context: context, fontSize: 12),
                   decoration: InputDecoration(
-                    suffixIcon:
-                    searchAddressTextController.text == ""
+                    suffixIcon: searchAddressTextController.text == ""
                         ? const Icon(
-                      Icons.search,
-                    )
+                            Icons.search,
+                          )
                         : GestureDetector(
-                      onTap: () {
-                        searchAddressTextController
-                            .text = "";
-                      },
-                      child: const Icon(
-                        Icons.close,
-                      ),
-                    ),
+                            onTap: () {
+                              searchAddressTextController.text = "";
+                            },
+                            child: const Icon(
+                              Icons.close,
+                            ),
+                          ),
                     hintText: "Search here...",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
@@ -335,13 +354,15 @@ class SelectLocation extends StatelessWidget {
                 ),
               ),
               getHeight(context, 0.020),
-              appText(
+              CustomText(
                   title: "Locations:",
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  context: context),
+              ),
               getHeight(context, 0.020),
-              DestinationSection(isPickup: isPickup,),
+              DestinationSection(
+                isPickup: isPickup,
+              ),
               getHeight(context, 0.020),
             ],
           ),
@@ -351,13 +372,8 @@ class SelectLocation extends StatelessWidget {
   }
 }
 
-
-
 class DestinationSection extends StatelessWidget {
-  DestinationSection({
-    super.key,
-    required this.isPickup
-  });
+  DestinationSection({super.key, required this.isPickup});
   bool isPickup;
   HouseWorkFormController controller = Get.find();
 
@@ -365,7 +381,7 @@ class DestinationSection extends StatelessWidget {
   Widget build(BuildContext context) {
     print("Places Length ${controller.places.length}");
     return Obx(
-          () => ListView.builder(
+      () => ListView.builder(
         itemCount: controller.places.length,
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
@@ -374,8 +390,11 @@ class DestinationSection extends StatelessWidget {
             context: context,
             tile: controller.places[index].description,
             onTap: () async {
-              controller.dropLocation.value = controller.places[index].description;
-              controller.endPosition = LatLng(controller.places[index].latitude??0.0, controller.places[index].longitude??0.0);
+              controller.dropLocation.value =
+                  controller.places[index].description;
+              controller.endPosition = LatLng(
+                  controller.places[index].latitude ?? 0.0,
+                  controller.places[index].longitude ?? 0.0);
               Get.back();
             },
           );
@@ -386,8 +405,8 @@ class DestinationSection extends StatelessWidget {
 
   InkWell loctionTile(
       {required BuildContext context,
-        required String tile,
-        Function()? onTap}) {
+      required String tile,
+      Function()? onTap}) {
     return InkWell(
       onTap: onTap,
       child: Column(
@@ -403,13 +422,13 @@ class DestinationSection extends StatelessWidget {
                     child: Row(
                       children: [
                         Expanded(
-                          child: appText(
+                          child: CustomText(
                               title: tile,
                               fontSize: 16,
                               textAlign: TextAlign.start,
                               fontWeight: FontWeight.normal,
                               colorOpecity: 0.7,
-                              context: context),
+                               ),
                         )
                       ],
                     )),

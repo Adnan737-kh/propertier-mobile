@@ -7,6 +7,7 @@ import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/Utils/search_text_field.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 class SearchEngineView extends StatelessWidget {
@@ -48,9 +49,8 @@ class SearchEngineView extends StatelessWidget {
                       color: AppColor.primaryColor,
                     ),
                     getWidth(context, 0.01),
-                    appText(
+                    const CustomText(
                         title: 'nearby',
-                        context: context,
                         fontSize: 10,
                         color: AppColor.primaryColor,
                         colorOpecity: 0.6),
@@ -64,9 +64,9 @@ class SearchEngineView extends StatelessWidget {
                 )),
             Obx(
               () => viewModel.searchedList.isEmpty
-                  ? const Expanded(
+                  ? Expanded(
                       child: Center(
-                        child: Text("No Data Search Yet"),
+                        child: Text(context.local.no_data_search_yet),
                       ),
                     )
                   : ListView.builder(
@@ -78,15 +78,15 @@ class SearchEngineView extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              appText(
-                                  textAlign: TextAlign.start,
-                                  title: viewModel.searchedList[index],
-                                  context: context),
-                              appText(
-                                  textAlign: TextAlign.start,
-                                  title:
-                                      "Ai is the future of the world kindly focus on Ai Skills if you want to successfull in future",
-                                  context: context),
+                              CustomText(
+                                textAlign: TextAlign.start,
+                                title: viewModel.searchedList[index],
+                              ),
+                              const CustomText(
+                                textAlign: TextAlign.start,
+                                title:
+                                    "Ai is the future of the world kindly focus on Ai Skills if you want to successfull in future",
+                              ),
                             ],
                           ),
                         );

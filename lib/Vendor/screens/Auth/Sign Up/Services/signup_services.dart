@@ -28,9 +28,8 @@ class SignupServices {
     final exists = await _checkUserExists(email, firebaseID);
     if (exists) {
       ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-        content: appText(
+        content: CustomText(
           title: 'User with this email and Firebase ID already exists.',
-          context: Get.context!,
           color: AppColor.white,
         ),
       ));
@@ -38,7 +37,7 @@ class SignupServices {
     }
 
     // If user doesn't exist, proceed with registration
-    UserLoginModel signupResponseModel = UserLoginModel();
+    UserLoginModel signupResponseModel = const UserLoginModel();
     final Map<String, dynamic> data = {
       "name": name,
       "email": email!.toLowerCase(),
@@ -69,9 +68,8 @@ class SignupServices {
         signupResponseModel = UserLoginModel.fromJson(jsonDecodedData);
       } else {
         ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-          content: appText(
+          content: CustomText(
             title: 'Something went wrong: ${response.body}',
-            context: Get.context!,
             color: AppColor.white,
           ),
         ));
@@ -79,9 +77,8 @@ class SignupServices {
       }
     } catch (e) {
       ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-        content: appText(
+        content: CustomText(
           title: 'Something went wrong.',
-          context: Get.context!,
           color: AppColor.white,
         ),
       ));

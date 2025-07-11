@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/App/Profile/ViewModel/profile_view_model.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/border.dart';
@@ -7,12 +8,13 @@ import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/font_size_extension.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 import 'package:text_scroll/text_scroll.dart';
 
 class ProfileVideosTile extends StatelessWidget {
-  ProfileViewModel viewModel;
-  ProfileVideosTile({super.key, required this.viewModel});
+ final ProfileViewModel viewModel;
+  const ProfileVideosTile({super.key, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +23,13 @@ class ProfileVideosTile extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            appText(
-              title: 'Videos',
-              context: context,
+            CustomText(
+              title: context.local.videos,
               fontSize: 18,
               fontWeight: FontWeight.w500,
             ),
-            appText(
-              title: 'View More',
-              context: context,
+            CustomText(
+              title: context.local.view_more,
               color: AppColor.greenColor,
               fontSize: 12,
               fontWeight: FontWeight.w500,
@@ -90,9 +90,8 @@ class ProfileVideosTile extends StatelessWidget {
                               selectable: true,
                             ),
                           ),
-                          appText(
-                              title: 'Residential',
-                              context: context,
+                          CustomText(
+                              title: context.local.residential,
                               color: AppColor.white,
                               fontSize: 8,
                               fontWeight: FontWeight.w500)
@@ -138,9 +137,8 @@ class ProfileVideosTile extends StatelessWidget {
                                   size: context.getSize.height * 0.030,
                                 ),
                                 getWidth(context, 0.024),
-                                appText(
+                                CustomText(
                                   title: index == 9 - 1 ? 'ISB' : '1',
-                                  context: context,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                   color: AppColor.white,

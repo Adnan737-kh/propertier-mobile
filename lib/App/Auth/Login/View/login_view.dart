@@ -1,12 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/Utils/loading_view.dart';
 import 'package:propertier/Utils/logo_tile.dart';
 import 'package:propertier/Utils/textStyle.dart';
 import 'package:propertier/constant/constant.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 import '../../../../RoutesAndBindings/app_routes.dart';
 import '../../../../constant/AppButton/text_button.dart';
@@ -25,8 +25,8 @@ class LoginView extends StatelessWidget {
       context: Get.context!,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Privacy Policy'),
-          content: const SizedBox(
+          title: Text(context.local.privacy_policy),
+          content: SizedBox(
             height: 300.0, // Set a fixed height for the dialog content
             width: double.maxFinite,
             child: SingleChildScrollView(
@@ -34,53 +34,53 @@ class LoginView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Privacy Policy',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    context.local.privacy_policy,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 10),
-                  Text(
+                  const SizedBox(height: 10),
+                  const Text(
                     'At Propertier, we offer a comprehensive suite of services designed to meet all your property needs. '
                     'Our team of experts and specialists are dedicated to providing top-notch solutions in various aspects '
                     'of real estate and construction. Our services include:',
                   ),
-                  SizedBox(height: 10),
-                  Text(
+                  const SizedBox(height: 10),
+                  const Text(
                       '1. Document Verification: Ensure the legality and authenticity of property documents with our expert team of advocates and legal professionals.'),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                       '2. Property Expertise: Our seasoned property experts provide valuable insights and advice for buying, selling, and managing properties.'),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                       '3. Property Valuation: Get accurate and reliable property valuations for all types of real estate.'),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                       '4. Architectural and Design Services: From 2D and 3D AutoCAD mapping to architectural design, our skilled architects, exterior designers, and interior designers bring your vision to life.'),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                       '5. Surveying Services: We offer land surveying, quantity surveying, and quality surveying services to ensure precise planning and execution of projects.'),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                       '6. Engineering Services: Our team of engineers, including civil engineers, provides expert guidance on construction and infrastructure projects.'),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                       '7. Utility and Logistics: We facilitate water provision, transportation, and material supply, along with construction machinery services like excavators, bulldozers, and cranes.'),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                       '8. Machinery and Equipment Rental: Access a wide range of construction machinery, including excavators, bobcats, backhoe loaders, motor graders, and more.'),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                       '9. Labor Services: We provide skilled labor for various tasks, including masonry, plastering, carpentry, steel fixing, shuttering, and more. Our team also includes experts in electrical, plumbing, HVAC systems, and other specialized trades.'),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                       '10. Property Maintenance and Development: From caretakers and security guards to surveillance services and land development, we ensure your property is well-maintained and secure.'),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                       '11. Registry and Documentation: We offer registry, intaqal, and property document services to streamline the legal aspects of property ownership and transactions.'),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                       '12. Marketing and Advertising: Our SMM services for real estate, billboard advertising, and drafting services help promote and market your properties effectively.'),
-                  SizedBox(height: 10),
-                  Text(
+                  const SizedBox(height: 10),
+                  const Text(
                     'Please read and accept our privacy policy to proceed with login.',
                   ),
                 ],
@@ -92,13 +92,13 @@ class LoginView extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop(false);
               },
-              child: const Text('Decline'),
+              child: Text(context.local.decline),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(true);
               },
-              child: const Text('Accept'),
+              child: Text(context.local.accept),
             ),
           ],
         );
@@ -142,9 +142,10 @@ class LoginView extends StatelessWidget {
                                 height: 80,
                               ),
                               customTextField(
-                                label: "Enter Email/Phone Number",
+                                label: context.local.enter_email_phone_number,
                                 controller: loginVM.userEmailController,
-                                hintText: 'Enter Email/Phone Number',
+                                hintText:
+                                    context.local.enter_email_phone_number,
                                 textInputType: TextInputType.emailAddress,
                                 suffix: GestureDetector(
                                   onTap: () {
@@ -167,7 +168,7 @@ class LoginView extends StatelessWidget {
                                 height: 12,
                               ),
                               customTextField(
-                                label: "Password",
+                                label: context.local.password,
                                 obSecureText: !loginVM.isShowPassword.value,
                                 controller: loginVM.passwordController,
                                 suffix: GestureDetector(
@@ -183,12 +184,13 @@ class LoginView extends StatelessWidget {
                                           ? null
                                           : AppColor.secondaryColor,
                                     )),
-                                hintText: 'Enter your Password',
+                                hintText: context.local.enter_your_password,
                                 textInputType: TextInputType.text,
                                 textInputAction: TextInputAction.done,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Oops! we could not find matching credentials.';
+                                    return context.local
+                                        .oops_we_could_not_find_matching_credentials;
                                   }
                                   return null;
                                 },
@@ -201,9 +203,8 @@ class LoginView extends StatelessWidget {
                                         Get.toNamed(
                                             AppRoutes.forgotPasswordView);
                                       },
-                                      child: appText(
-                                          title: "Forgot Password?",
-                                          context: context,
+                                      child: CustomText(
+                                          title: context.local.forgot_password,
                                           fontSize: 14,
                                           color: AppColor.facebookColor,
                                           fontWeight: FontWeight.w400))
@@ -230,33 +231,33 @@ class LoginView extends StatelessWidget {
                                                 if (loginVM
                                                     .formKey.currentState!
                                                     .validate()) {
-                                                  if (await _showPrivacyPolicyDialog()) {
+                                                  // if (await _showPrivacyPolicyDialog()) {
 
-                                                    loginVM.loginUser();
-                                                    // loginVM.formKey.currentState
-                                                    //     ?.save();
-                                                    // bool isSuccess = await loginVM.loginUserData(context: context, email: loginVM.userEmailController
-                                                    //             .text,
-                                                    //         password: loginVM
-                                                    //             .passwordController
-                                                    //             .text);
-                                                    // if (isSuccess == true) {
-                                                    //   loginVM
-                                                    //       .changeLoading(true);
-                                                    //   Get.offAllNamed(
-                                                    //       AppRoutes.navBarView);
-                                                    // } else if (isSuccess ==
-                                                    //     false) {
-                                                    //   loginVM
-                                                    //       .changeLoading(true);
-                                                    // }
-                                                  }
+                                                  loginVM.loginUser();
+                                                  // loginVM.formKey.currentState
+                                                  //     ?.save();
+                                                  // bool isSuccess = await loginVM.loginUserData(context: context, email: loginVM.userEmailController
+                                                  //             .text,
+                                                  //         password: loginVM
+                                                  //             .passwordController
+                                                  //             .text);
+                                                  // if (isSuccess == true) {
+                                                  //   loginVM
+                                                  //       .changeLoading(true);
+                                                  //   Get.offAllNamed(
+                                                  //       AppRoutes.navBarView);
+                                                  // } else if (isSuccess ==
+                                                  //     false) {
+                                                  //   loginVM
+                                                  //       .changeLoading(true);
+                                                  // }
+                                                  // }
                                                 } else if (loginVM
                                                     .passwordController
                                                     .text
                                                     .isEmpty) {}
                                               },
-                                              title: 'SIGN IN',
+                                              title: context.local.sign_in,
                                               buttonColor: AppColor.buttonColor,
                                               textColor: AppColor.blackColor),
                                     ),
@@ -270,62 +271,62 @@ class LoginView extends StatelessWidget {
                               const SizedBox(
                                 height: 12,
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Obx(
-                                    () => loginVM.isGoogleSignInLoading.value ==
-                                            true
-                                        ? const Center(
-                                            child: CircularProgressIndicator(
-                                              color: AppColor.googleColor,
-                                            ),
-                                          )
-                                        : Expanded(
-                                            child: customTextButton(
-                                                height: 48,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600,
-                                                onTap: () async {
-                                                  if (await _showPrivacyPolicyDialog()) {
-                                                    loginVM.loginWithGoogle(
-                                                        context: context);
-                                                  }
-                                                },
-                                                icondata: Bootstrap.google,
-                                                // iconColor: AppColor.googleColor,
-                                                title: 'Sign In with Google',
-                                                buttonColor:
-                                                    AppColor.googleColor
-                                                // textColor: AppColor.,
-                                                ),
-                                          ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 12,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: customTextButton(
-                                        height: 48,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        onTap: () async {
-                                          loginVM.loginWithApple(
-                                              context: context);
-                                        },
-                                        icondata: Bootstrap.apple,
-                                        // iconColor: AppColor.googleColor,
-                                        title: 'Sign in with Apple',
-                                        buttonColor: AppColor.appleColor
-                                        // textColor: AppColor.,
-                                        ),
-                                  ),
-                                ],
-                              ),
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment.center,
+                              //   children: [
+                              //     Obx(
+                              //       () => loginVM.isGoogleSignInLoading.value ==
+                              //               true
+                              //           ? const Center(
+                              //               child: CircularProgressIndicator(
+                              //                 color: AppColor.googleColor,
+                              //               ),
+                              //             )
+                              //           : Expanded(
+                              //               child: CustomTextButton(
+                              //                   height: 48,
+                              //                   fontSize: 14,
+                              //                   fontWeight: FontWeight.w600,
+                              //                   onTap: () async {
+                              //                     if (await _showPrivacyPolicyDialog()) {
+                              //                       loginVM.loginWithGoogle(
+                              //                           context: context);
+                              //                     }
+                              //                   },
+                              //                   iconData: Bootstrap.google,
+                              //                   // iconColor: AppColor.googleColor,
+                              //                   title: 'Sign In with Google',
+                              //                   buttonColor:
+                              //                       AppColor.googleColor
+                              //                   // textColor: AppColor.,
+                              //                   ),
+                              //             ),
+                              //     ),
+                              //   ],
+                              // ),
+                              // const SizedBox(
+                              //   height: 12,
+                              // ),
+                              // Row(
+                              //   children: [
+                              //     Expanded(
+                              //       child: CustomTextButton(
+                              //           height: 48,
+                              //           fontSize: 14,
+                              //           fontWeight: FontWeight.w600,
+                              //           onTap: () async {
+                              //             loginVM.loginWithApple(
+                              //                 context: context);
+                              //           },
+                              //           iconData: Bootstrap.apple,
+                              //           // iconColor: AppColor.googleColor,
+                              //           title: 'Sign in with Apple',
+                              //           buttonColor: AppColor.appleColor
+                              //           // textColor: AppColor.,
+                              //           ),
+                              //     ),
+                              //   ],
+                              // ),
                               const SizedBox(
                                 height: 15,
                               ),
@@ -336,7 +337,7 @@ class LoginView extends StatelessWidget {
                                   text: TextSpan(
                                       style: textStyle(
                                           context: context, fontSize: 12),
-                                      text: "Don't have an account?",
+                                      text: context.local.dont_have_an_account,
                                       children: [
                                     TextSpan(
                                         style: textStyle(
@@ -347,10 +348,10 @@ class LoginView extends StatelessWidget {
                                         text: ' Sign Up',
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () {
-                                          // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                          //
-                                          //   return SignUpViewNEw();
-                                          // },));
+                                            // Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                            //
+                                            //   return SignUpViewNEw();
+                                            // },));
                                             // Get.offAll(() => AppRoutes.signUpView);
                                             Get.toNamed(AppRoutes.signUpView);
                                           })

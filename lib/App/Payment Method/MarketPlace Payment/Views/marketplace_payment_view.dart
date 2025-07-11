@@ -85,25 +85,22 @@ class MarketPlacePaymentView extends GetView<MarketPlacePaymentViewModel> {
                                     size: 70,
                                     color: Color.fromRGBO(207, 14, 0, 1),
                                   ),
-                                  appText(
+                                  CustomText(
                                       title: "Oops",
-                                      context: context,
                                       fontSize: 18,
                                       colorOpecity: 0.6,
                                       fontWeight: FontWeight.bold),
                                   getHeight(context, 0.008),
-                                  appText(
+                                  CustomText(
                                     title:
                                         "You enter amount more \nthen your Current Balance.",
-                                    context: context,
                                     fontSize: 16,
                                     colorOpecity: 0.6,
                                   ),
                                   getHeight(context, 0.008),
                                   GestureDetector(
-                                    child: appText(
+                                    child: CustomText(
                                         title: "Enter Again?",
-                                        context: context,
                                         fontSize: 12,
                                         color: AppColor.facebookColor,
                                         fontWeight: FontWeight.normal),

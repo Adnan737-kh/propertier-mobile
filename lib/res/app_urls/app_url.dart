@@ -1,10 +1,13 @@
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppUrls {
   static const baseUrl = "https://api.thepropertier.com";
   static const secondaryUrl = "api/mob/v1";
+
   static const signUpApi = "$baseUrl/api/auth/user/register/";
   static const loginApi = "$baseUrl/api/auth/user/login/";
+  static const deleteAccountApi = "$baseUrl/api/auth/user/me/delete/";
   static const profileApi = "$baseUrl/api/auth/user/profile/";
   static const verifyEmail = "$baseUrl/api/auth/verify-email/";
   static const profileUrl = "$baseUrl/api/auth/user/profile/";
@@ -18,18 +21,23 @@ class AppUrls {
       "$baseUrl/api/auth/user/send-reset-password-email/";
   static const verifyForgotPasswordOtpUrl =
       "$baseUrl/api/auth/user/reset-password/verify/";
-  static const restPasswordUrl =
-      "$baseUrl/api/auth/user/reset-password/confirm/";
+  static const restPasswordUrl = "$baseUrl/api/auth/user/reset-password/confirm/";
+  static const changePasswordUrl = "$baseUrl/api/auth/user/changepassword/";
 
   // Vendor
-  static const vendorsApi = "$baseUrl/api/vendors";
+  static const vendorProfileUrl = "$baseUrl/$secondaryUrl/vendor-profile/";
+
+  // Services APIS
+  static const serviceDetailsUrl = "$baseUrl/api/service-listing/";
 
 
   // ✅ Static getter for verifyOtpApi (fetches OTP token dynamically)
   static Future<String> get verifyOtpApi async {
     final prefs = await SharedPreferences.getInstance();
     String? otpToken = prefs.getString('otp_token');
-    print('otpToken $otpToken');
+    if (kDebugMode) {
+      print('otpToken $otpToken');
+    }
     return "$verifyEmail${otpToken ?? ''}/";
   }
 
@@ -44,6 +52,9 @@ class AppUrls {
     final prefs = await SharedPreferences.getInstance();
     String? resetApprovalToken = prefs.getString('reset_approval_token');
     String? uid = prefs.getString('uid');
+    if (kDebugMode) {
+      print('uid $uid and $resetApprovalToken');
+    }
     return "$restPasswordUrl$uid/${resetApprovalToken ?? ''}/";
   }
 

@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:propertier/App/NearestServiceDetail/ViewModel/NearestServiceDetailViewModel.dart';
-import 'package:propertier/App/Services/Model/FixedServicesModel.dart';
 import 'package:propertier/App/Services/Model/ServiceDashboardModel.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/Utils/app_text.dart';
@@ -18,7 +17,7 @@ import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 
-PreferredSize ServiceAppBar(BuildContext context, SellingServices service) {
+PreferredSize serviceAppBar(BuildContext context, SellingServices service) {
   return PreferredSize(
       preferredSize: Size(context.getSize.width, context.getSize.height * 3),
       child: FittedBox(
@@ -29,8 +28,8 @@ PreferredSize ServiceAppBar(BuildContext context, SellingServices service) {
               children: [
                 InstaImageViewer(
                   imageUrl:
-                  service.imageUrls?.first??
-                      Constant.dumyImage2,
+                  service.images?.first??
+                      Constant.dummyImage2,
                   child: Container(
                     alignment: Alignment.topCenter,
                     padding: EdgeInsets.only(
@@ -42,11 +41,11 @@ PreferredSize ServiceAppBar(BuildContext context, SellingServices service) {
                     decoration: BoxDecoration(
                       // border: Border.all(width: 5),
                         boxShadow: [boxShadow()],
-                        image: service.imageUrls?.first == null
+                        image: service.images?.first == null
                             ? null
                             : DecorationImage(
-                            image: NetworkImage(service.imageUrls?.first ??
-                                Constant.dumyImage2),
+                            image: NetworkImage(service.images?.first ??
+                                Constant.dummyImage2),
                             fit: BoxFit.cover)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,9 +80,8 @@ PreferredSize ServiceAppBar(BuildContext context, SellingServices service) {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          appText(
+                          CustomText(
                               title: service.title ??"",
-                              context: context,
                               fontSize: 14,
                               fontWeight: FontWeight.w600),
                           getWidth(context, 0.010),
@@ -109,24 +107,22 @@ PreferredSize ServiceAppBar(BuildContext context, SellingServices service) {
                           //     fontWeight: FontWeight.w600,
                           //     color: const Color(0xffB8B8B8),
                           //     context: context),
-                          appText(
+                          CustomText(
                               colorOpecity: 0.6,
                               title: service.service?.title??"",
                               fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                              context: context),
+                              fontWeight: FontWeight.w600,),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          appText(
+                          CustomText(
                             title: "Rs${service.fixedPrice??""}",
                             fontSize: 10,
                             fontWeight: FontWeight.w600,
                             color: const Color(0xffB8B8B8),
-                            context: context,
                           ),
                           RatingBarIndicator(
                             rating: 4,
@@ -144,18 +140,17 @@ PreferredSize ServiceAppBar(BuildContext context, SellingServices service) {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          appText(
+                          CustomText(
                               title: 'Likes',
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
                               colorOpecity: 0.6,
-                              context: context),
-                          appText(
+                              ),
+                          CustomText(
                               color: const Color(0xffB8B8B8),
                               title: service.likes?.toString()??"",
                               fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                              context: context),
+                              fontWeight: FontWeight.w600,),
                         ],
                       ),
                     ],
@@ -173,7 +168,7 @@ PreferredSize ServiceAppBar(BuildContext context, SellingServices service) {
                   alignment: Alignment.bottomRight,
                   children: [
                     InstaImageViewer(
-                      imageUrl: service.vendor?.profilePictureUrl??Constant.dumyImage2,
+                      imageUrl: service.vendor?.profilePictureUrl??Constant.dummyImage2,
                       child: Container(
                         width: 100,
                         height: 100,
@@ -184,7 +179,7 @@ PreferredSize ServiceAppBar(BuildContext context, SellingServices service) {
                           service.vendor?.profilePictureUrl == null
                               ? null
                               : DecorationImage(
-                              image: NetworkImage(service.vendor?.profilePictureUrl ?? Constant.dumyImage2
+                              image: NetworkImage(service.vendor?.profilePictureUrl ?? Constant.dummyImage2
                                   ),
                               fit: BoxFit.cover),
                         ),
@@ -215,8 +210,6 @@ PreferredSize ServiceAppBar(BuildContext context, SellingServices service) {
         ),
       ));
 }
-
-
 
 class UploadWorkPhotosWidget extends StatelessWidget {
   const UploadWorkPhotosWidget({

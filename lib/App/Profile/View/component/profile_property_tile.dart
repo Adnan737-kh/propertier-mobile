@@ -34,7 +34,7 @@ Widget propertiesTile(BuildContext context, {required Property property}) {
       children: [
         GestureDetector(
           onTap: () {
-            Get.toNamed(AppRoutes.detailView, arguments: property.id);
+            Get.toNamed(AppRoutes.propertyDetailView, arguments: property.id);
           },
           child: Container(
             // alignment: Alignment.center,
@@ -76,9 +76,8 @@ Widget propertiesTile(BuildContext context, {required Property property}) {
                             fontWeight: FontWeight.bold,
                             color: AppColor.blackColor),
                         title: property.title!.parseHtmlString()),
-                    appText(
+                    CustomText(
                         title: double.parse(property.price!).formatPrice(),
-                        context: context,
                         fontSize: 14,
                         color: AppColor.greenColor,
                         fontWeight: FontWeight.w700,
@@ -112,10 +111,9 @@ Widget propertiesTile(BuildContext context, {required Property property}) {
                   children: [
                     SizedBox(
                       width: context.getSize.width * 0.3,
-                      child: appText(
+                      child: CustomText(
                           textAlign: TextAlign.start,
                           title: "${context.local.area}: ",
-                          context: context,
                           fontSize: 12,
                           colorOpecity: 0.8,
                           fontWeight: FontWeight.bold),
@@ -144,10 +142,9 @@ Widget propertiesTile(BuildContext context, {required Property property}) {
                   children: [
                     SizedBox(
                       width: context.getSize.width * 0.3,
-                      child: appText(
+                      child: CustomText(
                           textAlign: TextAlign.start,
                           title: "${context.local.dimension}: ",
-                          context: context,
                           fontSize: 12,
                           colorOpecity: 0.8,
                           fontWeight: FontWeight.bold),
@@ -182,10 +179,9 @@ Widget propertiesTile(BuildContext context, {required Property property}) {
                                 border: border(color: AppColor.greenColor),
                                 borderRadius: BorderRadius.circular(42),
                                 color: AppColor.white),
-                            child: appText(
+                            child: CustomText(
                                 color: AppColor.greenColor,
-                                title: 'Chat',
-                                context: context,
+                                title: context.local.chat,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400),
                           )),
@@ -203,10 +199,9 @@ Widget propertiesTile(BuildContext context, {required Property property}) {
                                 // ),
                                 borderRadius: BorderRadius.circular(42),
                                 color: AppColor.greenColor),
-                            child: appText(
+                            child: CustomText(
                                 color: AppColor.white,
-                                title: 'Buy',
-                                context: context,
+                                title: context.local.buy,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400),
                           )),
@@ -215,7 +210,7 @@ Widget propertiesTile(BuildContext context, {required Property property}) {
                     Expanded(
                       child: GestureDetector(
                           onTap: () {
-                            Get.toNamed(AppRoutes.detailView,
+                            Get.toNamed(AppRoutes.propertyDetailView,
                                 arguments: property.id);
                           },
                           child: Container(
@@ -227,10 +222,9 @@ Widget propertiesTile(BuildContext context, {required Property property}) {
                                 ),
                                 borderRadius: BorderRadius.circular(42),
                                 color: AppColor.buttonColor),
-                            child: appText(
+                            child: CustomText(
                                 color: AppColor.blackColor,
-                                title: 'Detail',
-                                context: context,
+                                title: context.local.detail,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400),
                           )),

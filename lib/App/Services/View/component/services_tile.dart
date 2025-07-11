@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:propertier/App/Services/Model/services_model.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/border.dart';
@@ -24,9 +23,9 @@ Widget servicesTile({
           borderRadius: BorderRadius.circular(10)),
       child: Column(
         children: [
-          Image.network(service.imageUrl??"",height: context.getSize.height * 0.12,),
+          Image.network(service.image??"",height: context.getSize.height * 0.12,),
           getHeight(context, 0.005),
-          appText(title: service.title??"", context: context)
+          CustomText(title: service.title??"")
         ],
       ),
     ),

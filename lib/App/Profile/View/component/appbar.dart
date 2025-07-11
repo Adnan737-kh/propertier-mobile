@@ -9,6 +9,7 @@ import 'package:propertier/Utils/box_shadow.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 import '../../ViewModel/profile_view_model.dart';
@@ -26,7 +27,7 @@ PreferredSize profileAppBar(BuildContext context, ProfileViewModel viewModel,
                 InstaImageViewer(
                   imageUrl: viewModel
                           .profileModel.value.userProfile!.coverPhotoUrl ??
-                      Constant.dumyImage2,
+                      Constant.dummyImage2,
                   child: Container(
                     alignment: Alignment.topCenter,
                     padding: EdgeInsets.only(
@@ -43,7 +44,7 @@ PreferredSize profileAppBar(BuildContext context, ProfileViewModel viewModel,
                             : DecorationImage(
                                 image: NetworkImage(viewModel.profileModel.value
                                         .userProfile!.coverPhotoUrl ??
-                                    Constant.dumyImage2),
+                                    Constant.dummyImage2),
                                 fit: BoxFit.cover)),
                     child:  Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,7 +89,7 @@ PreferredSize profileAppBar(BuildContext context, ProfileViewModel viewModel,
                       Obx(() => Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              appText(
+                              CustomText(
                                   title: viewModel
                                               .profileModel.value.userProfile !=
                                           null
@@ -96,7 +97,6 @@ PreferredSize profileAppBar(BuildContext context, ProfileViewModel viewModel,
                                               .userProfile!.name ??
                                           ""
                                       : "",
-                                  context: context,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600),
                               getWidth(context, 0.010),
@@ -122,24 +122,23 @@ PreferredSize profileAppBar(BuildContext context, ProfileViewModel viewModel,
                           //     fontWeight: FontWeight.w600,
                           //     color: const Color(0xffB8B8B8),
                           //     context: context),
-                          appText(
+                          CustomText(
                               colorOpecity: 0.6,
-                              title: 'Dealer',
+                              title: context.local.dealer,
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
-                              context: context),
+                              ),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          appText(
+                          const CustomText(
                             title: '2K',
                             fontSize: 10,
                             fontWeight: FontWeight.w600,
-                            color: const Color(0xffB8B8B8),
-                            context: context,
+                            color: Color(0xffB8B8B8),
                           ),
                           RatingBarIndicator(
                             rating: 4,
@@ -157,13 +156,12 @@ PreferredSize profileAppBar(BuildContext context, ProfileViewModel viewModel,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          appText(
-                              title: 'Following',
+                          CustomText(
+                              title: context.local.following,
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
-                              colorOpecity: 0.6,
-                              context: context),
-                          appText(
+                              colorOpecity: 0.6),
+                          CustomText(
                               color: const Color(0xffB8B8B8),
                               title: viewModel.profileModel.value.properties !=
                                       null
@@ -175,7 +173,7 @@ PreferredSize profileAppBar(BuildContext context, ProfileViewModel viewModel,
                                   : "",
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
-                              context: context),
+                              ),
                         ],
                       ),
                     ],
@@ -196,7 +194,7 @@ PreferredSize profileAppBar(BuildContext context, ProfileViewModel viewModel,
                       imageUrl: viewModel.profileModel.value.userProfile!
                                   .profilePictureUrl ==
                               null
-                          ? Constant.dumyImage2
+                          ? Constant.dummyImage2
                           : viewModel.profileModel.value.userProfile!
                               .profilePictureUrl!,
                       child: Container(
@@ -215,7 +213,7 @@ PreferredSize profileAppBar(BuildContext context, ProfileViewModel viewModel,
                                                   .userProfile!
                                                   .profilePictureUrl ==
                                               null
-                                          ? Constant.dumyImage2
+                                          ? Constant.dummyImage2
                                           : viewModel.profileModel.value
                                               .userProfile!.profilePictureUrl!),
                                       fit: BoxFit.cover),

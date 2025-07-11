@@ -11,12 +11,12 @@ class AboutContent extends StatefulWidget {
       String, ProfileModel, ProfileController, BuildContext) updateUserProfile;
 
   const AboutContent({
-    Key? key,
+    super.key,
     required this.vendorUserId,
     required this.profileModel,
     required this.aboutText,
     required this.updateUserProfile,
-  }) : super(key: key);
+  });
 
   @override
   _AboutContentState createState() => _AboutContentState();

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:propertier/App/Services/Model/services_model.dart';
 import 'package:propertier/App/ServicesMap/View/component/cancel_service_dialog.dart';
 import 'package:propertier/App/ServicesMap/ViewModel/services_map_view_model.dart';
 import 'package:propertier/Utils/app_text.dart';
@@ -57,7 +56,7 @@ class ServicesMapView extends StatelessWidget {
 
                               // Load custom marker icon after map is created
                               BitmapDescriptor.fromAssetImage(
-                                ImageConfiguration(size: Size(48, 48)),
+                                const ImageConfiguration(size: Size(48, 48)),
                                 'assets/icons/person.png',
                               ).then((icon) {
                                 viewModel.customIcon = icon;
@@ -65,8 +64,8 @@ class ServicesMapView extends StatelessWidget {
                             },
                             markers: {
                               Marker(
-                                markerId: MarkerId('animated_marker'),
-                                infoWindow: InfoWindow(title: "Vendor Location"),
+                                markerId: const MarkerId('animated_marker'),
+                                infoWindow:const  InfoWindow(title: "Vendor Location"),
                                 position: viewModel.markerPosition.value,
                                 // icon: viewModel.customIcon,
                               ),
@@ -114,18 +113,18 @@ class ServicesMapView extends StatelessWidget {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              appText(
+                                              CustomText(
                                                   title: offer.bidResponse?.vendor?.name??"",
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w500,
-                                                  context: context),
+                                                  ),
                                               getHeight(context, 0.002),
-                                              appText(
-                                                  title: "On the way",
+                                              CustomText(
+                                                  title: context.local.on_the_way,
                                                   fontSize: 10,
                                                   colorOpecity: 0.7,
                                                   fontWeight: FontWeight.w500,
-                                                  context: context),
+                                                  ),
                                             ],
                                           )
                                         ],
@@ -171,12 +170,12 @@ class ServicesMapView extends StatelessWidget {
                                         color: const Color(0xff109B0E),
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    child: appText(
+                                    child: CustomText(
                                         title: context.local.cancel,
                                         fontSize: 30,
                                         fontWeight: FontWeight.w500,
                                         color: AppColor.white,
-                                        context: context),
+                                        ),
                                   ),
                                 )
                               else

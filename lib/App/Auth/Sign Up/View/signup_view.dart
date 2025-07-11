@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:propertier/Utils/loading_view.dart';
-import '../../../../RoutesAndBindings/app_routes.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import '../../../../Utils/appbar.dart';
 import '../../../../Utils/logo_tile.dart';
 import '../../../../constant/AppButton/text_button.dart';
@@ -21,8 +20,8 @@ class SignUpView extends StatelessWidget {
       context: Get.context!,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Privacy Policy'),
-          content: const SizedBox(
+          title:  Text(context.local.privacy_policy),
+          content: SizedBox(
             height: 300.0, // Set a fixed height for the dialog content
             width: double.maxFinite,
             child: SingleChildScrollView(
@@ -30,53 +29,53 @@ class SignUpView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Privacy Policy',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    context.local.privacy_policy,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 10),
-                  Text(
+                  const SizedBox(height: 10),
+                  const Text(
                     'At Propertier, we offer a comprehensive suite of services designed to meet all your property needs. '
                     'Our team of experts and specialists are dedicated to providing top-notch solutions in various aspects '
                     'of real estate and construction. Our services include:',
                   ),
-                  SizedBox(height: 10),
-                  Text(
+                  const SizedBox(height: 10),
+                  const Text(
                       '1. Document Verification: Ensure the legality and authenticity of property documents with our expert team of advocates and legal professionals.'),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                       '2. Property Expertise: Our seasoned property experts provide valuable insights and advice for buying, selling, and managing properties.'),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                       '3. Property Valuation: Get accurate and reliable property valuations for all types of real estate.'),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                       '4. Architectural and Design Services: From 2D and 3D AutoCAD mapping to architectural design, our skilled architects, exterior designers, and interior designers bring your vision to life.'),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                       '5. Surveying Services: We offer land surveying, quantity surveying, and quality surveying services to ensure precise planning and execution of projects.'),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                       '6. Engineering Services: Our team of engineers, including civil engineers, provides expert guidance on construction and infrastructure projects.'),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                       '7. Utility and Logistics: We facilitate water provision, transportation, and material supply, along with construction machinery services like excavators, bulldozers, and cranes.'),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                       '8. Machinery and Equipment Rental: Access a wide range of construction machinery, including excavators, bobcats, backhoe loaders, motor graders, and more.'),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                       '9. Labor Services: We provide skilled labor for various tasks, including masonry, plastering, carpentry, steel fixing, shuttering, and more. Our team also includes experts in electrical, plumbing, HVAC systems, and other specialized trades.'),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                       '10. Property Maintenance and Development: From caretakers and security guards to surveillance services and land development, we ensure your property is well-maintained and secure.'),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                       '11. Registry and Documentation: We offer registry, intaqal, and property document services to streamline the legal aspects of property ownership and transactions.'),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                       '12. Marketing and Advertising: Our SMM services for real estate, billboard advertising, and drafting services help promote and market your properties effectively.'),
-                  SizedBox(height: 10),
-                  Text(
+                  const SizedBox(height: 10),
+                  const Text(
                     'Please read and accept our privacy policy to proceed with login.',
                   ),
                 ],
@@ -88,13 +87,13 @@ class SignUpView extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop(false);
               },
-              child: const Text('Decline'),
+              child: Text(context.local.decline),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(true);
               },
-              child: const Text('Accept'),
+              child: Text(context.local.accept),
             ),
           ],
         );
@@ -257,16 +256,7 @@ class SignUpView extends StatelessWidget {
                                                 if (signupVM.formKey.currentState!.validate()) {
                                                   if (await _showPrivacyPolicyDialog()) {
                                                     signupVM.formKey.currentState?.save();
-                                                    // signupVM.signUpUserData(
-                                                    //     context: Get.context!,
-                                                    //         email: signupVM.userEmailController.text,
-                                                    //         password: signupVM.confirmPasswordController.text).
-                                                    // whenComplete(() async {});
-                                                    // signupVM.signUpUser( context:Get.context! ,
-                                                    //     name: signupVM.usernameController.text,
-                                                    //     email: signupVM.userEmailController.text,
-                                                    //     password:signupVM.passwordController.text);
-                                                    signupVM.signUpPro();
+                                                    signupVM.signUp();
                                                   }
                                                 }
                                               },
@@ -282,62 +272,62 @@ class SignUpView extends StatelessWidget {
                                 height: 12,
                               ),
                               const Divider(),
-                              const SizedBox(
-                                height: 12,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Obx(
-                                    () => signupVM.isGoogleSigninLoading.value == true
-                                        ? const Center(
-                                            child: CircularProgressIndicator(
-                                              color: AppColor.googleColor,
-                                            ),
-                                          )
-                                        : Expanded(
-                                            child: customTextButton(
-                                                height: 48,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600,
-                                                onTap: () async {
-                                                  if (await _showPrivacyPolicyDialog()) {
-                                                    signupVM.signUpPro();
-                                                  }
-                                                },
-                                                icondata: Bootstrap.google,
-                                                title: 'Sign Up with Google',
-                                                buttonColor:
-                                                    AppColor.googleColor),
-                                          ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 12,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: customTextButton(
-                                        height: 48,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        onTap: () async {
-                                          // signupVM.loginWithApple(
-                                          //     context: context);
-                                          Get.toNamed(AppRoutes.profileView);
-
-                                        },
-                                        icondata: Bootstrap.apple,
-                                        // iconColor: AppColor.googleColor,
-                                        title: 'Sign Up with Apple',
-                                        buttonColor: AppColor.appleColor
-                                        // textColor: AppColor.,
-                                        ),
-                                  ),
-                                ],
-                              ),
+                              // const SizedBox(
+                              //   height: 12,
+                              // ),
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment.center,
+                              //   children: [
+                              //     Obx(
+                              //       () => signupVM.isGoogleSigninLoading.value == true
+                              //           ? const Center(
+                              //               child: CircularProgressIndicator(
+                              //                 color: AppColor.googleColor,
+                              //               ),
+                              //             )
+                              //           : Expanded(
+                              //               child: CustomTextButton(
+                              //                   height: 48,
+                              //                   fontSize: 14,
+                              //                   fontWeight: FontWeight.w600,
+                              //                   onTap: () async {
+                              //                     if (await _showPrivacyPolicyDialog()) {
+                              //                       signupVM.signUp();
+                              //                     }
+                              //                   },
+                              //                   iconData: Bootstrap.google,
+                              //                   title: 'Sign Up with Google',
+                              //                   buttonColor:
+                              //                       AppColor.googleColor),
+                              //             ),
+                              //     ),
+                              //   ],
+                              // ),
+                              // const SizedBox(
+                              //   height: 12,
+                              // ),
+                              // Row(
+                              //   children: [
+                              //     Expanded(
+                              //       child: CustomTextButton(
+                              //           height: 48,
+                              //           fontSize: 14,
+                              //           fontWeight: FontWeight.w600,
+                              //           onTap: () async {
+                              //             // signupVM.loginWithApple(
+                              //             //     context: context);
+                              //             Get.toNamed(AppRoutes.profileView);
+                              //
+                              //           },
+                              //           iconData: Bootstrap.apple,
+                              //           // iconColor: AppColor.googleColor,
+                              //           title: 'Sign Up with Apple',
+                              //           buttonColor: AppColor.appleColor
+                              //           // textColor: AppColor.,
+                              //           ),
+                              //     ),
+                              //   ],
+                              // ),
                               const SizedBox(
                                 height: 20,
                               ),

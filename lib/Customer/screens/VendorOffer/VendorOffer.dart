@@ -13,17 +13,28 @@ import '../../../Utils/textStyle.dart';
 import '../../../constant/colors.dart';
 import '../../../constant/constant.dart';
 
+class VendorOffer extends GetView<VendorOfferController> {
+  const VendorOffer({super.key});
 
-class VendorOffer extends GetView<VendorOfferController>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: (){Get.back();}, icon: Icon(Icons.arrow_back,color: AppColor.blackColor,)),
-        title: appText(title: "Vendor Offers", context: context,fontSize: 16,fontWeight: FontWeight.w600),
+        leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: AppColor.blackColor,
+            )),
+        title: CustomText(
+            title: "Vendor Offers",
+            fontSize: 16,
+            fontWeight: FontWeight.w600),
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10),
           child: Column(
@@ -44,16 +55,13 @@ class VendorOffer extends GetView<VendorOfferController>{
   }
 }
 
-
-
 class OfferCard extends StatelessWidget {
   const OfferCard({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
-          bottom: context.getSize.height * 0.015),
+      margin: EdgeInsets.only(bottom: context.getSize.height * 0.015),
       decoration: BoxDecoration(
           border: border(),
           boxShadow: [
@@ -75,8 +83,7 @@ class OfferCard extends StatelessWidget {
                 horizontal: context.getSize.width * 0.01,
                 vertical: context.getSize.height * 0.007),
             child: Row(
-              mainAxisAlignment:
-              MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // RichText(
                 //     text: TextSpan(
@@ -98,18 +105,18 @@ class OfferCard extends StatelessWidget {
                 //               fontSize: context.fontSize(8),
                 //               fontWeight: FontWeight.w400))
                 //     ])),
-                appText(
+                CustomText(
                     colorOpecity: 0.5,
                     fontSize: 8,
                     fontWeight: FontWeight.w400,
                     title: "12-06-2024",
-                    context: context),
-                appText(
+                     ),
+                CustomText(
                     color: AppColor.appleColor,
                     fontSize: 8,
                     fontWeight: FontWeight.w400,
                     title: "pending",
-                    context: context),
+                     ),
               ],
             ),
           ),
@@ -119,31 +126,26 @@ class OfferCard extends StatelessWidget {
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(10),
                     bottomRight: Radius.circular(10))),
-            padding: EdgeInsets.symmetric(
-                horizontal: context.getSize.width * 0.01),
+            padding:
+                EdgeInsets.symmetric(horizontal: context.getSize.width * 0.01),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 getHeight(context, 0.008),
                 Row(
-                  crossAxisAlignment:
-                  CrossAxisAlignment.start,
-                  mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
-                      crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CircleAvatar(
+                        const CircleAvatar(
                           radius: 16,
-                          backgroundImage: NetworkImage(
-                              Constant.dumyImage2),
+                          backgroundImage: NetworkImage(Constant.dummyImage2),
                         ),
                         getWidth(context, 0.01),
                         Column(
-                          crossAxisAlignment:
-                          CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             scrollableText(
                                 width: 0.5,
@@ -151,10 +153,8 @@ class OfferCard extends StatelessWidget {
                                 textStyle: textStyle(
                                     context: context,
                                     fontSize: 12,
-                                    fontWeight:
-                                    FontWeight.w500),
-                                title: "Vendor Name"
-                            ),
+                                    fontWeight: FontWeight.w500),
+                                title: "Vendor Name"),
                             getHeight(context, 0.005),
                             scrollableText(
                                 width: 0.5,
@@ -162,11 +162,8 @@ class OfferCard extends StatelessWidget {
                                 textStyle: textStyle(
                                     context: context,
                                     fontSize: 8,
-                                    color: AppColor
-                                        .blackColor
-                                        .withOpacity(0.7),
-                                    fontWeight:
-                                    FontWeight.w500),
+                                    color: AppColor.blackColor.withOpacity(0.7),
+                                    fontWeight: FontWeight.w500),
                                 title: "Detail of the vendor/address etc"),
                             getHeight(context, 0.005),
                             scrollableText(
@@ -175,10 +172,8 @@ class OfferCard extends StatelessWidget {
                                 textStyle: textStyle(
                                     context: context,
                                     fontSize: 14,
-                                    color: const Color(
-                                        0xffC10C00),
-                                    fontWeight:
-                                    FontWeight.w500),
+                                    color: const Color(0xffC10C00),
+                                    fontWeight: FontWeight.w500),
                                 title: 'PKR 12050'),
                             getHeight(context, 0.005),
                             // GestureDetector(
@@ -197,8 +192,7 @@ class OfferCard extends StatelessWidget {
                       ],
                     ),
                     Column(
-                      mainAxisAlignment:
-                      MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         acceptRejectButton(
                             textColor: AppColor.white,
@@ -207,10 +201,7 @@ class OfferCard extends StatelessWidget {
                             textFontSize: 10,
                             context: context,
                             title: context.local.accept,
-                            onClick: () async{
-
-
-                            }),
+                            onClick: () async {}),
                         getHeight(context, 0.008),
                         acceptRejectButton(
                             textColor: AppColor.blackColor,
@@ -219,15 +210,13 @@ class OfferCard extends StatelessWidget {
                             textFontSize: 10,
                             context: context,
                             title: context.local.reject,
-                            onClick: () {
-
-                            }),
+                            onClick: () {}),
                         getHeight(context, 0.01),
-                        appText(
+                        CustomText(
                             title: '00:15',
                             fontSize: 10,
                             fontWeight: FontWeight.w500,
-                            context: context)
+                            )
                       ],
                     )
                   ],

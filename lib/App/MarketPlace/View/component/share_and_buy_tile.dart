@@ -51,16 +51,14 @@ Container customShareAndBuyTile(BuildContext context,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  appText(
+                  const CustomText(
                     title: '-05:35:10',
-                    context: context,
                     fontSize: 8,
                     colorOpecity: 0.7,
                     fontWeight: FontWeight.w500,
                   ),
-                  appText(
-                    title: context.local.residiential,
-                    context: context,
+                  CustomText(
+                    title: context.local.residential,
                     fontSize: 8,
                     colorOpecity: 0.7,
                     fontWeight: FontWeight.w500,
@@ -68,26 +66,23 @@ Container customShareAndBuyTile(BuildContext context,
                 ],
               ),
               getHeight(context, 0.015),
-              appText(
+              CustomText(
                 textAlign: TextAlign.start,
                 title: context.local.houseForSale,
-                context: context,
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
               ),
               getHeight(context, 0.008),
-              appText(
+              const CustomText(
                 textAlign: TextAlign.start,
                 title: 'PKR 1.7 Crore',
-                context: context,
                 fontSize: 8,
                 fontWeight: FontWeight.w500,
               ),
               getHeight(context, 0.008),
-              appText(
+              const CustomText(
                 textAlign: TextAlign.start,
                 title: 'Bahria Town Phase 7 islamabad',
-                context: context,
                 fontSize: 8,
                 fontWeight: FontWeight.w500,
               ),
@@ -102,9 +97,8 @@ Container customShareAndBuyTile(BuildContext context,
                         width: context.getSize.width * 0.030,
                         height: context.getSize.height * 0.01,
                       ),
-                      appText(
+                      const CustomText(
                           title: ' 5 Marla',
-                          context: context,
                           colorOpecity: 1,
                           fontSize: 10,
                           fontWeight: FontWeight.w400),
@@ -127,17 +121,15 @@ Container customShareAndBuyTile(BuildContext context,
                         width: context.getSize.width * 0.030,
                         height: context.getSize.height * 0.01,
                       ),
-                      appText(
+                      CustomText(
                           title: context.local.lastBids,
-                          context: context,
                           colorOpecity: 1,
                           fontSize: 10,
                           fontWeight: FontWeight.w400),
                     ],
                   ),
-                  appText(
+                  const CustomText(
                       title: '1.7 Crore',
-                      context: context,
                       colorOpecity: 1,
                       fontSize: 10,
                       fontWeight: FontWeight.w400),
@@ -150,10 +142,9 @@ Container customShareAndBuyTile(BuildContext context,
                   onTap: () {
                     Get.toNamed(AppRoutes.saleDetailView);
                   },
-                  child: appText(
+                  child: CustomText(
                       color: AppColor.greenColor,
                       title: context.local.viewDetails,
-                      context: context,
                       colorOpecity: 1,
                       fontSize: 10,
                       fontWeight: FontWeight.w400),

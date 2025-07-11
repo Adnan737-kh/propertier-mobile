@@ -10,17 +10,29 @@ import '../../../Utils/app_text.dart';
 import '../../../Utils/text_botton.dart';
 import '../../../constant/colors.dart';
 
-class PropertyBidDetail extends GetView<PropertyBidDetailController>{
+class PropertyBidDetail extends GetView<PropertyBidDetailController> {
+  const PropertyBidDetail({super.key});
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: (){Get.back();}, icon: Icon(Icons.arrow_back,color: AppColor.blackColor,)),
-        title: appText(title: "Property Service Bid Detail", context: context,fontSize: 16,fontWeight: FontWeight.w600),
+        leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: AppColor.blackColor,
+            )),
+        title: CustomText(
+            title: "Property Service Bid Detail",
+            fontSize: 16,
+            fontWeight: FontWeight.w600),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,83 +41,123 @@ class PropertyBidDetail extends GetView<PropertyBidDetailController>{
                 alignment: Alignment.bottomCenter,
                 children: [
                   Obx(() => CarouselSlider(
-                    options: CarouselOptions(
-                      height: Get.height * 0.2,
-                      initialPage: controller.carousalIndex.value,
-                      autoPlay: false,
-                      viewportFraction: 1,
-                      enableInfiniteScroll: true,
-                      onPageChanged: (index, reason) {
-                        controller.carousalIndex.value = index;
-                      },
-                    ),
-                    items: controller.album.map<Widget>((i) {
-                      return Builder(
-                        builder: (BuildContext context) {
-                          return InkWell(
-                            onTap: (){
-
-                            },
-                            onDoubleTap: (){},
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 5),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: CachedNetworkImage(
-                                  imageUrl: i??"",
-                                  width: Get.width,
-                                  placeholder: (context, url) => Center(
-                                    child: CircularProgressIndicator(),
+                        options: CarouselOptions(
+                          height: Get.height * 0.2,
+                          initialPage: controller.carousalIndex.value,
+                          autoPlay: false,
+                          viewportFraction: 1,
+                          enableInfiniteScroll: true,
+                          onPageChanged: (index, reason) {
+                            controller.carousalIndex.value = index;
+                          },
+                        ),
+                        items: controller.album.map<Widget>((i) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              return InkWell(
+                                onTap: () {},
+                                onDoubleTap: () {},
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: CachedNetworkImage(
+                                      imageUrl: i,
+                                      width: Get.width,
+                                      placeholder: (context, url) =>
+                                          const Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          SizedBox(
+                                        width: Get.width,
+                                        height: Get.height * 0.4,
+                                      ),
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                  errorWidget: (context, url, error) => SizedBox(width: Get.width,
-                                    height: Get.height * 0.4,),
-                                  fit: BoxFit.cover,
                                 ),
-                              ),
-                            ),
+                              );
+                            },
                           );
-                        },
-                      );
-                    }).toList(),
-                  )),
-                  Obx(() =>  Padding(
-                    padding: EdgeInsets.only(bottom: 15),
-                    child: AnimatedSmoothIndicator(
-                      activeIndex: controller.carousalIndex.value,
-                      count: controller.album.length,  // Number of items in your slider
-                      effect: WormEffect(
-                        dotHeight: 7,
-                        dotWidth: 7,
-                        spacing: 5,
-                        activeDotColor: Colors.white,
-                        dotColor: AppColor.blackColor,
-                      ),
-                    ),
-                  ))
+                        }).toList(),
+                      )),
+                  Obx(() => Padding(
+                        padding: const EdgeInsets.only(bottom: 15),
+                        child: AnimatedSmoothIndicator(
+                          activeIndex: controller.carousalIndex.value,
+                          count: controller
+                              .album.length, // Number of items in your slider
+                          effect: const WormEffect(
+                            dotHeight: 7,
+                            dotWidth: 7,
+                            spacing: 5,
+                            activeDotColor: Colors.white,
+                            dotColor: AppColor.blackColor,
+                          ),
+                        ),
+                      ))
                 ],
               ),
-              Divider(),
+              const Divider(),
               Align(
                 alignment: Alignment.center,
-                child: appText(title: "Order Detail", context: context,fontWeight: FontWeight.w600,fontSize: 16),
+                child: CustomText(
+                    title: "Order Detail",
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16),
               ),
               ListTile(
-                title: appText(title: "Work Overview", context: context,fontWeight: FontWeight.w600,fontSize: 14, textAlign: TextAlign.start),
-                subtitle: appText(title: "want to design an architecture for my form house.", context: context,fontWeight: FontWeight.w500,fontSize: 14, textAlign: TextAlign.start),
+                title: CustomText(
+                    title: "Work Overview",
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    textAlign: TextAlign.start),
+                subtitle: CustomText(
+                    title: "want to design an architecture for my form house.",
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    textAlign: TextAlign.start),
               ),
               ListTile(
-                title: appText(title: "Property Address", context: context,fontWeight: FontWeight.w600,fontSize: 14, textAlign: TextAlign.start),
-                subtitle: appText(title: "G7 street No 5, House No 11, Islamabad", context: context,fontWeight: FontWeight.w500,fontSize: 14, textAlign: TextAlign.start),
+                title: CustomText(
+                    title: "Property Address",
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    textAlign: TextAlign.start),
+                subtitle: CustomText(
+                    title: "G7 street No 5, House No 11, Islamabad",
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    textAlign: TextAlign.start),
               ),
               ListTile(
-                title: appText(title: "Description", context: context,fontWeight: FontWeight.w600,fontSize: 14, textAlign: TextAlign.start),
-                subtitle: appText(title: "Description Iron frames for the piston dei. dummy text for the order.", context: context,fontWeight: FontWeight.w500,fontSize: 14, textAlign: TextAlign.start),
+                title: CustomText(
+                    title: "Description",
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    textAlign: TextAlign.start),
+                subtitle: CustomText(
+                    title:
+                        "Description Iron frames for the piston dei. dummy text for the order.",
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    textAlign: TextAlign.start),
               ),
               ListTile(
-                title: appText(title: "Order Date & Time", context: context,fontWeight: FontWeight.w600,fontSize: 14, textAlign: TextAlign.start),
-                subtitle: appText(title: "10-10-2025 12:30 pm", context: context,fontWeight: FontWeight.w500,fontSize: 14, textAlign: TextAlign.start),
+                title: CustomText(
+                    title: "Order Date & Time",
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    textAlign: TextAlign.start),
+                subtitle: CustomText(
+                    title: "10-10-2025 12:30 pm",
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    textAlign: TextAlign.start),
               ),
-              Divider(),
+              const Divider(),
               SizedBox(
                 height: 250,
                 width: Get.width,
@@ -121,12 +173,14 @@ class PropertyBidDetail extends GetView<PropertyBidDetailController>{
                   ),
                 ),
               ),
-              SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               Row(
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       child: textButton(
                           textFontSize: 20,
                           textFontWeight: FontWeight.w500,
@@ -141,15 +195,13 @@ class PropertyBidDetail extends GetView<PropertyBidDetailController>{
                   ),
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       child: textButton(
                           textFontSize: 20,
                           textFontWeight: FontWeight.w500,
                           context: context,
                           title: 'Accept',
-                          onClick: () {
-
-                          }),
+                          onClick: () {}),
                     ),
                   )
                 ],

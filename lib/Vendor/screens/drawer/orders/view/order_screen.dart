@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:propertier/Utils/datetimeformatter.dart';
 import 'package:propertier/Vendor/screens/drawer/orders/model/OrderModel.dart';
 import 'package:propertier/Vendor/screens/drawer/orders/view/submit_work.dart';
@@ -135,7 +134,7 @@ class _OrderScreenState extends State<OrderScreen>
                         if(order.status == "completed"){
                           return orderCard(order);
                         }
-                        return SizedBox();
+                        return const SizedBox();
                       },
                     )
                 ),
@@ -147,7 +146,7 @@ class _OrderScreenState extends State<OrderScreen>
                         if(order.status == "canceled"){
                           return orderCard(order);
                         }
-                        return SizedBox();
+                        return const SizedBox();
                       },
                     )
                 ),
@@ -159,7 +158,7 @@ class _OrderScreenState extends State<OrderScreen>
                         if(order.status == "pending"){
                           return orderCard(order);
                         }
-                        return SizedBox();
+                        return const SizedBox();
                       },
                     )
                 ),
@@ -205,7 +204,7 @@ class _OrderScreenState extends State<OrderScreen>
                 Text.rich(
                   TextSpan(
                     children: [
-                      TextSpan(
+                      const TextSpan(
                         text: 'Order ID:',
                         style: TextStyle(
                           color: Color(0xFF109B0E),
@@ -213,7 +212,7 @@ class _OrderScreenState extends State<OrderScreen>
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      TextSpan(
+                      const TextSpan(
                         text: ' ',
                         style: TextStyle(
                           color: Color(0xB2131A22),
@@ -222,8 +221,8 @@ class _OrderScreenState extends State<OrderScreen>
                         ),
                       ),
                       TextSpan(
-                        text: "${order.id?.toString()??""}",
-                        style: TextStyle(
+                        text: order.id?.toString()??"",
+                        style: const TextStyle(
                           color: Color(0xB2131A22),
                           fontSize: 8,
                           fontWeight: FontWeight.w400,
@@ -233,11 +232,11 @@ class _OrderScreenState extends State<OrderScreen>
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(width: 5),
+                const SizedBox(width: 5),
                 Text(
-                  "${formatDateToStandard(order.createdAt)}",
+                  formatDateToStandard(order.createdAt),
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color(0xB2131A22),
                     fontSize: 8,
                     fontWeight: FontWeight.w400,
@@ -271,7 +270,7 @@ class _OrderScreenState extends State<OrderScreen>
                               ),
                             );
                           }
-                          return SizedBox();
+                          return const SizedBox();
                         }
                     ),
                     const SizedBox(height: 6),
@@ -293,10 +292,10 @@ class _OrderScreenState extends State<OrderScreen>
                         const SizedBox(
                           width: 8,
                         ),
-                        Text(
+                        const Text(
                           "Location",
                           textAlign: TextAlign.right,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Color(0xFF596068),
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
@@ -310,16 +309,16 @@ class _OrderScreenState extends State<OrderScreen>
                   TextSpan(
                     children: [
                       TextSpan(
-                        text: "${order.totalAmount??""}",
+                        text: order.totalAmount??"",
                         style: const TextStyle(
                           color: Color(0xFF131A22),
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      TextSpan(
+                      const TextSpan(
                         text: "Rs",
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Color(0xFF109B0E),
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -340,17 +339,17 @@ class _OrderScreenState extends State<OrderScreen>
               children: [
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.location_pin,
                       color: Color(0xFFE4A951),
                       size: 17,
                     ),
-                    SizedBox(
+                    const  SizedBox(
                       width: 3,
                     ),
                     Text(
-                      '${order.serviceLocation??""}',
-                      style: TextStyle(
+                      order.serviceLocation??"",
+                      style: const TextStyle(
                         color: Color(0xFF596068),
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
@@ -364,14 +363,14 @@ class _OrderScreenState extends State<OrderScreen>
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(color: Colors.amber, width: 1)),
-                        child: Icon(
+                        child: const Icon(
                           Icons.done,
                           size: 8,
                           color: Colors.amber,
                         )),
                     const SizedBox(width: 2),
                     Text(
-                      "${order.status??""}",
+                      order.status??"",
                       style: const TextStyle(
                         color: Color(0x7F131A22),
                         fontSize: 8,
@@ -413,13 +412,13 @@ class _OrderScreenState extends State<OrderScreen>
                   Get.to(SubmitWork(id: order.id.toString(),));
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5,vertical: 2),
+                  padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 2),
                   decoration: BoxDecoration(
                     color: Colors.green,
                     borderRadius: BorderRadius.circular(5)
                   ),
                   alignment: Alignment.center,
-                  child: Text("Submit Work",style: TextStyle(
+                  child: const Text("Submit Work",style: TextStyle(
                     color: AppColor.white,
                     fontSize: 12
                   ),),

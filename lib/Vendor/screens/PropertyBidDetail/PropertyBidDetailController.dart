@@ -15,16 +15,16 @@ class PropertyBidDetailController extends GetxController{
 
   static const apiKey = Constant.googleApiKey;
   late GoogleMapController mapController;
-  final LatLng endLatLng = LatLng(34.0522, -118.2437); // Example: Los Angeles
+  final LatLng endLatLng = const LatLng(34.0522, -118.2437); // Example: Los Angeles
   final Set<Marker> markers = {};
 
 
   void addMarkers() {
     markers.add(
       Marker(
-        markerId: MarkerId("end"),
+        markerId: const MarkerId("end"),
         position: endLatLng,
-        infoWindow: InfoWindow(title: "Drop Point"),
+        infoWindow: const InfoWindow(title: "Drop Point"),
       ),
     );
   }

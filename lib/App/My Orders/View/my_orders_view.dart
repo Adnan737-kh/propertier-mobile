@@ -2,18 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/App/My%20Orders/Model/order_model.dart';
 import 'package:propertier/App/My%20Orders/View/component/order_tile.dart';
-// import 'package:propertier/App/Home/View/component/home_videos_tile.dart';
-// import 'package:propertier/App/Home/View/component/posts_tile.dart';
-// import 'package:propertier/App/Home/View/component/properties.dart';
-// import 'package:propertier/App/Home/View/component/short_videos_tile.dart';
-// import 'package:propertier/App/Home/View/component/top_widget_with_appbar.dart';
-// import 'package:propertier/App/Home/ViewModel/home_view_model.dart';
 import 'package:propertier/App/My%20Orders/ViewModel/my_orders_view_model.dart';
 import 'package:propertier/Utils/app_text.dart';
-// import 'package:propertier/App/Utils/app_text.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
-// import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 import '../../../Utils/appbar.dart';
@@ -38,14 +31,14 @@ class MyOrdersView extends StatelessWidget {
                     customAppBar(
                         context: context,
                         onTap: () => Get.back(),
-                        title: "My Orders",
+                        title: context.local.my_orders,
                         fontSize: 12,
                         fontWeight: FontWeight.w600),
                     getHeight(context, 0.050),
                   ],
                 ),
               ),
-              TopWidgetwithAppBar(viewModel: viewModel),
+              TopWidgetWithAppBar(viewModel: viewModel),
               getHeight(context, 0.015),
               SizedBox(
                 height: context.getSize.height * 0.78,
@@ -155,11 +148,10 @@ class MyOrdersView extends StatelessWidget {
                                     onTap: () {
                                       viewModel.viewMore(!viewModel.isViewMore);
                                     },
-                                    child: appText(
+                                    child: CustomText(
                                         title: viewModel.isViewMore == false
-                                            ? 'View More'
-                                            : "View Less",
-                                        context: context,
+                                            ? context.local.view_more
+                                            : context.local.view_less,
                                         color: AppColor.greenColor,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500),

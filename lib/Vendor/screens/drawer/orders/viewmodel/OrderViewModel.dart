@@ -22,7 +22,7 @@ class OrderViewModel extends GetxController{
   RxList<OrderModel> orders = <OrderModel>[].obs;
 
   Future getVendorOrders(String id)async{
-    orders.value = await OrderService().getVendorOrders(id)??[];
+    orders.value = await OrderService().getVendorOrders(id);
   }
 
   Future<Map<String,dynamic>?> getSubService(String id)async{
@@ -58,9 +58,8 @@ class OrderViewModel extends GetxController{
     bool res = await OrderService().submitWork(id, imagesPath, extraPriceC.text, descriptionController.text);
     if(res){
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: appText(
+          content: CustomText(
               title: "Work submit Successfully",
-              context: context,
               color: AppColor.white)));
     }
     Get.back();

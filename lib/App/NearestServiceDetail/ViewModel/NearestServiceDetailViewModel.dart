@@ -1,18 +1,14 @@
-import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:propertier/App/Services/Model/FixedServicesModel.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
-import '../../../Network/api_urls.dart';
+
 import '../../../RoutesAndBindings/app_routes.dart';
 import '../../../Utils/app_text.dart';
 import '../../../constant/colors.dart';
 import '../../Services/Model/ServiceDashboardModel.dart';
 import '../../ServicesSearch/Service/ServicesSearch_Service.dart';
-import '../../ServicesSearch/model/VendorResponseModel.dart';
 
 class NearestServiceDetailViewModel extends GetxController{
 
@@ -30,16 +26,18 @@ class NearestServiceDetailViewModel extends GetxController{
   final ImagePicker imagePicker = ImagePicker();
   RxList<XFile> imageFileList = <XFile>[].obs;
   void selectedImage(bool isAlsoPicked, int index) async {
-    final selectedimges =
+    final selectedImages =
     await imagePicker.pickImage(source: ImageSource.gallery);
-    if (selectedimges != null) {
+    if (selectedImages != null) {
       if (isAlsoPicked == true) {
-        imageFileList[index] = selectedimges;
+        imageFileList[index] = selectedImages;
       } else {
-        imageFileList.add(selectedimges);
+        imageFileList.add(selectedImages);
       }
     }
-    print("Length ${imageFileList.length}");
+    if (kDebugMode) {
+      print("Length ${imageFileList.length}");
+    }
   }
 
   RxInt? selectedServiceId = RxInt(0);
@@ -48,7 +46,7 @@ class NearestServiceDetailViewModel extends GetxController{
 
   Future loadSubServices()async{
     for(int id in nearbyServices.selectedSubServices??[]){
-      Map<String,dynamic>? data = await ServicessearchService().getSubService(id.toString());
+      Map<String,dynamic>? data = await ServicesSearchService().getSubService(id.toString());
       if(data != null){
         subServices.add(data);
       }
@@ -66,29 +64,26 @@ class NearestServiceDetailViewModel extends GetxController{
     }
     if(imagesPath.isEmpty){
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: appText(
+          content: CustomText(
               title: 'Upload images',
-              context: context,
               color: AppColor.white)));
       return;
     }
     if(descriptionController.text == ""){
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: appText(
+          content: CustomText(
               title: 'Write a description.',
-              context: context,
               color: AppColor.white)));
       return;
     }
     if(selectedServiceId == null){
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: appText(
+          content: CustomText(
               title: 'Select a service',
-              context: context,
               color: AppColor.white)));
       return;
     }
-    String? id =  await ServicessearchService().createBidByCustomer(context: context, images: imagesPath, description: descriptionController.text, service: nearbyServices.service!.id.toString(), subService: selectedServiceId!.value.toString(), vendorId: nearbyServices.vendor?.id.toString());
+    String? id =  await ServicesSearchService().createBidByCustomer(context: context, images: imagesPath, description: descriptionController.text, service: nearbyServices.service!.id.toString(), subService: selectedServiceId!.value.toString(), vendorId: nearbyServices.vendor?.id.toString());
     if(id != null){
       Get.toNamed(AppRoutes.bidViewScreen,
           arguments: {

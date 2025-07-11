@@ -21,8 +21,8 @@ class TransportBidDetailController extends GetxController{
 
   static const apiKey = Constant.googleApiKey;
   late GoogleMapController mapController;
-  final LatLng startLatLng = LatLng(37.7749, -122.4194); // Example: San Francisco
-  final LatLng endLatLng = LatLng(34.0522, -118.2437); // Example: Los Angeles
+  final LatLng startLatLng = const LatLng(37.7749, -122.4194); // Example: San Francisco
+  final LatLng endLatLng = const LatLng(34.0522, -118.2437); // Example: Los Angeles
 
   final Set<Marker> markers = {};
   RxSet<Polyline> polylines = <Polyline>{}.obs;
@@ -30,16 +30,16 @@ class TransportBidDetailController extends GetxController{
   void addMarkers() {
     markers.add(
       Marker(
-        markerId: MarkerId("start"),
+        markerId: const MarkerId("start"),
         position: startLatLng,
-        infoWindow: InfoWindow(title: "Start Point"),
+        infoWindow: const InfoWindow(title: "Start Point"),
       ),
     );
     markers.add(
       Marker(
-        markerId: MarkerId("end"),
+        markerId: const MarkerId("end"),
         position: endLatLng,
-        infoWindow: InfoWindow(title: "End Point"),
+        infoWindow: const InfoWindow(title: "End Point"),
       ),
     );
   }
@@ -49,7 +49,7 @@ class TransportBidDetailController extends GetxController{
   void addPolyline() {
     polylines.add(
       Polyline(
-        polylineId: PolylineId("route"),
+        polylineId: const PolylineId("route"),
         points: [startLatLng, endLatLng],
         color: AppColor.buttonColor,
         width: 5,
@@ -61,7 +61,7 @@ class TransportBidDetailController extends GetxController{
   void addPolylineAPI(List<LatLng> points) {
     // Create a new Polyline and add it to the set
     final newPolyline = Polyline(
-      polylineId: PolylineId("route"),
+      polylineId: const PolylineId("route"),
       points: points,
       color: AppColor.googleColor,
       width: 5,

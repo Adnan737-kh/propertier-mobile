@@ -55,7 +55,7 @@ class LoginViewModel extends GetxController {
       required String password}) async {
     isLoading.value = true;
     if (!isValidEmail(email)) {
-      toast(title: 'Please Enter valid Email', context: context);
+      CustomToast.show(title: 'Please Enter valid Email', context: context);
       isLoading.value = false;
       return false;
     }
@@ -85,18 +85,18 @@ class LoginViewModel extends GetxController {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Gap(Get.context!.width * 0.10),
-                          appText(
+                          CustomText(
                               title: "Opps !",
                               fontSize: 17,
                               color: Colors.red,
                               fontWeight: FontWeight.bold,
-                              context: Get.context!),
+                          ),
                           Gap(Get.context!.width * 0.10),
-                          appText(
+                          CustomText(
                               title: "Invalid Credentials",
                               // title: e.toString(),
                               color: AppColor.darkGreyColor,
-                              context: Get.context!),
+                              ),
                           Gap(Get.context!.width * 0.10),
                           Padding(
                             padding:
@@ -128,9 +128,9 @@ class LoginViewModel extends GetxController {
   loginWithGoogle({required BuildContext context}) async {
     isGoogleSignInLoading.value = true;
     try {
-      var isSccuss = await AuthHandler.signInHandler(AuthHandlerEnum.google,
+      var isSuccess = await AuthHandler.signInHandler(AuthHandlerEnum.google,
           isLogin: true);
-      if (isSccuss) {
+      if (isSuccess) {
         Get.offAndToNamed(AppRoutes.navBarView);
       } else {}
       isGoogleSignInLoading.value = false;
@@ -183,26 +183,26 @@ class LoginViewModel extends GetxController {
         }
 
         await userPreference.saveUserAccessToken(TokenModel.fromJson(body)).then((onValue) {
-          Get.toNamed(AppRoutes.navBarView);
-          toast(title: 'Login Successfully', context: Get.context!);
+          Get.offAllNamed(AppRoutes.navBarView);
+          CustomToast.show(title: 'Login Successfully', context: Get.context!);
         }).onError((error, stackTrace) {
-          toast(title: 'Failed to save token', context: Get.context!);
+          CustomToast.show(title: 'Failed to save token', context: Get.context!);
         });
       } else {
         // handle error message from backend
         if (body is Map && body.containsKey('detail')) {
-          toast(title: body['detail'].toString(), context: Get.context!);
+          CustomToast.show(title: body['detail'].toString(), context: Get.context!);
         } else {
-          toast(title: 'Login failed. Please try again.', context: Get.context!);
+          CustomToast.show(title: 'Login failed. Please try again.', context: Get.context!);
         }
       }
     }).onError((error, stackTrace) {
       isLoading(false);
 
       if (error is EmailOrPasswordIncorrect) {
-        toast(title: 'Email Or Password is Incorrect', context: Get.context!);
+        CustomToast.show(title: 'Email Or Password is Incorrect', context: Get.context!);
       } else {
-        toast(title: 'An error occurred: $error', context: Get.context!);
+        CustomToast.show(title: 'An error occurred: $error', context: Get.context!);
       }
 
       if (kDebugMode) {

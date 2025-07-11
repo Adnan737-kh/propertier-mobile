@@ -70,12 +70,11 @@ Widget videoTile(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                             color: AppColor.blackColor),
-                        title: videoModel.title ?? ''),
-                    appText(
+                        title: videoModel.title),
+                    CustomText(
                         title: videoModel.price.isNum
                             ? double.parse(videoModel.price).formatPrice()
                             : videoModel.price.toString(),
-                        context: context,
                         fontSize: 10,
                         color: AppColor.greenColor,
                         fontWeight: FontWeight.w700,
@@ -98,7 +97,7 @@ Widget videoTile(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
                             color: AppColor.blackColor.withOpacity(0.8)),
-                        title: videoModel.address ?? ''),
+                        title: videoModel.address),
                   ],
                 ),
                 getHeight(context, 0.0072),
@@ -126,7 +125,7 @@ Widget videoTile(
                   height: context.getSize.height * 0.03,
                   child: GestureDetector(
                     onTap: () {
-                      Get.toNamed(AppRoutes.detailView,
+                      Get.toNamed(AppRoutes.propertyDetailView,
                           arguments: videoModel.id);
                     },
                     child: Container(
@@ -138,9 +137,8 @@ Widget videoTile(
                         borderRadius: BorderRadius.circular(4),
                         color: AppColor.buttonColor,
                       ),
-                      child: appText(
+                      child: CustomText(
                           title: context.local.viewDetail,
-                          context: context,
                           fontSize: 11,
                           fontWeight: FontWeight.w400,
                           colorOpecity: 0.9),

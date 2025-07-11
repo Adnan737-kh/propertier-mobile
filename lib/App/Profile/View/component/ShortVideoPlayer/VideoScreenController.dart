@@ -127,7 +127,7 @@ class VideoScreenController extends GetxController {
    }
 
 
-   void ShareReel()async{
+   void shareReel()async{
      await Share.share('check out this Propertier App: https://play.google.com/store/apps/details?id=com.propertier.propertiercom', subject: 'Look what I found! Propertier App');
    }
 

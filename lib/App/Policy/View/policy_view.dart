@@ -33,10 +33,9 @@ class PolicyView extends StatelessWidget {
                 ],
               ),
               //Policy
-              appText(
+              const CustomText(
                   title:
                       "This Privacy Policy sets out the commitment of Propertier Marketing PVT Ltd, the developer of Propertier, to protecting the privacy of our users. Our goal is to provide a safe and secure platform for users to search for and find real estate information.",
-                  context: context,
                   fontSize: 14,
                   textAlign: TextAlign.start,
                   fontWeight: FontWeight.w400,

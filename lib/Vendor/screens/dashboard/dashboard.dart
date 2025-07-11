@@ -2,9 +2,7 @@ import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:propertier/App/NavBar/View/nav_bar_view.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/Vendor/screens/dashboard/Posts/post_screen.dart';
@@ -19,7 +17,7 @@ import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({Key? key}) : super(key: key);
+  const Dashboard({super.key});
 
   @override
   State<Dashboard> createState() => DashboardState();
@@ -39,7 +37,7 @@ class DashboardState extends State<Dashboard>
 
   Future<void> _navigateToFeatureAds() async {
     setState(() {
-      selectedIndex = 1; // Index for FeatureAdsScreen
+      selectedIndex = 1;
     });
   }
 
@@ -66,7 +64,7 @@ class DashboardState extends State<Dashboard>
         children: [
           Column(
             children: [
-              if (selectedIndex == 0) // Show AppBar only on the Requests screen
+              if (selectedIndex == 0)
                 AppBar(
                   backgroundColor: const Color(0xFF131A22),
                   iconTheme: const IconThemeData(color: Colors.white, size: 29),
@@ -141,7 +139,7 @@ class DashboardState extends State<Dashboard>
                   ),
                 ),
                 CurvedNavigationBarItem(
-                  child: Image.asset(Constant.vendorFeturedadIcon),
+                  child: Image.asset(Constant.vendorFeaturedAddIcon),
                   label: selectedIndex == 1 ? '' : 'Feature Ads',
                   labelStyle: const TextStyle(
                     color: Color(0xFF131A22),

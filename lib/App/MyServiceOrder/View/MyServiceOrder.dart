@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:propertier/App/MyServiceOrder/View/OrderServiceDetail.dart';
 import 'package:propertier/Utils/datetimeformatter.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import '../Model/ServiceOrderModel.dart';
 import '../ViewModel/OrderViewModel.dart';
 
@@ -34,11 +34,9 @@ class _MyServiceOrderState extends State<MyServiceOrder>
       appBar: AppBar(
         backgroundColor: const Color(0xFF131A22),
         iconTheme: const IconThemeData(color: Colors.white),
-
-        // title: ,
-        title: const Text(
-          'Orders',
-          style: TextStyle(
+        title:  Text(
+          context.local.orders,
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 17,
             fontWeight: FontWeight.w500,
@@ -66,7 +64,7 @@ class _MyServiceOrderState extends State<MyServiceOrder>
 
                 tabs: [
                   Text(
-                    'All',
+                    context.local.all,
                     style: TextStyle(
                       color: tabController.index == 0
                           ? const Color(0xFFFFCE58)
@@ -76,7 +74,7 @@ class _MyServiceOrderState extends State<MyServiceOrder>
                     ),
                   ),
                   Text(
-                    'Completed',
+                    context.local.completed,
                     style: TextStyle(
                       color: tabController.index == 1
                           ? const Color(0xFFFFCE58)
@@ -86,7 +84,7 @@ class _MyServiceOrderState extends State<MyServiceOrder>
                     ),
                   ),
                   Text(
-                    'Cancelled',
+                    context.local.cancelled,
                     style: TextStyle(
                       // color: Colors.white,
                       color: tabController.index == 2
@@ -98,7 +96,7 @@ class _MyServiceOrderState extends State<MyServiceOrder>
                     ),
                   ),
                   Text(
-                    'Pending',
+                    context.local.pending,
                     style: TextStyle(
                       // color: Colors.white,
                       color: tabController.index == 3
@@ -133,7 +131,7 @@ class _MyServiceOrderState extends State<MyServiceOrder>
                         if(order.status == "completed"){
                           return orderCard(order);
                         }
-                        return SizedBox();
+                        return const SizedBox();
                       },
                     )
                 ),
@@ -145,7 +143,7 @@ class _MyServiceOrderState extends State<MyServiceOrder>
                         if(order.status == "canceled"){
                           return orderCard(order);
                         }
-                        return SizedBox();
+                        return const SizedBox();
                       },
                     )
                 ),
@@ -157,7 +155,7 @@ class _MyServiceOrderState extends State<MyServiceOrder>
                         if(order.status == "pending"){
                           return orderCard(order);
                         }
-                        return SizedBox();
+                        return const SizedBox();
                       },
                     )
                 ),
@@ -203,14 +201,14 @@ class _MyServiceOrderState extends State<MyServiceOrder>
                   TextSpan(
                     children: [
                       TextSpan(
-                        text: 'Order ID:',
-                        style: TextStyle(
+                        text: context.local.order_id,
+                        style: const TextStyle(
                           color: Color(0xFF109B0E),
                           fontSize: 8,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      TextSpan(
+                      const TextSpan(
                         text: ' ',
                         style: TextStyle(
                           color: Color(0xB2131A22),
@@ -219,8 +217,8 @@ class _MyServiceOrderState extends State<MyServiceOrder>
                         ),
                       ),
                       TextSpan(
-                        text: "${order.id?.toString()??""}",
-                        style: TextStyle(
+                        text: order.id?.toString()??"",
+                        style: const TextStyle(
                           color: Color(0xB2131A22),
                           fontSize: 8,
                           fontWeight: FontWeight.w400,
@@ -230,11 +228,11 @@ class _MyServiceOrderState extends State<MyServiceOrder>
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(width: 5),
+                const SizedBox(width: 5),
                 Text(
-                  "${formatDateToStandard(order.createdAt??"")}",
+                  formatDateToStandard(order.createdAt??""),
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color(0xB2131A22),
                     fontSize: 8,
                     fontWeight: FontWeight.w400,
@@ -268,7 +266,7 @@ class _MyServiceOrderState extends State<MyServiceOrder>
                               ),
                             );
                           }
-                          return SizedBox();
+                          return const SizedBox();
                         }
                     ),
                     const SizedBox(height: 6),
@@ -290,10 +288,10 @@ class _MyServiceOrderState extends State<MyServiceOrder>
                         const SizedBox(
                           width: 8,
                         ),
-                        Text(
+                        const Text(
                           "Location",
                           textAlign: TextAlign.right,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Color(0xFF596068),
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
@@ -306,16 +304,16 @@ class _MyServiceOrderState extends State<MyServiceOrder>
                 Text.rich(
                   TextSpan(
                     children: [
-                      TextSpan(
+                      const TextSpan(
                         text: "Rs ",
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Color(0xFF109B0E),
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                       TextSpan(
-                        text: "${order.totalAmount??"--"}",
+                        text: order.totalAmount??"--",
                         style: const TextStyle(
                           color: Color(0xFF131A22),
                           fontSize: 14,
@@ -337,17 +335,17 @@ class _MyServiceOrderState extends State<MyServiceOrder>
               children: [
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.location_pin,
                       color: Color(0xFFE4A951),
                       size: 17,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 3,
                     ),
                     Text(
-                      '${order.serviceLocation??""}',
-                      style: TextStyle(
+                      order.serviceLocation??"",
+                      style: const TextStyle(
                         color: Color(0xFF596068),
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
@@ -361,14 +359,14 @@ class _MyServiceOrderState extends State<MyServiceOrder>
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(color: Colors.amber, width: 1)),
-                        child: Icon(
+                        child: const Icon(
                           Icons.done,
                           size: 8,
                           color: Colors.amber,
                         )),
                     const SizedBox(width: 2),
                     Text(
-                      "${order.status??""}",
+                      order.status??"",
                       style: const TextStyle(
                         color: Color(0x7F131A22),
                         fontSize: 8,
@@ -387,16 +385,16 @@ class _MyServiceOrderState extends State<MyServiceOrder>
               if(order.status == "pending")
                 InkWell(
                   onTap: (){
-                    Get.to(Orderservicedetail(order: order));
+                    Get.to(OrderServiceDetail(order: order));
                   },
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 5,vertical: 2),
+                    padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 2),
                     decoration: BoxDecoration(
                         color: Colors.green,
                         borderRadius: BorderRadius.circular(5)
                     ),
                     alignment: Alignment.center,
-                    child: Text("Review Work",style: TextStyle(
+                    child: const Text("Review Work",style: TextStyle(
                         color: AppColor.white,
                         fontSize: 12
                     ),),

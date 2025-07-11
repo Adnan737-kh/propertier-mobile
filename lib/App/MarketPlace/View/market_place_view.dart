@@ -76,15 +76,14 @@ class MarketPlaceView extends StatelessWidget {
                         ],
                       )),
                   getHeight(context, 0.030),
-                  appText(
+                  CustomText(
                       title: context.local.postYourVideoShortVideo,
-                      context: context,
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
                       color: const Color(0xff4286F5)),
                   getHeight(context, 0.02),
                   gridTitleTile(context,
-                      title: context.local.forSale, callBack: () {}),
+                      title: context.local.for_sale, callBack: () {}),
                   getHeight(context, 0.010),
                   GridView.builder(
                       physics: const NeverScrollableScrollPhysics(),

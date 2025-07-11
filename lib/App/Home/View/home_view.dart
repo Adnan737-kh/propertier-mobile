@@ -52,11 +52,11 @@ class HomeView extends StatelessWidget {
                     automaticallyImplyLeading: false,
                     expandedHeight: Platform.isAndroid
                         ? context.isPhone
-                            ? context.getSize.height * (0.55 - 0.030)
-                            : context.getSize.height * (0.4 - 0.030)
+                            ? context.getSize.height * (0.55 - 0.070)
+                            : context.getSize.height * (0.4 - 0.070)
                         : context.isPhone
-                            ? context.getSize.height * (0.48 - 0.030)
-                            : context.getSize.height * (0.5 - 0.030),
+                            ? context.getSize.height * (0.48 - 0.070)
+                            : context.getSize.height * (0.5 - 0.070),
                     flexibleSpace: FlexibleSpaceBar(
                       background: homeAppBar(viewModel: viewModel, context: context),
                     ),

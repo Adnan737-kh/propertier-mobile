@@ -28,8 +28,8 @@ class SubService extends GetView<SubServiceViewModel> {
           style: const TextStyle(color: AppColor.blackColor),
         ),
       ),
-      body: controller.parentServicesModel.subservices == null ||
-              controller.parentServicesModel.subservices!.isEmpty
+      body: controller.parentServicesModel.subServices == null ||
+              controller.parentServicesModel.subServices!.isEmpty
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -65,10 +65,10 @@ class SubService extends GetView<SubServiceViewModel> {
                     crossAxisSpacing: 8,
                     mainAxisSpacing: 8,
                   ),
-                  itemCount: controller.parentServicesModel.subservices?.length,
+                  itemCount: controller.parentServicesModel.subServices?.length,
                   itemBuilder: (context, index) {
                     Subservices subService =
-                        controller.parentServicesModel.subservices![index];
+                        controller.parentServicesModel.subServices![index];
                     return GestureDetector(
                       onTap: () {
                         if (controller.parentServicesModel.title ==
@@ -99,9 +99,8 @@ class SubService extends GetView<SubServiceViewModel> {
                               height: context.getSize.height * 0.12,
                             ),
                             getHeight(context, 0.005),
-                            appText(
+                            CustomText(
                                 title: subService.title ?? "",
-                                context: context,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis)
                           ],

@@ -37,15 +37,13 @@ Widget withdrawalTile(BuildContext context,
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                appText(
+                CustomText(
                     title: bankName,
-                    context: context,
                     colorOpecity: 0.6,
                     fontSize: 14,
                     fontWeight: FontWeight.w500),
-                appText(
+                CustomText(
                     title: date,
-                    context: context,
                     colorOpecity: 0.7,
                     fontSize: 16,
                     fontWeight: FontWeight.w400),
@@ -53,9 +51,8 @@ Widget withdrawalTile(BuildContext context,
             )
           ],
         ),
-        appText(
+        CustomText(
             title: ammount,
-            context: context,
             colorOpecity: 0.6,
             fontSize: 14,
             fontWeight: FontWeight.w500),

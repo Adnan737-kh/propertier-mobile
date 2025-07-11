@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -7,22 +6,25 @@ import 'package:propertier/App/Otp/OtpVerify/Model/social_media_button_model.dar
 import 'package:propertier/constant/constant.dart';
 import 'package:propertier/constant/toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../../RoutesAndBindings/app_routes.dart';
 import '../../../../repository/auth_repo/signup_repo/signup_repo.dart';
 
 class OTPVerifyViewModel extends GetxController {
-  final _api = SignUpRepository();
-  final List<TextEditingController> otpControllers =
-      List.generate(6, (index) => TextEditingController());
+  final SignUpRepository _api = SignUpRepository();
+
+  TextEditingController otpController = TextEditingController();
+
   final RxInt _selectedFieldIndex = 0.obs;
   int get selectedFieldIndex => _selectedFieldIndex.value;
+
   RxBool isLoading = false.obs;
   final RxString _completePin = ''.obs;
   String get completePin => _completePin.value;
-  late Timer _timer;
+
+  Timer? _timer;
   final RxInt _counterValue = 30.obs;
   int get counterValue => _counterValue.value;
+
   final RxBool _isTimerStart = true.obs;
   bool get isTimerStart => _isTimerStart.value;
 
@@ -34,126 +36,91 @@ class OTPVerifyViewModel extends GetxController {
     SocialMediaButtonModel(icon: Constant.youtube, onTap: () {}),
   ].obs;
 
-  getSelectedFieldIndex(int index) {
+  void getSelectedFieldIndex(int index) {
     _selectedFieldIndex.value = index;
   }
 
-  onComplete(String value) {
+  void onComplete(String value) {
     _completePin.value = value;
   }
 
   @override
   void onInit() {
-    // TODO: implement onInit
-
     startCounter();
     super.onInit();
   }
 
-  startCounterAgain() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      _isTimerStart.value = true;
-      decrement();
-    });
+  void startCounterAgain() {
+    _counterValue.value = 30;
+    startCounter();
   }
 
   void startCounter() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      decrement();
-    });
+    _isTimerStart.value = true;
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) => decrement());
   }
 
   void decrement() {
     if (_counterValue.value > 0) {
       _counterValue.value--;
     } else {
-      _timer.cancel();
+      _timer?.cancel();
       _isTimerStart.value = false;
-      _counterValue.value = 30;
     }
   }
 
   @override
-  void dispose() {
-    _timer.cancel();
-    _counterValue.value = 30;
-    super.dispose();
+  void onClose() {
+    _timer?.cancel();
+
+    super.onClose();
   }
 
-  // Future<void> verifyOtp({required String code, required String otpToken}) async {
-  //   print('$otpToken and $code');
-  //   final url = Uri.parse('${Constant.baseUrl}api/auth/user/verify/$otpToken/');
-  //
-  //   try {
-  //     final response = await http.post(
-  //       url,
-  //       headers: {"Content-Type": "application/json"},
-  //       body: jsonEncode({
-  //         "code": code, // Sending the code in the request body
-  //       }),
-  //     );
-  //
-  //     if (response.statusCode == 200 || response.statusCode == 201) {
-  //       print("OTP verified successfully: ${response.body}");
-  //     } else {
-  //       print("OTP verification failed: ${response.body}");
-  //     }
-  //   } catch (error) {
-  //     print("Error verifying OTP: $error");
-  //   }
-  // }
-
-  void verifyOtp({required String code})async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? uid = prefs.getString('uid');
-    String? token = prefs.getString('token');
-
-    if (kDebugMode) {
-      print("Stored Token: $token");
-      print("Stored UID: $uid");
-
-    }
+  Future<void> verifyOtp({required String code}) async {
+    final prefs = await SharedPreferences.getInstance();
+    final uid = prefs.getString('uid');
+    final token = prefs.getString('token');
 
     isLoading(true);
+    try {
+      if (uid != null || token != null) {
+        await _api.verifyForgotPasswordOtp({"otp": code}).then(
+          (onValue) async {
+            int statusCode = onValue['statusCode'];
+            dynamic body = onValue['body'];
+            if (kDebugMode) {
+              print('verifyOtp Response: $body');
+              print('verifyOtp Status Code: $statusCode');
+            }
 
+            String? resetToken = body['reset_approval_token'];
 
-    if(uid != null || token!= null){
+            await prefs.setString('reset_approval_token', resetToken!);
+            if (kDebugMode) {
+              print('reset_approval_token $resetToken');
+            }
 
-      Map data = {
-        "otp": code,
-      };
-
-      _api.verifyForgotPasswordOtp(data).then((onValue) async {
-        // ✅ Extract and store otp_token
-
-        String? resetApprovalToken = onValue['reset_approval_token'];
-
-        SharedPreferences forgotPref = await SharedPreferences.getInstance();
-        await forgotPref.setString('reset_approval_token', resetApprovalToken ?? '');
-        isLoading(false);
-        toast(title: 'OTP Verify Successfully', context: Get.context!);
-        Get.offAllNamed(AppRoutes.newPasswordView);
-      }).onError((error, stackTrace) {
-        isLoading(false);
+            CustomToast.show(title: 'OTP Verified Successfully', context: Get.context!);
+            Get.offAllNamed(AppRoutes.newPasswordView);
+            isLoading(false);
+          },
+        );
+      } else {
         if (kDebugMode) {
-          print('$error and $stackTrace');
+          print("status code }");
         }
-      });
-    }else{
-      Map data = {
-        "code": code,
-      };
-      _api.verifyOtp(data).then((onValue) async {
-        isLoading(false);
-        toast(title: 'OTP Verify Successfully', context: Get.context!);
+        await _api.verifyOtp({"code": code});
+        CustomToast.show(title: 'OTP Verified Successfully', context: Get.context!);
         Get.offAllNamed(AppRoutes.navBarView);
-      }).onError((error, stackTrace) {
-        isLoading(false);
-        if (kDebugMode) {
-          print('$error and $stackTrace');
-        }
-      });
+      }
+    } catch (error, stackTrace) {
+      if (kDebugMode) {
+        print('Error verifying OTP: $error\n$stackTrace');
+      }
+      CustomToast.show(title: '$error', context: Get.context!);
+    } finally {
+      isLoading(false);
     }
-
   }
 }

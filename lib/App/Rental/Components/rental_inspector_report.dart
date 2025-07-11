@@ -4,8 +4,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:propertier/App/Home/View/component/grid_tile.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/divider.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 import '../../../constant/colors.dart';
 import '../../../Utils/height_width_box.dart';
@@ -46,9 +48,8 @@ class _InspectReportViewState extends State<InspectReportView> {
           mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            appText(
-              title: "Inspection Report",
-              context: context,
+            CustomText(
+              title: context.local.inspection_report,
               fontSize: 18,
               fontWeight: FontWeight.normal,
             ),
@@ -62,9 +63,8 @@ class _InspectReportViewState extends State<InspectReportView> {
               },
             ),
             getHeight(context, 0.015),
-            appText(
-              title: "Near By Propertire Office",
-              context: context,
+            CustomText(
+              title: context.local.near_by_propertire_office,
               fontSize: 18,
               fontWeight: FontWeight.normal,
             ),
@@ -72,21 +72,19 @@ class _InspectReportViewState extends State<InspectReportView> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                appText(
-                    title: "Address",
-                    context: context,
+                CustomText(
+                    title: context.local.address,
                     fontSize: 14,
                     color: const Color(0xFF6D6E6F),
                     fontWeight: FontWeight.bold),
               ],
             ),
             getHeight(context, 0.015),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                appText(
+                CustomText(
                     title: "Lorem ipsum dolor sit amet",
-                    context: context,
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                     colorOpecity: 0.7),
@@ -95,20 +93,18 @@ class _InspectReportViewState extends State<InspectReportView> {
             getHeight(context, 0.012),
             divider(context: context),
             getHeight(context, 0.016),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                appText(
+                CustomText(
                     title: "Talk ID",
-                    context: context,
                     fontSize: 14,
-                    color: const Color(0xFF6D6E6F),
+                    color: Color(0xFF6D6E6F),
                     fontWeight: FontWeight.bold),
-                appText(
+                CustomText(
                     title: "73648A467383",
-                    context: context,
                     fontSize: 14,
-                    color: const Color(0xFF6D6E6F),
+                    color: Color(0xFF6D6E6F),
                     fontWeight: FontWeight.bold),
               ],
             ),
@@ -148,9 +144,8 @@ Widget iDUploadTile({required bool isLoading, File? image, Function()? onTap}) {
                     color: Colors.white,
                     size: 38,
                   ),
-                  appText(
-                      title: "Upload PDf File / Images",
-                      context: context,
+                  CustomText(
+                      title: context.local.upload_pdf_file_or_images,
                       fontSize: 16,
                       color: AppColor.white,
                       fontWeight: FontWeight.bold),

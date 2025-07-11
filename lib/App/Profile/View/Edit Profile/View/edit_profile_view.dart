@@ -4,18 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:propertier/App/Profile/View/Verification/View/components/edit_profile_textfield.dart';
-import 'package:propertier/Utils/search_location_bottom_sheet.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 import '../../../../../Utils/appbar.dart';
 import '../../../../../constant/AppButton/text_button.dart';
 import '../../../../../constant/colors.dart';
 import '../../../../../constant/constant.dart';
 import '../../../../../Utils/height_width_box.dart';
+import '../../../ViewModel/profile_view_model.dart';
 import '../ViewModel/edit_profile_view_model.dart';
 
 class EditProfileView extends StatelessWidget {
   EditProfileView({super.key});
   final editProfileVM = Get.find<EditProfileViewModel>();
+  final profileViewModel = Get.put(ProfileViewModel());
+
   final myFocusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
@@ -80,7 +83,7 @@ class EditProfileView extends StatelessWidget {
                                           onTap: () {
                                             Get.back();
                                           },
-                                          title: 'Edit Profile'),
+                                          title: context.local.edit_profile),
                                       Align(
                                         alignment: Alignment.bottomRight,
                                         child: GestureDetector(
@@ -210,7 +213,7 @@ class EditProfileView extends StatelessWidget {
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter Full Name';
+                                    return context.local.please_enter_full_name;
                                   }
                                   return null;
                                 },
@@ -230,10 +233,10 @@ class EditProfileView extends StatelessWidget {
                                 //         editProfileVM.emailFocusNode, context);
                                 //   });
                                 // },
-                                label: "Email",
+                                label: context.local.email,
                                 textInputType: TextInputType.emailAddress,
                                 controller: editProfileVM.emailController,
-                                hintText: 'Enter Your Email',
+                                hintText: context.local.enter_your_email,
                                 suffix: GestureDetector(
                                   onTap: () {},
                                   child: Image.asset(
@@ -244,7 +247,7 @@ class EditProfileView extends StatelessWidget {
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please Enter Your Email';
+                                    return context.local.please_enter_your_email;
                                   }
                                   return null;
                                 },
@@ -265,10 +268,10 @@ class EditProfileView extends StatelessWidget {
                                         context);
                                   });
                                 },
-                                label: "Password",
+                                label: context.local.password,
                                 textInputType: TextInputType.text,
                                 controller: editProfileVM.passwordController,
-                                hintText: 'Enter Your Password',
+                                hintText: context.local.enter_your_password,
                                 suffix: GestureDetector(
                                   onTap: () {},
                                   child: Image.asset(
@@ -279,23 +282,22 @@ class EditProfileView extends StatelessWidget {
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please Enter Your Password';
+                                    return context.local.please_enter_your_password;
                                   }
                                   return null;
                                 },
                                 focusNode: editProfileVM.passwordFocusNode,
                               ),
                               getHeight(context, 0.028),
-                              customPhoneNumberTextField(
+                              CustomPhoneNumberTextField(
                                   onChangeCountry: (country) {
                                     editProfileVM.changeInitialCode(
                                         "+${country.dialCode}");
-                                    print(country.dialCode);
                                   },
-                                  initialCOde: editProfileVM.initialCode,
-                                  label: "Phone Number",
+                                  initialCode: editProfileVM.initialCode,
+                                  label:context.local.phone_number,
                                   isEditable: editProfileVM.isPhone.value,
-                                  isEditablefun: () {
+                                  isEditField: () {
                                     editProfileVM.isPhone.value =
                                         !editProfileVM.isPhone.value;
                                     Future.delayed(
@@ -308,7 +310,7 @@ class EditProfileView extends StatelessWidget {
                                   },
                                   controller:
                                       editProfileVM.numberController,
-                                  hintText: 'Enter Your Phone Number',
+                                  hintText: context.local.enter_your_phone_number,
                                   textInputType: TextInputType.phone,
                                   suffix: const Icon(Icons.record_voice_over),
                                   validator: (value) {
@@ -318,6 +320,39 @@ class EditProfileView extends StatelessWidget {
                                     return null;
                                   },
                                   focusNode: editProfileVM.focusNode3),
+                              // EditProfileTextField(
+                              //   isEditable: editProfileVM.isPhone.value,
+                              //   isEditableFunction: () {
+                              //     editProfileVM.isPhone.value =
+                              //     !editProfileVM.isPhone.value;
+                              //     Future.delayed(
+                              //         const Duration(
+                              //           milliseconds: 500,
+                              //         ), () {
+                              //       editProfileVM.focusTextField(
+                              //           editProfileVM.focusNode3, context);
+                              //     });
+                              //   },
+                              //   label: "Phone Number",
+                              //   textInputType: TextInputType.text,
+                              //   controller: editProfileVM.numberController,
+                              //   hintText: '',
+                              //   suffix: GestureDetector(
+                              //     onTap: () {},
+                              //     child: Image.asset(
+                              //       Constant.mic,
+                              //       height: context.getSize.height * 0.022,
+                              //       width: context.getSize.width * 0.038,
+                              //     ),
+                              //   ),
+                              //   validator: (value) {
+                              //     if (value == null || value.isEmpty) {
+                              //       return 'Please Enter Your Phone No';
+                              //     }
+                              //     return null;
+                              //   },
+                              //   focusNode: editProfileVM.focusNode3,
+                              // ),
                               getHeight(context, 0.028),
                               EditProfileTextField(
                                 isEditable: editProfileVM.isAbout.value,
@@ -332,7 +367,7 @@ class EditProfileView extends StatelessWidget {
                                         editProfileVM.focusNode4, context);
                                   });
                                 },
-                                label: "About",
+                                label: context.local.about,
                                 textInputType: TextInputType.text,
                                 controller: editProfileVM.aboutController,
                                 hintText: '',
@@ -346,7 +381,7 @@ class EditProfileView extends StatelessWidget {
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please Enter Your Email';
+                                    return context.local.please_enter_your_email;
                                   }
                                   return null;
                                 },
@@ -378,10 +413,10 @@ class EditProfileView extends StatelessWidget {
                                   //         .searchAddressController);
                                   // });
                                 },
-                                label: "Address",
+                                label: context.local.address,
                                 textInputType: TextInputType.text,
                                 controller: editProfileVM.addressController,
-                                hintText: 'Address',
+                                hintText: context.local.address,
                                 readOnly: true,
                                 suffix: GestureDetector(
                                   onTap: () {},
@@ -393,7 +428,7 @@ class EditProfileView extends StatelessWidget {
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please Enter Your Address';
+                                    return context.local.please_enter_your_address;
                                   }
                                   return null;
                                 },
@@ -401,7 +436,7 @@ class EditProfileView extends StatelessWidget {
                               ),
                               getHeight(context, 0.06),
                               Obx(
-                                () => editProfileVM.isSuccess == false
+                                () => editProfileVM.isLoading.value == true
                                     ? SizedBox(
                                         height: context.getSize.height * 0.048,
                                         child: const CircularProgressIndicator(
@@ -410,42 +445,19 @@ class EditProfileView extends StatelessWidget {
                                       )
                                     : customTextButton(
                                         onTap: () async {
-                                          // await editProfileVM
-                                          //     .editProfileData(
-                                          //       password: editProfileVM
-                                          //           .passwordController.text,
-                                          //       context: context,
-                                          //       id: editProfileVM.userData.value
-                                          //               .users?.first.id
-                                          //               .toString() ??
-                                          //           '',
-                                          //       profileImage:
-                                          //           editProfileVM.profileImage,
-                                          //       coverImage:
-                                          //           editProfileVM.coverImage,
-                                          //       name: editProfileVM
-                                          //           .userFullNameController
-                                          //           .text,
-                                          //       email: editProfileVM
-                                          //           .usernameController.text,
-                                          //       phoneNumber: editProfileVM
-                                          //           .userNumberController.text,
-                                          //       about: editProfileVM
-                                          //           .userAboutController.text,
-                                          //       address: editProfileVM
-                                          //           .addressController.text,
-                                          //     )
-                                          //     .whenComplete(() =>
-                                          //         editProfileVM.getUserData());
-                                          editProfileVM.isLoading.value = true;
-                                          editProfileVM.editProfile();
+                                          editProfileVM.editProfile().whenComplete(() {
+                                            profileViewModel.getProfile(context: context,
+                                                accessToken: profileViewModel.accessToken!);
+                                          });
+
                                         },
                                         fontWeight: FontWeight.bold,
                                         buttonColor: AppColor.buttonColor,
-                                        title: 'Save',
+                                        title: context.local.save,
                                         textColor: AppColor.blackColor,
                                       ),
-                              )
+                              ),
+                              getHeight(context, 0.04),
                             ],
                           ),
                         ),

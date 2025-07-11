@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:propertier/App/Post%20Add/Add%20Properties/ViewModel/add_properties_view_model.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 // import 'package:video_player/video_player.dart';
 import '../../../../Utils/app_text.dart';
 import '../../../../Utils/height_width_box.dart';
@@ -16,8 +17,8 @@ Widget addPropertyInfo({
       Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          appText(
-              title: "Property Information", context: context, fontSize: 18),
+          CustomText(
+              title: context.local.property_information,fontSize: 18),
         ],
       ),
       getHeight(context, 0.015),
@@ -30,13 +31,13 @@ Widget addPropertyInfo({
                   controller.selectedBedRoom.value = val!;
                 },
                 context: context,
-                title: "Bedrooms",
+                title:context.local.bedrooms,
                 items: controller.bedrooms
                     .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                     .toList(),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Select How Many';
+                    return context.local.select_how_many;
                   } else {}
                   return null;
                 },
@@ -49,13 +50,13 @@ Widget addPropertyInfo({
                   controller.selectedBathroom.value = val!;
                 },
                 context: context,
-                title: "Bathrooms",
+                title: context.local.bathrooms,
                 items: controller.bathrooms
                     .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                     .toList(),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Select How Many';
+                    return context.local.select_how_many;
                   } else {}
                   return null;
                 },
@@ -65,7 +66,7 @@ Widget addPropertyInfo({
                   child: addPropertyDropdown(
                 enable: controller.selectedPropertyType.value != "Plots",
                 context: context,
-                title: "Floors",
+                title: context.local.floors,
                 onChange: (p0) {
                   controller.selectedFloors.value = p0!;
                 },
@@ -77,7 +78,7 @@ Widget addPropertyInfo({
                 // .toList(),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Select How Many';
+                    return context.local.select_how_many;
                   }
                   return null;
                 },

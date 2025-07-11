@@ -75,7 +75,7 @@ class _OpenCameraScreenState
                        DottedBorder(
                           color: Colors.grey.shade600,
                           dashPattern: const [9, 4],
-                          child: Container(
+                          child: SizedBox(
                             height: Get.height * .32,
                             child: const Center(
                               child: Icon(

@@ -4,7 +4,6 @@ import 'package:propertier/Customer/screens/WaterServiceForm/WaterServiceFormCon
 class WaterServiceFormBinding extends Bindings{
   @override
   void dependencies() {
-    // TODO: implement dependencies
     Get.lazyPut(()=> WaterServiceFormController());
   }
 }

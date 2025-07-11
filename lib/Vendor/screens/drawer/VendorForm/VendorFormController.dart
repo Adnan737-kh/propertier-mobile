@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:propertier/Network/api_urls.dart';
-import 'package:propertier/Vendor/screens/ServiceForm/model/ServiceFormModel.dart';
 
 import 'model/VendorFormModal.dart';
 

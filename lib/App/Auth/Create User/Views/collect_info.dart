@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/Utils/loading_view.dart';
-import 'package:propertier/Utils/search_location_bottom_sheet.dart';
 import 'package:propertier/constant/toast.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 import '../../../../Utils/appbar.dart';
 import '../../../../Utils/logo_tile.dart';
@@ -90,13 +90,13 @@ class CollectInfo extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop(false);
               },
-              child: const Text('Decline'),
+              child:  Text(context.local.decline),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(true);
               },
-              child: const Text('Accept'),
+              child:  Text(context.local.accept),
             ),
           ],
         );
@@ -127,7 +127,7 @@ class CollectInfo extends StatelessWidget {
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                             context: context,
-                            title: 'Collect Info',
+                            title: context.local.collect_info,
                             onTap: () {
                               Get.back();
                             }),
@@ -140,7 +140,7 @@ class CollectInfo extends StatelessWidget {
                                   alignment: Alignment.center,
                                   child: logoTile(context)),
                               getHeight(context, 0.090),
-                              // customTextField(
+                              // CustomTextField(
                               //   labal: "Full Name",
                               //   controller: signupVM.nameController,
                               //   hintText: 'Full Name',
@@ -228,7 +228,7 @@ class CollectInfo extends StatelessWidget {
                                 height: 12,
                               ),
                               customPhoneNumberTextField(
-                                labal: "Phone Number",
+                                label: "Phone Number",
                                 controller: signupVM.numberController,
                                 hintText: 'Enter Your Phone Number',
                                 textInputType: TextInputType.phone,
@@ -276,7 +276,7 @@ class CollectInfo extends StatelessWidget {
                                                     .numberController
                                                     .text
                                                     .isEmpty) {
-                                                  toast(
+                                                  CustomToast.show(
                                                       title:
                                                           "Please Provide number",
                                                       context: context);

@@ -8,7 +8,7 @@ class AwardModel {
   DateTime? createdAt;
   DateTime? updatedAt;
   final String imagePath;
-  String vendorId;
+  String? vendorId;
 
   AwardModel({
     this.id,
@@ -20,7 +20,7 @@ class AwardModel {
     this.createdAt,
     this.updatedAt,
     required this.imagePath,
-    required this.vendorId,
+     this.vendorId,
   });
 
   // Factory constructor to create an AwardModel from JSON
@@ -31,7 +31,7 @@ class AwardModel {
       title: json['title'],
       date: json['date'],
       description: json['description'],
-      imageUrl: json['image_url'],
+      imageUrl: json['image'],
       createdAt: json['created_at'] != null
           ? DateTime.parse(json['created_at'])
           : null,
@@ -52,7 +52,7 @@ class AwardModel {
       'title': title,
       'date': date,
       'description': description,
-      'image_url': imageUrl,
+      'image': imageUrl,
       'created_at': createdAt?.toIso8601String(),
       'updated_at': updatedAt?.toIso8601String(),
       'vendor_id': vendorId,

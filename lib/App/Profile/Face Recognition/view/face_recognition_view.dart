@@ -3,7 +3,6 @@ import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import '../../../../constant/colors.dart';
 import '../view_model/face_recognition_view_model.dart';
 
@@ -19,7 +18,7 @@ class FaceRecognitionView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Face Recognition"),
-        backgroundColor: AppColor.forgroundColor,
+        backgroundColor: AppColor.forGroundColor,
       ),
       body: Obx(() {
         if (!faceRecognitionController.isCameraInitialized.value) {
@@ -54,7 +53,7 @@ class FaceRecognitionView extends StatelessWidget {
             if (faceRecognitionController.capturedImagePath.value.isEmpty) ...[
               ElevatedButton.icon(
                 style: const ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll(AppColor.forgroundColor)
+                    backgroundColor: WidgetStatePropertyAll(AppColor.forGroundColor)
 
                 ),
                 icon: const Icon(Icons.camera_alt),
@@ -70,7 +69,7 @@ class FaceRecognitionView extends StatelessWidget {
                   ElevatedButton.icon(
 
                     style: const ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(AppColor.forgroundColor)
+                      backgroundColor: WidgetStatePropertyAll(AppColor.forGroundColor)
                     ),
                     icon: const Icon(Icons.refresh),
                     label: const Text("Retake",),
@@ -80,7 +79,7 @@ class FaceRecognitionView extends StatelessWidget {
                   ),
                   Obx(() => ElevatedButton.icon(
                     style: const ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(AppColor.forgroundColor)
+                        backgroundColor: WidgetStatePropertyAll(AppColor.forGroundColor)
 
                     ),
                     icon: faceRecognitionController.isLoading.value

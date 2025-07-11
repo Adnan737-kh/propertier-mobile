@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:propertier/App/Auth/Login/Model/login_response_model.dart';
-import 'package:propertier/App/Services/Model/services_model.dart';
 import 'package:propertier/Vendor/screens/dashboard/home/Controller/DetailScreenController.dart';
 import 'package:propertier/Vendor/screens/dashboard/home/Model/home_model.dart';
 import 'package:propertier/Vendor/screens/dashboard/home/view/component/amount.dart';
@@ -37,7 +36,7 @@ class _DetailScreenState extends State<DetailScreen> {
     super.initState();
     loadMapStyle(); // Load the map style when the widget is initialized
     controller.markers.add(
-      Marker(markerId: MarkerId('end'),
+      Marker(markerId: const MarkerId('end'),
       position: LatLng(double.parse(widget.bid.latitude), double.parse(widget.bid.longitude)))
     );
   }
@@ -309,17 +308,17 @@ class _DetailScreenState extends State<DetailScreen> {
                                           fontWeight: FontWeight.w400,
                                         ),
                                       )),
-                                      SizedBox(height: 15), // Adjust this value to reduce the space
-                                      Divider(
+                                      const SizedBox(height: 15), // Adjust this value to reduce the space
+                                      const Divider(
                                         color: Colors.grey,
                                         thickness: 1.0,
                                         indent: 2, // Adjust as needed
                                         endIndent: 5, // Adjust as needed
                                         height: 1,
                                       ),
-                                      SizedBox(height: 15),
+                                      const SizedBox(height: 15),
                                       Text(
-                                        widget.bid.location??"",
+                                        widget.bid.location,
                                        style: const TextStyle(
                                 color: Color(0xFF1F0101),
                                 fontSize: 14,
@@ -375,7 +374,7 @@ class _DetailScreenState extends State<DetailScreen> {
                           children: [
                             const Text(
                               'Description Detail',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 color: Color(0xFF1F0101),
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
@@ -391,10 +390,10 @@ class _DetailScreenState extends State<DetailScreen> {
                         ),
                         if (isDescriptionExpanded)
                           Padding(
-                            padding: EdgeInsets.only(top: 10.0),
+                            padding: const EdgeInsets.only(top: 10.0),
                             child: Text(
-                              widget.bid.description??"",
-                              style: TextStyle(color: Colors.grey),
+                              widget.bid.description,
+                              style: const TextStyle(color: Colors.grey),
                             ),
                           ),
                       ],
@@ -427,8 +426,8 @@ class _DetailScreenState extends State<DetailScreen> {
                       // const OptionButton(text: '3000'),
                       // When edit icon is clicked, show the amount input screen
                       // Modify this part in the options row
-                      SizedBox(width: 20,),
-                      Icon(Icons.edit, color: Colors.grey),
+                      const SizedBox(width: 20,),
+                      const Icon(Icons.edit, color: Colors.grey),
 
 
                     ],
@@ -441,7 +440,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   },
                   child: Container(
                     width: Get.width,
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                         vertical: 8, horizontal: 20),
                     decoration: BoxDecoration(
                       color: const Color(0xFFFDCD54),
@@ -449,7 +448,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     ),
                     margin: const EdgeInsets.symmetric(horizontal: 2),
                     alignment: Alignment.center,
-                    child: Text(
+                    child: const Text(
                       'Offer',
                       style: TextStyle(
                         color: Colors.white,
@@ -476,9 +475,9 @@ class OptionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       decoration: BoxDecoration(
-        color: Color(0xFFFFFFFF),
+        color: const Color(0xFFFFFFFF),
         borderRadius: BorderRadius.circular(8)
       ),
       alignment: Alignment.center,

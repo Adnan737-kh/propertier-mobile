@@ -170,8 +170,8 @@ class _ShortVideoPLayerWidgetState extends State<ShortVideoPLayerWidget> {
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.offNamed(AppRoutes.detailView, arguments: {
-                                "id": widget.property.id!,
+                              Get.offNamed(AppRoutes.propertyDetailView, arguments: {
+                                "slug": widget.property.slug!,
                                 "user": "null"
                               });
                             },
@@ -211,23 +211,22 @@ class _ShortVideoPLayerWidgetState extends State<ShortVideoPLayerWidget> {
                                   getWidth(context, 0.020),
                                   SizedBox(
                                       width: context.getSize.width * 0.7,
-                                      child: appText(
+                                      child: CustomText(
                                           fontSize: 18,
                                           overflow: TextOverflow.ellipsis,
                                           color: AppColor.white,
                                           fontWeight: FontWeight.bold,
                                           title: widget.property.title!,
-                                          context: context))
+                                          ))
                                 ],
                               ),
                             ),
                           ),
                           getHeight(context, 0.010),
-                          appText(
+                          CustomText(
                               maxLines: 3,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.justify,
-                              context: context,
                               color: AppColor.white,
                               fontWeight: FontWeight.w400,
                               fontSize: widget.fontSize - 4,
@@ -278,13 +277,12 @@ class _ShortVideoPLayerWidgetState extends State<ShortVideoPLayerWidget> {
                                             Constant.heartUnFill,
                                           ))
                                 : const Gap(0),
-                            appText(
+                            CustomText(
                                 title: widget.isBackButton
                                     ? propertyDetail.value.property != null
                                         ? "${propertyDetail.value.property!.likes! + isLiked.value}"
                                         : ""
                                     : widget.property.likes!.toString(),
-                                context: context,
                                 fontSize: widget.fontSize - 2,
                                 fontWeight: FontWeight.w500,
                                 color: AppColor.white),

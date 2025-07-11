@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:propertier/App/Details/ViewModel/properties_detail_view_model.dart';
 import 'package:propertier/Utils/border.dart';
 import 'package:propertier/Utils/box_shadow.dart';
-import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/size_extension.dart';
@@ -70,23 +68,23 @@ Widget detailsAppBar(
                     ),
                   ),
                 ),
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Icon(
-                        Icons.share,
-                        size: context.isPhone ? 30 : 40,
-                        color: AppColor.white,
-                      ),
-                    ),
-                    getWidth(context, 0.020),
-                    GestureDetector(
-                      onTap: favoriteCallBack,
-                      child: SvgPicture.asset(Constant.heartUnFill),
-                    )
-                  ],
-                ),
+                // Row(
+                //   children: [
+                //     GestureDetector(
+                //       onTap: () {},
+                //       child: Icon(
+                //         Icons.share,
+                //         size: context.isPhone ? 30 : 40,
+                //         color: AppColor.white,
+                //       ),
+                //     ),
+                //     getWidth(context, 0.020),
+                //     GestureDetector(
+                //       onTap: favoriteCallBack,
+                //       child: SvgPicture.asset(Constant.heartUnFill),
+                //     )
+                //   ],
+                // ),
               ],
             ),
             // Icon(

@@ -47,15 +47,13 @@ class TeamOfficailTile extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        appText(
+                        CustomText(
                             title: "ID: ",
-                            context: context,
                             fontSize: 8,
                             fontWeight: FontWeight.w600,
                             colorOpecity: 0.6),
-                        appText(
+                        CustomText(
                             title: team.id,
-                            context: context,
                             fontSize: 8,
                             fontWeight: FontWeight.normal,
                             colorOpecity: 0.4)
@@ -63,15 +61,13 @@ class TeamOfficailTile extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        appText(
+                        CustomText(
                             title: "Salary ",
-                            context: context,
                             fontSize: 8,
                             fontWeight: FontWeight.w600,
                             colorOpecity: 0.6),
-                        appText(
+                        CustomText(
                             title: team.salary,
-                            context: context,
                             fontSize: 8,
                             fontWeight: FontWeight.normal,
                             colorOpecity: 0.4)
@@ -97,23 +93,20 @@ class TeamOfficailTile extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        appText(
+                        CustomText(
                           title: team.name,
-                          context: context,
                           fontSize: 12,
                           fontWeight: FontWeight.normal,
                         ),
                         const Gap(5),
-                        appText(
+                        CustomText(
                           title: team.status,
-                          context: context,
                           fontSize: 10,
                           fontWeight: FontWeight.w400,
                         ),
                         const Gap(5),
-                        appText(
+                        CustomText(
                             title: team.department,
-                            context: context,
                             fontSize: 8,
                             fontWeight: FontWeight.normal,
                             colorOpecity: 0.7),
@@ -130,9 +123,8 @@ class TeamOfficailTile extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 5, vertical: 3),
-                              child: appText(
+                              child: CustomText(
                                   title: "Detail",
-                                  context: context,
                                   fontSize: 10,
                                   color: Colors.green[600]!,
                                   fontWeight: FontWeight.normal,
@@ -157,9 +149,8 @@ class TeamOfficailTile extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 3),
-                            child: appText(
+                            child: CustomText(
                                 title: "Remove",
-                                context: context,
                                 fontSize: 10,
                                 color: Colors.white,
                                 fontWeight: FontWeight.normal,

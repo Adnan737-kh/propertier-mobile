@@ -14,18 +14,16 @@ Widget policyTile({
     children: [
       const Gap(15),
       title != ""
-          ? appText(
+          ? CustomText(
               title: title,
-              context: context,
               fontSize: 14,
               textAlign: TextAlign.start,
               fontWeight: FontWeight.w600,
               colorOpecity: 01)
           : const Gap(0),
       const Gap(8),
-      appText(
+      CustomText(
           title: subTitle,
-          context: context,
           fontSize: 14,
           textAlign: TextAlign.start,
           fontWeight: FontWeight.w400,

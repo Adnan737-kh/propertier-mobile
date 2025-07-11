@@ -10,8 +10,8 @@ import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 class ServicesShortVideoTile extends StatelessWidget {
-  ServicesViewModel viewModel;
-  ServicesShortVideoTile({super.key, required this.viewModel});
+  final ServicesViewModel viewModel;
+  const ServicesShortVideoTile({super.key, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +22,8 @@ class ServicesShortVideoTile extends StatelessWidget {
           children: [
             Row(
               children: [
-                appText(
+                CustomText(
                   title: context.local.shortVideos,
-                  context: context,
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                 ),
@@ -34,9 +33,8 @@ class ServicesShortVideoTile extends StatelessWidget {
                 )
               ],
             ),
-            appText(
-              title: context.local.viewMore,
-              context: context,
+            CustomText(
+              title: context.local.view_more,
               color: AppColor.greenColor,
               fontSize: 12,
               fontWeight: FontWeight.w500,

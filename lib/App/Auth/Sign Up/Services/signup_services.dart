@@ -42,22 +42,20 @@ class SignupServices {
       );
       debugPrint(response.statusCode.toString());
       if (response.statusCode == 201) {
-        debugPrint("data is avaliable ${response.body}");
-        final jsonDecodedData = jsonDecode(response.body);
+        debugPrint("data is available ${response.body}");
+        jsonDecode(response.body);
         return true;
       } else {
         ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-            content: appText(
+            content: CustomText(
                 title: 'Something went wrong: ${response.body} ',
-                context: Get.context!,
                 color: AppColor.white)));
         return false;
       }
     } catch (e) {
       ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-          content: appText(
+          content: CustomText(
               title: 'Something went wrong.',
-              context: Get.context!,
               color: AppColor.white)));
       debugPrint(e.toString());
       return false;

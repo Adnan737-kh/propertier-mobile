@@ -27,7 +27,7 @@ Widget addPropertyDropdown<T>(
           Row(
             children: [
               const Gap(5),
-              appText(title: title, context: context, colorOpecity: 0.6),
+              Expanded(child: CustomText(title: title, colorOpecity: 0.6)),
             ],
           ),
           DropdownButtonFormField(

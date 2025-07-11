@@ -14,9 +14,8 @@ Widget paymentMethod({required BuildContext context, void Function()? onTap}) {
       children: [
         Row(
           children: [
-            appText(
+            CustomText(
                 title: context.local.payment_Method,
-                context: context,
                 colorOpecity: 0.7,
                 fontWeight: FontWeight.bold)
           ],
@@ -33,9 +32,8 @@ Widget paymentMethod({required BuildContext context, void Function()? onTap}) {
                   height: 13.17,
                 ),
                 const Gap(8),
-                appText(
+                CustomText(
                     title: "Bank alflah",
-                    context: context,
                     fontSize: 12,
                     fontWeight: FontWeight.normal)
               ],
@@ -65,9 +63,8 @@ Widget paymentMethod({required BuildContext context, void Function()? onTap}) {
                   height: 13.17,
                 ),
                 const Gap(8),
-                appText(
+                CustomText(
                     title: "BitCoin",
-                    context: context,
                     fontSize: 12,
                     fontWeight: FontWeight.normal)
               ],

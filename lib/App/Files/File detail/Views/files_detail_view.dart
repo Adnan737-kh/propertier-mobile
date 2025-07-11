@@ -44,10 +44,10 @@ class FilesDetailView extends GetView<FilesDetailViewModel> {
                   buttonColor: AppColor.greenColor,
                   textColor: AppColor.white),
               getHeight(context, 0.015),
-              appText(
+              CustomText(
                 textAlign: TextAlign.start,
                 title: context.local.post_your_property,
-                context: context,
+
                 fontSize: 14,
                 color: AppColor.facebookColor,
               ),
@@ -109,16 +109,15 @@ class FilesDetailView extends GetView<FilesDetailViewModel> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  appText(
+                  CustomText(
                       title: context.local.location,
-                      fontSize: 12,
-                      context: context),
+                      fontSize: 12),
                   getHeight(context, 0.008),
-                  appText(
+                  const CustomText(
                       title:
                           "Bahria Town Sector F, near main Masjid, Street # 32",
                       fontSize: 12,
-                      context: context,
+
                       colorOpecity: 0.7),
                   divider(context: context),
                 ],
@@ -127,15 +126,15 @@ class FilesDetailView extends GetView<FilesDetailViewModel> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  appText(
+                  CustomText(
                       title: context.local.facilities,
                       fontSize: 12,
-                      context: context),
+                     ),
                   getHeight(context, 0.008),
-                  appText(
+                  const CustomText(
                       title: "Electricity, gas, Water etc",
                       fontSize: 12,
-                      context: context,
+
                       colorOpecity: 0.7),
                   divider(context: context),
                 ],
@@ -144,23 +143,21 @@ class FilesDetailView extends GetView<FilesDetailViewModel> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  appText(
+                  CustomText(
                       title: context.local.develop_satiation,
-                      fontSize: 12,
-                      context: context),
+                      fontSize: 12,),
                   getHeight(context, 0.008),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      appText(
+                      CustomText(
                           title: "NOC(Approved From CDA)",
                           fontSize: 12,
-                          context: context,
+
                           colorOpecity: 0.7),
-                      appText(
+                      CustomText(
                           title: "0651",
                           fontSize: 12,
-                          context: context,
                           colorOpecity: 0.7),
                     ],
                   ),

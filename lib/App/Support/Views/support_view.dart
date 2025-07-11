@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -25,17 +27,16 @@ class SupportView extends StatelessWidget {
                 onTap: () {
                   Get.back();
                 },
-                title: "Support"),
+                title: context.local.support),
             getHeight(context, 0.360),
             Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  appText(
-                    title: "To See Support visit \nPropertier Website.",
+                  CustomText(
+                    title: context.local.to_see_support_visit_propertier_website,
                     fontSize: 16,
                     colorOpecity: 0.7,
-                    context: context,
                   ),
                   GestureDetector(
                     onTap: () async {
@@ -45,17 +46,18 @@ class SupportView extends StatelessWidget {
                       if (await canLaunchUrl(Uri.parse(url))) {
                         await launchUrl(Uri.parse(url));
                       } else {
-                        print("URL can't be launched.");
+                        if (kDebugMode) {
+                          print("URL can't be launched.");
+                        }
                       }
                     },
                     child: Padding(
                       padding: EdgeInsets.all(context.getSize.width * 0.008),
-                      child: appText(
-                        title: "Visit Propertier website?",
+                      child: CustomText(
+                        title: context.local.visit_propertier_website,
                         color: AppColor.facebookColor,
                         fontSize: 14,
                         colorOpecity: 0.7,
-                        context: context,
                       ),
                     ),
                   )

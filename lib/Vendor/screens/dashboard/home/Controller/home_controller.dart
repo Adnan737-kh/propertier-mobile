@@ -1,8 +1,8 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:propertier/App/Home/Services/home_services.dart';
 import 'package:propertier/App/Services/Service/ServicesCore.dart';
 import 'package:propertier/Network/api_urls.dart';
 import 'package:propertier/Vendor/screens/dashboard/home/Model/home_model.dart';
@@ -31,26 +31,37 @@ class WebSocketController extends GetxController {
   void connectToWebSocket() {
     try {
       String url = "${API.listenOrderByCustomer}${selectedService.value}/";
-      print("**starting**");
-      print(url);
+      if (kDebugMode) {
+        print("**starting**");
+        print(url);
+      }
+
       channel = WebSocketChannel.connect(
         Uri.parse(url),
       );
 
       channel.stream.listen(
         (data) {
-          print("data is here");
+          if (kDebugMode) {
+            print("data is here");
+          }
           handleWebSocketData(data);
         },
         onError: (error) {
-          print('WebSocket Error: ${error.hashCode},');
+          if (kDebugMode) {
+            print('WebSocket Error: ${error.hashCode},');
+          }
         },
         onDone: () {
-          print('WebSocket connection closed.');
+          if (kDebugMode) {
+            print('WebSocket connection closed.');
+          }
         },
       );
     } catch (e) {
-      print('Error connecting to WebSocket: $e');
+      if (kDebugMode) {
+        print('Error connecting to WebSocket: $e');
+      }
     }
   }
 
@@ -58,7 +69,9 @@ class WebSocketController extends GetxController {
  void handleWebSocketData(dynamic data) {
   try {
     final jsonData = jsonDecode(data);
-    print("here is order data: $jsonData");
+    if (kDebugMode) {
+      print("here is order data: $jsonData");
+    }
     if (jsonData is Map && jsonData.containsKey('bids')) {
       final bidsData = jsonData['bids'] as List;
 
@@ -68,7 +81,9 @@ class WebSocketController extends GetxController {
       onlineBids.addAll(newBids);
     }
   } catch (e) {
-    print('Error parsing WebSocket data: $e');
+    if (kDebugMode) {
+      print('Error parsing WebSocket data: $e');
+    }
   }
 }
 
@@ -77,7 +92,7 @@ class WebSocketController extends GetxController {
   }
 
   Future<UserData?> getUser(String id)async{
-    return await Homeservice().getUser(id);
+    return await HomeService().getUser(id);
   }
 
 

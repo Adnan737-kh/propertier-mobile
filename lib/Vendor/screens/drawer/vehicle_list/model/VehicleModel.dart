@@ -45,7 +45,7 @@ class VehicleModel {
     if (json['images'] != null) {
       images = <Images>[];
       json['images'].forEach((v) {
-        images!.add(new Images.fromJson(v));
+        images!.add( Images.fromJson(v));
       });
     }
     createdAt = json['created_at'];
@@ -53,23 +53,23 @@ class VehicleModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['make'] = this.make;
-    data['model'] = this.model;
-    data['year'] = this.year;
-    data['registration_number'] = this.registrationNumber;
-    data['color'] = this.color;
-    data['owner_name'] = this.ownerName;
-    data['capacity'] = this.capacity;
-    data['fuel_type'] = this.fuelType;
-    data['transmission_type'] = this.transmissionType;
-    data['vendor'] = this.vendor;
-    if (this.images != null) {
-      data['images'] = this.images!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
+    data['id'] = id;
+    data['make'] = make;
+    data['model'] = model;
+    data['year'] = year;
+    data['registration_number'] = registrationNumber;
+    data['color'] = color;
+    data['owner_name'] = ownerName;
+    data['capacity'] = capacity;
+    data['fuel_type'] =fuelType;
+    data['transmission_type'] = transmissionType;
+    data['vendor'] = vendor;
+    if (images != null) {
+      data['images'] = images!.map((v) => v.toJson()).toList();
     }
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
     return data;
   }
 }
@@ -77,7 +77,7 @@ class VehicleModel {
 class Images {
   int? id;
   String? imageUrl;
-  Null? description;
+  Null description;
   String? uploadedAt;
 
   Images({this.id, this.imageUrl, this.description, this.uploadedAt});
@@ -90,11 +90,11 @@ class Images {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['image_url'] = this.imageUrl;
-    data['description'] = this.description;
-    data['uploaded_at'] = this.uploadedAt;
+    final Map<String, dynamic> data =  Map<String, dynamic>();
+    data['id'] = id;
+    data['image_url'] = imageUrl;
+    data['description'] = description;
+    data['uploaded_at'] = uploadedAt;
     return data;
   }
 }

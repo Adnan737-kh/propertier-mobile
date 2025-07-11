@@ -10,9 +10,8 @@ Widget drawerTile(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          appText(
+          CustomText(
               title: title,
-              context: context,
               color: Colors.white,
               fontSize: 16,
               fontWeight: FontWeight.normal),

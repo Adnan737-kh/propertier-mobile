@@ -102,18 +102,18 @@ class LoginViewModel extends GetxController {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Gap(context.width * 0.10),
-                          appText(
+                          CustomText(
                               title: "Opps !",
                               fontSize: 17,
                               color: Colors.red,
                               fontWeight: FontWeight.bold,
-                              context: context),
+                              ),
                           Gap(context.width * 0.10),
-                          appText(
+                          CustomText(
                               title: "Invalid Credentials",
                               // title: e.toString(),
                               color: AppColor.darkGreyColor,
-                              context: context),
+                              ),
                           Gap(context.width * 0.10),
                           Padding(
                             padding:
@@ -129,7 +129,7 @@ class LoginViewModel extends GetxController {
                       ),
                     ),
                   ),
-                  Align(
+                  const Align(
                       alignment: Alignment.topCenter,
                       //  child: Image.asset(height: 84, Constant.rerdCross)
                       )

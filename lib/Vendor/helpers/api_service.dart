@@ -9,6 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 import 'package:propertier/Network/api_urls.dart';
+import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/Vendor/screens/Auth/Service/auth_service.dart';
 import 'package:propertier/Vendor/screens/dashboard/Posts/add_post/Model/title_model.dart';
 import 'package:propertier/Vendor/screens/dashboard/dashboard.dart';
@@ -28,72 +29,83 @@ class ApiService {
   Future<String?> getVendorUserId() async {
     var currentUser = await AuthService().getCurrentUser();
 
-    if (currentUser != null) { 
+    if (currentUser != null) {
       var userList = currentUser.users;
 
       var vendorUser = userList?.firstWhere((user) => user.type == "vendor");
 
       if (vendorUser != null) {
-        print('User with type "vendor" found:');
-        print('ID: ${vendorUser.id}');
+        if (kDebugMode) {
+          print('User with type "vendor" found:');
+          print('ID: ${vendorUser.id}');
+        }
 
         final box = GetStorage();
         await box.write('vendorUserId', vendorUser.id.toString());
-        print('Vendor ID written to storage: ${vendorUser.id}');
+        if (kDebugMode) {
+          print('Vendor ID written to storage: ${vendorUser.id}');
+        }
 
-        return vendorUser.id.toString(); 
+        return vendorUser.id.toString();
       } else {
-        print('No user with type "vendor" found.');
+        if (kDebugMode) {
+          print('No user with type "vendor" found.');
+        }
         return null;
       }
     } else {
-      print('No current user found.');
+      if (kDebugMode) {
+        print('No current user found.');
+      }
       return null;
     }
   }
 
-Future<ProfileModel> fetchProfile(String vendorUserId) async {
-  try {
-   
-    final String apiUrl = '${API.fetchProfile}/$vendorUserId';
+  Future<ProfileModel> fetchProfile(String vendorUserId) async {
+    try {
+      final String apiUrl = '${API.fetchProfile}/$vendorUserId';
 
-    final response = await http.get(
-      Uri.parse(apiUrl), 
-      headers: <String, String>{
+      final response =
+          await http.get(Uri.parse(apiUrl), headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer your_token_here',
-      }
-    );
+      });
 
-      print('API Request URL: $API.fetchProifle');
-      print('API Response Status: ${response.statusCode}');
-      print('API Response Bodydfdsfsdfdsf: ${response.body}');
+      if (kDebugMode) {
+        print('API Response Status: ${response.statusCode}');
+        print('API Response Body: ${response.body}');
+        print('API Request URL: $API.fetchProfile');
+      }
 
       if (response.statusCode == 200) {
         final jsonBody = jsonDecode(response.body);
         if (jsonBody is Map<String, dynamic>) {
           return ProfileModel.fromJson(jsonBody);
         } else {
-          print(
-              'Unexpected response format: expected a map, got ${jsonBody.runtimeType}');
+          if (kDebugMode) {
+            print(
+                'Unexpected response format: expected a map, got ${jsonBody.runtimeType}');
+          }
           throw Exception(
               'Unexpected response format: expected a map, got ${jsonBody.runtimeType}');
         }
       } else {
-        print('Failed to load profile: ${response.statusCode}');
+        if (kDebugMode) {
+          print('Failed to load profile: ${response.statusCode}');
+        }
         throw Exception('Failed to load profile: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error fetching profile: $e');
+      if (kDebugMode) {
+        print('Error fetching profile: $e');
+      }
       rethrow;
     }
   }
 
-
- Future<void> updateUserProfile(String vendorUserId, ProfileModel profileModel,
-     ProfileController profileController) async {
-
-     final String apiUrl = '${API.updateUserProfile}/$vendorUserId/'; 
+  Future<void> updateUserProfile(String vendorUserId, ProfileModel profileModel,
+      ProfileController profileController) async {
+    final String apiUrl = '${API.updateUserProfile}/$vendorUserId/';
 
     try {
       var request = http.MultipartRequest(
@@ -109,9 +121,10 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
           ? profileModel.address!
           : profileController.profile.value.address ?? '';
 
-      request.fields['phone_number'] = profileModel.phoneNumber?.isNotEmpty == true
-          ? profileModel.phoneNumber!
-          : profileController.profile.value.phoneNumber ?? '';
+      request.fields['phone_number'] =
+          profileModel.phoneNumber?.isNotEmpty == true
+              ? profileModel.phoneNumber!
+              : profileController.profile.value.phoneNumber ?? '';
 
       request.fields['about'] = profileModel.about?.isNotEmpty == true
           ? profileModel.about!
@@ -121,51 +134,45 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
       var response = await http.Response.fromStream(streamedResponse);
 
       if (response.statusCode != 200) {
-        throw Exception('Failed to update profile. Status: ${response.statusCode}');
+        throw Exception(
+            'Failed to update profile. Status: ${response.statusCode}');
       }
     } catch (e) {
       throw Exception('An error occurred while updating the profile: $e');
     }
   }
 
-
-   Future<void> addAwards(AwardModel awardModel) async {
-
+  Future<Map<String, dynamic>> addAwards(
+      AwardModel awardModel, String accessToken) async {
     try {
       var request = http.MultipartRequest(
         'POST',
         Uri.parse(API.addAwards),
       );
-      request.fields['vendor_id'] = awardModel.vendorId;
 
-     
+      request.headers['Authorization'] = 'Bearer $accessToken';
+
       if (awardModel.imagePath.isNotEmpty) {
         var imageFile = File(awardModel.imagePath);
         request.files.add(
-          await http.MultipartFile.fromPath(
-            'image',
-            imageFile.path,
-          ),
+          await http.MultipartFile.fromPath('image', imageFile.path),
         );
       }
 
       var streamedResponse = await request.send();
       var response = await http.Response.fromStream(streamedResponse);
 
-      if (response.statusCode != 201) {
-        throw Exception(
-            'Failed to add service. ${response.reasonPhrase}');
-      }
+      return {
+        'statusCode': response.statusCode,
+        'body': response.body,
+      };
     } catch (e) {
       throw Exception('An error occurred while adding service: $e');
     }
   }
 
-
   Future<List<AwardModel>> getAwards(String vendorUserId) async {
-
-   final String apiUrl = '${API.getAwards}/$vendorUserId';
-
+    final String apiUrl = '${API.getAwards}/$vendorUserId/';
 
     final response = await http.get(
       Uri.parse(apiUrl),
@@ -173,29 +180,41 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
 
     if (response.statusCode == 200) {
       final body = jsonDecode(response.body);
-      print(body);
+      if (kDebugMode) {
+        print('awards body!@ $body');
+      }
       final List<AwardModel> list =
           body.map<AwardModel>((award) => AwardModel.fromJson(award)).toList();
       return list;
+    } else {
+      if (kDebugMode) {
+        print('award status code ${response.statusCode}');
+        print('award body ${response.body}');
+      }
     }
     throw Exception('Error');
   }
 
   Future<List<ServiceModel>> getServices(String vendorUserId) async {
-
-      final String apiUrl = '${API.getServices}/$vendorUserId';
-    print('Request URL: $url');
+    final String apiUrl = '${API.getServices}/$vendorUserId';
+    if (kDebugMode) {
+      print('Request URL: $url');
+    }
 
     final response = await http.get(
       Uri.parse(apiUrl),
     );
 
-    print('Response Status Code: ${response.statusCode}');
-    print('Response Body: ${response.body}');
+    if (kDebugMode) {
+      print('Response Body: ${response.body}');
+      print('Response Status Code: ${response.statusCode}');
+    }
 
     if (response.statusCode == 200) {
       final List<dynamic> body = jsonDecode(response.body);
-      print('Parsed JSON Body: $body');
+      if (kDebugMode) {
+        print('Parsed JSON Body: $body');
+      }
 
       final List<ServiceModel> list = body
           .map<ServiceModel>((json) => ServiceModel.fromJson(json))
@@ -207,8 +226,7 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
   }
 
   Future<List<FeatureAd>> getFeaturedServices(String vendorUserId) async {
-
-  final String apiUrl = '${API.getFeaturedServices}/$vendorUserId';  
+    final String apiUrl = '${API.getFeaturedServices}/$vendorUserId';
 
     try {
       final response = await http.get(Uri.parse(apiUrl));
@@ -223,67 +241,47 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
             'Failed to load featured services. Status code: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error in getFeaturedServices: $e');
+      if (kDebugMode) {
+        print('Error in getFeaturedServices: $e');
+      }
       throw Exception('Error fetching featured services');
     }
   }
 
   Future<bool> deleteService(int serviceId) async {
+    final String apiUrl = '${API.deleteServices}/$serviceId/';
 
-   final String apiUrl = '${API.deleteServices}/$serviceId/';  
-  
-  try {
-    var response = await http.delete(
-      Uri.parse(apiUrl),
-      headers: {'Content-Type': 'application/json'},
-    );
+    try {
+      var response = await http.delete(
+        Uri.parse(apiUrl),
+        headers: {'Content-Type': 'application/json'},
+      );
 
-    print('Status Code: ${response.statusCode}');
-    print('Response Body: ${response.body}');
+      if (kDebugMode) {
+        print('Status Code: ${response.statusCode}');
+        print('Response Body: ${response.body}');
+      }
 
-    if(response.statusCode == 200 ||
+      if (response.statusCode == 200 ||
           response.statusCode == 201 ||
           response.statusCode == 204) {
-      return true; 
-    } else {
-      print('Failed to delete service. Status: ${response.statusCode}');
-      return false; 
+        return true;
+      } else {
+        if (kDebugMode) {
+          print('Failed to delete service. Status: ${response.statusCode}');
+        }
+        return false;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Exception occurred: $e');
+      }
+      return false;
     }
-  } catch (e) {
-
-    print('Exception occurred: $e');
-    return false;
   }
-}
 
   Future<bool> deleteFeaturedService(int serviceId) async {
-
-     final String apiUrl = '${API.deleteFeaturedService}/$serviceId/';  
-
-    try {
-      var response = await http.delete(
-        Uri.parse(apiUrl),
-        headers: {'Content-Type': 'application/json'},
-      );
-
-      if (response.statusCode == 200 ||
-          response.statusCode == 201 ||
-          response.statusCode == 204) {
-        return true;
-      } else {
-     
-        print('Failed to delete service. Status code: ${response.statusCode}');
-        return false;
-      }
-    } catch (e) {
-      print('An error occurred while deleting the service: $e');
-      return false;
-    }
-  }
-
-  Future<bool> deleteAward(int awardId) async {
-
-     final String apiUrl = '${API.deleteAward}/$awardId/';  
+    final String apiUrl = '${API.deleteFeaturedService}/$serviceId/';
 
     try {
       var response = await http.delete(
@@ -296,28 +294,62 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
           response.statusCode == 204) {
         return true;
       } else {
- 
-        print('Failed to delete Awards. Status code: ${response.statusCode}');
+        if (kDebugMode) {
+          print(
+              'Failed to delete service. Status code: ${response.statusCode}');
+        }
         return false;
       }
     } catch (e) {
-
-      print('An error occurred while deleting the Awards: $e');
+      if (kDebugMode) {
+        print('An error occurred while deleting the service: $e');
+      }
       return false;
     }
   }
 
-  Future<void> updateCoverPicture(String vendorUserId, File imageFile,String firebaseid, String email) async {
+  Future<bool> deleteAward(int awardId, String accessToken) async {
+    final String apiUrl = '${API.deleteAward}/$awardId/';
 
-     final String apiUrl = '${API.updateCoverPicture}/$vendorUserId/';  
+    try {
+      var response = await http.delete(
+        Uri.parse(apiUrl),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $accessToken',
+        },
+      );
+
+      if (response.statusCode == 200 ||
+          response.statusCode == 201 ||
+          response.statusCode == 204) {
+        return true;
+      } else {
+        if (kDebugMode) {
+          print('Failed to delete Awards. Status code: ${response.statusCode}');
+          print(
+              'Failed to delete Awards. Response Body code: ${response.body}');
+        }
+        return false;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('An error occurred while deleting the Awards: $e');
+      }
+      return false;
+    }
+  }
+
+  Future<void> updateCoverPicture(String vendorUserId, File imageFile,
+      String firebaseid, String email) async {
+    final String apiUrl = '${API.updateCoverPicture}/$vendorUserId/';
 
     try {
       var request = http.MultipartRequest(
         'PATCH',
         Uri.parse(apiUrl),
       )..files.add(
-          await http.MultipartFile.fromPath('cover_photo', imageFile.path)
-        );
+          await http.MultipartFile.fromPath('cover_photo', imageFile.path));
 
       request.fields['type'] = "vendor";
       request.fields['firebase_id'] = firebaseid;
@@ -326,16 +358,17 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
       var response = await request.send();
 
       if (response.statusCode != 200) {
-        throw Exception('Failed to update cover picture. Status: ${response.statusCode}');
+        throw Exception(
+            'Failed to update cover picture. Status: ${response.statusCode}');
       }
     } catch (e) {
       throw Exception('An error occurred while updating the cover picture: $e');
     }
   }
 
-  Future<void> updateDrivingLicense( File? front, File? back, String vendorUserId, String firebaseid, String email) async {
-
-     final String apiUrl = '${API.updateCoverPicture}/$vendorUserId/';
+  Future<void> updateDrivingLicense(File? front, File? back,
+      String vendorUserId, String firebaseid, String email) async {
+    final String apiUrl = '${API.updateCoverPicture}/$vendorUserId/';
 
     try {
       var request = http.MultipartRequest(
@@ -343,7 +376,7 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
         Uri.parse(apiUrl),
       );
 
-      if(front != null){
+      if (front != null) {
         request.files.add(
           await http.MultipartFile.fromPath(
             'driving_licence_front',
@@ -352,7 +385,7 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
         );
       }
 
-      if(back != null){
+      if (back != null) {
         request.files.add(
           await http.MultipartFile.fromPath(
             'driving_licence_back',
@@ -361,7 +394,6 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
         );
       }
 
-
       request.fields['type'] = "vendor";
       request.fields['firebase_id'] = firebaseid;
       request.fields['email'] = email;
@@ -369,7 +401,8 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
       var response = await request.send();
 
       if (response.statusCode != 200) {
-        throw Exception('Failed to update cover picture. Status: ${response.statusCode}');
+        throw Exception(
+            'Failed to update cover picture. Status: ${response.statusCode}');
       }
     } catch (e) {
       throw Exception('An error occurred while updating the cover picture: $e');
@@ -377,11 +410,9 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
   }
 
   Future<bool> uploadCnicImages(File cnicFront) async {
-
     try {
-      var request = http.MultipartRequest(
-          'PUT',
-          Uri.parse( API.uploadCnicImages));
+      var request =
+          http.MultipartRequest('PUT', Uri.parse(API.uploadIDCardImages));
 
       request.files.add(await http.MultipartFile.fromPath(
           'cnic_front_url', cnicFront.path,
@@ -392,21 +423,27 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
       if (response.statusCode == 200) {
         return true;
       } else {
-        print('Failed to upload image. Status code: ${response.statusCode}');
+        if (kDebugMode) {
+          print('Failed to upload image. Status code: ${response.statusCode}');
+        }
         response.stream.transform(utf8.decoder).listen((value) {
-          print(value);
+          if (kDebugMode) {
+            print(value);
+          }
         });
         return false;
       }
     } catch (e) {
-      print('Error uploading image: $e');
+      if (kDebugMode) {
+        print('Error uploading image: $e');
+      }
       return false;
     }
   }
 
   Future<Earning> fetchEarningData(String vendorUserId) async {
-
-     final String apiUrl = '${API.fetchEarningData}/$vendorUserId/earnings-summary';  
+    final String apiUrl =
+        '${API.fetchEarningData}/$vendorUserId/earnings-summary';
 
     try {
       final response = await http.get(
@@ -416,76 +453,119 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
       if (response.statusCode == 200) {
         return Earning.fromJson(json.decode(response.body));
       } else {
-        throw Exception('Failed to load earning data. Status: ${response.statusCode}');
+        throw Exception(
+            'Failed to load earning data. Status: ${response.statusCode}');
       }
     } catch (e) {
       throw Exception('An error occurred while fetching earning data: $e');
     }
   }
 
-
   Future<void> postWithFeaturePackage(
     AddPostModel postModel,
     List<File> selectedImage,
     File? selectedVideo,
-    String vendorUserId,
-    String featurePackageId,
+    String accessToken,
   ) async {
     try {
+      // Show loading dialog
       Get.dialog(
         const Center(child: CircularProgressIndicator()),
         barrierDismissible: false,
       );
-
 
       var request = http.MultipartRequest(
         'POST',
         Uri.parse(API.postWithoutFeaturePackage),
       );
 
-      request.fields['vendor_id'] = vendorUserId;
-      request.fields['service_id'] = postModel.serviceId;
+      request.headers['Authorization'] = 'Bearer $accessToken';
+
+      // Set fields
       request.fields['title'] = postModel.title;
+      request.fields['description'] = postModel.description;
+      request.fields['youtube_video_url'] = postModel.youtubeVideoUrl;
+      request.fields['pricing_model'] = postModel.pricingType;
+      request.fields['rate'] = postModel.price;
       request.fields['visiting_charges'] = postModel.visitingCharges;
-      request.fields['fixed_price'] = postModel.fixedPrice;
-      // request.fields['video_url'] = postModel.videoUrl;
+      request.fields['service_radius'] = postModel.serviceRadius;
 
-      for (var service in postModel.selectedSubServices) {
-        request.fields['selected_sub_services'] = service;
+      // Set availability schedule if available
+      if (postModel.availability != null) {
+        request.fields['availability_schedule'] = jsonEncode({
+          "schedule_type": "recurring",
+          "timezone": "Asia/Karachi",
+          "recurring_availability":
+              postModel.availability?.map((a) => a.toJson()).toList() ?? []
+        });
       }
 
-      for(File f in selectedImage){
-        request.files.add(await http.MultipartFile.fromPath(
-          'images',
-          f.path,
-        ));
-      }
-
+      // Attach short video if present
       if (selectedVideo != null) {
         request.files.add(await http.MultipartFile.fromPath(
           'short_video',
           selectedVideo.path,
         ));
+      } else if (postModel.shortVideo.value != null) {
+        request.files.add(await http.MultipartFile.fromPath(
+          'short_video',
+          postModel.shortVideo.value!.path,
+        ));
       }
 
+      // Attach images
+      for (var image in selectedImage) {
+        request.files.add(await http.MultipartFile.fromPath(
+          'images',
+          image.path,
+        ));
+      }
+
+      // Send the request
       var response = await request.send();
       var responseBody = await response.stream.bytesToString();
-      print(response.statusCode);
+
+      // Close loading dialog if open
+      if (Get.isDialogOpen ?? false) {
+        Get.back();
+      }
+
       if (response.statusCode == 200 || response.statusCode == 201) {
         var responseData = jsonDecode(responseBody);
-        var vendorServiceId = responseData['id'].toString();
+        if (kDebugMode) {
+          print('[postWithFeaturePackage] → Success: $responseData');
+        }
 
-        await callNewApi(vendorServiceId, featurePackageId, selectedImage.first.path);
+        Get.toNamed(AppRoutes.vendorDashBoard);
+        // Show success message after short delay
+        Future.delayed(const Duration(milliseconds: 300), () {
+          Get.snackbar('Success', 'Post uploaded successfully');
+        });
       } else {
-        Get.back();
-          Get.snackbar(
-            'Error', 'You have already added a post in this category.');
+        if (kDebugMode) {
+          print(
+              '[postWithFeaturePackage] → Failed with status ${response.statusCode}');
+          print('[postWithFeaturePackage] → Response Body: $responseBody');
+        }
 
-            //  remove featurepackageid add here 
+        Future.delayed(const Duration(milliseconds: 300), () {
+          Get.snackbar(
+              'Error', 'You have already added a post in this category.');
+        });
       }
-    } catch (e) {
-      Get.back();
-      Get.snackbar('Error', 'An error occurred: $e');
+    } catch (e, stackTrace) {
+      if (Get.isDialogOpen ?? false) {
+        Get.back();
+      }
+
+      if (kDebugMode) {
+        print('[postWithFeaturePackage] → Exception: $e');
+        print('[postWithFeaturePackage] → StackTrace: $stackTrace');
+      }
+
+      Future.delayed(const Duration(milliseconds: 300), () {
+        Get.snackbar('Error', 'An unexpected error occurred: $e');
+      });
     }
   }
 
@@ -500,7 +580,7 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
         Uri.parse(API.postWithFeaturePackage),
       );
 
-      newRequest.fields['vendor_service_id']= vendorServiceId;
+      newRequest.fields['vendor_service_id'] = vendorServiceId;
       newRequest.fields['feature_package_id'] = featurePackageId;
 
       newRequest.files.add(await http.MultipartFile.fromPath(
@@ -515,10 +595,11 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
         box.remove('featurePackageId');
         Get.back();
         Get.offAll(() => const Dashboard());
-            Get.snackbar('Success', 'Post added successfully with fetaure package');
+        Get.snackbar('Success', 'Post added successfully with fetaure package');
       } else {
         Get.back();
-        Get.snackbar('Error', 'Failed to call the new API. Status: ${newResponse.statusCode}');
+        Get.snackbar('Error',
+            'Failed to call the new API. Status: ${newResponse.statusCode}');
       }
     } catch (e) {
       Get.back();
@@ -531,6 +612,7 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
     List<File> selectedImage,
     File? selectedVideo,
     String vendorUserId,
+    String accessToken,
   ) async {
     try {
       Get.dialog(
@@ -543,25 +625,26 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
         Uri.parse(API.postWithoutFeaturePackage),
       );
 
+      request.headers['Authorization'] = 'Bearer $accessToken';
       request.fields['vendor_id'] = vendorUserId;
-      request.fields['service_id'] = postModel.serviceId;
+      request.fields['service_id'] = postModel.description;
       request.fields['title'] = postModel.title;
       request.fields['visiting_charges'] = postModel.visitingCharges;
-      request.fields['fixed_price'] = postModel.fixedPrice;
-        // request.fields['video_url'] = postModel.videoUrl;
+      request.fields['fixed_price'] = postModel.price;
+      // request.fields['video_url'] = postModel.videoUrl;
 
-      for (var service in postModel.selectedSubServices) {
-        request.fields['selected_sub_services'] = service;
-      }
+      // for (var service in postModel.selectedSubServices) {
+      //   request.fields['selected_sub_services'] = service;
+      // }
 
-      for(File f in selectedImage){
+      for (File f in selectedImage) {
         request.files.add(await http.MultipartFile.fromPath(
           'images',
           f.path,
         ));
       }
 
-       if (selectedVideo != null) {
+      if (selectedVideo != null) {
         request.files.add(await http.MultipartFile.fromPath(
           'short_video',
           selectedVideo.path,
@@ -569,12 +652,16 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
       }
 
       var response = await request.send();
-       var body = await response.stream.bytesToString();
-       print(response.statusCode);
-       print(body);
+      var body = await response.stream.bytesToString();
+      if (kDebugMode) {
+        print(body);
+        print(response.statusCode);
+      }
       Get.back();
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print('Post added successfully without feature package');
+        if (kDebugMode) {
+          print('Post added successfully without feature package');
+        }
         Get.snackbar('Success', 'Post added successfully');
         Get.offAll(() => const Dashboard());
       } else {
@@ -583,14 +670,15 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
       }
     } catch (e) {
       Get.back();
-      print("Error: $e");
+      if (kDebugMode) {
+        print("Error: $e");
+      }
       Get.snackbar('Error', 'An error occurred while adding the post');
     }
   }
 
-
- Future<int?> submitFeaturePackage(Map<String, dynamic> featurePackageJson) async {
-
+  Future<int?> submitFeaturePackage(
+      Map<String, dynamic> featurePackageJson) async {
     try {
       final response = await http.post(
         Uri.parse(API.submitFeaturePackage),
@@ -601,20 +689,26 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print('Feature package submitted successfully: ${response.body}');
+        if (kDebugMode) {
+          print('Feature package submitted successfully: ${response.body}');
+        }
 
         final responseData = jsonDecode(response.body);
         return responseData['id'];
       } else {
-        print('Failed to submit feature package: ${response.statusCode} - ${response.body}');
+        if (kDebugMode) {
+          print(
+              'Failed to submit feature package: ${response.statusCode} - ${response.body}');
+        }
         return null;
       }
     } catch (e) {
-      print('Error submitting feature package: $e');
+      if (kDebugMode) {
+        print('Error submitting feature package: $e');
+      }
       return null;
     }
   }
-  
 
   Future<List<dynamic>> fetchParentServices() async {
     final url = Uri.parse(API.fetchParentServices);
@@ -626,7 +720,8 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
     }
   }
 
-  Future<List<TitleModel>> fetchTitlesForParentService(String parentServiceName) async {
+  Future<List<TitleModel>> fetchTitlesForParentService(
+      String parentServiceName) async {
     final url = Uri.parse(API.fetchParentServices);
     final response = await http.get(url);
 
@@ -658,40 +753,36 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
     }
   }
 
-
   // Fetch Vendor Feedbacks
   Future<List<Review>> fetchVendorFeedbacks(String vendorUserId) async {
-
-    final String apiUrl = '${API.fetchVendorFeedbacks}/$vendorUserId';  
+    final String apiUrl = '${API.fetchVendorFeedbacks}/$vendorUserId';
 
     final response = await http.get(
       Uri.parse(apiUrl),
     );
 
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}'); 
+    if (kDebugMode) {
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+    }
 
     if (response.statusCode == 200) {
       try {
         List<dynamic> jsonData = json.decode(response.body);
-        if (jsonData is List) {
-          return jsonData.map((json) => Review.fromJson(json)).toList();
-        } else {
-          throw Exception('Invalid JSON format');
-        }
+        return jsonData.map((json) => Review.fromJson(json)).toList();
       } catch (e) {
         throw Exception('Error parsing response data: $e');
       }
     } else {
-      throw Exception('Failed to load vendor feedbacks, status code: ${response.statusCode}');
+      throw Exception(
+          'Failed to load vendor feedbacks, status code: ${response.statusCode}');
     }
   }
 
-   // Update CNIC Document
-  Future<http.Response> uploadCnicDocument(
-      File cnicFront, File cnicBack, String vendorUserId, String firebaseId, String email, String type) async {
-
-     final String apiUrl = '${API.uploadDocuments}/$vendorUserId/';  
+  // Update CNIC Document
+  Future<http.Response> uploadCnicDocument(File cnicFront, File cnicBack,
+      String vendorUserId, String firebaseId, String email, String type) async {
+    final String apiUrl = '${API.uploadDocuments}/$vendorUserId/';
 
     var request = http.MultipartRequest(
       'PUT',
@@ -700,18 +791,19 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
       ..fields['firebase_id'] = firebaseId
       ..fields['email'] = email
       ..fields['type'] = type
-      ..files.add(await http.MultipartFile.fromPath('cnic_front', cnicFront.path))
-      ..files.add(await http.MultipartFile.fromPath('cnic_back', cnicBack.path));
+      ..files
+          .add(await http.MultipartFile.fromPath('cnic_front', cnicFront.path))
+      ..files
+          .add(await http.MultipartFile.fromPath('cnic_back', cnicBack.path));
 
     var streamedResponse = await request.send();
     return await http.Response.fromStream(streamedResponse);
   }
 
   // Generic Document Upload
-  Future<http.Response> uploadDocument(
-      File file, String documentType, String vendorUserId, String firebaseId, String email, String type) async {
-
-    final String apiUrl = '${API.uploadDocuments}/$vendorUserId/';  
+  Future<http.Response> uploadDocument(File file, String documentType,
+      String vendorUserId, String firebaseId, String email, String type) async {
+    final String apiUrl = '${API.uploadDocuments}/$vendorUserId/';
 
     var request = http.MultipartRequest(
       'PUT',
@@ -726,9 +818,8 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
     return await http.Response.fromStream(streamedResponse);
   }
 
-
-    // Send Incorporation and Sole Proprietor Documents
-   Future<http.Response> sendDocuments({
+  // Send Incorporation and Sole Proprietor Documents
+  Future<http.Response> sendDocuments({
     required String vendorUserId,
     required String firebaseId,
     required String email,
@@ -736,9 +827,7 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
     required File incorporateDocument,
     required File soleProprietorDocument,
   }) async {
-
-     final String apiUrl = '${API.inCoProDocuments}/$vendorUserId/';
-
+    final String apiUrl = '${API.inCoProDocuments}/$vendorUserId/';
 
     var request = http.MultipartRequest(
       'PUT',
@@ -750,44 +839,55 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
     request.fields['type'] = type;
 
     request.files.add(
-      await http.MultipartFile.fromPath('incorporate_document', incorporateDocument.path),
+      await http.MultipartFile.fromPath(
+          'incorporate_document', incorporateDocument.path),
     );
     request.files.add(
-      await http.MultipartFile.fromPath('sole_propertiier_document', soleProprietorDocument.path),
+      await http.MultipartFile.fromPath(
+          'sole_propertiier_document', soleProprietorDocument.path),
     );
 
     var streamedResponse = await request.send();
     return await http.Response.fromStream(streamedResponse);
   }
 
-
-
   Future<List<VehicleModel>> fetchMyVehicles(String vendorId) async {
     List<VehicleModel> vehicles = [];
-    try{
+    try {
       final url = Uri.parse("${API.getVendorVehicles}$vendorId/");
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
         List<dynamic> data = json.decode(response.body);
-        for(var d in data){
+        for (var d in data) {
           VehicleModel vehicleModel = VehicleModel.fromJson(d);
           // print(vehicleModel.images?.length);
           vehicles.add(vehicleModel);
         }
-
       } else {
         throw Exception('Failed to load titles for the service');
       }
-    }
-    catch(e){
-      print("Error ::: $e");
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error ::: $e");
+      }
     }
 
     return vehicles;
   }
 
-  Future<http.Response> addVehicle({required String vendorid,required String make, required String model, required String color, required String name, required String capacity, required String fuelType, required String registrationNumber, required String year, required String transmissionType, required List<String> images})async{
+  Future<http.Response> addVehicle(
+      {required String vendorid,
+      required String make,
+      required String model,
+      required String color,
+      required String name,
+      required String capacity,
+      required String fuelType,
+      required String registrationNumber,
+      required String year,
+      required String transmissionType,
+      required List<String> images}) async {
     const String apiUrl = API.addVehicles;
 
     var request = http.MultipartRequest(
@@ -805,19 +905,19 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
       ..fields['fuel_type'] = fuelType
       ..fields['transmission_type'] = transmissionType;
 
-
-    for(String img in images){
-      request.files.add(
-          await http.MultipartFile.fromPath('images', img));
+    for (String img in images) {
+      request.files.add(await http.MultipartFile.fromPath('images', img));
     }
 
     var streamedResponse = await request.send();
-    print(streamedResponse.statusCode);
-    return  await http.Response.fromStream(streamedResponse);
+    if (kDebugMode) {
+      print(streamedResponse.statusCode);
+    }
+    return await http.Response.fromStream(streamedResponse);
   }
 
-  Future updateVendorLocation(LatLng latlng, String id)async{
-    try{
+  Future updateVendorLocation(LatLng latlng, String id) async {
+    try {
       String url = "${API.updateVendorLocation}$id/";
       final Map<String, dynamic> data = {
         "latitude_position": latlng.latitude,
@@ -831,19 +931,10 @@ Future<ProfileModel> fetchProfile(String vendorUserId) async {
         headers: <String, String>{'Content-Type': 'application/json'},
         body: encodedData,
       );
-    }
-    catch(e){
+    } catch (e) {
       if (kDebugMode) {
         print(e);
       }
     }
   }
 }
-
-
-
-
-
-
-
-

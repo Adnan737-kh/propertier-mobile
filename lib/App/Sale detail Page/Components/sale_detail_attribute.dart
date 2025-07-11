@@ -9,8 +9,8 @@ Widget saleDetailAtribute({
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      appText(title: title, context: context),
-      appText(title: data, context: context, fontSize: 10, colorOpecity: 0.7)
+      CustomText(title: title, ),
+      CustomText(title: data, fontSize: 10, colorOpecity: 0.7)
     ],
   );
 }

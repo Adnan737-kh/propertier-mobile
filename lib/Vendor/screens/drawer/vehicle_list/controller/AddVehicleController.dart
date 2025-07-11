@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -51,14 +50,14 @@ class AddVehicleController extends GetxController{
 
       if(modelController.text == "" || modelController.text == "" || yearController.text == "" || colorController.text == "" || ownerNameController.text == "" || capacityController.text == "" || fuelTypeController.text == "" || transmissionTypeController.text == "" ){
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('All field required.')),
+          const SnackBar(content: Text('All field required.')),
         );
         return;
       }
 
       if(galleryImage.isEmpty){
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Images required.')),
+          const SnackBar(content: Text('Images required.')),
         );
         return;
       }
@@ -67,7 +66,7 @@ class AddVehicleController extends GetxController{
 
       if(response.statusCode == 201){
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Vehicle Added.')),
+          const SnackBar(content: Text('Vehicle Added.')),
         );
         Get.back();
       }

@@ -7,6 +7,7 @@ import 'package:propertier/Utils/appbar.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/Utils/textStyle.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 class MonetizationView extends StatelessWidget {
@@ -32,11 +33,10 @@ class MonetizationView extends StatelessWidget {
                 onTap: () {
                   Get.back();
                 },
-                title: 'Monetization'),
+                title: context.local.monetization),
             getHeight(context, 0.2),
-            appText(
-                title: 'Followers',
-                context: context,
+            CustomText(
+                title: context.local.followers,
                 fontSize: 20,
                 fontWeight: FontWeight.w500,
                 colorOpecity: 0.8),
@@ -65,12 +65,11 @@ class MonetizationView extends StatelessWidget {
                             color: AppColor.primaryColor.withOpacity(0.7),
                             fontSize: 16,
                             fontWeight: FontWeight.w400),
-                        text: ' Followers',
+                        text: context.local.followers,
                       )
                     ])),
-                appText(
+                const CustomText(
                   title: '1 K',
-                  context: context,
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                   colorOpecity: 0.6,
@@ -78,9 +77,8 @@ class MonetizationView extends StatelessWidget {
               ],
             ),
             getHeight(context, 0.030),
-            appText(
-                title: 'Watch Time',
-                context: context,
+            CustomText(
+                title:context.local.watch_time,
                 fontSize: 20,
                 fontWeight: FontWeight.w500,
                 colorOpecity: 0.8),
@@ -104,9 +102,8 @@ class MonetizationView extends StatelessWidget {
                       fontWeight: FontWeight.w500),
                   text: '189',
                 )),
-                appText(
+                const CustomText(
                   title: '365 Days',
-                  context: context,
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                   colorOpecity: 0.6,

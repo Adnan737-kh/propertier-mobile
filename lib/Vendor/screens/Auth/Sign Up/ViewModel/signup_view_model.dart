@@ -14,7 +14,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:propertier/App/What%20are%20you%20searching/ViewModel/what_are_viewmodel.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
-import 'package:propertier/Vendor/screens/Auth/Login/Model/user_login_model/user_login_model.dart';
 import 'package:propertier/Vendor/screens/Auth/Service/auth_service.dart';
 import 'package:propertier/Vendor/screens/Auth/Sign%20Up/Services/signup_services.dart';
 import 'package:propertier/constant/toast.dart';
@@ -281,7 +280,7 @@ class SignUpViewModel extends GetxController {
               firebaseID: user.uid,
               phoneNumber: user.phoneNumber ?? "");
           if (isSuccessData != null) {
-            await AuthService().registerUser(isSuccessData as UserLoginModel, user.email!).then(
+            await AuthService().registerUser(isSuccessData, user.email!).then(
               (value) {
                 isGoogleSigninLoading.value = false;
                 toast(title: "Success in signup", context: context);

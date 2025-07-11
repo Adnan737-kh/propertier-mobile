@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:propertier/Network/api_urls.dart';
-import 'package:propertier/constant/constant.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class VendorWalletController extends GetxController{
@@ -84,7 +83,7 @@ class VendorWalletController extends GetxController{
 
   Future walletTestPayment(int amount)async{
     try{
-      String url = "${API.walletTestPayment}";
+      String url = API.walletTestPayment;
 
       var encodedBody = jsonEncode({
         'user_id': vendorUserId,

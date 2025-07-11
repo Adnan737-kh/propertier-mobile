@@ -16,7 +16,7 @@ Widget rentalCustomButton(
     double radius = 10,
     double height = 0,
     double width = 0,
-    IconData? icondata,
+    IconData? iconData,
     FontWeight fontWeight = FontWeight.w500}) {
   var context = Get.context!;
   return GestureDetector(
@@ -44,22 +44,21 @@ Widget rentalCustomButton(
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            icondata != null
+            iconData != null
                 ? Padding(
                     padding: const EdgeInsets.only(right: 8.0),
                     child: Icon(
-                      icondata,
+                      iconData,
                       color: iconColor,
                       size: 28,
                     ),
                   )
                 : const Gap(0),
             Center(
-              child: appText(
+              child: CustomText(
                   fontFamily: "rozha one",
                   title: title,
                   fontSize: fontSize,
-                  context: context,
                   color: textColor,
                   fontWeight: FontWeight.bold),
             ),

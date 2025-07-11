@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import '../../../App/Profile/Model/profile_model.dart';
-import '../../../Network/api_urls.dart';
 import '../../../data/network/network_api_services.dart';
 import '../../../res/app_urls/app_url.dart';
 
@@ -19,9 +16,8 @@ class ProfileViewRepository {
   Future<ProfileModel> viewServicesProfileDetails(String agentID) async {
     ProfileModel profileDetailModel = ProfileModel();
     dynamic response = await _apiServices.getApi(
-      '${AppUrls.servicesProfileDetailUrl}/$agentID/', // Corrected string interpolation
+      '${AppUrls.servicesProfileDetailUrl}/$agentID/',
     );
-    print("response from shortVideo Profile $response");
     final decodedJson = response;
     profileDetailModel = ProfileModel.fromJson(decodedJson);
     return profileDetailModel;

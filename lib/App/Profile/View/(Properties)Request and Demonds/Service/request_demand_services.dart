@@ -18,12 +18,12 @@ class RequestDemandServices {
       final response = await http.get(uri);
       if (response.statusCode == 200) {
         responsed = CRequests.fromJson(jsonDecode(response.body));
-        toast(title: 'Successfully', context: context);
+        CustomToast.show(title: 'Successfully', context: context);
       } else {
-        toast(title: 'Something went wrong', context: context);
+        CustomToast.show(title: 'Something went wrong', context: context);
       }
     } catch (e) {
-      toast(title: 'Something went wrong', context: context);
+      CustomToast.show(title: 'Something went wrong', context: context);
     }
     return responsed;
   }

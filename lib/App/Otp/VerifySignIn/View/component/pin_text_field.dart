@@ -10,7 +10,7 @@ import 'package:propertier/extensions/size_extension.dart';
 class VerifySigninPinField extends StatelessWidget {
   final int pinLength;
   final Function(String) onComplete;
-  VeifySigninViewModel viewModel;
+  VerifySignInViewModel viewModel;
 
   VerifySigninPinField(
       {super.key,
@@ -42,8 +42,7 @@ class VerifySigninPinField extends StatelessWidget {
                 },
                 // _onDigitPressed(index),
                 child: Obx(
-                  () => appText(
-                    context: context,
+                  () => CustomText(
                     fontSize: 14,
                     title: viewModel.pin[index].isNotEmpty
                         ? viewModel.pin[index]

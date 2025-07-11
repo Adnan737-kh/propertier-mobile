@@ -53,9 +53,8 @@ Widget topSellingListTile(BuildContext context,
                     fontWeight: FontWeight.w500,
                     color: AppColor.blackColor),
                 title: architecture.title),
-            appText(
+            CustomText(
                 title: architecture.time,
-                context: context,
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
                 colorOpecity: 0.8)
@@ -69,10 +68,9 @@ Widget topSellingListTile(BuildContext context,
           children: [
             SizedBox(
               width: context.getSize.width * 0.3,
-              child: appText(
+              child: CustomText(
                   textAlign: TextAlign.start,
                   title: context.local.basicPrice,
-                  context: context,
                   fontSize: 12,
                   fontWeight: FontWeight.w500),
             ),
@@ -95,10 +93,9 @@ Widget topSellingListTile(BuildContext context,
           children: [
             SizedBox(
               width: context.getSize.width * 0.3,
-              child: appText(
+              child: CustomText(
                   textAlign: TextAlign.start,
                   title: "${context.local.location}: ",
-                  context: context,
                   fontSize: 12,
                   fontWeight: FontWeight.w500),
             ),
@@ -122,10 +119,9 @@ Widget topSellingListTile(BuildContext context,
                 children: [
                   SizedBox(
                     width: context.getSize.width * 0.3,
-                    child: appText(
+                    child: CustomText(
                         textAlign: TextAlign.start,
                         title: "${context.local.area}: ",
-                        context: context,
                         fontSize: 12,
                         fontWeight: FontWeight.w500),
                   ),
@@ -157,10 +153,9 @@ Widget topSellingListTile(BuildContext context,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(42),
                         color: AppColor.buttonColor),
-                    child: appText(
+                    child: CustomText(
                         color: AppColor.white,
                         title: context.local.talk,
-                        context: context,
                         fontSize: 12,
                         fontWeight: FontWeight.w600),
                   )),
@@ -178,10 +173,9 @@ Widget topSellingListTile(BuildContext context,
                         ),
                         borderRadius: BorderRadius.circular(42),
                         color: AppColor.buttonColor.withOpacity(0.2)),
-                    child: appText(
+                    child: CustomText(
                         color: AppColor.buttonColor,
                         title: context.local.detail,
-                        context: context,
                         fontSize: 12,
                         fontWeight: FontWeight.w600),
                   )),

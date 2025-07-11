@@ -58,7 +58,7 @@ class ServiceProviderProfile extends GetView<ServiceProviderProfileViewModel> {
                               ""
                           : ""),
                   getHeight(context, 0.015),
-                  SPPrewardsAndAppricationTile(context, controller),
+                  sPPrewardsAndAppricationTile(context, controller),
                   getHeight(context, 0.015),
                   profileInformationTile(
                       context,
@@ -68,9 +68,8 @@ class ServiceProviderProfile extends GetView<ServiceProviderProfileViewModel> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      appText(
+                      CustomText(
                         title: context.local.properties,
-                        context: context,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
@@ -88,9 +87,8 @@ class ServiceProviderProfile extends GetView<ServiceProviderProfileViewModel> {
                                     .toString()
                               });
                         },
-                        child: appText(
-                          title: context.local.viewMore,
-                          context: context,
+                        child: CustomText(
+                          title: context.local.view_more,
                           color: AppColor.greenColor,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -143,7 +141,9 @@ class ServiceProviderProfile extends GetView<ServiceProviderProfileViewModel> {
                     : 0
                 : 0,
         itemBuilder: (context, index) {
-          return sPPpropertiesTile(
+          print(
+              " property image ${controller.serviceProviderProfileModel.value.properties![index].image}");
+          return propertiesTile(
               context: context,
               controller: controller,
               user: controller

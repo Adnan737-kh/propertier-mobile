@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/constant/toast.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 import '../../../../../Utils/appbar.dart';
 import '../../../../../constant/AppButton/text_button.dart';
@@ -16,173 +17,96 @@ class VerificationView extends StatelessWidget {
   const VerificationView({super.key});
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<VerficationViewModel>(builder: (verificationVM) {
-      return Scaffold(
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+    final verificationVM = Get.find<VerificationViewModel>();
+
+    return Obx(() {
+      return verificationVM.isLoading.value
+          ? const Scaffold(
+        body: Center(child: CircularProgressIndicator(
+          color: AppColor.buttonColor,
+        )),
+      )
+          : Scaffold(
         resizeToAvoidBottomInset: true,
         body: Container(
-          padding: const EdgeInsets.only(
-            left: 0,
-            right: 0,
-          ),
+          padding: const EdgeInsets.only(left: 0, right: 0),
           child: Form(
-            key: verificationVM.formKey,
+            key: formKey,
             child: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: context.getSize.width * 0.060),
+                  horizontal: context.getSize.width * 0.060,
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     getHeight(context, 0.065),
                     customAppBar(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        context: context,
-                        onTap: () {
-                          Get.back();
-                        },
-                        title: 'Verification'),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      context: context,
+                      onTap: () => Get.back(),
+                      title: context.local.verification,
+                    ),
                     getHeight(context, 0.045),
                     verifyTile(
-                      title: "Email",
-                      verify: (() {
-                        switch (verificationVM.emailVerificationStatus.value) {
-                          case 'pending':
-                            return "pending";
-                          case 'unverified':
-                            return "unverified";
-                          case 'verified':
-                            return "verified";
-                          default:
-                            return "unknown";
-                        }
-                      })(),
-                      onTap: () {
-                        switch (verificationVM.emailVerificationStatus.value) {
-                          case 'pending':
-                            return toast(
-                                title: "Email Verification in Progress",
-                                context: context);
-                          case 'unverified':
-                            return Get.toNamed(AppRoutes.emailVerificationView);
-                          case 'verified':
-                            return toast(
-                                title: "Your Email is Already Verified",
-                                context: context);
-                          default:
-                            return Get.toNamed(AppRoutes
-                                .emailVerificationView); // Handle any unknown status
-                        }
-                      },
+                      title: context.local.email,
+                      verify: _getVerificationStatus(verificationVM.emailVerificationStatus.value),
+                      onTap: () => _handleButtonTap(
+                        context,
+                        verificationVM.emailVerificationStatus.value,
+                        context.local.email_verification_in_progress,
+                        context.local.your_email_is_already_verified,
+                        AppRoutes.emailVerificationView,
+                      ),
                     ),
                     const Gap(5),
                     verifyTile(
-                      title: "Number",
-                      verify: (() {
-                        switch (verificationVM.numberVerificationStatus.value) {
-                          case 'pending':
-                            return "pending";
-                          case 'unverified':
-                            return "unverified";
-                          case 'verified':
-                            return "verified";
-                          default:
-                            return "unknown";
-                        }
-                      })(),
-                      onTap: () {
-                        switch (verificationVM.numberVerificationStatus.value) {
-                          case 'pending':
-                            return toast(
-                                title: "Phone Number Verification in Progress",
-                                context: context);
-                          case 'unverified':
-                            return Get.toNamed(
-                                AppRoutes.numberVerificationView);
-                          case 'verified':
-                            return toast(
-                                title: "Your Phone Number is Already Verified",
-                                context: context);
-                          default:
-                            return Get.toNamed(AppRoutes
-                                .numberVerificationView); // Handle any unknown status
-                        }
-                      },
+                      title:context. local.number,
+                      verify: _getVerificationStatus(verificationVM.numberVerificationStatus.value),
+                      onTap: () => _handleButtonTap(
+                        context,
+                        verificationVM.numberVerificationStatus.value,
+                        context.local.phone_number_verification_in_progress,
+                        context.local.your_phone_number_is_already_verified,
+                        AppRoutes.numberVerificationView,
+                      ),
                     ),
                     const Gap(5),
                     verifyTile(
-                      title: "ID Card",
-                      verify: (() {
-                        switch (verificationVM.idCardVerificationStatus.value) {
-                          case 'pending':
-                            return "pending"; // Return "pending" if status is 'pending'
-                          case 'unverified':
-                            return "unverified"; // Return "unverified" if status is 'unverified'
-                          case 'verified':
-                            return "verified"; // Return "verified" if status is 'verified'
-                          default:
-                            return "unknown"; // Handle any unknown status
-                        }
-                      })(),
-                      onTap: () {
-                        switch (verificationVM.idCardVerificationStatus.value) {
-                          case 'pending':
-                            return toast(
-                                title: "ID Card Verification in Progress",
-                                context: context);
-                          case 'unverified':
-                            return Get.toNamed(AppRoutes.idVerificationView);
-                          case 'verified':
-                            return toast(
-                                title: "Your ID Card is Already Verified",
-                                context: context);
-                          default:
-                            return Get.toNamed(AppRoutes
-                                .idVerificationView); // Handle any unknown status
-                        }
-                      },
-                    ),verifyTile(
-                      title: "Face Verification",
-                      verify: (() {
-                        switch (verificationVM.selfieVerificationStatus.value) {
-                          case 'pending':
-                            return "pending"; // Return "pending" if status is 'pending'
-                          case 'unverified':
-                            return "unverified"; // Return "unverified" if status is 'unverified'
-                          case 'verified':
-                            return "verified"; // Return "verified" if status is 'verified'
-                          default:
-                            return "unknown"; // Handle any unknown status
-                        }
-                      })(),
-                      onTap: () {
-                        switch (verificationVM.selfieVerificationStatus.value) {
-                          case 'pending':
-                            return toast(
-                                title: "Face Verification Verification in Progress",
-                                context: context);
-                          case 'unverified':
-                            return Get.toNamed(AppRoutes.faceRecognitionView);
-                          case 'verified':
-                            return toast(
-                                title: "Your Face Verification is Already Verified",
-                                context: context);
-                          default:
-                            return Get.toNamed(AppRoutes
-                                .faceRecognitionView); // Handle any unknown status
-                        }
-                      },
+                      title: context. local.id_card,
+                      verify: _getVerificationStatus(verificationVM.idCardVerificationStatus.value),
+                      onTap: () => _handleButtonTap(
+                        context,
+                        verificationVM.idCardVerificationStatus.value,
+                        context.local.id_card_verification_in_progress,
+                        context.local.your_id_card_is_already_verified,
+                        AppRoutes.idVerificationView,
+                      ),
                     ),
+                    verifyTile(
+                      title: context.local.face_verification,
+                      verify: _getVerificationStatus(verificationVM.selfieVerificationStatus.value),
+                      onTap: () => _handleButtonTap(
+                        context,
+                        verificationVM.selfieVerificationStatus.value,
+                       context.local.face_Verification_in_progress,
+                        context.local.your_face_is_already_verified,
+                        AppRoutes.faceRecognitionView,
+                      ),
+                    ),
+
                     getHeight(context, 0.06),
                     Row(
                       children: [
                         Expanded(
                           child: customTextButton(
                             onTap: () async {
-                              // Get.toNamed(AppRoutes.verifySigningView);
+                              // Save logic
                             },
                             buttonColor: AppColor.buttonColor,
-                            title: 'Save',
+                            title: context.local.save,
                             textColor: AppColor.blackColor,
                           ),
                         ),
@@ -197,26 +121,32 @@ class VerificationView extends StatelessWidget {
       );
     });
   }
-}
 
-// const Gap(5),
-// VerifyTile(
-//     title: "Incorporation",
-//     verify: false,
-//     onTap: () =>
-//         Get.toNamed(AppRoutes.incorporationVerificationView)),
-// const Gap(5),
-// VerifyTile(
-//   title: "Address Verification",
-//   verify: false,
-// ),
-// const Gap(5),
-// VerifyTile(
-//     title: "Text Document",
-//     verify: false,
-//     onTap: () =>
-//         Get.toNamed(AppRoutes.documentsVerificationView)),
-// const Gap(5),
-// VerifyTile(title: "Face Verification", verify: false,
-//     onTap: () =>
-//         Get.toNamed(AppRoutes.faceRecognitionView )),
+  String _getVerificationStatus(String status) {
+    switch (status) {
+      case 'pending':
+      case 'unverified':
+      case 'verified':
+        return status;
+      default:
+        return 'unknown';
+    }
+  }
+
+  void _handleButtonTap(BuildContext context, String status,String pendingMessage,String verifiedMessage,String route) {
+    switch (status) {
+      case 'pending':
+        toast(title: pendingMessage, context: context);
+        break;
+      case 'unverified':
+        Get.offNamed(route);
+        break;
+      case 'verified':
+        toast(title: verifiedMessage, context: context);
+        break;
+      default:
+        Get.offNamed(AppRoutes.emailVerificationView);
+    }
+  }
+
+}

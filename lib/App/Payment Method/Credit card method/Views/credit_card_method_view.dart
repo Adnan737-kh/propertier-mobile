@@ -39,11 +39,10 @@ class CreditPaymentMethodView extends GetView<CreditCardMethodViewModel> {
                   },
                 ),
                 getHeight(context, 0.045),
-                appText(
+                CustomText(
                     textAlign: TextAlign.start,
                     title:
                         "Lorem ipsum dolor sit amet consectetur. Diam scelerisque fermentum lectus turpis senectus. Eget sed auctor leo egestas.",
-                    context: context,
                     fontSize: 14,
                     colorOpecity: 0.4),
                 getHeight(context, 0.026),
@@ -115,8 +114,7 @@ class CreditPaymentMethodView extends GetView<CreditCardMethodViewModel> {
                       controller: controller.cVV,
                       width: context.getSize.width * 0.5,
                       suffix: const InfoPopupWidget(
-                        contentTitle:
-                            "it's a three digit number\n written with CVV or CVC",
+                        contentTitle: "it's a three digit number\n written with CVV or CVC",
                         child: Icon(
                           Icons.info_outline_rounded,
                           size: 17,
@@ -135,8 +133,8 @@ class CreditPaymentMethodView extends GetView<CreditCardMethodViewModel> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    appText(title: "Total Amount", context: context),
-                    appText(title: "100M", context: context, fontSize: 10),
+                    CustomText(title: "Total Amount"),
+                    CustomText(title: "100M", fontSize: 10),
                   ],
                 ),
                 getHeight(context, 0.015),

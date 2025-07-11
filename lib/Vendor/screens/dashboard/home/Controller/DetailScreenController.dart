@@ -68,7 +68,7 @@ class DetailScreenController extends GetxController{
       longitude.value = position.longitude;
       markers.add(
           Marker(
-            markerId: MarkerId('start'),
+            markerId: const MarkerId('start'),
             position: LatLng(latitude.value, longitude.value),
           )
       );
@@ -81,12 +81,12 @@ class DetailScreenController extends GetxController{
 
   Future addOffer(String bidId)async{
     if(amount.value == ""){
-      Get.showSnackbar(GetSnackBar(title: "Amount required", message: "Enter your offer",));
+      Get.showSnackbar(const GetSnackBar(title: "Amount required", message: "Enter your offer",));
       return;
     }
-    bool res = await Homeservice().AddOffer(bidId, amount.value, "-");
+    bool res = await HomeService().addOffer(bidId, amount.value, "-");
     if(res){
-      Get.showSnackbar(GetSnackBar(title: "Successfull", message: "Bid placed.",));
+      Get.showSnackbar(const GetSnackBar(title: "Successfull", message: "Bid placed.",));
       Get.back();
     }
   }

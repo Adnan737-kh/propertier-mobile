@@ -293,14 +293,14 @@ class WhatAreYouSearchViewModel extends GetxController {
         description: descriptionController.text,
         city: selectedPlace,
         area: "${areaValue.value}",
-        max_price: priceValue.value.end
+        maxPrice: priceValue.value.end
             .toString()
             .substring(0, priceValue.value.end.toString().indexOf(".")),
-        min_price: priceValue.value.start
+        minPrice: priceValue.value.start
             .toString()
             .substring(0, priceValue.value.start.toString().indexOf(".")),
         agent: user.value.id!.toString(),
-        area_unit: "marla",
+        areaUnit: "marla",
         latitude: latitude.toString(),
         longitude: longitude.toString(),
         size: selectSize,

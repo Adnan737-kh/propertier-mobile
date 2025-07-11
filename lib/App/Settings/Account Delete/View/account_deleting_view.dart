@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:propertier/App/Settings/Account%20Delete/Services/service.dart';
 import 'package:propertier/constant/colors.dart';
-// import 'package:your_app_name/services/api_service.dart'; // Import your API service
+import 'package:propertier/extensions/localization_extension.dart';
+
+import '../view_model/account_delete_view_model.dart';
 
 class AccountDeletionScreen extends StatelessWidget {
-  const AccountDeletionScreen({super.key});
+  AccountDeletionScreen({super.key});
+  final AccountDeleteViewModel controller = Get.put(AccountDeleteViewModel());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         foregroundColor: AppColor.primaryColor,
-        title: const Text('Delete Account'),
+        title: Text(context.local.delete_account),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -21,23 +22,25 @@ class AccountDeletionScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'We\'re sorry to see you go',
+              context.local.we_re_sorry_to_see_you_go,
               style: Theme.of(context).textTheme.headlineLarge,
             ),
             const SizedBox(height: 16),
             Text(
-              'Before you proceed with deleting your account, please note:',
+              context.local
+                  .before_you_proceed_with_deleting_your_account_please_note,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 16),
-            _buildBulletPoint(
-                'All your personal information and data will be permanently removed.'),
-            _buildBulletPoint(
-                'Your profile, saved preferences, and history will be erased.'),
-            _buildBulletPoint('This action cannot be undone.'),
+            _buildBulletPoint(context.local
+                .all_your_personal_information_and_data_will_be_permanently_removed),
+            _buildBulletPoint(context.local
+                .your_profile_saved_preferences_and_history_will_be_erased),
+            _buildBulletPoint(context.local.this_action_cannot_be_undone),
             const SizedBox(height: 24),
             Text(
-              'If you\'re sure you want to delete your account, please click the button below. Otherwise, you can simply close this screen to keep your account active.',
+              context.local
+                  .if_you_re_sure_you_want_to_delete_your_account_please_click_the_button_below,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 32),
@@ -49,13 +52,13 @@ class AccountDeletionScreen extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                 ),
-                child: const Text('Delete My Account'),
+                child: Text(context.local.delete_my_account),
               ),
             ),
             const SizedBox(height: 16),
             Center(
               child: Text(
-                'Thank you for being a part of our community.',
+                context.local.thank_you_for_being_a_part_of_our_community,
                 style: Theme.of(context).textTheme.bodySmall,
                 textAlign: TextAlign.center,
               ),
@@ -83,31 +86,32 @@ class AccountDeletionScreen extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Confirm Account Deletion'),
-          content: const Text(
-              'Are you absolutely sure you want to delete your account? This action cannot be undone.'),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Cancel'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: const Text('Delete', style: TextStyle(color: Colors.red)),
-              onPressed: () {
-                AccountDeleteApi()
-                    .doAccountDelete(
-                        context: context,
-                        id: GetStorage().read("id").toString())
-                    .then((value) {
-                  Get.back();
-                });
-              },
-            ),
-          ],
-        );
+        return Obx(() => AlertDialog(
+              title: Text(context.local.confirm_account_deletion),
+              content: Text(context.local
+                  .are_you_absolutely_sure_you_want_to_delete_your_account_This_action_cannot_be_undone),
+              actions: <Widget>[
+                TextButton(
+                  child: Text(context.local.cancel),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                controller.isLoading.value
+                    ? const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: CircularProgressIndicator(),
+                      )
+                    : TextButton(
+                        child: Text(context.local.delete,
+                            style: const TextStyle(color: Colors.red)),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          controller.requestDeleteAccount();
+                        },
+                      ),
+              ],
+            ));
       },
     );
   }

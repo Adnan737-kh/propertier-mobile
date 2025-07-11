@@ -3,46 +3,46 @@ import 'package:propertier/App/Services/Model/services_model.dart';
 // Model
 class ServiceDashboardModel {
   List<ParentServicesModel>? randomServices;
-  List<SellingServices>? topsellingServices;
+  List<SellingServices>? topSellingServices;
   List<SellingServices>? nearbyServices;
 
   ServiceDashboardModel(
-      {this.randomServices, this.topsellingServices, this.nearbyServices});
+      {this.randomServices, this.topSellingServices, this.nearbyServices});
 
   ServiceDashboardModel.fromJson(Map<String, dynamic> json) {
     if (json['random_services'] != null) {
       randomServices = <ParentServicesModel>[];
       json['random_services'].forEach((v) {
-        randomServices!.add(new ParentServicesModel.fromJson(v));
+        randomServices!.add( ParentServicesModel.fromJson(v));
       });
     }
     if (json['top_selling_services'] != null) {
-      topsellingServices = <SellingServices>[];
+      topSellingServices = <SellingServices>[];
       json['top_selling_services'].forEach((v) {
-        topsellingServices!.add(new SellingServices.fromJson(v));
+        topSellingServices!.add( SellingServices.fromJson(v));
       });
     }
     if (json['nearby_services'] != null) {
       nearbyServices = <SellingServices>[];
       json['nearby_services'].forEach((v) {
-        nearbyServices!.add(new SellingServices.fromJson(v));
+        nearbyServices!.add( SellingServices.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.randomServices != null) {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    if (randomServices != null) {
       data['random_services'] =
-          this.randomServices!.map((v) => v.toJson()).toList();
+          randomServices!.map((v) => v.toJson()).toList();
     }
-    if (this.topsellingServices != null) {
+    if (topSellingServices != null) {
       data['top_selling_services'] =
-          this.topsellingServices!.map((v) => v.toJson()).toList();
+          topSellingServices!.map((v) => v.toJson()).toList();
     }
-    if (this.nearbyServices != null) {
+    if (nearbyServices != null) {
       data['nearby_services'] =
-          this.nearbyServices!.map((v) => v.toJson()).toList();
+          nearbyServices!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -68,19 +68,19 @@ class ServicePaginationModel {
     if (json['results'] != null) {
       results = <SellingServices>[];
       json['results'].forEach((v) {
-        results!.add(new SellingServices.fromJson(v));
+        results!.add( SellingServices.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['total'] = this.total;
-    data['page'] = this.page;
-    data['limit'] = this.limit;
-    data['total_pages'] = this.totalPages;
-    if (this.results != null) {
-      data['results'] = this.results!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
+    data['total'] = total;
+    data['page'] = page;
+    data['limit'] = limit;
+    data['total_pages'] = totalPages;
+    if (results != null) {
+      data['results'] = results!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -89,7 +89,7 @@ class ServicePaginationModel {
 
 
 
-class Subservices {
+class SubServices {
   int? id;
   String? title;
   String? description;
@@ -100,7 +100,7 @@ class Subservices {
   String? parentServiceName;
   int? parentService;
 
-  Subservices(
+  SubServices(
       {this.id,
         this.title,
         this.description,
@@ -111,7 +111,7 @@ class Subservices {
         this.parentServiceName,
         this.parentService});
 
-  Subservices.fromJson(Map<String, dynamic> json) {
+  SubServices.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     description = json['description'];
@@ -124,16 +124,16 @@ class Subservices {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['description'] = this.description;
-    data['cover_image_url'] = this.coverImageUrl;
-    data['icon_url'] = this.iconUrl;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['parent_service_name'] = this.parentServiceName;
-    data['parent_service'] = this.parentService;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = id;
+    data['title'] = title;
+    data['description'] = description;
+    data['cover_image_url'] = coverImageUrl;
+    data['icon_url'] = iconUrl;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['parent_service_name'] = parentServiceName;
+    data['parent_service'] = parentService;
     return data;
   }
 }
@@ -144,7 +144,7 @@ class SellingServices {
   Service? service;
   bool? isFeatured;
   String? title;
-  List<String>? imageUrls;
+  List<String>? images;
   String? videoUrl;
   String? shortVideoUrl;
   int? likes;
@@ -160,7 +160,7 @@ class SellingServices {
         this.service,
         this.isFeatured,
         this.title,
-        this.imageUrls,
+        this.images,
         this.videoUrl,
         this.shortVideoUrl,
         this.likes,
@@ -173,12 +173,12 @@ class SellingServices {
   SellingServices.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     vendor =
-    json['vendor'] != null ? new Vendor.fromJson(json['vendor']) : null;
+    json['vendor'] != null ?  Vendor.fromJson(json['vendor']) : null;
     service =
-    json['service'] != null ? new Service.fromJson(json['service']) : null;
+    json['service'] != null ? Service.fromJson(json['service']) : null;
     isFeatured = json['is_featured'];
     title = json['title'];
-    imageUrls = json['image_urls'].cast<String>();
+    images = (json['images'] ?? []).cast<String>();
     videoUrl = json['video_url'];
     shortVideoUrl = json['short_video_url'];
     likes = json['likes'];
@@ -186,29 +186,29 @@ class SellingServices {
     visitingCharges = json['visiting_charges'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    selectedSubServices = json['selected_sub_services'].cast<int>();
+    selectedSubServices = (json['selected_sub_services'] ?? []).cast<int>();
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    if (this.vendor != null) {
-      data['vendor'] = this.vendor!.toJson();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
+    data['id'] = id;
+    if (vendor != null) {
+      data['vendor'] = vendor!.toJson();
     }
-    if (this.service != null) {
-      data['service'] = this.service!.toJson();
+    if (service != null) {
+      data['service'] = service!.toJson();
     }
-    data['is_featured'] = this.isFeatured;
-    data['title'] = this.title;
-    data['image_urls'] = this.imageUrls;
-    data['video_url'] = this.videoUrl;
-    data['short_video_url'] = this.shortVideoUrl;
-    data['likes'] = this.likes;
-    data['fixed_price'] = this.fixedPrice;
-    data['visiting_charges'] = this.visitingCharges;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['selected_sub_services'] = this.selectedSubServices;
+    data['is_featured'] = isFeatured;
+    data['title'] = title;
+    data['image_urls'] = images;
+    data['video_url'] = videoUrl;
+    data['short_video_url'] = shortVideoUrl;
+    data['likes'] = likes;
+    data['fixed_price'] = fixedPrice;
+    data['visiting_charges'] = visitingCharges;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['selected_sub_services'] = selectedSubServices;
     return data;
   }
 }
@@ -236,12 +236,12 @@ class Vendor {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['profile_picture_url'] = this.profilePictureUrl;
-    data['phone_number'] = this.phoneNumber;
-    data['email'] = this.email;
+    final Map<String, dynamic> data =  Map<String, dynamic>();
+    data['id'] = id;
+    data['name'] = name;
+    data['profile_picture_url'] = profilePictureUrl;
+    data['phone_number'] = phoneNumber;
+    data['email'] = email;
     return data;
   }
 }
@@ -250,7 +250,7 @@ class Service {
   int? id;
   String? title;
   String? description;
-  String? coverImageUrl;
+  // String? coverImageUrl;
   String? imageUrl;
   String? rating;
 
@@ -258,7 +258,7 @@ class Service {
       {this.id,
         this.title,
         this.description,
-        this.coverImageUrl,
+        // this.coverImageUrl,
         this.imageUrl,
         this.rating});
 
@@ -266,19 +266,19 @@ class Service {
     id = json['id'];
     title = json['title'];
     description = json['description'];
-    coverImageUrl = json['cover_image_url'];
-    imageUrl = json['image_url'];
+    // coverImageUrl = json['cover_image_url'];
+    imageUrl = json['image'];
     rating = json['rating'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['description'] = this.description;
-    data['cover_image_url'] = this.coverImageUrl;
-    data['image_url'] = this.imageUrl;
-    data['rating'] = this.rating;
+    final Map<String, dynamic> data =  Map<String, dynamic>();
+    data['id'] = id;
+    data['title'] = title;
+    data['description'] = description;
+    // data['cover_image_url'] = coverImageUrl;
+    data['image'] = imageUrl;
+    data['rating'] = rating;
     return data;
   }
 }

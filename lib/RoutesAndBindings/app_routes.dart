@@ -5,6 +5,7 @@ abstract class AppRoutes {
   static const servicesProviderView = '/servicesProvider';
   static const navBarView = '/navBar';
   static const homeView = '/home';
+  static const updateView = '/updates';
   static const loginView = '/login';
   static const userNotLoginView = '/userNotLogin';
   static const signUpView = '/signUp';
@@ -12,6 +13,7 @@ abstract class AppRoutes {
   static const newPasswordView = '/newPassword';
   static const joinAsView = '/joinAs';
   static const editProfileView = '/editProfileView';
+  static const changePasswordView = '/changePasswordView';
   static const verificationView = '/verificationView';
   static const accountStatusView = '/accountstatus';
   static const earningsView = '/earnings';
@@ -58,7 +60,7 @@ abstract class AppRoutes {
   static const shortVideoView = '/shortVideo';
   static const playerView = '/player';
   static const videoDetailView = '/videoDetail';
-  static const detailView = '/detailview';
+  static const propertyDetailView = '/detailview';
   static const servicesSearchView = '/servicesSearch';
   static const servicesSearch2View = '/servicesSearch2';
   static const servicesMapView = '/servicesMap';
@@ -92,6 +94,7 @@ abstract class AppRoutes {
   static const vendorWallet = '/VendorWallet';
   static const allParentServices = '/AllParentServices';
   static const serviceForm = '/ServiceForm';
+  static const vendorAddPostScreen = '/vendorAddPostScreen';
   static const vendorForm = '/VendorForm';
   static const editVendorForm = '/EditVendorForm';
   static const transportServiceForm = '/TransportServiceForm';

@@ -74,12 +74,12 @@ class EditProfileServices  {
         final decodedData = jsonDecode(response.body);
         model = UserData.fromJson(decodedData);
 
-        toast(title: 'Profile Update Successfully', context: context);
+        CustomToast.show(title: 'Profile Update Successfully', context: context);
       } else {
-        toast(title: 'Something went wrong', context: context);
+        CustomToast.show(title: 'Something went wrong', context: context);
       }
     } catch (e) {
-      toast(title: 'Something went wrong', context: context);
+      CustomToast.show(title: 'Something went wrong', context: context);
     }
     return model;
   }

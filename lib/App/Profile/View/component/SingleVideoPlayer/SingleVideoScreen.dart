@@ -1,26 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:propertier/Utils/App%20Ad%20Mob/app_interstitial_ads.dart';
-import 'package:propertier/extensions/size_extension.dart';
-import 'package:propertier/extensions/tags_remove_extension.dart';
 import 'package:video_player/video_player.dart';
 import '../../../../../Model/property.dart';
-import '../../../../../RoutesAndBindings/app_routes.dart';
-import '../../../../../Utils/app_text.dart';
-import '../../../../../Utils/height_width_box.dart';
-import '../../../../../constant/colors.dart';
-import '../../../../../constant/constant.dart';
-import '../../../../Like And Unlike Service/like_unlike_services.dart';
+
 import 'SingleVideoScreenController.dart';
 
 
 class SingleVideoScreen extends StatelessWidget {
   final List<Property> properties;
   final Property property;
-  SingleVideoScreen({required this.properties, required this.property});
+  const SingleVideoScreen({super.key, required this.properties, required this.property});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +45,7 @@ class SingleVideoScreen extends StatelessWidget {
 class VideoPlayerWidget extends StatelessWidget {
   final VideoPlayerController videoController;
 
-  const VideoPlayerWidget({required this.videoController});
+  const VideoPlayerWidget({super.key, required this.videoController});
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +54,6 @@ class VideoPlayerWidget extends StatelessWidget {
       aspectRatio: videoController.value.aspectRatio,
       child: VideoPlayer(videoController),
     )
-        : Center(child: CircularProgressIndicator());
+        : const Center(child: CircularProgressIndicator());
   }
 }

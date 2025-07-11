@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -48,7 +49,9 @@ class CustomerWalletController extends GetxController{
       var response = await http.put(Uri.parse(url),
           headers: <String, String>{'Content-Type': 'application/json'},
           body: encodedData);
-      print(response.body);
+      if (kDebugMode) {
+        print(response.body);
+      }
       if(response.statusCode == 200){
         Fluttertoast.showToast(msg: "successful");
         flag = true;
@@ -57,7 +60,9 @@ class CustomerWalletController extends GetxController{
 
     }
     catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
 
     return flag;
@@ -67,25 +72,34 @@ class CustomerWalletController extends GetxController{
   Future getWallet()async{
     try{
       String url = "${API.getWallet}$customerId";
-      print(url);
+      if (kDebugMode) {
+        print(url);
+      }
       var response = await http.get(Uri.parse(url));
-      print("********* ${response.statusCode}");
-      print(response.body);
+      if (kDebugMode) {
+        print("********* ${response.statusCode}");
+        print(response.body);
+
+      }
       if(response.statusCode == 200){
         var data = jsonDecode(response.body);
         balance.value = double.parse(data['balance']??"0.0");
       }
     }
     catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
 
   Future walletTestPayment(int amount)async{
     try{
-      String url = "${API.walletTestPayment}";
-      print(url);
+      String url = API.walletTestPayment;
+      if (kDebugMode) {
+        print(url);
+      }
       var encodedBody = jsonEncode({
         'user_id': customerId,
         'amount': amount,
@@ -95,13 +109,20 @@ class CustomerWalletController extends GetxController{
         body: encodedBody,
         headers: <String, String>{'Content-Type': 'application/json'},
       );
-      print(response.statusCode);
-      print(response.body);
+      if (kDebugMode) {
+        print(response.statusCode);
+        print(response.body);
+
+      }
       if(response.statusCode == 200){
         var data = jsonDecode(response.body);
-        print(data);
+        if (kDebugMode) {
+          print(data);
+        }
         String? url = data['redirect_url'];
-        print(url);
+        if (kDebugMode) {
+          print(url);
+        }
         if(url != null){
           await openPaymentLink(url);
           double total = amount + balance.value;
@@ -111,7 +132,9 @@ class CustomerWalletController extends GetxController{
       }
     }
     catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -120,7 +143,9 @@ class CustomerWalletController extends GetxController{
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
     } else {
-      print("URL can't be launched.");
+      if (kDebugMode) {
+        print("URL can't be launched.");
+      }
     }
   }
 }

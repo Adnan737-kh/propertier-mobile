@@ -43,17 +43,15 @@ Widget incomExpenseTile(BuildContext context,
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    appText(
+                    CustomText(
                         title: isIncome == true
                             ? context.local.income
                             : context.local.expense,
-                        context: context,
                         fontSize: 10,
                         fontWeight: FontWeight.w400,
                         color: AppColor.white.withOpacity(0.7)),
-                    appText(
+                    CustomText(
                         title: ammount,
-                        context: context,
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
                         color: AppColor.white.withOpacity(1))

@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/Customer/screens/CustomerWallet/CustomerWalletController.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 import '../../../constant/colors.dart';
 
 class CustomerWallet extends GetView<CustomerWalletController>{
+  const CustomerWallet({super.key});
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
       // backgroundColor: Colors.blue.shade50,
       appBar: AppBar(
-        title: const Text("Wallet"),
-        backgroundColor: AppColor.forgroundColor,
+        title:  Text(context.local.wallet),
+        backgroundColor: AppColor.forGroundColor,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -22,48 +25,47 @@ class CustomerWallet extends GetView<CustomerWalletController>{
             // Balance Section
             Container(
               width: Get.width,
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 color: AppColor.primaryColor,
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Column(
                 children: [
-                  Text(
-                    "Wallet Balance",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+                   Text(context.local.wallet_balance,
+                    style: const TextStyle(color: Colors.white, fontSize: 18),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Obx(()=> Text(
                     "\$${controller.balance.value.toStringAsFixed(2)}",
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.white,
                         fontSize: 30,
                         fontWeight: FontWeight.bold),
                   )),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: (){
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text('Enter Amount'),
+                            title:  Text(context.local.enter_amount),
                             content: Form(
                               key: controller.formKey,
                               child: TextFormField(
                                 controller: controller.priceController,
                                 keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  labelText: 'Amount',
-                                  border: OutlineInputBorder(),
+                                decoration:  InputDecoration(
+                                  labelText: context.local.amount,
+                                  border: const OutlineInputBorder(),
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter amount';
+                                    return context.local.please_enter_amount;
                                   }
                                   if (int.tryParse(value) == null) {
-                                    return 'Please enter a valid integer';
+                                    return context.local.please_enter_a_valid_number;
                                   }
                                   return null;
                                 },
@@ -74,7 +76,7 @@ class CustomerWallet extends GetView<CustomerWalletController>{
                                 onPressed: () {
                                   Navigator.of(context).pop(); // Close the dialog
                                 },
-                                child: Text('Cancel'),
+                                child: const Text('Cancel'),
                               ),
                               ElevatedButton(
                                 onPressed: () async{
@@ -88,7 +90,7 @@ class CustomerWallet extends GetView<CustomerWalletController>{
                                     Navigator.of(context).pop(); // Close the dialog
                                   }
                                 },
-                                child: Text('Continue'),
+                                child: const Text('Continue'),
                               ),
                             ],
                           );
@@ -96,43 +98,43 @@ class CustomerWallet extends GetView<CustomerWalletController>{
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.forgroundColor,
-                      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                      backgroundColor: AppColor.forGroundColor,
+                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    child: Text("Top Up", style: TextStyle(fontSize: 16)),
+                    child: const Text("Top Up", style: TextStyle(fontSize: 16)),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
 
             // Transactions Section
             // Text(
             //   "Recent Transactions",
             //   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             // ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Expanded(
               child: ListView.builder(
                 itemCount: controller.transactions.length,
                 itemBuilder: (context, index) {
                   final transaction = controller.transactions[index];
                   return Card(
-                    margin: EdgeInsets.symmetric(vertical: 5),
+                    margin: const EdgeInsets.symmetric(vertical: 5),
                     elevation: 5,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: ListTile(
-                      contentPadding: EdgeInsets.all(15),
+                      contentPadding: const EdgeInsets.all(15),
                       leading: CircleAvatar(
                         backgroundColor: transaction["amount"]!.startsWith("+")
                             ? Colors.green
                             : Colors.red,
-                        child: Icon(
+                        child: const Icon(
                           Icons.attach_money,
                           color: Colors.white,
                         ),

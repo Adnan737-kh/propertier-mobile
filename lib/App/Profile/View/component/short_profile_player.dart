@@ -61,9 +61,9 @@ class _ShortVideoPLayerWidgetState extends State<ShortVideoPLayerWidget> {
   final _password = "".obs;
   final _email = "".obs;
 
-  var propertDetail = IsLiked().obs;
+  var propertyDetail = IsLiked().obs;
   getSpecificPropertyDetail() async {
-    propertDetail.value = await LikeAndUnlikeServices().getProperty(
+    propertyDetail.value = await LikeAndUnlikeServices().getProperty(
         agentId: widget.property.agent!.id.toString(),
         propertyId: widget.property.id!.toString());
   }
@@ -83,7 +83,7 @@ class _ShortVideoPLayerWidgetState extends State<ShortVideoPLayerWidget> {
     super.initState();
   }
 
-  double OpacityValue = 1;
+  double opacityValue = 1;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -166,12 +166,11 @@ class _ShortVideoPLayerWidgetState extends State<ShortVideoPLayerWidget> {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  Get.offNamed(AppRoutes.detailView,
+                                  Get.offNamed(AppRoutes.propertyDetailView,
                                       arguments: {
-                                        "id": widget.property.id!,
+                                        "slug": widget.property.slug!,
                                         "user": "null"
                                       });
-                                  print("clicked detail");
                                 },
                                 child: Padding(
                                   padding:
@@ -211,23 +210,21 @@ class _ShortVideoPLayerWidgetState extends State<ShortVideoPLayerWidget> {
                                       getWidth(context, 0.020),
                                       SizedBox(
                                           width: context.getSize.width * 0.7,
-                                          child: appText(
+                                          child: CustomText(
                                               fontSize: 18,
                                               overflow: TextOverflow.ellipsis,
                                               color: AppColor.white,
                                               fontWeight: FontWeight.bold,
-                                              title: widget.property.title!,
-                                              context: context))
+                                              title: widget.property.title!,))
                                     ],
                                   ),
                                 ),
                               ),
                               getHeight(context, 0.010),
-                              appText(
+                              CustomText(
                                   maxLines: 3,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.justify,
-                                  context: context,
                                   color: AppColor.white,
                                   fontWeight: FontWeight.w400,
                                   fontSize: widget.fontSize - 4,
@@ -243,7 +240,7 @@ class _ShortVideoPLayerWidgetState extends State<ShortVideoPLayerWidget> {
                       () => Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          propertDetail.value.property != null
+                          propertyDetail.value.property != null
                               ? InkWell(
                                   onTap: () async {
                                     await LikeAndUnlikeServices()
@@ -257,32 +254,31 @@ class _ShortVideoPLayerWidgetState extends State<ShortVideoPLayerWidget> {
                                         .then((value) {
                                       // getSpecificPropertyDetail();
                                       isLikeFree.value = true;
-                                      if (propertDetail.value.liked!) {
+                                      if (propertyDetail.value.liked!) {
                                         isLiked.value -= 1;
-                                        propertDetail.value.liked = false;
+                                        propertyDetail.value.liked = false;
                                       } else if (isLiked.value == 1) {
                                         isLiked.value -= 1;
-                                        propertDetail.value.liked = false;
+                                        propertyDetail.value.liked = false;
                                       } else {
-                                        propertDetail.value.liked = true;
+                                        propertyDetail.value.liked = true;
 
                                         isLiked.value += 1;
                                       }
                                     });
                                   },
-                                  child: propertDetail.value.liked!
+                                  child: propertyDetail.value.liked!
                                       ? SvgPicture.asset(Constant.heartRedFill)
                                       : SvgPicture.asset(
                                           Constant.heartUnFill,
                                         ))
                               : const Gap(0),
-                          appText(
+                          CustomText(
                               title: widget.isBackButton
-                                  ? propertDetail.value.property != null
-                                      ? "${propertDetail.value.property!.likes! + isLiked.value}"
+                                  ? propertyDetail.value.property != null
+                                      ? "${propertyDetail.value.property!.likes! + isLiked.value}"
                                       : ""
                                   : widget.property.likes!.toString(),
-                              context: context,
                               fontSize: widget.fontSize - 2,
                               fontWeight: FontWeight.w500,
                               color: AppColor.white),

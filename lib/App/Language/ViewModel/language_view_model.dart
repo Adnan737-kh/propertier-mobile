@@ -7,7 +7,7 @@ class LanguageViewModel extends GetxController {
   final _box = GetStorage();
   final _key = "langaugeCode";
   final _languageName = 'languageName';
-  List<LanguageModel> langaugesList = <LanguageModel>[
+  List<LanguageModel> languagesList = <LanguageModel>[
     LanguageModel(countryName: "US", language: "English", code: 'en'),
     LanguageModel(countryName: "Pakistan", language: "Urdu", code: 'ur'),
     LanguageModel(
@@ -49,7 +49,7 @@ class LanguageViewModel extends GetxController {
   final RxList<LanguageModel> _searchList = <LanguageModel>[].obs;
   List<LanguageModel> get searchList => _searchList.value;
   getLanguageBySearch({required String query}) {
-    _searchList.value = langaugesList
+    _searchList.value = languagesList
         .where((element) =>
             element.countryName.toLowerCase().contains(query.toLowerCase()) ||
             element.language.toLowerCase().contains(query.toLowerCase()))

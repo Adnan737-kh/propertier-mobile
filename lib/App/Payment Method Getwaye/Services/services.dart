@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
@@ -22,15 +23,14 @@ class FeaturedService {
             .toList();
       } else {
         ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-            content: appText(
+            content: CustomText(
                 title: response.body.toString(),
-                context: Get.context!,
                 color: AppColor.white)));
       }
     } catch (e) {
       ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-        content: appText(
-            title: e.toString(), context: Get.context!, color: AppColor.white),
+        content: CustomText(
+            title: e.toString(), color: AppColor.white),
       ));
     }
     return profileDetailModel;
@@ -47,8 +47,10 @@ class FeaturedService {
 
     final encodedData = jsonEncode(data);
     try {
-      String url = "${CreateFeatureAd.createFeaturedProperty}";
-      print(url);
+      String url = CreateFeatureAd.createFeaturedProperty;
+      if (kDebugMode) {
+        print(url);
+      }
       final response = await http.post(
         Uri.parse(url),
         headers: <String, String>{'Content-Type': 'application/json'},
@@ -74,8 +76,10 @@ class FeaturedService {
     bool flag = false;
 
     try {
-      String url = "${CreateFeatureAd.createFeaturedProfile}";
-      print(url);
+      String url = CreateFeatureAd.createFeaturedProfile;
+      if (kDebugMode) {
+        print(url);
+      }
 
       // Create a multipart request
       var request = http.MultipartRequest('POST', Uri.parse(url));

@@ -18,14 +18,18 @@ class AddAwardServices {
     required String accessToken,
     required String date,
   }) async {
-    print(date);
+    if (kDebugMode) {
+      print(date);
+    }
     bool response = false;
     try {
       if (kDebugMode) {
         print('user access token uploading award $accessToken');
       }
       final uri = Uri.parse(API.addAwardUrl);
-      print('url ${API.addAwardUrl}');
+      if (kDebugMode) {
+        print('url ${API.addAwardUrl}');
+      }
       final request = http.MultipartRequest('POST', uri);
       if (kDebugMode) {
         print(title);
@@ -60,15 +64,15 @@ class AddAwardServices {
       if (dataResponse.statusCode == 200 || dataResponse.statusCode == 201) {
         response = true;
 
-        toast(title: 'Award Added Successfully', context: context);
+        CustomToast.show(title: 'Award Added Successfully', context: context);
       } else {
         if (kDebugMode) {
           print('award response ${dataResponse.statusCode}');
         }
-        toast(title: 'Something went wrong', context: context);
+        CustomToast.show(title: 'Something went wrong', context: context);
       }
     } catch (e) {
-      toast(title: 'Something went wrong', context: context);
+      CustomToast.show(title: 'Something went wrong', context: context);
     }
     return response;
   }

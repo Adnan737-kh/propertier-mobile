@@ -10,14 +10,19 @@ class LoginRepository {
   }
 
   Future<dynamic> forgotPassword(var data) async {
-    dynamic response =
-        _apiServices.postApi(data, AppUrls.sendForgotPasswordOtpUrl);
+    dynamic response = _apiServices.postApi(data, AppUrls.sendForgotPasswordOtpUrl);
     return response;
   }
 
   Future<dynamic> reSetForgotPassword(var data) async {
     String resetConfirmPassword = await AppUrls.restConfirmPasswordFn;
     dynamic response = await _apiServices.postApi(data, resetConfirmPassword);
+    return response;
+  }
+
+  Future<dynamic> changePassword(var data,String accessToken) async {
+    String changePassword =  AppUrls.changePasswordUrl;
+    dynamic response = await _apiServices.putApi(data, changePassword,authToken: accessToken);
     return response;
   }
 }

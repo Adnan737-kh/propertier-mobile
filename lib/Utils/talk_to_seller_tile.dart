@@ -50,11 +50,11 @@ Widget talkToSellerTile(BuildContext context,
             padding: EdgeInsets.symmetric(
                 horizontal: context.getSize.width * 0.020,
                 vertical: context.getSize.width * 0.020),
-            child: appText(
+            child: CustomText(
                 title: context.local.talkToSeller,
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
-                context: context),
+                ),
           ),
         )
       ],

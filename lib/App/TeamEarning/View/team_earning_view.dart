@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/App/TeamEarning/View/component/lost_and_gain_indicator.dart';
 import 'package:propertier/App/TeamEarning/View/component/team_earning_circular_progress_indicator.dart';
 import 'package:propertier/Utils/app_text.dart';
@@ -8,6 +9,7 @@ import 'package:propertier/Utils/border.dart';
 import 'package:propertier/Utils/box_shadow.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 import 'package:propertier/extensions/size_extension.dart';
 
@@ -33,7 +35,7 @@ class TeamEarningView extends StatelessWidget {
                 onTap: () {
                   Get.back();
                 },
-                title: 'Team Earning'),
+                title: context.local.team_earning),
             Expanded(
                 child: Column(
               children: [
@@ -50,9 +52,8 @@ class TeamEarningView extends StatelessWidget {
                       width: context.getSize.height * 0.25,
                       decoration: const BoxDecoration(shape: BoxShape.circle),
                       alignment: Alignment.center,
-                      child: appText(
-                          title: 'Criteria',
-                          context: context,
+                      child: CustomText(
+                          title: context.local.criteria,
                           fontSize: 19,
                           colorOpecity: 0.6,
                           fontWeight: FontWeight.w600),
@@ -62,13 +63,13 @@ class TeamEarningView extends StatelessWidget {
                     width: context.getSize.width,
                     color: AppColor.buttonColor,
                     title: "1 K",
-                    subtitle: 'Followers'),
+                    subtitle: context.local.followers),
                 getHeight(context, 0.002),
                 lostAndGainTile(context,
                     width: context.getSize.width,
                     color: AppColor.lightBlueColor,
                     title: "65 K",
-                    subtitle: 'Time Watch'),
+                    subtitle: context.local.time_watch),
                 getHeight(context, 0.041),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -82,9 +83,8 @@ class TeamEarningView extends StatelessWidget {
                           alignment: Alignment.center,
                           height: context.getSize.height * 0.1,
                           width: context.getSize.height * 0.1,
-                          child: appText(
-                              title: 'All Time',
-                              context: context,
+                          child: CustomText(
+                              title: context.local.all_time,
                               colorOpecity: 0.7,
                               fontWeight: FontWeight.w400,
                               fontSize: 14),
@@ -96,13 +96,13 @@ class TeamEarningView extends StatelessWidget {
                             width: context.getSize.width * 0.5,
                             color: AppColor.lightBlueColor,
                             title: "1 K",
-                            subtitle: 'Followers Lost'),
+                            subtitle: context.local.followers_lost),
                         getHeight(context, 0.008),
                         lostAndGainTile(context,
                             width: context.getSize.width * 0.5,
                             color: AppColor.buttonColor,
                             title: "3 K",
-                            subtitle: 'Followers Gained'),
+                            subtitle: context.local.followers_gained),
                       ],
                     )
                   ],
@@ -141,16 +141,14 @@ class TeamEarningView extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              appText(
+              CustomText(
                 title: title,
-                context: context,
                 fontSize: 14,
                 colorOpecity: 0.6,
                 fontWeight: FontWeight.w500,
               ),
-              appText(
+              CustomText(
                 title: subtitle,
-                context: context,
                 fontSize: 16,
                 colorOpecity: 0.7,
                 fontWeight: FontWeight.w400,

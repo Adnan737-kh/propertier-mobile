@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/divider.dart';
-// import 'package:order_tracker_zen/order_tracker_zen.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 import '../../../../Utils/appbar.dart';
@@ -35,13 +35,14 @@ class SearchedActivityView extends GetView<SearchedActivityViewModel> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     customAppBar(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        context: context,
-                        onTap: () {
-                          Get.back();
-                        },
-                        title: 'Post You Searched For'),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      context: context,
+                      onTap: () {
+                        Get.back();
+                      },
+                      title: context.local.post_you_searched_for,
+                    ),
 
                     DropdownButtonHideUnderline(
                       child: DropdownButton2(
@@ -110,21 +111,21 @@ class SearchedActivityView extends GetView<SearchedActivityViewModel> {
                         TrackerDetails(
                           content: Column(
                             children: [
-                              Row(
+                              const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  appText(
-                                      title: "7 Marla Houser Bahria pase 8",
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w400,
-                                      context: context),
-                                  appText(
-                                      title: "01:20 Pm",
-                                      fontSize: 8,
-                                      fontWeight: FontWeight.w400,
-                                      colorOpecity: 0.6,
-                                      context: context)
+                                  CustomText(
+                                    title: "7 Marla Houser Bahria pase 8",
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  CustomText(
+                                    title: "01:20 Pm",
+                                    fontSize: 8,
+                                    fontWeight: FontWeight.w400,
+                                    colorOpecity: 0.6,
+                                  )
                                 ],
                               ),
                               getHeight(context, 0.008),
@@ -143,21 +144,20 @@ class SearchedActivityView extends GetView<SearchedActivityViewModel> {
                         TrackerDetails(
                           content: Column(
                             children: [
-                              Row(
+                              const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  appText(
+                                  CustomText(
                                       title: "7 Marla Houser Bahria pase 8",
                                       fontSize: 10,
-                                      fontWeight: FontWeight.w400,
-                                      context: context),
-                                  appText(
-                                      title: "01:20 Pm",
-                                      fontSize: 8,
-                                      fontWeight: FontWeight.w400,
-                                      colorOpecity: 0.6,
-                                      context: context)
+                                      fontWeight: FontWeight.w400),
+                                  CustomText(
+                                    title: "01:20 Pm",
+                                    fontSize: 8,
+                                    fontWeight: FontWeight.w400,
+                                    colorOpecity: 0.6,
+                                  )
                                 ],
                               ),
                               getHeight(context, 0.008),
@@ -176,21 +176,21 @@ class SearchedActivityView extends GetView<SearchedActivityViewModel> {
                         TrackerDetails(
                           content: Column(
                             children: [
-                              Row(
+                              const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  appText(
-                                      title: "7 Marla Houser Bahria pase 8",
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w400,
-                                      context: context),
-                                  appText(
-                                      title: "01:20 Pm",
-                                      fontSize: 8,
-                                      fontWeight: FontWeight.w400,
-                                      colorOpecity: 0.6,
-                                      context: context)
+                                  CustomText(
+                                    title: "7 Marla Houser Bahria pase 8",
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  CustomText(
+                                    title: "01:20 Pm",
+                                    fontSize: 8,
+                                    fontWeight: FontWeight.w400,
+                                    colorOpecity: 0.6,
+                                  )
                                 ],
                               ),
                               getHeight(context, 0.008),

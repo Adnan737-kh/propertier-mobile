@@ -7,7 +7,7 @@ class Property {
     this.price,
     this.featured,
     this.purpose,
-    this.type,
+    this.propertyType,
     this.image,
     this.bedroom,
     this.bathroom,
@@ -38,7 +38,7 @@ class Property {
   final String? price;
   final dynamic featured;
   final String? purpose;
-  final String? type;
+  final String? propertyType;
   final String? image;
   final int? bedroom;
   final int? bathroom;
@@ -64,34 +64,36 @@ class Property {
   factory Property.fromJson(Map<String, dynamic> json) {
     return Property(
       id: json["id"],
-      agent: json["agent"] == null ? null : Agent.fromJson(json["agent"]),
-      title: json["title"],
-      slug: json["slug"],
-      price: json["price"],
-      featured: json["featured"],
-      purpose: json["purpose"],
-      type: json["type"],
-      image: json["image"],
-      bedroom: json["bedroom"],
-      bathroom: json["bathroom"],
-      city: json["city"],
-      citySlug: json["city_slug"],
-      address: json["address"],
-      area: json["area"],
-      description: json["description"],
-      video: json["video"],
-      floorPlan: json["floor_plan"],
-      locationLatitude: json["location_latitude"],
-      locationLongitude: json["location_longitude"],
-      nearby: json["nearby"],
-      createdAt: DateTime.tryParse(json["created_at"] ?? ""),
-      updatedAt: DateTime.tryParse(json["updated_at"] ?? ""),
-      status: json["status"],
-      shortVideo: json["short_video"],
-      likes: json["likes"],
-      floor: json["floor"],
-      areaUnit: json["area_unit"],
-      areaType: json["area_type"],
+      agent: json["agent"] != null && json["agent"] is Map
+          ? Agent.fromJson(json["agent"])
+          : null,
+      title: json["title"] ?? '',
+      slug: json["slug"] ?? '',
+      price: json["price"] ?? '',
+      featured: json["featured"] ?? false,
+      purpose: json["purpose"] ?? '',
+      propertyType: json["property_type"] ?? '',
+      image: json["image"] ?? '',
+      bedroom: json["bedroom"] ?? 0,
+      bathroom: json["bathroom"] ?? 0,
+      city: json["city"] ?? '',
+      citySlug: json["city_slug"] ?? '',
+      address: json["address"] ?? '',
+      area: json["area"] ?? '',
+      description: json["description"] ?? '',
+      video: json["video"] ?? '',
+      floorPlan: json["floor_plan"] ?? '',
+      locationLatitude: json["location_latitude"] ?? '',
+      locationLongitude: json["location_longitude"] ?? '',
+      nearby: json["nearby"] ?? '',
+      createdAt: DateTime.tryParse(json["created_at"] ?? ''),
+      updatedAt: DateTime.tryParse(json["updated_at"] ?? ''),
+      status: json["status"] ?? '',
+      shortVideo: json["short_video"] ?? '',
+      likes: json["likes"] ?? 0,
+      floor: json["floor"] ?? '',
+      areaUnit: json["area_unit"] ?? '',
+      areaType: json["area_type"] ?? '',
     );
   }
 
@@ -103,7 +105,7 @@ class Property {
         "price": price,
         "featured": featured,
         "purpose": purpose,
-        "type": type,
+        "property_type": propertyType,
         "image": image,
         "bedroom": bedroom,
         "bathroom": bathroom,

@@ -89,6 +89,8 @@ import 'package:propertier/App/Profile/View/Earnings/ViewModel/earnings_view_mod
 import 'package:propertier/App/Profile/View/Edit%20Profile/View/edit_profile_view.dart';
 import 'package:propertier/App/Profile/View/Edit%20Profile/ViewModel/edit_profile_view_model.dart';
 import 'package:propertier/App/Profile/View/Verification/View/verification_view.dart';
+import 'package:propertier/App/Profile/View/change_password/view/change_password_view.dart';
+import 'package:propertier/App/Profile/View/change_password/view_model/change_password_view_model.dart';
 import 'package:propertier/App/Profile/View/component/short_profile_video.dart';
 import 'package:propertier/App/Profile/View/profile_view.dart';
 import 'package:propertier/App/Profile/ViewModel/profile_view_model.dart';
@@ -135,7 +137,6 @@ import 'package:propertier/Customer/screens/AllServices/AllServicesScreenControl
 import 'package:propertier/Customer/screens/CustomerWallet/CustomerWalletBinding.dart';
 import 'package:propertier/Customer/screens/HouseWorkForm/HouseWorkFormBinding.dart';
 import 'package:propertier/Customer/screens/PropertyServiceForm/PropertyServiceFormBinding.dart';
-import 'package:propertier/Customer/screens/ServiceDetail/ServiceDetailController.dart';
 import 'package:propertier/Customer/screens/TransportServiceForm/TransportServiceFormBinding.dart';
 import 'package:propertier/Customer/screens/VendorOffer/VendorOfferBinding.dart';
 import 'package:propertier/Customer/screens/WaterServiceForm/WaterServiceFormlBinding.dart';
@@ -172,11 +173,13 @@ import '../App/Service Provider Profile/ViewModel/service_provider_profile_viewm
 import '../App/ServicesSearch/ViewModel/services_search_view_model_2.dart';
 import '../App/UserNotLogin/view/user_not_login_view.dart';
 import '../App/What are you searching/View/what_are_you_search_view.dart';
+import '../App/updates/updates_view/updates_view.dart';
 import '../Customer/screens/AllParentServices/AllParentServices.dart';
 import '../Customer/screens/AllServices/AllServicesScreen.dart';
 import '../Customer/screens/CustomerWallet/CustomerWallet.dart';
 import '../Customer/screens/HouseWorkForm/HouseWorkForm.dart';
 import '../Customer/screens/PropertyServiceForm/PropertyServiceForm.dart';
+import '../Customer/screens/ServiceDetail/controller/services_details_controller.dart';
 import '../Customer/screens/TransportServiceForm/TransportServiceForm.dart';
 import '../Customer/screens/VendorOffer/VendorOffer.dart';
 import '../Customer/screens/WaterServiceForm/WaterServiceForm.dart';
@@ -186,6 +189,8 @@ import '../Vendor/screens/ServiceForm/ServiceForm.dart';
 import '../Vendor/screens/TransportBidDetail/TransportBidDetail.dart';
 import '../Vendor/screens/Wallet/VendorWallet.dart';
 import '../Vendor/screens/WaterBidDetail/WaterBidDetail.dart';
+import '../Vendor/screens/dashboard/Posts/add_post/Controller/add_post_controller.dart';
+import '../Vendor/screens/dashboard/Posts/add_post/view/add_post_screen.dart';
 import '../Vendor/screens/dashboard/dashboard.dart';
 import '../Customer/screens/ServiceDetail/ServiceDetail.dart' as sd;
 import '../Vendor/screens/drawer/EditVendorForm/EditVendorForm.dart';
@@ -204,7 +209,7 @@ class AppPages {
         transition: Transition.rightToLeftWithFade,
         page: () => const VerifySigninView(),
         binding: BindingsBuilder(() {
-          Get.lazyPut(() => VeifySigninViewModel());
+          Get.lazyPut(() => VerifySignInViewModel());
         })),
     GetPage(
         name: AppRoutes.otpVerifyView,
@@ -237,6 +242,16 @@ class AppPages {
           Get.lazyPut(() => HomeViewModel());
           Get.lazyPut(() => UploadPropertyViewModel());
         })),
+
+    GetPage(
+        name: AppRoutes.updateView,
+        transition: Transition.rightToLeftWithFade,
+        page: () => const UpdatesView(),
+        // binding: BindingsBuilder(() {
+        //   Get.lazyPut(() => HomeViewModel());
+        //   Get.lazyPut(() => UploadPropertyViewModel());
+        // })
+    ),
     GetPage(
         name: AppRoutes.loginView,
         transition: Transition.rightToLeftWithFade,
@@ -283,12 +298,20 @@ class AppPages {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => EditProfileViewModel());
         })),
+
+    GetPage(
+        name: AppRoutes.changePasswordView,
+        transition: Transition.rightToLeftWithFade,
+        page: () => ChangePasswordView(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => ChangePasswordViewModel());
+        })),
     GetPage(
         name: AppRoutes.verificationView,
         transition: Transition.rightToLeftWithFade,
         page: () => const VerificationView(),
         binding: BindingsBuilder(() {
-          Get.lazyPut(() => VerficationViewModel());
+          Get.lazyPut(() => VerificationViewModel());
         })),
     GetPage(
         name: AppRoutes.accountStatusView,
@@ -416,7 +439,7 @@ class AppPages {
         transition: Transition.rightToLeftWithFade,
         page: () => NumberVerificationView(),
         binding: BindingsBuilder(() {
-          Get.lazyPut(() => NumberVerficationViewModel());
+          Get.lazyPut(() => NumberVerificationViewModel());
         })),
     GetPage(
         name: AppRoutes.numberOTPView,
@@ -604,9 +627,9 @@ class AppPages {
           Get.lazyPut(() => ShortVideoViewModel());
         })),
     GetPage(
-        name: AppRoutes.detailView,
+        name: AppRoutes.propertyDetailView,
         transition: Transition.rightToLeftWithFade,
-        page: () => DetailsView(),
+        page: () => PropertyDetailsView(),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => DetailsViewModel());
         })),
@@ -620,7 +643,7 @@ class AppPages {
     GetPage(
         name: AppRoutes.servicesSearch2View,
         transition: Transition.rightToLeftWithFade,
-        page: () => ServicesSearch2View(),
+        page: () => const ServicesSearch2View(),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => ServicesSearhViewModel2());
         })),
@@ -639,12 +662,13 @@ class AppPages {
           // Get.lazyPut(() => ());
         })),
     GetPage(
-        name: AppRoutes.addPropertiesView,
-        transition: Transition.rightToLeftWithFade,
-        page: () => AddPropertiesView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => AddPropertiesViewModel());
-        })),
+      name: AppRoutes.addPropertiesView,
+      transition: Transition.rightToLeftWithFade,
+      page: () => AddPropertiesView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => AddPropertiesViewModel(), fenix: true);
+      }),
+    ),
     GetPage(
         name: AppRoutes.marketPlacePaymentView,
         transition: Transition.rightToLeftWithFade,
@@ -676,7 +700,7 @@ class AppPages {
     GetPage(
         name: AppRoutes.profileView,
         transition: Transition.rightToLeftWithFade,
-        page: () => ProfileStatusView(),
+        page: () => const ProfileStatusView(),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => NavBarViewModel(), fenix: true);
           Get.lazyPut(() => ProfileViewModel());
@@ -783,76 +807,76 @@ class AppPages {
     GetPage(
         name: AppRoutes.nearServiceDetail,
         transition: Transition.rightToLeftWithFade,
-        page: () => ServiceDetail(),
+        page: () => const ServiceDetail(),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => NearestServiceDetailViewModel());
         })),
     GetPage(
         name: AppRoutes.subServices,
         transition: Transition.rightToLeftWithFade,
-        page: () => SubService(),
+        page: () => const SubService(),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => SubServiceViewModel());
         })),
     GetPage(
         name: AppRoutes.bidViewScreen,
         transition: Transition.rightToLeftWithFade,
-        page: () => BidViewScreen(),
+        page: () => const BidViewScreen(),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => BidViewModel());
         })),
     GetPage(
         name: AppRoutes.serviceDetail,
         transition: Transition.rightToLeftWithFade,
-        page: () => sd.ServiceDetail(),
+        page: () =>  sd.ServiceDetail(),
         binding: BindingsBuilder(() {
-          Get.lazyPut(() => ServiceDetailController());
+          Get.lazyPut(() => ServiceDetailsController());
         })),
     GetPage(
         name: AppRoutes.allServicesScreen,
         transition: Transition.rightToLeftWithFade,
-        page: () => AllServicesScreen(),
+        page: () => const AllServicesScreen(),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => AllServicesScreenController());
         })),
     GetPage(
         name: AppRoutes.allParentServices,
         transition: Transition.rightToLeftWithFade,
-        page: () => AllParentServices(),
+        page: () => const AllParentServices(),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => AllParentServicesController());
         })),
     GetPage(
         name: AppRoutes.vendorOffer,
         transition: Transition.rightToLeftWithFade,
-        page: () => VendorOffer(),
+        page: () => const VendorOffer(),
         binding: VendorOfferBinding()
     ),
     GetPage(
         name: AppRoutes.customerWallet,
         transition: Transition.rightToLeftWithFade,
-        page: () => CustomerWallet(),
+        page: () => const CustomerWallet(),
         binding: CustomerWalletBinding()
     ),
     GetPage(
         name: AppRoutes.waterServiceForm,
         transition: Transition.rightToLeftWithFade,
-        page: () => WaterServiceForm(),
+        page: () => const WaterServiceForm(),
         binding: WaterServiceFormBinding()
     ),
     GetPage(
         name: AppRoutes.propertyServiceForm,
         transition: Transition.rightToLeftWithFade,
-        page: () => PropertyServiceForm(),
+        page: () => const PropertyServiceForm(),
         binding: PropertyServiceFormBinding()
     ),
     GetPage(
         name: AppRoutes.houseWorkForm,
         transition: Transition.rightToLeftWithFade,
-        page: () => HouseWorkForm(),
+        page: () => const HouseWorkForm(),
         binding: HouseWorkFormBinding()
     ),
-    //!!--------------------------Vender-----------------------------!!//
+    //!!--------------------------Vendor-----------------------------!!//
     GetPage(
         name: AppRoutes.vendorDashBoard,
         transition: Transition.rightToLeftWithFade,
@@ -863,7 +887,7 @@ class AppPages {
     GetPage(
         name: AppRoutes.vendorWallet,
         transition: Transition.rightToLeftWithFade,
-        page: () => VendorWallet(),
+        page: () => const VendorWallet(),
         binding: VendorWalletBinding()
     ),
     GetPage(
@@ -872,10 +896,19 @@ class AppPages {
         page: () => ServiceForm(),
         binding: ServiceFormBinding()
     ),
+
+    GetPage(
+        name: AppRoutes.vendorAddPostScreen,
+        transition: Transition.rightToLeftWithFade,
+        page: () => const AddPostScreen(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => PostController());
+        })
+    ),
     GetPage(
         name: AppRoutes.vendorForm,
         transition: Transition.rightToLeftWithFade,
-        page: () => VendorForm(),
+        page: () => const VendorForm(),
         binding: VendorFormBinding()
     ),
     GetPage(
@@ -887,31 +920,31 @@ class AppPages {
     GetPage(
         name: AppRoutes.transportServiceForm,
         transition: Transition.rightToLeftWithFade,
-        page: () => TransportServiceForm(),
+        page: () => const TransportServiceForm(),
         binding: TransportServiceFormBinding()
     ),
     GetPage(
         name: AppRoutes.transportBidDetail,
         transition: Transition.rightToLeftWithFade,
-        page: () => TransportBidDetail(),
+        page: () => const TransportBidDetail(),
         binding: TransportBidDetailBinding()
     ),
     GetPage(
         name: AppRoutes.waterBidDetail,
         transition: Transition.rightToLeftWithFade,
-        page: () => WaterBidDetail(),
+        page: () => const WaterBidDetail(),
         binding: WaterBidDetailBinding()
     ),
     GetPage(
         name: AppRoutes.propertyBidDetail,
         transition: Transition.rightToLeftWithFade,
-        page: () => PropertyBidDetail(),
+        page: () => const PropertyBidDetail(),
         binding: PropertyBidDetailBinding()
     ),
     GetPage(
         name: AppRoutes.houseWorkBidDetail,
         transition: Transition.rightToLeftWithFade,
-        page: () => HouseWorkBidDetail(),
+        page: () => const HouseWorkBidDetail(),
         binding: HouseWorkBidDetailBinding()
     ),
     //!!-------------------------------------------------------!!//

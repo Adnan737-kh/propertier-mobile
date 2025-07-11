@@ -7,7 +7,7 @@ import 'package:propertier/extensions/localization_extension.dart';
 class ServicesMapViewModel extends GetxController with GetTickerProviderStateMixin{
   late AnimationController animationController;
   late Animation<LatLng> animation;
-  var markerPosition = LatLng(37.7749, -122.4194).obs; // Initial position
+  var markerPosition = const LatLng(37.7749, -122.4194).obs; // Initial position
   BitmapDescriptor customIcon;
   GoogleMapController? mapController; // Add map controller
 
@@ -19,7 +19,7 @@ class ServicesMapViewModel extends GetxController with GetTickerProviderStateMix
     super.onInit();
     animationController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
     );
     _showMap.value = true;
   }
@@ -43,7 +43,7 @@ class ServicesMapViewModel extends GetxController with GetTickerProviderStateMix
       print(lat);
       print(lng);
       moveMarker(LatLng(lat, lng));
-      await Future.delayed(Duration(seconds: 10));
+      await Future.delayed(const Duration(seconds: 10));
       startTracking(id);
     }
   }
@@ -97,8 +97,8 @@ class ServicesMapViewModel extends GetxController with GetTickerProviderStateMix
   }
 
   RxList<String> cencelJobIssue = <String>[
-    Get.context!.local.notAnswering,
-    Get.context!.local.changeDecision,
+    Get.context!.local.not_answering,
+    Get.context!.local.change_decision,
     Get.context!.local.notReached
   ].obs;
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:propertier/Network/api_urls.dart';
 import '../Model/ServiceOrderModel.dart';
@@ -10,10 +11,16 @@ class ServiceOrderService{
     List<ServiceOrderModel> orders = [];
     try{
       String url = "${API.customerOrder}$id";
-      print(url);
+      if (kDebugMode) {
+        print(url);
+      }
       var response = await http.get(Uri.parse(url));
-      print(response.statusCode);
-      print(response.body);
+      if (kDebugMode) {
+        print(response.statusCode);
+      }
+      if (kDebugMode) {
+        print(response.body);
+      }
       if(response.statusCode == 200){
         var data = jsonDecode(response.body);
         for(var d in data){
@@ -23,16 +30,22 @@ class ServiceOrderService{
       }
     }
     catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
-    print(orders.length);
+    if (kDebugMode) {
+      print(orders.length);
+    }
     return orders;
   }
 
   Future<Map<String,dynamic>?> getSubService(String id)async{
     try{
       String url = "${API.getSubService}$id";
-      print(url);
+      if (kDebugMode) {
+        print(url);
+      }
       var response = await http.get(Uri.parse(url));
       if(response.statusCode == 200){
         var data = jsonDecode(response.body);
@@ -42,6 +55,7 @@ class ServiceOrderService{
     catch(e){
       print(e);
     }
+    return null;
   }
 
 

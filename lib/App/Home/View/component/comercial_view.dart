@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
+import    'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:propertier/App/Home/View/component/grid_tile.dart';
-import 'package:propertier/App/Home/View/component/home_videos_tile.dart';
-import 'package:propertier/App/Home/View/component/posts_tile.dart';
 import 'package:propertier/App/Home/View/component/properties.dart';
 import 'package:propertier/App/Home/View/component/short_videos_tile.dart';
 import 'package:propertier/App/Home/ViewModel/home_view_model.dart';
@@ -40,15 +38,15 @@ class CommercialView extends StatelessWidget {
                 )
               : const SizedBox(),
         ),
-        getHeight(context, 0.015),
-        viewModel.homeModel.value.data != null
-            ? HomeVideosTile(
-                viewModel: viewModel,
-              )
-            : const SizedBox(),
-        getHeight(context, 0.015),
-        HomePostsTile(viewModel: viewModel),
-        getHeight(context, 0.12),
+        // getHeight(context, 0.015),
+        // viewModel.homeModel.value.data != null
+        //     ? HomeVideosTile(
+        //         viewModel: viewModel,
+        //       )
+        //     : const SizedBox(),
+        // getHeight(context, 0.015),
+        // HomePostsTile(viewModel: viewModel),
+        // getHeight(context, 0.12),
       ],
     );
   }

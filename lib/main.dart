@@ -1,6 +1,7 @@
 import 'package:easypaisa_flutter/easypaisa_flutter.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -12,6 +13,9 @@ import 'package:propertier/RoutesAndBindings/app_pages.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'App/NavBar/ViewModel/navbar_view_model.dart';
+import 'App/Post Add/Add Properties/ViewModel/add_properties_view_model.dart';
+import 'App/Profile/ViewModel/profile_view_model.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -19,7 +23,6 @@ void main() async {
   await MobileAds.instance.initialize();
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
-
 
   var initializationSettingsAndroid =
       const AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -53,10 +56,13 @@ void main() async {
 // ignore: must_be_immutable
 class MyApp extends StatelessWidget {
   MyApp({super.key});
+
   var platform = const MethodChannel('splashcolor');
   final _languageViewModel = Get.put(LanguageViewModel());
+
   @override
   Widget build(BuildContext context) {
+    Get.put(NavBarViewModel());
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
           statusBarColor: AppColor.backgroundColor,
@@ -66,6 +72,7 @@ class MyApp extends StatelessWidget {
     );
 
     return GetMaterialApp(
+      initialBinding: InitialBindings(),
       useInheritedMediaQuery: true,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
@@ -106,7 +113,9 @@ class MyApp extends StatelessWidget {
         'navigationBarColor': navigationBarColor,
       });
     } on PlatformException catch (e) {
-      print("Failed to set system bars color: '${e.message}'.");
+      if (kDebugMode) {
+        print("Failed to set system bars color: '${e.message}'.");
+      }
     }
   }
 }
@@ -116,5 +125,13 @@ class MyBehavior extends ScrollBehavior {
   Widget buildOverscrollIndicator(
       BuildContext context, Widget child, ScrollableDetails details) {
     return child;
+  }
+}
+
+class InitialBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut(() => AddPropertiesViewModel(), fenix: true);
+    Get.lazyPut(() => ProfileViewModel(), fenix: true);
   }
 }

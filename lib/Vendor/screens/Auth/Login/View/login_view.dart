@@ -117,9 +117,8 @@ class LoginView extends StatelessWidget {
                               onPressed: () {
                                 Get.toNamed(AppRoutes.forgotPasswordView);
                               },
-                              child: appText(
+                              child: CustomText(
                                   title: "Forgot Password?",
-                                  context: context,
                                   fontSize: 14,
                                   color: AppColor.facebookColor,
                                   fontWeight: FontWeight.w400))
@@ -196,7 +195,7 @@ class LoginView extends StatelessWidget {
                                           loginVM.loginWithGoogle(
                                               context: context);
                                         },
-                                        icondata: Bootstrap.google,
+                                        iconData: Bootstrap.google,
                                         // iconColor: AppColor.googleColor,
                                         title: 'Sign In with Google',
                                         buttonColor: AppColor.googleColor
@@ -219,7 +218,7 @@ class LoginView extends StatelessWidget {
                                 onTap: () async {
                                   FacebookLoginServices().signInWithFacebook();
                                 },
-                                icondata: Bootstrap.facebook,
+                                iconData: Bootstrap.facebook,
                                 // iconColor: AppColor.googleColor,
                                 title: 'Sign in with Facebook',
                                 buttonColor: AppColor.facebookColor

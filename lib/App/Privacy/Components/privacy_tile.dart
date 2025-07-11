@@ -61,15 +61,13 @@ Widget privacyTile({required BuildContext context, required String title}) {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          appText(
+          CustomText(
               title: title,
-              context: context,
               fontSize: 14,
               colorOpecity: 0.6,
               fontWeight: FontWeight.bold),
-          appText(
+          CustomText(
               title: "Only me",
-              context: context,
               fontSize: 12,
               colorOpecity: 0.6,
               fontWeight: FontWeight.w400),

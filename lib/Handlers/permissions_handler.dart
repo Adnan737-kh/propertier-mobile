@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:permission_handler/permission_handler.dart';
 
 class PermissionsHandler {
   static Future<bool> requestGalleryPermission() async {
-    // Check if the gallery (photos) permission is already granted
     if (false) {
-      // If permission is granted, proceed with gallery access
-      // _accessGallery();
-      return true;
+   
     } else {
       // Show a dialog to explain why the app needs gallery access
       bool? result = await showDialog(

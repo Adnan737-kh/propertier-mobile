@@ -32,7 +32,7 @@ class NewPasswordViewModel extends GetxController {
 
     // // Send the model data as a Map to the API
     _api.reSetForgotPassword(data).then((onValue) async {
-      toast(title: 'Password change Successfully', context: Get.context!);
+      CustomToast.show(title: 'Password change Successfully', context: Get.context!);
       Get.toNamed(AppRoutes.loginView);
     }).onError((error, stackTrace) {
       isLoading(false);

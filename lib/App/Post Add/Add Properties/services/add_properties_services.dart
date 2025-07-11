@@ -197,7 +197,9 @@ class AddPropertiesServices {
       vm.hideOverlay();
       cancelNotification(0);
       isSuccess = true;
-      print("catch Error is This:$e");
+      if (kDebugMode) {
+        print("catch Error is This:$e");
+      }
       // toast(title: 'Something went wrong', context: context);
     }
     return isSuccess;

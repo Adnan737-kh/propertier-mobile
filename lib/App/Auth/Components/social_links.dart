@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -10,7 +11,9 @@ class SocialLinks extends StatelessWidget {
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
     } else {
-      print("URL can't be launched.");
+      if (kDebugMode) {
+        print("URL can't be launched.");
+      }
     }
   }
 

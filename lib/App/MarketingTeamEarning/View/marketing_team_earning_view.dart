@@ -9,6 +9,7 @@ import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/Utils/withdrawal_amount_tile.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 class MarketingTeamEarningView extends StatelessWidget {
@@ -56,15 +57,13 @@ class MarketingTeamEarningView extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      appText(
-                          title: 'Weekly Earning',
-                          context: context,
+                      CustomText(
+                          title: context.local.weekly_earning,
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
                           colorOpecity: 0.7),
-                      appText(
+                      const CustomText(
                           title: '23 K',
-                          context: context,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           colorOpecity: 0.6),
@@ -97,9 +96,8 @@ class MarketingTeamEarningView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                appText(
-                    title: 'Withdrawal Amount',
-                    context: context,
+                CustomText(
+                    title: context.local.withdrawal_amount,
                     fontSize: 14,
                     colorOpecity: 0.6,
                     fontWeight: FontWeight.w500),

@@ -43,8 +43,7 @@ class OTPVerifyPinField extends StatelessWidget {
                 },
                 // _onDigitPressed(index),
                 child: Obx(
-                  () => appText(
-                    context: context,
+                  () => CustomText(
                     fontSize: 20,
                     title: viewModel.pin[index].isNotEmpty
                         ? viewModel.pin[index]

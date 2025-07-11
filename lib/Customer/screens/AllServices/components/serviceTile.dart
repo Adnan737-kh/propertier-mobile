@@ -1,5 +1,5 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:propertier/Utils/app_text.dart';
@@ -11,10 +11,9 @@ import 'package:propertier/Utils/textStyle.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 import '../../../../App/Services/Model/ServiceDashboardModel.dart';
-import '../../../../App/What are you searching/View/Components/custom_botton_wryf.dart';
-import '../../../../extensions/navigate_to_dailpad.dart';
 
 
 Widget serviceTile(
@@ -42,9 +41,11 @@ Widget serviceTile(
             height: sizeHeight(0.22, 0.18),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              image: DecorationImage(
+              image:DecorationImage(
                 image: NetworkImage(
-                  service.imageUrls?.first ?? Constant.dummyImage,
+                  (service.images != null && service.images!.isNotEmpty)
+                      ? service.images!.first
+                      : Constant.dummyImage, // fallback placeholder
                 ),
                 fit: BoxFit.cover,
               ),
@@ -78,17 +79,18 @@ Widget serviceTile(
                         fontWeight: FontWeight.bold,
                         color: AppColor.blackColor,
                       ),
-                      title: service.title ?? 'No Title',
+                      title: service.title ?? context.local.no_title,
                     ),
-                    appText(
-                      title: service.fixedPrice != null
-                          ? "Rs ${service.fixedPrice!}"
-                          : "Price Not Available",
-                      context: context,
-                      fontSize: 12,
-                      color: AppColor.greenColor,
-                      fontWeight: FontWeight.w700,
-                      colorOpecity: 0.8,
+                    Expanded(
+                      child: CustomText(
+                        title: service.fixedPrice != null
+                            ? "${context.local.rs} ${service.fixedPrice!}"
+                            : context.local.price_not_available,
+                        fontSize: 12,
+                        color: AppColor.greenColor,
+                        fontWeight: FontWeight.w700,
+                        colorOpecity: 0.8,
+                      ),
                     ),
                   ],
                 ),
@@ -108,12 +110,11 @@ Widget serviceTile(
                         fontWeight: FontWeight.w400,
                         color: AppColor.blackColor.withOpacity(0.8),
                       ),
-                      title: 'No Address',
+                      title: context.local.no_address,
                     ),
-                    Spacer(),
-                    appText(
+                    const Spacer(),
+                    const CustomText(
                       title: '',
-                      context: context,
                       fontSize: 12,
                       color: AppColor.blackColor,
                       fontWeight: FontWeight.w500,
@@ -124,9 +125,8 @@ Widget serviceTile(
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    appText(
-                      title: 'Added Recently',
-                      context: context,
+                    CustomText(
+                      title: context.local.get_service,
                       colorOpecity: 0.7,
                       fontSize: 10,
                       fontWeight: FontWeight.w500,
@@ -142,6 +142,10 @@ Widget serviceTile(
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
+                          if (kDebugMode) {
+                            print('clicked here ');
+                          }
+
                           Get.toNamed(AppRoutes.nearServiceDetail,
                               arguments: service);
                         },
@@ -151,10 +155,9 @@ Widget serviceTile(
                             borderRadius: BorderRadius.circular(42),
                             color: AppColor.greenColor,
                           ),
-                          child: appText(
+                          child: CustomText(
                             color: AppColor.white,
-                            title: 'Get Service',
-                            context: context,
+                            title: context.local.get_service,
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
                           ),
@@ -178,10 +181,9 @@ Widget serviceTile(
                             borderRadius: BorderRadius.circular(42),
                             color: AppColor.buttonColor,
                           ),
-                          child: appText(
+                          child: CustomText(
                             color: AppColor.blackColor,
-                            title: 'Detail',
-                            context: context,
+                            title: context.local.detail,
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
                           ),

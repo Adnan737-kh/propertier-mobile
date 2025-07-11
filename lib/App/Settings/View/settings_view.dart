@@ -50,11 +50,11 @@ class SettingsView extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                appText(
+                                CustomText(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
                                     title: viewModel.settingsList[index].title,
-                                    context: context),
+                                    ),
                                 const Icon(Icons.keyboard_arrow_right)
                               ],
                             ),

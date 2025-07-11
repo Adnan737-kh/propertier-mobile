@@ -26,9 +26,8 @@ class ServicesReviewView extends StatelessWidget {
                   horizontal: context.getSize.width * 0.09),
               children: [
                 getHeight(context, 0.1),
-                appText(
+                CustomText(
                     title: context.local.satisfied_withwork,
-                    context: context,
                     fontSize: 14,
                     fontWeight: FontWeight.w500),
                 getHeight(context, 0.01),
@@ -50,9 +49,8 @@ class ServicesReviewView extends StatelessWidget {
                               color: viewModel.selectedsatisfiedWorkIndex == 0
                                   ? const Color(0xffC10C00)
                                   : null),
-                          child: appText(
+                          child: CustomText(
                               title: context.local.no,
-                              context: context,
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
                               color: viewModel.selectedsatisfiedWorkIndex == 0
@@ -78,9 +76,8 @@ class ServicesReviewView extends StatelessWidget {
                               color: viewModel.selectedsatisfiedWorkIndex == 1
                                   ? AppColor.greenColor
                                   : null),
-                          child: appText(
+                          child: CustomText(
                               title: context.local.yes,
-                              context: context,
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
                               color: viewModel.selectedsatisfiedWorkIndex == 1
@@ -94,18 +91,16 @@ class ServicesReviewView extends StatelessWidget {
                 getHeight(context, 0.015),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: appText(
+                  child: CustomText(
                       title: context.local.work_Completed,
-                      context: context,
                       fontSize: 14,
                       fontWeight: FontWeight.w500),
                 ),
                 getHeight(context, 0.008),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: appText(
+                  child: CustomText(
                       title: context.local.receive_work_from_Vendor,
-                      context: context,
                       fontSize: 14,
                       colorOpecity: 0.8,
                       fontWeight: FontWeight.w500),
@@ -129,9 +124,8 @@ class ServicesReviewView extends StatelessWidget {
                               color: viewModel.workFromVandorIndex == 0
                                   ? const Color(0xffC10C00)
                                   : null),
-                          child: appText(
+                          child: CustomText(
                               title: context.local.no,
-                              context: context,
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
                               color: viewModel.workFromVandorIndex == 0
@@ -157,9 +151,8 @@ class ServicesReviewView extends StatelessWidget {
                               color: viewModel.workFromVandorIndex == 1
                                   ? AppColor.greenColor
                                   : null),
-                          child: appText(
+                          child: CustomText(
                               title: context.local.yes,
-                              context: context,
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
                               color: viewModel.workFromVandorIndex == 1
@@ -173,9 +166,8 @@ class ServicesReviewView extends StatelessWidget {
                 getHeight(context, 0.015),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: appText(
+                  child: CustomText(
                       title: context.local.experience_with_Vendor,
-                      context: context,
                       fontSize: 14,
                       fontWeight: FontWeight.w500),
                 ),
@@ -186,9 +178,8 @@ class ServicesReviewView extends StatelessWidget {
                 getHeight(context, 0.015),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: appText(
+                  child: CustomText(
                       title: context.local.give_Rating_to_Vendor,
-                      context: context,
                       fontSize: 14,
                       fontWeight: FontWeight.w500),
                 ),

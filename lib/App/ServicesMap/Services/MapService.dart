@@ -1,29 +1,35 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:propertier/Network/api_urls.dart';
 
-class MapService{
-
-  Future<Map<String,dynamic>?> getLocation(String id)async{
-    try{
+class MapService {
+  Future<Map<String, dynamic>?> getLocation(String id) async {
+    try {
       String url = "${API.trackVendorLocation}$id/";
-      print(url);
+      if (kDebugMode) {
+        print(url);
+      }
       var response = await http.get(Uri.parse(url));
-      print(response.statusCode);
-      print(response.body);
-      if(response.statusCode == 200){
+      if (kDebugMode) {
+        print(response.statusCode);
+        print(response.body);
+      }
+      if (response.statusCode == 200) {
         final body = jsonDecode(response.body);
         print(body);
         return body;
       }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
-    catch(e){
-      print(e);
-    }
+    return null;
   }
 
-  Future cancelOrder(String id, String reason)async{
+  Future cancelOrder(String id, String reason) async {
     String url = "${API.createOrder}$id/";
     final Map<String, dynamic> data = {
       "status": "canceled",
@@ -32,15 +38,14 @@ class MapService{
 
     final encodedData = jsonEncode(data);
 
-    var response = await http.put(Uri.parse(url),
+    var response = await http.put(
+      Uri.parse(url),
       headers: <String, String>{'Content-Type': 'application/json'},
       body: encodedData,
     );
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       return true;
     }
     return false;
   }
-
-
 }

@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:propertier/constant/toast.dart';
 
-class GoogleSiginServices {
+class GoogleSigInServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   Future<UserCredential?> loginWithGoogle() async {
@@ -25,8 +26,10 @@ class GoogleSiginServices {
       // Once signed in, return the UserCredential
       return await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (error) {
-      print("Error during Google sign in: $error");
-      toast(title: "Error", context: Get.context!);
+      if (kDebugMode) {
+        print("Error during Google sign in: $error");
+      }
+      CustomToast.show(title: "Error", context: Get.context!);
       return null;
     }
   }

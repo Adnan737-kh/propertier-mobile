@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/App/Analytics/Model/chart_subtitle_model.dart';
@@ -6,6 +7,7 @@ import 'package:propertier/App/Analytics/ViewModel/analytics_view_model.dart';
 import 'package:propertier/Utils/appbar.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 enum ChartsType { line, combination, spline, lineArea }
@@ -27,7 +29,7 @@ class AnalyticsView extends StatelessWidget {
                 onTap: () {
                   Get.back();
                 },
-                title: 'Analytics'),
+                title: context.local.analytics),
             getHeight(context, 0.030),
             Expanded(
                 child: ListView(
@@ -44,13 +46,15 @@ class AnalyticsView extends StatelessWidget {
                       dropDownValue: viewModel.isThisWeekLineData,
                       context, dropDownCallBack: (val) {
                     viewModel.changeLineWeek(val);
-                    print(val);
+                    if (kDebugMode) {
+                      print(val);
+                    }
                   },
                       dropDownList: [
                         'This Week',
                         'Next Week',
                       ],
-                      title: 'Sale Overview',
+                      title: context.local.sale_overview,
                       chartType: ChartsType.line,
                       subtitleList: viewModel.chartSubtitleList,
                       viewDetailsCallBack: () {}),
@@ -66,12 +70,14 @@ class AnalyticsView extends StatelessWidget {
                             ? viewModel.columnDataThisWeek
                             : viewModel.columnDataNextWeek,
                     context,
-                    title: 'Ads Overview',
+                    title: context.local.ads_overview,
                     subtitleList: [
                       ChartSubtitleModel(
-                          subtitle: 'Ads', color: AppColor.lightBlueColor),
+                          subtitle: context.local.ads,
+                          color: AppColor.lightBlueColor),
                       ChartSubtitleModel(
-                          subtitle: 'Costs', color: AppColor.buttonColor)
+                          subtitle: context.local.costs,
+                          color: AppColor.buttonColor)
                     ],
                     dropDownList: ['This Week', 'Next Week'],
                     chartType: ChartsType.combination,
@@ -101,14 +107,14 @@ class AnalyticsView extends StatelessWidget {
                         'This Week',
                         'Next Week',
                       ],
-                      title: 'Followers Overview',
+                      title: context.local.followers_overview,
                       chartType: ChartsType.spline,
                       subtitleList: [
                         ChartSubtitleModel(
-                            subtitle: 'Followers Gain',
+                            subtitle: context.local.followers_gain,
                             color: AppColor.lightBlueColor),
                         ChartSubtitleModel(
-                            subtitle: 'Followers Lost',
+                            subtitle: context.local.followers_lost,
                             color: AppColor.buttonColor),
                       ],
                       viewDetailsCallBack: () {}),
@@ -125,13 +131,12 @@ class AnalyticsView extends StatelessWidget {
                       dropDownValue: viewModel.isThisWeekLineData,
                       context, dropDownCallBack: (val) {
                     viewModel.changeLineWeek(val);
-                    print(val);
                   },
                       dropDownList: [
                         'This Week',
                         'Next Week',
                       ],
-                      title: 'Sale Overview',
+                      title: context.local.sale_overview,
                       chartType: ChartsType.lineArea,
                       subtitleList: viewModel.chartSubtitleList,
                       viewDetailsCallBack: () {}),

@@ -25,12 +25,33 @@ class PropertiesAndVideoViewModel extends GetxController {
 
   final RxString _currentLocation = "All Locations".obs;
   String get currentLocation => _currentLocation.value;
+  RxBool isSale = true.obs;
+
+  RxList<String> listOfTab = RxList<String>();
+  final RxInt _selectedTabIndex = 0.obs;
+  int get selectedTabIndex => _selectedTabIndex.value;
+
+  final RxString _selectedTab = 'All Types'.obs;
+  String get selectedTab => _selectedTab.value;
+  final RxString _purpose = 'sale'.obs;
+  String get purpose => _purpose.value;
+
+  final RxList<Property> _propertyList = <Property>[].obs;
+  RxList<Property> get propertyList => _propertyList;
+
+  final RxList<Video> _videosList = <Video>[].obs;
+  RxList<Video> get videosList => _videosList;
+
+  final RxInt _onShortDetailChangeIndex = 0.obs;
+  int get onShortDetailChangeIndex => _onShortDetailChangeIndex.value;
+
+  PageController pageController = PageController();
+
   onChangeLocation(String value) {
     _currentLocation.value = value;
     doFilterAllData();
   }
 
-  RxBool isSale = true.obs;
   changeSale(int val) {
     if (val == 0) {
       isSale.value = true;
@@ -39,12 +60,6 @@ class PropertiesAndVideoViewModel extends GetxController {
     }
   }
 
-  RxList<String> listOfTab = RxList<String>();
-  final RxInt _selectedTabIndex = 0.obs;
-  int get selectedTabIndex => _selectedTabIndex.value;
-
-  final RxString _selectedTab = 'All Types'.obs;
-  String get selectedTab => _selectedTab.value;
   setSelectTab(String val) {
     _selectedTab.value = val;
     // if (val == "All Types") {
@@ -72,21 +87,15 @@ class PropertiesAndVideoViewModel extends GetxController {
     super.onInit();
   }
 
-  final RxString _purpose = 'sale'.obs;
-  String get purpose => _purpose.value;
   setPurpose(String value) {
     _purpose.value = value;
     doFilterAllData();
   }
 
-  final RxList<Property> _propertyList = <Property>[].obs;
-  RxList<Property> get propertyList => _propertyList;
   onChangeTab(String tab) {
     _selectedTab.value = tab;
   }
 
-  final RxList<Video> _videosList = <Video>[].obs;
-  RxList<Video> get videosList => _videosList;
   onChangeTabVideos(
     String tab,
   ) {
@@ -112,13 +121,10 @@ class PropertiesAndVideoViewModel extends GetxController {
         title: "Interior Architecture Designer"),
   ];
 
-  final RxInt _onShortDetailChangeIndex = 0.obs;
-  int get onShortDetailChangeIndex => _onShortDetailChangeIndex.value;
   changeShortDetailIndex(int index) {
     _onShortDetailChangeIndex.value = index;
   }
 
-  PageController pageController = PageController();
   Rx<AllPropertiesModel> allPropertiesModel = AllPropertiesModel().obs;
   // Future<AllPropertiesModel> getAllProperties(
   //     {required BuildContext context, required String type}) async {
@@ -181,13 +187,16 @@ class PropertiesAndVideoViewModel extends GetxController {
     bool isAllLocations = currentLocation == "All Locations";
     bool isAllTypes = selectedTab == "All Types";
 
+    print('selected Type $selectedTab');
     // Check if properties exist
     List<Property> properties = allPropertiesModel.value.properties ?? [];
 
     newList = properties.where((element) {
       bool matchesLocation = isAllLocations || element.city == currentLocation;
-      bool matchesType = isAllTypes || element.type.toLowerCase() == selectedTab.toLowerCase();
-      bool matchesPurpose = element.purpose.toLowerCase() == purpose.toLowerCase();
+      bool matchesType =
+          isAllTypes || element.type.toLowerCase() == selectedTab.toLowerCase();
+      bool matchesPurpose =
+          element.purpose.toLowerCase() == purpose.toLowerCase();
 
       return matchesLocation && matchesType && matchesPurpose;
     }).toList();
@@ -200,7 +209,6 @@ class PropertiesAndVideoViewModel extends GetxController {
 
     setIsLoading(false);
   }
-
 
 //   doFilterAllData() {
 //     setIsLoading(true);

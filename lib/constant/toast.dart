@@ -7,5 +7,22 @@ toast({
   required BuildContext context,
 }) {
   return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: appText(title: title, context: context, color: AppColor.white)));
+      content:
+          CustomText(title: title, color: AppColor.white)));
+}
+
+class CustomToast {
+  static void show({
+    required String title,
+    required BuildContext context,
+  }) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: CustomText(
+          title: title,
+          color: AppColor.white,
+        ),
+      ),
+    );
+  }
 }

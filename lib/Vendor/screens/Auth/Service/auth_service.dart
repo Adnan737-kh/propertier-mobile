@@ -58,22 +58,10 @@ class AuthService {
   }
 
   Future<VendorRegistrationModel?> registerVendor(
-      BuildContext context,
-      String serviceId,
-      String serviceName,
-      String accessToken,
-      ) async {
+    BuildContext context,
+    String accessToken,
+  ) async {
     String url = API.venRegisterUrl;
-
-    final Map<String, dynamic> data = {
-      "assigned_service": serviceId,
-    };
-
-    final encodedData = jsonEncode(data);
-    if (kDebugMode) {
-      print(url);
-      print(encodedData);
-    }
 
     try {
       final response = await http.post(
@@ -82,16 +70,14 @@ class AuthService {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $accessToken',
         },
-        body: encodedData,
       );
-
-      debugPrint("Response Status Code: ${response.statusCode}");
-      debugPrint("Response Body: ${response.body}");
 
       if (response.statusCode == 201 || response.statusCode == 200) {
         final decodedData = jsonDecode(response.body);
         final result = VendorRegistrationModel.fromJson(decodedData);
 
+        debugPrint("Response Status Code: ${response.statusCode}");
+        debugPrint("Response Body: ${response.body}");
         await createWallet(result.id.toString(), context);
         return result;
       }
@@ -99,9 +85,8 @@ class AuthService {
       if (kDebugMode) print(e);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: appText(
+          content: CustomText(
             title: 'Something went wrong: $e',
-            context: Get.context!,
             color: AppColor.white,
           ),
         ),
@@ -119,12 +104,12 @@ class AuthService {
     }
     if (currentUser != null) {
       for (var user in currentUser.users ?? []) {
-        if (user.type == "vendor") {
+        if (user.propertyType == "vendor") {
           id = user.id;
         }
       }
     }
-    if(id == null) return;
+    if (id == null) return;
 
     String url = "${API.deleteVendorProfile}/$id/";
     if (kDebugMode) {
@@ -135,15 +120,13 @@ class AuthService {
       if (kDebugMode) {
         print(response.statusCode);
         print(response.body);
-
       }
       if (response.statusCode == 204) {
         AuthService().logout();
-        GoogleSiginServices().logout();
+        GoogleSigInServices().logout();
         ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-          content: appText(
+          content: CustomText(
             title: 'Vendor account deleted',
-            context: Get.context!,
             color: AppColor.white,
           ),
         ));
@@ -154,42 +137,37 @@ class AuthService {
         print(e);
       }
       ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-        content: appText(
+        content: CustomText(
           title: 'Something went wrong: $e',
-          context: Get.context!,
           color: AppColor.white,
         ),
       ));
     }
   }
 
-  Future createWallet(String id, BuildContext context)async{
-    try{
-
-      var response = await  http.post(Uri.parse(API.createWallet,),
-        body: jsonEncode({
-          'user': id
-        }),
+  Future createWallet(String id, BuildContext context) async {
+    try {
+      var response = await http.post(
+        Uri.parse(
+          API.createWallet,
+        ),
+        body: jsonEncode({'user': id}),
         headers: <String, String>{'Content-Type': 'application/json'},
       );
       if (kDebugMode) {
         print(response.statusCode);
         print(response.body);
       }
-      if(response.statusCode == 201){
-
-      }
-    }
-    catch(e){
+      if (response.statusCode == 201) {}
+    } catch (e) {
       if (kDebugMode) {
         print("error create wallet $e");
       }
     }
 
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: appText(
+      content: CustomText(
         title: 'Please fill this form.',
-        context: Get.context!,
         color: AppColor.white,
       ),
     ));
@@ -211,4 +189,3 @@ Future<String> decryptPassword(String encryptedPassword) async {
   final decrypted = utf8.decode(decryptedBytes);
   return decrypted;
 }
-

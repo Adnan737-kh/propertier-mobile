@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:propertier/App/About/View/about_view.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import '../../../../Utils/app_text.dart';
 import '../../../../Utils/appbar.dart';
 import '../../../../Utils/text_botton.dart';
@@ -19,7 +21,7 @@ class DocumentsUploadView extends StatefulWidget {
 }
 
 class _DocumentsUploadViewState extends State<DocumentsUploadView> {
-  final DocumentsCardVM = Get.find<DocumentsVerficationViewModel>();
+  final documentsCardVM = Get.find<DocumentsVerficationViewModel>();
   File? _pickedFrontImage;
   File? _pickedBackImage;
 
@@ -75,7 +77,7 @@ class _DocumentsUploadViewState extends State<DocumentsUploadView> {
                       },
                       title: 'Confirm Verification'),
                   Gap(context.height * 0.3),
-                  DocumentsUploadTile(
+                  documentsUploadTile(
                     isLoading: false,
                     image: _pickedFrontImage,
                     onTap: () {
@@ -86,10 +88,8 @@ class _DocumentsUploadViewState extends State<DocumentsUploadView> {
                     },
                   ),
                   Gap(context.height * 0.019),
-                  appText(
-                      title:
-                          "Please Take photo of your In Corporate Text Document",
-                      context: context,
+                  CustomText(
+                      title:context.local.please_take_photo_of_your_in_corporate_text_document,
                       fontSize: 16,
                       color: const Color(0xFF6D6E6F).withOpacity(0.6),
                       fontWeight: FontWeight.w400),
@@ -102,7 +102,7 @@ class _DocumentsUploadViewState extends State<DocumentsUploadView> {
                             // _pickedImage == null ?_pickAndCropImage : null;
                           },
                           context: context,
-                          title: 'Next',
+                          title: context.local.next,
                         ),
                       ),
                     ],

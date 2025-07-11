@@ -10,7 +10,8 @@ class Constant {
   // static const googleApiKey = "AIzaSyDv_myXr3gNouq-DgD4exNrcRNtb4saa-Q";
   static const googleApiKey = "AIzaSyDRzfYsryAgbiogSogMUZsD7gvIjooW1vc";
   static const dummyImage =
-      "https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+      "https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w="
+      "1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
   static const galleryImageUrl =
       'https://propertier.com.pk/storage/property/gallery/';
   static const onboardingIcon = 'assets/icons/onboardingicon.png';
@@ -38,11 +39,10 @@ class Constant {
   static const tick = 'assets/icons/tick.png';
   static const videoSpace = 'assets/icons/videospace.png';
   static const earth = 'assets/icons/earth.png';
-  static const drawerlogo = 'assets/logo/drawerlogo.png';
+  static const drawerLogo = 'assets/logo/drawerlogo.png';
   static const alfalah = 'assets/icons/alfalah.svg';
   static const customerCare = 'assets/icons/care.png';
-  static const dumyImage2 =
-      'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg';
+  static const dummyImage2 = 'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg';
   static const down = 'assets/icons/down.png';
   static const up = 'assets/icons/up.png';
   static const curve = 'assets/icons/style.png';
@@ -56,8 +56,7 @@ class Constant {
   static const architectureDesigner = 'assets/images/archDesigner.png';
   static const logoDesigner = 'assets/images/logoDesigner.png';
   static const sketches = 'assets/images/sketches.png';
-  static const whatAreYouSearchingFor =
-      'assets/images/whatareyousearchingfor.png';
+  static const whatAreYouSearchingFor = 'assets/images/whatareyousearchingfor.png';
 
   static const filter = "assets/icons/filter.png";
   static const res = "assets/icons/res.png";
@@ -80,18 +79,15 @@ class Constant {
   static const easyPisaIcon = 'assets/icons/easypisa.png';
   static const bankAlfalahIcon = 'assets/icons/alfalahh.png';
   static const bitCoinIcon = 'assets/icons/BitCoin.png';
-  static const dummyVideo =
-      "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4";
+  static const dummyVideo = "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4";
   static const shareRight = 'assets/icons/share_right.svg';
   static const addToCart = 'assets/icons/addtocart.svg';
   static const buy = 'assets/icons/buy.svg';
   static const cycle = 'assets/icons/motorcycle.png';
   static const servicesSearchIcon = 'assets/icons/servicesSearchIcon.svg';
-  static const profileAndCoverImageUrl =
-      'https://propertier.com.pk/storage/user/';
+  static const profileAndCoverImageUrl = 'https://propertier.com.pk/storage/user/';
   static const orderComplete = "assets/icons/ordercomplete.png";
   static const easyPaisaIcon = "assets/icons/easypaisa.svg";
-  static const jassCashIcon = "assets/icons/jazz-cash.svg";
   static const bankIcon = "assets/icons/bank_3914973.svg";
   static const buildingIcon = "assets/icons/Building_icon.svg";
   static const fairyHallIcon = "assets/icons/fairy_hall_icon.svg";
@@ -115,11 +111,13 @@ class Constant {
   static const appLogoSvg = 'assets/logo/logo1.svg';
   static const closeLogin = 'assets/icons/close2.png';
   static const rerdCross = 'assets/icons/rerdCross.png';
+  static const plumber2 = 'assets/icons/plumber2.svg';
+  static const updates = 'assets/icons/updates.svg';
 
   // -------------------vendor sideIcon-----------------------------
 
   static const vendorHomeIcon = "assets/vendor_assets/home.svg";
-  static const vendorFeturedadIcon = "assets/vendor_assets/earning.png";
+  static const vendorFeaturedAddIcon = "assets/vendor_assets/earning.png";
   static const vendorAddPostIcon = "assets/vendor_assets/add.svg";
   static const vendorEarningIcon = "assets/vendor_assets/amount.svg";
   static const vendorProfileIcon = "assets/vendor_assets/profile.svg";
@@ -137,4 +135,7 @@ class Constant {
   static const infoIcon = "assets/vendor_assets/info.svg";
   static const activityIcon = "assets/vendor_assets/activity.svg";
   static const payoutIcon = "assets/vendor_assets/payout.svg";
+  static const jassCashIcon = "assets/vendor_assets/jazz.png";
+  static const easyPasaIcon = "assets/vendor_assets/easypisa.png";
+
 }

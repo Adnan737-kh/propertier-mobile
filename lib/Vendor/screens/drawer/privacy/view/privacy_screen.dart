@@ -177,7 +177,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                 ],
               )),
 
-          Spacer(),
+          const Spacer(),
           Container(
             width: Get.size.width,
             height: 237,

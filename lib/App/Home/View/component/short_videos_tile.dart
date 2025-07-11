@@ -50,9 +50,8 @@ class ShortVideosTile extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  appText(
+                  CustomText(
                     title: context.local.shortVideos,
-                    context: context,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                   ),
@@ -68,9 +67,8 @@ class ShortVideosTile extends StatelessWidget {
                   Get.toNamed(AppRoutes.shortVideoView,
                       arguments: shortVideos[0]);
                 },
-                child: appText(
-                  title: context.local.viewMore,
-                  context: context,
+                child: CustomText(
+                  title: context.local.view_more,
                   color: AppColor.greenColor,
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
@@ -93,7 +91,7 @@ class ShortVideosTile extends StatelessWidget {
       width: context.getSize.width,
       child: shortVideos.isEmpty
           ? Center(
-              child: appText(title: 'No Data Available', context: context),
+              child: CustomText(title: context.local.no_data_available),
             )
           : ListView.builder(
               scrollDirection: Axis.horizontal,

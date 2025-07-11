@@ -6,28 +6,28 @@ import 'package:propertier/App/Profile/ViewModel/profile_view_model.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 Widget salesChart(BuildContext context, ProfileViewModel viewModel) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      appText(
-        title: 'Sales',
-        context: context,
+      CustomText(
+        title: context.local.sales,
         fontSize: 14,
         fontWeight: FontWeight.w600,
       ),
       getHeight(context, 0.008),
       chartTile(context,
-          title: 'Sales Overview',
+          title: context.local.sale_overview,
           dropDownValue: '1 Week',
           subtitleList: [
             ChartSubtitleModel(
-              subtitle: 'Top Search',
+              subtitle: context.local.top_search,
               color: AppColor.buttonColor,
             ),
             ChartSubtitleModel(
-              subtitle: 'Top Sale',
+              subtitle: context.local.top_sale,
               color: AppColor.lightBlueColor,
             ),
           ],

@@ -2,11 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:propertier/App/Details/Model/specific_property_model.dart';
 import 'package:propertier/App/Details/View/component/details_title.dart';
 import 'package:propertier/App/Details/View/component/recommendedTile.dart';
-import 'package:propertier/App/Details/View/component/video_tour.dart';
 
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/divider.dart';
@@ -15,7 +13,6 @@ import 'package:propertier/Utils/scrollableText.dart';
 import 'package:propertier/Utils/textStyle.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
-import 'package:propertier/extensions/area_convert_extension.dart';
 import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/price_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
@@ -27,19 +24,10 @@ import '../../../../Utils/App Ad Mob/app_banner_ads.dart';
 import '../../../../Utils/info_tile.dart';
 import 'package:video_player/video_player.dart';
 
-// import 'package:get_thumbnail_video/index.dart';
-// import 'package:get_thumbnail_video/video_thumbnail.dart';
-// import 'package:get_thumbnail_video/video_thumbnail_web.dart';
 
 Widget detailTile(BuildContext context,
     {
-    // required VideosModel videosModel,
     required DetailDataModel dataModel}) {
-  if (kDebugMode) {
-    print("Features List: ${dataModel.features.map((e) => e.name).toList()}");
-
-    print('Agent ID @@@:${dataModel.property!.agent!.id}');
-  }
   return Container(
     padding: EdgeInsets.symmetric(
         horizontal: context.getSize.width * 0.015,
@@ -62,9 +50,9 @@ Widget detailTile(BuildContext context,
                     context: context,
                     fontSize: 14,
                     fontWeight: FontWeight.bold)),
-            appText(
+            CustomText(
               title: double.parse(dataModel.property!.price!).formatPrice(),
-              context: context,
+
               fontSize: 14,
               color: AppColor.greenColor,
               fontWeight: FontWeight.w700,
@@ -72,38 +60,26 @@ Widget detailTile(BuildContext context,
           ],
         ),
         getHeight(context, 0.006),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Icon(
-              Ionicons.location,
-              color: AppColor.buttonColor,
-              size: context.getSize.width * 0.030,
-            ),
-            const Gap(5),
-            scrollableText(
-                context: context,
-                textStyle: textStyle(
-                    context: context,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: AppColor.blackColor.withOpacity(0.8)),
-                title: dataModel.property!.address!),
-          ],
-        ),
-        getHeight(context, 0.0072),
         // Row(
-        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //   children: List.generate(
-        //       dataModel.property!.features!.length,
-        //       (index) => dataModel.property!.features!.isEmpty
-        //           ? const SizedBox.shrink()
-        //           : Row(
-        //               children: [
-        //                 getWidth(context, 0.005),
-        //               ],
-        //             )),
+        //   mainAxisAlignment: MainAxisAlignment.start,
+        //   children: [
+        //     Icon(
+        //       Ionicons.location,
+        //       color: AppColor.buttonColor,
+        //       size: context.getSize.width * 0.030,
+        //     ),
+        //     const Gap(5),
+        //     scrollableText(
+        //         context: context,
+        //         textStyle: textStyle(
+        //             context: context,
+        //             fontSize: 12,
+        //             fontWeight: FontWeight.w400,
+        //             color: AppColor.blackColor.withOpacity(0.8)),
+        //         title: dataModel.property!.address!),
+        //   ],
         // ),
+        getHeight(context, 0.0072),
         getHeight(context, 0.007),
         divider(context: context, color: const Color(0xffCFCFCF)),
         getHeight(context, 0.015),
@@ -112,13 +88,13 @@ Widget detailTile(BuildContext context,
           title: context.local.description,
         ),
         getHeight(context, 0.002),
-        appText(
+        CustomText(
             fontSize: 12,
             fontWeight: FontWeight.w400,
             colorOpecity: 0.8,
             textAlign: TextAlign.justify,
             title: dataModel.property!.description!.parseHtmlString(),
-            context: context),
+        ),
         getHeight(context, 0.007),
         divider(context: context, color: const Color(0xffCFCFCF)),
         getHeight(context, 0.01),
@@ -130,14 +106,16 @@ Widget detailTile(BuildContext context,
         ),
         getHeight(context, 0.01),
         infoTile(context,
-            title: context.local.type, subtitle: dataModel.property!.type!),
+            title: context.local.type, subtitle: dataModel.property!.propertyType!),
         getHeight(context, 0.01),
         infoTile(context,
             title: context.local.area,
-            subtitle:
-                "${dataModel.property!.area!.toDouble().convertArea(
-                    areaType: dataModel.property!.areaUnit ?? '').toString()}"
-                " ${dataModel.property!.areaUnit ?? ''}",
+            subtitle: "${dataModel.property!.area!.toDouble()} ${dataModel.property!.areaUnit ?? ''}",
+
+            // subtitle:
+            //     "${dataModel.property!.area!.toDouble().convertArea(
+            //         areaType: dataModel.property!.areaUnit ?? '').toString()}"
+            //     " ${dataModel.property!.areaUnit ?? ''}",
             isShowIcon: true,
             icon: Constant.marla),
         getHeight(context, 0.007),
@@ -146,6 +124,7 @@ Widget detailTile(BuildContext context,
         detailsTitle(
           context: context,
           title: context.local.otherFeatures,),
+        getHeight(context, 0.01),
         Wrap(
           spacing: 12,
           runSpacing: 12,
@@ -156,6 +135,7 @@ Widget detailTile(BuildContext context,
               return SizedBox(
                   width: context.getSize.width * 0.4,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
                         height: 5,
@@ -166,26 +146,31 @@ Widget detailTile(BuildContext context,
                         ),
                       ),
                       const Gap(5),
-                      appText(
-                          title:
-                              " ${dataModel.features[index].name!}",
-                          colorOpecity: 0.7,
-                          context: context),
+                      Expanded(
+                        child: CustomText(
+                          textAlign: TextAlign.start,
+                            title:
+                                " ${dataModel.features[index].name!}",
+                            colorOpecity: 0.7,
+                        ),
+                      ),
                     ],
                   ));
             },
           ).toList(),
         ),
-        getHeight(context, 0.007),
-        dataModel.property!.video == null
-            ? const SizedBox.shrink()
-            : detailsTitle(context: context, title: context.local.videoTour),
-        dataModel.property!.video == null
-            ? const SizedBox.shrink()
-            : getHeight(context, 0.005),
-        dataModel.property!.video == null
-            ? const SizedBox.shrink()
-            : VideoTour(videoUrl: dataModel.property!.video ?? ''),
+        // getHeight(context, 0.018),
+        // dataModel.property!.video == null
+        //     ? const SizedBox.shrink()
+        //     : detailsTitle(context: context, title: context.local.videoTour),
+        // dataModel.property!.video == null
+        //     ? const SizedBox.shrink()
+        //     : getHeight(context, 0.005),
+        // dataModel.property!.video == null || dataModel.property!. video!.isEmpty
+        //     ? const Center(child: Text('No Video Available',style: TextStyle(
+        //   fontSize: 20,
+        //
+        // ),),) : VideoTour(videoUrl: dataModel.property!.video ?? ''),
         getHeight(context, 0.01),
         divider(context: context, color: const Color(0xffCFCFCF)),
         getHeight(context, 0.015),
@@ -216,8 +201,8 @@ Widget detailTile(BuildContext context,
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
-                  Get.offAndToNamed(AppRoutes.detailView, arguments: {
-                    "id": dataModel.relatedProperties[index].id,
+                  Get.offAndToNamed(AppRoutes.propertyDetailView, arguments: {
+                    "slug": dataModel.relatedProperties[index].slug,
                     "user": "null"
                   });},
                 child: recommandedTile(
@@ -238,130 +223,6 @@ Widget detailTile(BuildContext context,
     ),
   );
 }
-
-// class DetailPageShortVideo extends StatefulWidget {
-//   final Property property;
-//
-//   const DetailPageShortVideo({super.key, required this.property});
-//
-//   @override
-//   State<DetailPageShortVideo> createState() => _DetailPageShortVideoState();
-// }
-//
-// class _DetailPageShortVideoState extends State<DetailPageShortVideo> {
-//   String? _path;
-//   bool _isLoading = true;
-//
-//   Future<void> generateThumbnail(String videoUrl) async {
-//     try {
-//       if (videoUrl.isEmpty) {
-//         setState(() {
-//           _isLoading = false;
-//         });
-//         return;
-//       }
-//
-//
-//       String? thumbnailPath = await VideoThumbnail.thumbnailFile(
-//         video: videoUrl,
-//         thumbnailPath: (await getTemporaryDirectory()).path,
-//         imageFormat: ImageFormat.JPEG,
-//         maxWidth: 128, // Adjust as needed
-//         quality: 75, // Adjust as needed
-//       );
-//
-//       // Generate the thumbnail (returns an XFile)
-//       // XFile thumbnailFile = await VideoThumbnail.thumbnailFile(
-//       //   video: videoUrl,
-//       //   thumbnailPath: (await getTemporaryDirectory()).path,
-//       //   imageFormat: ImageFormat.WEBP,
-//       //   maxHeight: 64,
-//       //   quality: 75,
-//       // );
-//
-//       if (thumbnailPath != null && File(thumbnailPath).existsSync()) {
-//         setState(() {
-//           _path = thumbnailPath;
-//           _isLoading = false;
-//         });
-//       } else {
-//         setState(() {
-//           _isLoading = false;
-//         });
-//       }
-//     } catch (e) {
-//       print("Thumbnail generation error: $e");
-//       setState(() {
-//         _isLoading = false;
-//       });
-//     }
-//   }
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//
-//     // Ensure shortVideo is not null
-//     if (widget.property.shortVideo != null && widget.property.shortVideo!.isNotEmpty) {
-//       generateThumbnail(widget.property.shortVideo!);
-//     } else {
-//       _isLoading = false;
-//     }
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onTap: () {
-//         print("Video tapped: ${widget.property.shortVideo.toString()}");
-//         Get.toNamed(AppRoutes.shortVideoView, arguments: widget.property);
-//       },
-//       child: SizedBox(
-//         width: context.width * 0.6,
-//         height: context.height * 0.5,
-//         child: _isLoading
-//             ? const Center(
-//           child: CircularProgressIndicator(color: AppColor.buttonColor),
-//         )
-//             : _path != null
-//             ? Container(
-//           margin: EdgeInsets.symmetric(
-//             horizontal: context.width * 0.015,
-//             vertical: 5,
-//           ),
-//           width: context.width / 4,
-//           padding: const EdgeInsets.all(15),
-//           alignment: Alignment.bottomCenter,
-//           decoration: BoxDecoration(
-//             borderRadius: BorderRadius.circular(10),
-//             image: DecorationImage(
-//               image: FileImage(File(_path!)),
-//               fit: BoxFit.cover,
-//             ),
-//           ),
-//           child: Container(
-//             height: context.height * 0.043,
-//             width: context.width * 0.086,
-//             decoration: BoxDecoration(
-//               shape: BoxShape.circle,
-//               border: Border.all(color: AppColor.buttonColor, width: 1),
-//               image: DecorationImage(
-//                 image: NetworkImage(widget.property.image ?? Constant.dummyImage),
-//                 fit: BoxFit.cover,
-//               ),
-//             ),
-//           ),
-//         )
-//             : const Center(
-//           child: Text(
-//             "Thumbnail not available",
-//             style: TextStyle(color: Colors.white),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class DetailPageShortVideo extends StatefulWidget {
   final Property property;

@@ -19,9 +19,16 @@ import '../../Home/View/home_view.dart';
 import 'Components/properties_tile.dart';
 import 'Components/Video Player/Views/profile_video_tile.dart';
 
-class ProfileStatusView extends StatelessWidget {
-  ProfileStatusView({super.key});
+class ProfileStatusView extends StatefulWidget {
+  const ProfileStatusView({super.key});
+
+  @override
+  State<ProfileStatusView> createState() => _ProfileStatusViewState();
+}
+
+class _ProfileStatusViewState extends State<ProfileStatusView> {
   final viewModel = Get.put(ProfileViewModel());
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -34,11 +41,7 @@ class ProfileStatusView extends StatelessWidget {
               color: AppColor.buttonColor,
             ),
           );
-        } else if (viewModel.profileModel.value.userProfile == null ) {
-          // WidgetsBinding.instance.addPostFrameCallback((_) {
-          //   Get.offAllNamed(AppRoutes.loginView);
-          // });
-          // print("${viewModel.profileModel.value.userProfile!.phoneNumber}");
+        } else if (viewModel.profileModel.value.userProfile == null) {
           return const SizedBox();
         } else {
           return Scaffold(
@@ -78,11 +81,11 @@ class ProfileStatusView extends StatelessWidget {
                             onTap: () {
                               Get.toNamed(AppRoutes.selectFeaturedType);
                             },
-                            child: appText(
-                                fontSize: 18,
-                                color: AppColor.facebookColor,
-                                title: "Click here",
-                                context: context),
+                            child: CustomText(
+                              fontSize: 18,
+                              color: AppColor.facebookColor,
+                              title: context.local.click_here,
+                            ),
                           ),
                         ],
                       ),
@@ -97,9 +100,8 @@ class ProfileStatusView extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    appText(
+                    CustomText(
                       title: context.local.properties,
-                      context: context,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
@@ -111,9 +113,8 @@ class ProfileStatusView extends StatelessWidget {
                               "PropertiesType": viewModel.userID
                             });
                       },
-                      child: appText(
-                        title: context.local.viewMore,
-                        context: context,
+                      child: CustomText(
+                        title: context.local.view_more,
                         color: AppColor.greenColor,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -145,131 +146,127 @@ class ProfileStatusView extends StatelessWidget {
         }
       },
     );
-
-    // return Obx(
-    //   () => viewModel.isLoading.value
-    //       ? const Center(
-    //           child: CircularProgressIndicator(
-    //             color: AppColor.buttonColor,
+    // return GetX<ProfileViewModel>(
+    //   init: ProfileViewModel(),
+    //   initState: (viewModel) {
+    //     viewModel.controller?.getProfile(context: context, accessToken: viewModel.controller!.accessToken!);
+    //   },
+    //   builder: (viewModel) {
+    //     if (viewModel.isLoading.value) {
+    //       return const Center(
+    //         child: CircularProgressIndicator(
+    //           color: AppColor.buttonColor,
+    //         ),
+    //       );
+    //     } else if (viewModel.profileModel.value.userProfile == null) {
+    //       return const SizedBox();
+    //     } else {
+    //       return Scaffold(
+    //         key: _scaffoldKey,
+    //         appBar: profileAppBar(context, viewModel, _scaffoldKey),
+    //         drawer: customDrawer(context: context),
+    //         body: ListView(
+    //           shrinkWrap: true,
+    //           physics: const BouncingScrollPhysics(),
+    //           padding: EdgeInsets.symmetric(
+    //             horizontal: context.getSize.width * 0.036,
     //           ),
-    //         )
-    //       : viewModel.profileModel.value.userProfile == null
-    //           ? Scaffold(
-    //               body: Center(
-    //                   child: InkWell(
-    //                       onTap: () {
-    //                         viewModel.getProfilePageData(
-    //                             context: context,
-    //                             id: GetStorage().read("id").toString());
-    //                       },
-    //                       child: appText(
-    //                           title: "No User Found", context: context))),
-    //             )
-    //           : Scaffold(
-    //               key: _scaffoldKey,
-    //               appBar: profileAppBar(context, viewModel, _scaffoldKey),
-    //               drawer: customDrawer(context: context),
-    //               body: ListView(
-    //                 shrinkWrap: true,
-    //                 physics: const BouncingScrollPhysics(),
-    //                 padding: EdgeInsets.symmetric(
-    //                     horizontal: context.getSize.width * 0.036),
+    //           children: [
+    //             getHeight(context, 0.008),
+    //             aboutTile(
+    //               context,
+    //               viewModel.profileModel.value.properties != null
+    //                   ? viewModel.profileModel.value.userProfile!.about ?? ""
+    //                   : "",
+    //             ),
+    //             getHeight(context, 0.015),
+    //             Container(
+    //               padding: const EdgeInsets.all(16),
+    //               margin: const EdgeInsets.symmetric(vertical: 10),
+    //               decoration: BoxDecoration(
+    //                 color: AppColor.white,
+    //                 borderRadius: BorderRadius.circular(10),
+    //               ),
+    //               child: Column(
     //                 children: [
-    //                   getHeight(context, 0.008),
-    //                   aboutTile(
-    //                       context,
-    //                       viewModel.profileModel.value.properties != null
-    //                           ? viewModel
-    //                                   .profileModel.value.userProfile!.about ??
-    //                               ""
-    //                           : ""),
-    //                   getHeight(context, 0.015),
-    //                   Container(
-    //                     padding: const EdgeInsets.all(16),
-    //                     margin: const EdgeInsets.symmetric(vertical: 10),
-    //                     decoration: BoxDecoration(
-    //                       color: AppColor.white,
-    //                       borderRadius: BorderRadius.circular(10),
-    //                       boxShadow: const [
-    //                         // boxShadow(),
-    //                       ],
-    //                     ),
-    //                     child: Column(
-    //                       children: [
-    //                         features(context),
-    //                         Row(
-    //                           mainAxisAlignment: MainAxisAlignment.end,
-    //                           children: [
-    //                             InkWell(
-    //                               onTap: () {
-    //                                 Get.toNamed(AppRoutes.selectFeaturedtype);
-    //                               },
-    //                               child: appText(
-    //                                   fontSize: 18,
-    //                                   color: AppColor.facebookColor,
-    //                                   title: "Click here",
-    //                                   context: context),
-    //                             ),
-    //                           ],
-    //                         ),
-    //                       ],
-    //                     ),
-    //                   ),
-    //                   rewardsAndAppricationTile(context, viewModel),
-    //                   getHeight(context, 0.015),
-    //                   profileInformationTile(
-    //                       context, viewModel.profileModel.value.userProfile!),
-    //                   getHeight(context, 0.015),
+    //                   features(context),
     //                   Row(
-    //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //                     mainAxisAlignment: MainAxisAlignment.end,
     //                     children: [
-    //                       appText(
-    //                         title: context.local.properties,
-    //                         context: context,
-    //                         fontSize: 14,
-    //                         fontWeight: FontWeight.w500,
-    //                       ),
-    //                       GestureDetector(
+    //                       InkWell(
     //                         onTap: () {
-    //                           Get.toNamed(AppRoutes.profilePropertyListingView,
-    //                               arguments: {
-    //                                 "PropertyEnum":
-    //                                     PropertiesAndVideoEnum.properties,
-    //                                 "PropertiesType":
-    //                                     GetStorage().read("id").toString()
-    //                               });
+    //                           Get.toNamed(AppRoutes.selectFeaturedType);
     //                         },
     //                         child: appText(
-    //                           title: context.local.viewMore,
+    //                           fontSize: 18,
+    //                           color: AppColor.facebookColor,
+    //                           title: "Click here",
     //                           context: context,
-    //                           color: AppColor.greenColor,
-    //                           fontSize: 14,
-    //                           fontWeight: FontWeight.w500,
     //                         ),
     //                       ),
     //                     ],
     //                   ),
-    //                   getHeight(context, 0.015),
-    //                   propertiesListView(context),
-    //                   getHeight(context, 0.015),
-    //                   ProfilePostsTile(viewModel: viewModel),
-    //                   getHeight(context, 0.015),
-    //                   ProfileShortVideosTile(
-    //                       listOfProperties:
-    //                           viewModel.profileModel.value.userProfile == null
-    //                               ? []
-    //                               : viewModel.profileModel.value.properties!),
-    //                   getHeight(context, 0.015),
-    //                   ProfileVideosTile(
-    //                     listOfProperties:
-    //                         viewModel.profileModel.value.properties == null
-    //                             ? []
-    //                             : viewModel.profileModel.value.properties!,
-    //                   ),
-    //                   getHeight(context, 0.12),
     //                 ],
     //               ),
     //             ),
+    //             rewardsAndAppreciationTile(context, viewModel),
+    //             getHeight(context, 0.015),
+    //             profileInformationTile(
+    //               context,
+    //               viewModel.profileModel.value.userProfile!,
+    //             ),
+    //             getHeight(context, 0.015),
+    //             Row(
+    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //               children: [
+    //                 appText(
+    //                   title: context.local.properties,
+    //                   context: context,
+    //                   fontSize: 14,
+    //                   fontWeight: FontWeight.w500,
+    //                 ),
+    //                 GestureDetector(
+    //                   onTap: () {
+    //                     Get.toNamed(
+    //                       AppRoutes.profilePropertyListingView,
+    //                       arguments: {
+    //                         "PropertyEnum": PropertiesAndVideoEnum.properties,
+    //                         "PropertiesType": viewModel.userID,
+    //                       },
+    //                     );
+    //                   },
+    //                   child: appText(
+    //                     title: context.local.viewMore,
+    //                     context: context,
+    //                     color: AppColor.greenColor,
+    //                     fontSize: 14,
+    //                     fontWeight: FontWeight.w500,
+    //                   ),
+    //                 ),
+    //               ],
+    //             ),
+    //             getHeight(context, 0.015),
+    //             propertiesListView(context),
+    //             getHeight(context, 0.015),
+    //             ProfilePostsTile(viewModel: viewModel),
+    //             getHeight(context, 0.015),
+    //             ProfileShortVideosTile(
+    //               listOfProperties: viewModel.profileModel.value.userProfile == null
+    //                   ? []
+    //                   : viewModel.profileModel.value.properties!,
+    //             ),
+    //             getHeight(context, 0.015),
+    //             ProfileVideosTile(
+    //               listOfProperties: viewModel.profileModel.value.properties == null
+    //                   ? []
+    //                   : viewModel.profileModel.value.properties!,
+    //             ),
+    //             getHeight(context, 0.12),
+    //           ],
+    //         ),
+    //       );
+    //     }
+    //   },
     // );
   }
 
@@ -277,14 +274,14 @@ class ProfileStatusView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        appText(
-            title: "Get your Ad Featured:",
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            context: context),
+        CustomText(
+          title: context.local.get_your_ad_featured,
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
         radioFeatureButtons(
           context,
-          "Reach up to 10x more buyers.",
+          context.local.reach_up_to_10x_more_buyers,
           true,
           (p0) {
             // controller.onChangeTenXMoreBuyers(p0!);
@@ -292,7 +289,7 @@ class ProfileStatusView extends StatelessWidget {
         ),
         radioFeatureButtons(
           context,
-          "Show your Ad in top position.",
+          context.local.show_your_ad_in_top_position,
           true,
           (p0) {
             // controller.onChangeAdOnTopPostion(p0!);
@@ -300,7 +297,7 @@ class ProfileStatusView extends StatelessWidget {
         ),
         radioFeatureButtons(
           context,
-          "Get noticed with a Feature Ad tag.",
+          context.local.get_noticed_with_a_feature_ad_tag,
           true,
           (p0) {
             // controller.onChangeFeatureAdTag(p0!);
@@ -321,8 +318,7 @@ class ProfileStatusView extends StatelessWidget {
           onChanged: onChanged,
         ),
         const Gap(4),
-        appText(
-            title: title, fontSize: 14, context: context, colorOpecity: 0.6),
+        CustomText(title: title, fontSize: 14, colorOpecity: 0.6),
       ],
     );
   }
@@ -344,7 +340,8 @@ class ProfileStatusView extends StatelessWidget {
         itemBuilder: (context, index) {
           return propertiesTile(context,
               viewModel: viewModel,
-              property: viewModel.profileModel.value.properties![index]);
+              property: viewModel.profileModel.value.properties![index],
+              accessToken: viewModel.accessToken);
         },
       ),
     );

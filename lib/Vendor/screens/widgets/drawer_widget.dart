@@ -3,7 +3,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/divider.dart';
@@ -34,10 +33,10 @@ class DrawerWidget extends StatefulWidget {
   final Function(int) onItemSelected;
 
   const DrawerWidget({
-    Key? key,
+    super.key,
     required this.onToggleDrawer,
     required this.onItemSelected,
-  }) : super(key: key);
+  });
 
   @override
   State<DrawerWidget> createState() => _DrawerWidgetState();
@@ -52,7 +51,6 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     profileController.loadProfile();
   }
 
-  double? _rating;
 
   Widget build(BuildContext context) {
     return Drawer(
@@ -588,9 +586,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       color: AppColor.backgroundColor,
                     ),
                   ),
-                  appText(
+                  CustomText(
                     title: "Sign Out",
-                    context: context,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   )

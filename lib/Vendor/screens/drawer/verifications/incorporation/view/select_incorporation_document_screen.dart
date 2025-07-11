@@ -162,7 +162,7 @@ class _SelectIncorporationDocumentScreenState
                   ),
                 ],
               )),
-          Container(
+          SizedBox(
             height: Get.height * .9,
             child: SingleChildScrollView(
               child: Padding(
@@ -176,7 +176,7 @@ class _SelectIncorporationDocumentScreenState
                     ),
                     DottedBorder(
                         color: Colors.grey.shade600,
-                        dashPattern: [9, 4],
+                        dashPattern: const [9, 4],
                         child: InkWell(
                           onTap: () {
                             _updateIncorporation();
@@ -189,7 +189,7 @@ class _SelectIncorporationDocumentScreenState
                                   image: selectedIncorporationImage == null
                                       ? NetworkImage(ProfileController()
                                               .profile
-                                              .value!
+                                              .value
                                               .certificateOfIncorporationUrl ??
                                           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9G-3fE_XkNuDmyKAl0Cdd5uwtjAhGkP1BxQ&s')
                                       : FileImage(File(
@@ -232,7 +232,7 @@ class _SelectIncorporationDocumentScreenState
                     const SizedBox(height: 9),
                     DottedBorder(
                       color: Colors.grey.shade600,
-                      dashPattern: [9, 4],
+                      dashPattern: const [9, 4],
                       child: InkWell(
                         onTap: () {
                           _updateAssociation();
@@ -247,7 +247,7 @@ class _SelectIncorporationDocumentScreenState
                                     ? NetworkImage(
                                         ProfileController()
                                                 .profile
-                                                .value!
+                                                .value
                                                 .artificialOfAssociationUrl ??
                                             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9G-3fE_XkNuDmyKAl0Cdd5uwtjAhGkP1BxQ&s",
                                       )
@@ -292,7 +292,7 @@ class _SelectIncorporationDocumentScreenState
                     const SizedBox(height: 9),
                     DottedBorder(
                       color: Colors.grey.shade600,
-                      dashPattern: [9, 4],
+                      dashPattern: const [9, 4],
                       child: InkWell(
                         onTap: () {
                           _updateMemberofAssociation();
@@ -306,7 +306,7 @@ class _SelectIncorporationDocumentScreenState
                                     ? NetworkImage(
                                         ProfileController()
                                                 .profile
-                                                .value!
+                                                .value
                                                 .memberOfAssociationUrl ??
                                             "https://images.unsplash.com/photo-1719054415148-b83895be5157?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90b3MtZmVlZHw0NHx8fGVufDB8fHx8fA%3D%3D",
                                       )

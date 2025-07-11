@@ -6,10 +6,9 @@ import 'package:propertier/Utils/divider.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/constant.dart';
 
-// ignore: must_be_immutable
 class HomePostsTile extends StatelessWidget {
-  HomeViewModel viewModel;
-  HomePostsTile({super.key, required this.viewModel});
+  final HomeViewModel viewModel;
+  const HomePostsTile({super.key, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {

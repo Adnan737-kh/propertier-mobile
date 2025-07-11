@@ -24,15 +24,14 @@ class ProfileVideosTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return listOfProperties.isEmpty
-        ? const Text("No Data")
+        ?  Text(context.local.no_data)
         : Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  appText(
+                  CustomText(
                     title: context.local.videos,
-                    context: context,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                   ),
@@ -45,9 +44,8 @@ class ProfileVideosTile extends StatelessWidget {
                                 listOfProperties.first.agent!.id.toString()
                           });
                     },
-                    child: appText(
-                      title: context.local.viewMore,
-                      context: context,
+                    child: CustomText(
+                      title: context.local.view_more,
                       color: AppColor.greenColor,
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
@@ -57,7 +55,7 @@ class ProfileVideosTile extends StatelessWidget {
               ),
               getHeight(context, 0.011),
               listOfProperties.isEmpty
-                  ? const Text("No Data")
+                  ? Text(context.local.no_data)
                   : SizedBox(
                       height: 150,
                       width: context.getSize.width,

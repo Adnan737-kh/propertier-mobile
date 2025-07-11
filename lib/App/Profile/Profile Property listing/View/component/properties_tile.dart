@@ -37,8 +37,8 @@ Widget propertiesTile(BuildContext context,
       children: [
         GestureDetector(
           onTap: () {
-            Get.toNamed(AppRoutes.detailView,
-                arguments: {"id": property.id, "user": "user"});
+            Get.toNamed(AppRoutes.propertyDetailView,
+                arguments: {"slug": property.slug, "user": "user"});
           },
           child: Container(
             // alignment: Alignment.center,
@@ -79,10 +79,9 @@ Widget propertiesTile(BuildContext context,
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                             color: AppColor.blackColor),
-                        title: property.title!.parseHtmlString()),
-                    appText(
-                        title: double.parse(property.price!).formatPrice(),
-                        context: context,
+                        title: property.title.parseHtmlString()),
+                    CustomText(
+                        title: double.parse(property.price).formatPrice(),
                         fontSize: 14,
                         color: AppColor.greenColor,
                         fontWeight: FontWeight.w700,
@@ -105,7 +104,7 @@ Widget propertiesTile(BuildContext context,
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
                             color: AppColor.blackColor.withOpacity(0.8)),
-                        title: property.address!),
+                        title: property.address),
                   ],
                 ),
                 getHeight(context, 0.004),
@@ -116,10 +115,9 @@ Widget propertiesTile(BuildContext context,
                   children: [
                     SizedBox(
                       width: context.getSize.width * 0.3,
-                      child: appText(
+                      child: CustomText(
                           textAlign: TextAlign.start,
                           title: "${context.local.area}: ",
-                          context: context,
                           fontSize: 12,
                           colorOpecity: 0.8,
                           fontWeight: FontWeight.bold),
@@ -130,7 +128,7 @@ Widget propertiesTile(BuildContext context,
                     scrollableText(
                       width: 0.40,
                       title:
-                          '${double.parse(property.area.toString()).convertArea(areaType: property.areaUnit ?? '')} ${property.areaUnit ?? ''}',
+                          '${double.parse(property.area.toString()).convertArea(areaType: property.areaUnit)} ${property.areaUnit}',
                       context: context,
                       textStyle: textStyle(
                         // color: AppColor.blackColor.withOpacity(0.8),
@@ -148,10 +146,9 @@ Widget propertiesTile(BuildContext context,
                   children: [
                     SizedBox(
                       width: context.getSize.width * 0.3,
-                      child: appText(
+                      child: CustomText(
                           textAlign: TextAlign.start,
                           title: "${context.local.dimension}: ",
-                          context: context,
                           fontSize: 12,
                           colorOpecity: 0.8,
                           fontWeight: FontWeight.bold),

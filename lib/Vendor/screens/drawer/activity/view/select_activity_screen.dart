@@ -67,7 +67,7 @@ class _SelectActivityScreenState extends State<SelectActivityScreen> {
           VerificationWidget(
             text: 'Your Posts',
             onTap: () {
-              Get.to(() => ActivityScreen());
+              Get.to(() => const ActivityScreen());
             },
           ),
           VerificationWidget(
@@ -106,7 +106,7 @@ class VerificationWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
         decoration: ShapeDecoration(
           shape: RoundedRectangleBorder(
-            side: BorderSide(width: 1, color: Color(0xFFD1D8E0)),
+            side: const BorderSide(width: 1, color: Color(0xFFD1D8E0)),
             borderRadius: BorderRadius.circular(5),
           ),
         ),

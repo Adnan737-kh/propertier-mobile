@@ -76,7 +76,7 @@ class Slider {
 
 class Service {
   final int id;
-  final List<Subservice> subservices;
+  final List<SubService> subservices;
   final String title;
   final String description;
   final String? coverImageUrl;
@@ -103,7 +103,7 @@ class Service {
     return Service(
       id: json['id'],
       subservices: (json['subservices'] as List)
-          .map((e) => Subservice.fromJson(e))
+          .map((e) => SubService.fromJson(e))
           .toList(),
       title: json['title'],
       description: json['description'],
@@ -117,7 +117,7 @@ class Service {
   }
 }
 
-class Subservice {
+class SubService {
   final int id;
   final String parentServiceName;
   final String title;
@@ -128,7 +128,7 @@ class Subservice {
   final String updatedAt;
   final int parentService;
 
-  Subservice({
+  SubService({
     required this.id,
     required this.parentServiceName,
     required this.title,
@@ -140,8 +140,8 @@ class Subservice {
     required this.parentService,
   });
 
-  factory Subservice.fromJson(Map<String, dynamic> json) {
-    return Subservice(
+  factory SubService.fromJson(Map<String, dynamic> json) {
+    return SubService(
       id: json['id'],
       parentServiceName: json['parent_service_name'],
       title: json['title'],

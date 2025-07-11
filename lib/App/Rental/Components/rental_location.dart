@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:propertier/App/Rental/ViewModel/rental_viewmodel.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 import '../../../Utils/app_text.dart';
 import '../../../Utils/divider.dart';
@@ -16,7 +17,7 @@ Widget locations({
       Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          appText(title: "Location", context: context, fontSize: 18),
+          CustomText(title: context.local.location, fontSize: 18),
         ],
       ),
       getHeight(context, 0.015),
@@ -27,13 +28,13 @@ Widget locations({
           Expanded(
               child: rentalDropdown(
             context: context,
-            title: "Area type",
+            title: context.local.area_type,
             items: controller.areaType
                 .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                 .toList(),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Select Area type';
+                return context.local.select_area_type;
               }
               return null;
             },
@@ -42,13 +43,13 @@ Widget locations({
           Expanded(
               child: rentalDropdown(
             context: context,
-            title: "Property Type",
+            title: context.local.property_type,
             items: controller.propertyType
                 .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                 .toList(),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Select PropertyType';
+                return context.local.select_property_type;
               }
               return null;
             },
@@ -57,13 +58,13 @@ Widget locations({
           Expanded(
               child: rentalDropdown(
             context: context,
-            title: "Area Unit",
+            title: context.local.area_unit,
             items: controller.areaUnitType
                 .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                 .toList(),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Select Area Unit';
+                return context.local.select_area_unit;
               }
               return null;
             },

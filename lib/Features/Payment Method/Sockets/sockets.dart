@@ -21,7 +21,7 @@ class PaymentStatusSocketService {
         log('Received: $message');
         String data = message.toString();
         // var msg = PaymentSocketModel.fromJson();
-        log('just message Received: ${json}');
+        log('just message Received: $json');
         // log('Received: ${msg.message}');
 
         if (json['transaction']['status'] == "completed" ||

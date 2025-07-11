@@ -75,23 +75,20 @@ class OfficialTeamView extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        appText(
+                                        CustomText(
                                           title: "Khuram Mistri",
-                                          context: context,
                                           fontSize: 12,
                                           fontWeight: FontWeight.normal,
                                         ),
                                         const Gap(5),
-                                        appText(
+                                        CustomText(
                                           title: "Employee",
-                                          context: context,
                                           fontSize: 10,
                                           fontWeight: FontWeight.w400,
                                         ),
                                         const Gap(5),
-                                        appText(
+                                        CustomText(
                                             title: "Steel Worker",
-                                            context: context,
                                             fontSize: 8,
                                             fontWeight: FontWeight.normal,
                                             colorOpecity: 0.7),
@@ -135,9 +132,8 @@ class OfficialTeamView extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          appText(
+                          CustomText(
                             title: "Leader",
-                            context: context,
                             fontSize: 12,
                             fontWeight: FontWeight.normal,
                           ),
@@ -174,9 +170,8 @@ class OfficialTeamView extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          appText(
+                          CustomText(
                             title: "Employee",
-                            context: context,
                             fontSize: 12,
                             fontWeight: FontWeight.normal,
                           ),

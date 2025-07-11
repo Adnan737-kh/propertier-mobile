@@ -76,27 +76,25 @@ class _MyMapState extends State<MapViewWRYSF> {
       body: SafeArea(
         child: Obx(() => Stack(
               children: [
-                Container(
-                  child: SafeArea(
-                    // on below line creating google maps
-                    child: GoogleMap(
-                      circles: circles,
-                      // on below line setting camera position
-                      initialCameraPosition:
-                          viewModel.initialCameraPosition.value,
-                      // on below line we are setting markers on the map
-                      markers: Set<Marker>.of(viewModel.markerPosition),
-                      // on below line specifying map type.
-                      mapType: MapType.normal,
-                      // on below line setting user location enabled.
-                      myLocationEnabled: true,
-                      // on below line setting compass enabled.
-                      compassEnabled: true,
-                      // on below line specifying controller on map complete.
-                      onTap: (argument) {},
-                      mapToolbarEnabled: true,
-                      onMapCreated: viewModel.onMapCreated,
-                    ),
+                SafeArea(
+                  // on below line creating google maps
+                  child: GoogleMap(
+                    circles: circles,
+                    // on below line setting camera position
+                    initialCameraPosition:
+                        viewModel.initialCameraPosition.value,
+                    // on below line we are setting markers on the map
+                    markers: Set<Marker>.of(viewModel.markerPosition),
+                    // on below line specifying map type.
+                    mapType: MapType.normal,
+                    // on below line setting user location enabled.
+                    myLocationEnabled: true,
+                    // on below line setting compass enabled.
+                    compassEnabled: true,
+                    // on below line specifying controller on map complete.
+                    onTap: (argument) {},
+                    mapToolbarEnabled: true,
+                    onMapCreated: viewModel.onMapCreated,
                   ),
                 ),
                 appBarWithSearch(context),
@@ -118,7 +116,7 @@ class _MyMapState extends State<MapViewWRYSF> {
                   border: Border.all(
                       color: AppColor.darkGreyColor.withOpacity(0.2)),
                   borderRadius: BorderRadius.circular(30)),
-              child: customButton(
+              child: CustomButton(
                   buttonColor: AppColor.buttonColor,
                   textColor: AppColor.blackColor,
                   height: 43,
@@ -208,15 +206,14 @@ class _MyMapState extends State<MapViewWRYSF> {
                         Obx(() => Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                appText(
+                                CustomText(
                                     title: "Area Range",
-                                    context: context,
                                     fontSize: 12),
-                                appText(
+                                CustomText(
                                     title:
                                         "${viewModel.areaValue.value.toInt()} Meter",
                                     fontSize: 12,
-                                    context: context),
+                                     ),
                               ],
                             )),
                         Obx(

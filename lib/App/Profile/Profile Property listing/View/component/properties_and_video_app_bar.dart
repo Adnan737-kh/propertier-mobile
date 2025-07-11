@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -5,7 +6,6 @@ import 'package:ionicons/ionicons.dart';
 import 'package:propertier/App/Home/View/home_view.dart';
 import 'package:propertier/Utils/animated_toggle.dart';
 import 'package:propertier/Utils/app_text.dart';
-import 'package:propertier/Utils/bottom_sheet.dart';
 import 'package:propertier/Utils/box_shadow.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
@@ -83,9 +83,8 @@ class PropertiesAndVideosAppBar extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      appText(
+                      CustomText(
                           title: context.local.location,
-                          context: context,
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
                           colorOpecity: 0.6),
@@ -115,9 +114,8 @@ class PropertiesAndVideosAppBar extends StatelessWidget {
                               size: context.getSize.width * 0.030,
                               color: AppColor.buttonColor,
                             ),
-                            appText(
+                            CustomText(
                                 title: viewModel.currentLocation,
-                                context: context,
                                 fontSize: 14),
                             Icon(
                               Icons.keyboard_arrow_down,
@@ -181,9 +179,8 @@ class PropertiesAndVideosAppBar extends StatelessWidget {
                               )),
                           child: Row(
                             children: [
-                              appText(
+                              CustomText(
                                   title: "All Types",
-                                  context: context,
                                   fontSize: 10,
                                   color: AppColor.blackColor,
                                   fontWeight: FontWeight.normal)
@@ -199,7 +196,9 @@ class PropertiesAndVideosAppBar extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemCount: viewModel.listOfTab.length,
                       itemBuilder: (context, index) {
-                        print("Get Group values $index");
+                        if (kDebugMode) {
+                          print("Get Group values $index");
+                        }
                         return GestureDetector(
                           onTap: () {
                             viewModel.setSelectTab(viewModel.listOfTab[index]);
@@ -223,9 +222,8 @@ class PropertiesAndVideosAppBar extends StatelessWidget {
                                   )),
                               child: Row(
                                 children: [
-                                  appText(
+                                  CustomText(
                                       title: viewModel.listOfTab[index],
-                                      context: context,
                                       fontSize: 12,
                                       color: AppColor.blackColor,
                                       fontWeight: FontWeight.normal)

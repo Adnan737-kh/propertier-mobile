@@ -28,7 +28,7 @@ Widget searchedActivityTile({required String title, Function()? onTap}) {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                appText(title: title, context: context, colorOpecity: 0.60)
+                CustomText(title: title, colorOpecity: 0.60)
               ],
             ),
             const Icon(Icons.keyboard_arrow_right_rounded)

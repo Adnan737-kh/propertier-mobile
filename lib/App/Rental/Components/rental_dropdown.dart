@@ -20,7 +20,7 @@ Widget rentalDropdown(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          appText(title: title, context: context, colorOpecity: 0.6),
+          CustomText(title: title, colorOpecity: 0.6),
           DropdownButtonFormField(
               style: textStyle(context: context),
               decoration: const InputDecoration(border: InputBorder.none),

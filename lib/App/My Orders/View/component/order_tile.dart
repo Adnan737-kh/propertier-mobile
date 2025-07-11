@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/App/My%20Orders/Model/order_model.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 import '../../../../constant/colors.dart';
 import '../../../../constant/constant.dart';
@@ -48,23 +50,20 @@ class OrderTile extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        appText(
-                            title: "Order ID: ",
-                            context: context,
+                        CustomText(
+                            title: context.local.order_id,
                             fontSize: 8,
                             fontWeight: FontWeight.w600,
                             colorOpecity: 0.6),
-                        appText(
+                        CustomText(
                             title: order.orderId,
-                            context: context,
                             fontSize: 8,
                             fontWeight: FontWeight.normal,
                             colorOpecity: 0.4)
                       ],
                     ),
-                    appText(
+                    CustomText(
                         title: order.orderDate,
-                        context: context,
                         fontSize: 8,
                         fontWeight: FontWeight.normal,
                         colorOpecity: 0.4)
@@ -88,23 +87,20 @@ class OrderTile extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        appText(
+                        CustomText(
                           title: order.serviceName,
-                          context: context,
                           fontSize: 12,
                           fontWeight: FontWeight.normal,
                         ),
                         const Gap(5),
-                        appText(
+                        CustomText(
                             title: order.address,
-                            context: context,
                             fontSize: 8,
                             fontWeight: FontWeight.normal,
                             colorOpecity: 0.7),
                         const Gap(5),
-                        appText(
+                        CustomText(
                             title: order.price,
-                            context: context,
                             fontSize: 8,
                             fontWeight: FontWeight.normal,
                             colorOpecity: 1),
@@ -120,9 +116,8 @@ class OrderTile extends StatelessWidget {
                                 border: Border.all(color: Colors.green[600]!)),
                             child: Padding(
                               padding: const EdgeInsets.all(5),
-                              child: appText(
+                              child: CustomText(
                                   title: "Detail",
-                                  context: context,
                                   fontSize: 10,
                                   color: Colors.green[600]!,
                                   fontWeight: FontWeight.normal,
@@ -137,9 +132,8 @@ class OrderTile extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        appText(
+                        CustomText(
                             title: order.area,
-                            context: context,
                             fontSize: 8,
                             fontWeight: FontWeight.normal,
                             colorOpecity: 0.7),
@@ -160,9 +154,8 @@ class OrderTile extends StatelessWidget {
                                         width: 10,
                                       ),
                                       const Gap(2),
-                                      appText(
+                                      CustomText(
                                           title: order.status,
-                                          context: context,
                                           fontSize: 8,
                                           fontWeight: FontWeight.normal,
                                           colorOpecity: 0.5),
@@ -185,9 +178,8 @@ class OrderTile extends StatelessWidget {
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 10, vertical: 3),
-                                        child: appText(
-                                            title: "Accept",
-                                            context: context,
+                                        child: CustomText(
+                                            title: context.local.pending,
                                             fontSize: 10,
                                             color: Colors.white,
                                             fontWeight: FontWeight.normal,
@@ -206,9 +198,8 @@ class OrderTile extends StatelessWidget {
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 10, vertical: 3),
-                                        child: appText(
-                                            title: "Reject",
-                                            context: context,
+                                        child: CustomText(
+                                            title: context.local.reject,
                                             fontSize: 10,
                                             color: AppColor.blackColor,
                                             fontWeight: FontWeight.normal,

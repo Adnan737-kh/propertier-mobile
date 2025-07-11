@@ -50,7 +50,7 @@ class AddMaterialView extends GetView<AddMaterialViewModel> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    appText(title: "Title", context: context, fontSize: 18),
+                    CustomText(title: "Title", fontSize: 18),
                   ],
                 ),
                 getHeight(context, 0.008),
@@ -67,8 +67,8 @@ class AddMaterialView extends GetView<AddMaterialViewModel> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    appText(
-                        title: "Description", context: context, fontSize: 18),
+                    CustomText(
+                        title: "Description",  fontSize: 18),
                   ],
                 ),
                 getHeight(context, 0.008),

@@ -1,10 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:propertier/Utils/appbar.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/Utils/logo_tile.dart';
-import 'package:propertier/Utils/search_location_bottom_sheet.dart';
 import 'package:propertier/Utils/text_botton.dart';
 import 'package:propertier/Vendor/screens/Auth/Sign%20Up/ViewModel/signup_view_model.dart';
 import 'package:propertier/constant/AppButton/text_button.dart';
@@ -141,7 +141,7 @@ class SignUpView extends StatelessWidget {
                     height: 12,
                   ),
                   customPhoneNumberTextField(
-                    labal: "Phone Number",
+                    label: "Phone Number",
                     controller: signupVM.userNumberController,
                     hintText: 'Enter Your Phone Number',
                     textInputType: TextInputType.phone,
@@ -246,7 +246,9 @@ class SignUpView extends StatelessWidget {
                                         signupVM.userNumberController.text !=
                                             "") {
                                       signupVM.formKey.currentState?.save();
-                                      print(signupVM.userNumberController.text);
+                                      if (kDebugMode) {
+                                        print(signupVM.userNumberController.text);
+                                      }
                                       // signupVM
                                       //     .phoneAuthentication(
                                       //         phone:
@@ -322,7 +324,7 @@ class SignUpView extends StatelessWidget {
                                       signupVM.sigupWithGoogle(
                                           context: context);
                                     },
-                                    icondata: Bootstrap.google,
+                                    iconData: Bootstrap.google,
                                     title: 'Sign Up with Google',
                                     buttonColor: AppColor.googleColor
                                     // textColor: AppColor.,
@@ -342,7 +344,7 @@ class SignUpView extends StatelessWidget {
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                             onTap: () async {},
-                            icondata: Bootstrap.facebook,
+                            iconData: Bootstrap.facebook,
                             // iconColor: AppColor.googleColor,
                             title: 'Sign Up with FaceBook',
                             buttonColor: AppColor.facebookColor

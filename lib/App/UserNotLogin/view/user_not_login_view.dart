@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/height_width_box.dart';
@@ -8,6 +9,7 @@ import 'package:propertier/Utils/textStyle.dart';
 import 'package:propertier/Utils/text_botton.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 class UserNotLoginView extends StatelessWidget {
@@ -31,11 +33,10 @@ class UserNotLoginView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20)),
                 child: Image.asset(Constant.appLogo)),
             getHeight(context, 0.1),
-            appText(
-                title: 'Using more features kindly\nlogin first',
+            CustomText(
+                title: context.local.using_more_features_kindly_login_first,
                 fontSize: 20,
-                fontWeight: FontWeight.w500,
-                context: context),
+                fontWeight: FontWeight.w500),
             getHeight(context, 0.05),
             textButton(
                 textColor: AppColor.darkGreyColor.withOpacity(0.7),
@@ -54,7 +55,7 @@ class UserNotLoginView extends StatelessWidget {
                   style: textStyle(
                     context: context,
                   ),
-                  text: "Don't have an account?"),
+                  text: context.local.dont_have_an_account),
               TextSpan(
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {

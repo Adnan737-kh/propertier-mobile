@@ -53,7 +53,7 @@ class _VideoThumbnailTileState extends State<VideoThumbnailTile> {
     return GestureDetector(
       onTap: () {
         // Get.toNamed(AppRoutes.playerView, arguments: widget.videoUrl);
-        Get.to(const Ytplayer(), arguments: widget.videoUrl);
+        Get.to(const YtPlayer(), arguments: widget.videoUrl);
       },
       child: FutureBuilder<String>(
           future: getThumbnail(),
@@ -69,6 +69,9 @@ class _VideoThumbnailTileState extends State<VideoThumbnailTile> {
               );
             }
             if (snapshot.connectionState == ConnectionState.done) {
+              if ((snapshot.data ?? '').isEmpty) {
+                return const SizedBox.shrink(); // Don't render anything
+              }
               return Container(
                 width: context.isPhone ? 290 : 320,
                 // height: 200,

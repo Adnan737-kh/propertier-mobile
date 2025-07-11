@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_svg/svg.dart';
@@ -71,20 +72,21 @@ class EmailOTPVerifyView extends StatelessWidget {
                       viewModel: viewModel,
                       pinLength: 6,
                       onComplete: (value) {
-                        print(value);
+                        if (kDebugMode) {
+                          print(value);
+                        }
                       }),
                   getHeight(context, 0.030),
                   viewModel.isTimerStart == false
                       ? getHeight(context, 0.02)
-                      : appText(
+                      : CustomText(
                           title: '${viewModel.counterValue} Sec Left',
-                          context: context,
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                         ),
                   getHeight(context, 0.07),
                   viewModel.isTimerStart == true
-                      ? appText(title: '', context: context, fontSize: 12)
+                      ? CustomText(title: '', fontSize: 12)
                       : RichText(
                           text: TextSpan(
                               style: TextStyle(

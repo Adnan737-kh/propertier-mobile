@@ -79,9 +79,8 @@ class _IDUploadViewState extends State<IDUploadView> {
                   const SizedBox(
                     height: 30,
                   ),
-                  appText(
+                  CustomText(
                       title: "Please Take photo of your ID Card from front.",
-                      context: context,
                       fontSize: 16,
                       color: const Color(0xFF6D6E6F),
                       fontWeight: FontWeight.bold),
@@ -101,9 +100,8 @@ class _IDUploadViewState extends State<IDUploadView> {
                   const SizedBox(
                     height: 30,
                   ),
-                  appText(
+                  CustomText(
                       title: "Please Take photo of your ID Card from Back",
-                      context: context,
                       fontSize: 16,
                       color: const Color(0xFF6D6E6F),
                       fontWeight: FontWeight.bold),

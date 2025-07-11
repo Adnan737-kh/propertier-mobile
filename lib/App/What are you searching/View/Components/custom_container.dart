@@ -24,7 +24,7 @@ Widget customContainer(
                   : AppColor.darkGreyColor.withOpacity(0.2)),
           borderRadius: BorderRadius.circular(radius)),
       child: Center(
-        child: appText(title: title, fontSize: 12, context: context),
+        child: CustomText(title: title, fontSize: 12,),
       ),
     ),
   );

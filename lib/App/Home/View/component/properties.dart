@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -46,9 +47,8 @@ class Properties extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              appText(
+              CustomText(
                 title: context.local.properties,
-                context: context,
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
               ),
@@ -59,9 +59,8 @@ class Properties extends StatelessWidget {
                     "PropertiesType": ""
                   });
                 },
-                child: appText(
-                  title: context.local.viewMore,
-                  context: context,
+                child: CustomText(
+                  title: context.local.view_more,
                   color: AppColor.greenColor,
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
@@ -76,7 +75,9 @@ class Properties extends StatelessWidget {
           width: context.getSize.width,
           child: property.isEmpty
               ? Center(
-                  child: appText(title: 'No Data Available', context: context),
+                  child: CustomText(
+                    title: context.local.no_data_available,
+                  ),
                 )
               : ListView.builder(
                   scrollDirection: Axis.horizontal,
@@ -112,11 +113,14 @@ class Properties extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              print('property id! ${property[index].id}');
-                              Get.toNamed(AppRoutes.detailView, arguments: {
-                                "id": property[index].id,
-                                "user": "null"
-                              });
+                              if (kDebugMode) {
+                                print('property slug! ${property[index].slug}');
+                              }
+                              Get.toNamed(AppRoutes.propertyDetailView,
+                                  arguments: {
+                                    "slug": property[index].slug,
+                                    "user": "null"
+                                  });
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(
@@ -129,7 +133,9 @@ class Properties extends StatelessWidget {
                                       topLeft: Radius.circular(8),
                                       topRight: Radius.circular(8)),
                                   image: DecorationImage(
-                                      image: NetworkImage(property[index].image ?? Constant.dummyImage),
+                                      image: NetworkImage(
+                                          property[index].image ??
+                                              Constant.dummyImage),
                                       fit: BoxFit.cover)),
                               child: GestureDetector(
                                   onTap: () {},
@@ -154,26 +160,23 @@ class Properties extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    appText(
+                                    CustomText(
                                         title: getTimeAgo(
                                             property[index].createdAt!),
-                                        context: context,
                                         colorOpecity: 0.7,
                                         fontSize: 10,
                                         fontWeight: FontWeight.w500),
-                                    appText(
-                                        title: 'Residential',
-                                        context: context,
+                                    CustomText(
+                                        title: context.local.residential,
                                         colorOpecity: 0.7,
                                         fontSize: 10,
                                         fontWeight: FontWeight.w500),
                                   ],
                                 ),
                                 getHeight(context, 0.008),
-                                appText(
+                                CustomText(
                                     textAlign: TextAlign.left,
                                     title: property[index].title!,
-                                    context: context,
                                     colorOpecity: 1,
                                     fontSize: 12,
                                     overflow: TextOverflow.ellipsis,
@@ -184,14 +187,18 @@ class Properties extends StatelessWidget {
                                     RichText(
                                       text: TextSpan(children: [
                                         TextSpan(
-                                            text: "PKR ",
+                                            text: context.local.pkr,
                                             style: textStyle(
                                                 context: context,
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.bold)),
                                         TextSpan(
-                                            text: double.parse(property[index].price!).formatPrice(),
-                                            style: textStyle(context: context, fontSize: 10)),
+                                            text: double.parse(
+                                                    property[index].price!)
+                                                .formatPrice(),
+                                            style: textStyle(
+                                                context: context,
+                                                fontSize: 10)),
                                       ]),
                                     ),
                                     // const Spacer(),
@@ -209,15 +216,15 @@ class Properties extends StatelessWidget {
                                     // )
                                   ],
                                 ),
-                                getHeight(context, 0.008),
-                                appText(
-                                    textAlign: TextAlign.left,
-                                    overflow: TextOverflow.ellipsis,
-                                    title: property[index].address!,
-                                    context: context,
-                                    colorOpecity: 0.7,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w500),
+                                // getHeight(context, 0.008),
+                                // appText(
+                                //     textAlign: TextAlign.left,
+                                //     overflow: TextOverflow.ellipsis,
+                                //     title: property[index].address!,
+                                //     context: context,
+                                //     colorOpecity: 0.7,
+                                //     fontSize: 10,
+                                //     fontWeight: FontWeight.w500),
                                 getHeight(context, 0.008),
                                 Row(
                                   mainAxisAlignment:
@@ -230,9 +237,9 @@ class Properties extends StatelessWidget {
                                           width: context.getSize.width * 0.050,
                                           height: context.getSize.height * 0.02,
                                         ),
-                                        appText(
-                                            title: " ${(property[index].area! / 250).toString()} Marla",
-                                            context: context,
+                                        CustomText(
+                                            title:
+                                                '${(property[index].area!).toString()} ${property[index].areaUnit}',
                                             colorOpecity: 1,
                                             fontSize: 10,
                                             fontWeight: FontWeight.w400),
@@ -240,13 +247,17 @@ class Properties extends StatelessWidget {
                                     ),
                                     Row(
                                       children: [
-                                        const Icon(Ionicons.heart_outline, size: 12,),
+                                        const Icon(
+                                          Ionicons.heart_outline,
+                                          size: 12,
+                                        ),
                                         const Gap(4),
-                                        appText(
+                                        CustomText(
                                             fontSize: 10,
                                             colorOpecity: 0.60,
-                                            title: property[index].likes!.toString(),
-                                            context: context),
+                                            title: property[index]
+                                                .likes!
+                                                .toString()),
                                       ],
                                     ),
                                   ],
@@ -254,7 +265,8 @@ class Properties extends StatelessWidget {
                                 getHeight(context, 0.008),
                                 // Spacer(),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: List.generate(
                                       viewModel.propertiesTileButtonList.length,
                                       (i) {
@@ -262,27 +274,40 @@ class Properties extends StatelessWidget {
                                         viewModel.propertiesTileButtonList[i];
                                     return GestureDetector(
                                       onTap: () {
-                                        propertiesButton.onTap(property[index].agent != null
-                                            ? property[index].agent!.phoneNumberCountryCode! +
-                                                property[index].agent!.phoneNumber!
+                                        propertiesButton.onTap(property[index]
+                                                    .agent !=
+                                                null
+                                            ? property[index]
+                                                    .agent!
+                                                    .phoneNumberCountryCode! +
+                                                property[index]
+                                                    .agent!
+                                                    .phoneNumber!
                                             : '');
                                       },
                                       child: Container(
                                         alignment: Alignment.center,
-                                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8, vertical: 3),
                                         decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                             color: propertiesButton.color,
                                             border: Border.all(
-                                              color: propertiesButton.borderColor,)),
+                                              color:
+                                                  propertiesButton.borderColor,
+                                            )),
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
                                           children: [
                                             propertiesButton.icon != null
                                                 ? Icon(
                                                     propertiesButton.icon,
-                                                    color: propertiesButton.titleColor,
+                                                    color: propertiesButton
+                                                        .titleColor,
                                                     size: 7,
                                                   )
                                                 : const SizedBox.shrink(),
@@ -292,9 +317,8 @@ class Properties extends StatelessWidget {
                                             propertiesButton.icon != null
                                                 ? const Gap(4)
                                                 : const Gap(0),
-                                            appText(
+                                            CustomText(
                                               title: propertiesButton.title,
-                                              context: context,
                                               color:
                                                   propertiesButton.titleColor,
                                               fontSize: 10,

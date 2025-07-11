@@ -9,22 +9,22 @@ class UserModelOld {
   DateTime expiration;
   String email;
   List<String>? userRoles;
-  dynamic phonenumber;
+  dynamic phoneNumber;
   String fname;
   String lname;
   String id;
-  int timeSheettype;
+  int timeSheetType;
 
   UserModelOld({
     required this.token,
     required this.expiration,
     required this.email,
     required this.userRoles,
-    required this.phonenumber,
+    required this.phoneNumber,
     required this.fname,
     required this.lname,
     required this.id,
-    required this.timeSheettype,
+    required this.timeSheetType,
   });
 
   factory UserModelOld.fromJson(Map<String, dynamic> json) => UserModelOld(
@@ -37,11 +37,11 @@ class UserModelOld {
         userRoles: json["userRoles"] != null
             ? List<String>.from(json["userRoles"].map((x) => x))
             : [],
-        phonenumber: json["phonenumber"] ?? "",
+        phoneNumber: json["phonenumber"] ?? "",
         fname: json["fname"] ?? "",
         lname: json["lname"] ?? "",
         id: json["id"] ?? "",
-        timeSheettype: json["timeSheettype"] ?? 0,
+        timeSheetType: json["timeSheettype"] ?? 0,
       );
 
   Map<String, dynamic> toJson() => {
@@ -49,10 +49,10 @@ class UserModelOld {
         "expiration": expiration.toIso8601String(),
         "email": email,
         "userRoles": List<dynamic>.from(userRoles!.map((x) => x)),
-        "phonenumber": phonenumber,
+        "phonenumber": phoneNumber,
         "fname": fname,
         "lname": lname,
         "id": id,
-        "timeSheettype": timeSheettype,
+        "timeSheettype": timeSheetType,
       };
 }

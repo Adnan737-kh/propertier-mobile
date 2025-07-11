@@ -1,6 +1,6 @@
 buildscript {
-//    ext.kotlin_version = '1.9.10'
-    ext.kotlin_version = '1.9.0'
+    ext.kotlin_version = '2.0.0' // for 35 changed
+//    ext.kotlin_version = '1.9.0'
     repositories {
         google()
         mavenCentral()
@@ -8,9 +8,10 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.0' // working for apk
-        classpath 'com.android.tools.build:gradle:7.3.1' //working fine with 7.5 on my mobile v
-//        classpath 'com.google.gms:google-services:4.3.10'
+//        classpath 'com.android.tools.build:gradle:7.4.0' // working for apk
+//        classpath 'com.android.tools.build:gradle:7.3.1' //working fine with 7.5 on my mobile v
+        classpath 'com.android.tools.build:gradle:8.4.0' // for 35 changed
+        classpath 'com.google.gms:google-services:4.3.10'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.huawei.agconnect:agcp:1.9.1.301'

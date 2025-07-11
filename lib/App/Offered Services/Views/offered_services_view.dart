@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/App/Offered%20Services/ViewModel/offered_services_viewmodel.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 import '../../../Utils/app_text.dart';
@@ -44,7 +45,7 @@ class OfferedServiceView extends GetView<OfferedServicesViewModel> {
                       return null;
                     },
                     decoration: InputDecoration(
-                        hintText: "Add Your Service",
+                        hintText: context.local.add_your_service,
                         hintStyle: textStyle(
                             context: context, fontSize: 14, withOpacity: 0.2),
                         suffix: GestureDetector(
@@ -61,9 +62,8 @@ class OfferedServiceView extends GetView<OfferedServicesViewModel> {
                             decoration: BoxDecoration(
                                 color: AppColor.greenColor,
                                 borderRadius: BorderRadius.circular(10)),
-                            child: appText(
-                              title: "Add",
-                              context: context,
+                            child: CustomText(
+                              title: context.local.add,
                               color: AppColor.white,
                             ),
                           ),
@@ -88,8 +88,8 @@ class OfferedServiceView extends GetView<OfferedServicesViewModel> {
                             borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(10),
                                 topRight: Radius.circular(10))),
-                        child: Center(
-                          child: appText(title: "Plumber", context: context),
+                        child: const Center(
+                          child: CustomText(title: "Plumber"),
                         ),
                       ),
                       Obx(() => Wrap(
@@ -104,9 +104,8 @@ class OfferedServiceView extends GetView<OfferedServicesViewModel> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          appText(
+                                          CustomText(
                                               title: service,
-                                              context: context,
                                               colorOpecity: 0.6),
                                           GestureDetector(
                                             onTap: () {
@@ -123,9 +122,8 @@ class OfferedServiceView extends GetView<OfferedServicesViewModel> {
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           10)),
-                                              child: appText(
-                                                title: "Remove",
-                                                context: context,
+                                              child: CustomText(
+                                                title: context.local.remove,
                                                 color: AppColor.white,
                                               ),
                                             ),

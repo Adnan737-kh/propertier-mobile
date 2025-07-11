@@ -32,12 +32,17 @@ class Data {
     required this.properties,
     required this.shortVideos,
     required this.propertiesWithVideos,
+    required this.propertyTypes,
+    required this.areaTypes,
   });
 
   final List<Slider> sliders;
   final List<Property> properties;
   final List<Property> shortVideos;
   final List<Property> propertiesWithVideos;
+  final List<PropertyType> propertyTypes;
+  final List<AreaType> areaTypes;
+
 
   factory Data.fromJson(Map<String, dynamic> json) {
     return Data(
@@ -56,6 +61,15 @@ class Data {
           ? []
           : List<Property>.from(
               json["properties_with_videos"]!.map((x) => Property.fromJson(x))),
+
+      propertyTypes: json["property_types"] == null
+          ? []
+          : List<PropertyType>.from(
+          json["property_types"].map((x) => PropertyType.fromJson(x))),
+      areaTypes: json["area_types"] == null
+          ? []
+          : List<AreaType>.from(
+          json["area_types"].map((x) => AreaType.fromJson(x))),
     );
   }
 
@@ -91,12 +105,12 @@ class Slider {
 
   factory Slider.fromJson(Map<String, dynamic> json) {
     return Slider(
-      id: json["id"],
-      title: json["title"],
-      description: json["description"],
-      image: json["image"],
-      mobile: json["mobile"],
-      link: json["link"],
+      id: json["id"]?? '',
+      title: json["title"]?? '',
+      description: json["description"]?? '',
+      image: json["image"]?? '',
+      mobile: json["mobile"]?? '',
+      link: json["link"]?? '',
       createdAt: DateTime.tryParse(json["created_at"] ?? ""),
       updatedAt: DateTime.tryParse(json["updated_at"] ?? ""),
     );
@@ -113,3 +127,53 @@ class Slider {
         "updated_at": updatedAt?.toIso8601String(),
       };
 }
+
+class AreaType {
+  final int id;
+  final String name;
+  final String? icon;
+
+  AreaType({
+    required this.id,
+    required this.name,
+    this.icon,
+  });
+
+  factory AreaType.fromJson(Map<String, dynamic> json) {
+    return AreaType(
+      id: json['id']?? '',
+      name: json['name'] ?? '',
+      icon: json['icon']?? '',
+    );
+  }
+}
+
+class PropertyType {
+  final int id;
+  final String name;
+  final String? icon;
+  final bool isCommercialOnly;
+  final List<AreaType> allowedAreaTypes;
+
+  PropertyType({
+    required this.id,
+    required this.name,
+    this.icon,
+    required this.isCommercialOnly,
+    required this.allowedAreaTypes,
+  });
+
+  factory PropertyType.fromJson(Map<String, dynamic> json) {
+    return PropertyType(
+      id: json['id']?? '',
+      name: json['name'] ?? '',
+      icon: json['icon'],
+      isCommercialOnly: json['is_commercial_only'] ?? false,
+      allowedAreaTypes: json['allowed_area_types'] == null
+          ? []
+          : List<AreaType>.from(
+          json['allowed_area_types'].map((x) => AreaType.fromJson(x))),
+    );
+  }
+}
+

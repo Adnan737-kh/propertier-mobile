@@ -26,7 +26,7 @@ Widget addPropertyCheckBox(
                   ),
           ),
         ),
-        appText(title: title, context: context, colorOpecity: 0.7)
+        CustomText(title: title, colorOpecity: 0.7)
       ],
     ),
   );
@@ -148,7 +148,10 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
                                   )
                           : widget.inactiveIcon,
                     ),
-                    appText(title: widget.title, fontSize: 12, context: context)
+                    CustomText(
+                      title: widget.title,
+                      fontSize: 12,
+                    )
                   ],
                 ),
               ),

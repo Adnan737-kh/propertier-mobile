@@ -1,10 +1,7 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:propertier/App/Details/ViewModel/properties_detail_view_model.dart';
@@ -14,22 +11,21 @@ import 'package:propertier/App/Details/View/component/details_view_appbar.dart';
 import 'package:propertier/App/What%20are%20you%20searching/View/Components/custom_botton_wryf.dart';
 import 'package:propertier/Utils/app_text.dart';
 
-import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
-import 'package:propertier/constant/constant.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 import '../../../extensions/navigate_to_dailpad.dart';
 
 // ignore: must_be_immutable
-class DetailsView extends StatelessWidget {
-  DetailsView({super.key});
+class PropertyDetailsView extends StatelessWidget {
+  PropertyDetailsView({super.key});
   var data = Get.arguments;
   @override
   Widget build(BuildContext context) {
-    if (kDebugMode) {
-      print("details idd!${data["id"]}");
-    }
+    // if (kDebugMode) {
+    //   print("details idd!${data["slug"]}");
+    // }
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
@@ -40,11 +36,9 @@ class DetailsView extends StatelessWidget {
     return GetX<DetailsViewModel>(
         init: DetailsViewModel(),
         initState: (viewModel) {
-          viewModel.controller!.getSpecificPropertyDetail(id: data["id"]);
+          viewModel.controller!.getSpecificPropertyDetail(slug: data["slug"]);
         },
         builder: (viewModel) {
-          // print("Youtube video url ${viewModel.specificPropertyModel
-          //     .value.detailDataModel?.property?.video}");
           return Scaffold(
             body: viewModel.specificPropertyModel.value.detailDataModel == null
                 ? const SizedBox(
@@ -95,30 +89,29 @@ class DetailsView extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                Row(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {},
-                                      child: Icon(
-                                        Icons.share,
-                                        size: context.isPhone ? 30 : 40,
-                                        color: AppColor.blackColor,
-                                      ),
-                                    ),
-                                    getWidth(context, 0.020),
-                                    GestureDetector(
-                                      onTap: () {},
-                                      child: SvgPicture.asset(
-                                        Constant.heartUnFill,
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                // Row(
+                                //   children: [
+                                //     GestureDetector(
+                                //       onTap: () {},
+                                //       child: Icon(
+                                //         Icons.share,
+                                //         size: context.isPhone ? 30 : 40,
+                                //         color: AppColor.blackColor,
+                                //       ),
+                                //     ),
+                                //     getWidth(context, 0.020),
+                                //     GestureDetector(
+                                //       onTap: () {},
+                                //       child: SvgPicture.asset(
+                                //         Constant.heartUnFill,
+                                //       ),
+                                //     )
+                                //   ],
+                                // ),
                               ],
                             ),
                           ),
                           background: detailsAppBar(
-                            // detail: viewModel.specificPropertyModel.value.data!.property,
                             context,
                             viewModel: viewModel,
                             favoriteCallBack: () {},
@@ -162,19 +155,19 @@ class DetailsView extends StatelessWidget {
                         children: [
                           Expanded(
                             flex: 1,
-                            child: appText(
+                            child: CustomText(
                                 title: viewModel.specificPropertyModel.value
                                             .detailDataModel !=
                                         null
                                     ? "${double.parse(viewModel.specificPropertyModel.value.detailDataModel!.property!.price!).toInt().toString()} PKR"
                                     : "",
-                                context: context,
+
                                 fontSize: 14,
                                 fontWeight: FontWeight.normal),
                           ),
                           Expanded(
                             flex: 1,
-                            child: customButton(
+                            child: CustomButton(
                                 fontSize: 14,
                                 radius: 50,
                                 fontWeight: FontWeight.w500,
@@ -195,7 +188,7 @@ class DetailsView extends StatelessWidget {
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          customButton(
+                                          CustomButton(
                                             title: "Call",
                                             onTap: () {
                                               openDialer(viewModel
@@ -215,14 +208,10 @@ class DetailsView extends StatelessWidget {
                                             },
                                           ),
                                           const Gap(10),
-                                          customButton(
-                                            title: "SMS",
+                                          CustomButton(
+                                            title: context.local.sms,
                                             onTap: () {
-                                              textMe(viewModel
-                                                      .specificPropertyModel
-                                                      .value
-                                                      .detailDataModel!
-                                                      .property!
+                                              textMe(viewModel.specificPropertyModel.value.detailDataModel!.property!
                                                       .agent!
                                                       .phoneNumberCountryCode! +
                                                   viewModel
@@ -249,3 +238,4 @@ class DetailsView extends StatelessWidget {
         });
   }
 }
+

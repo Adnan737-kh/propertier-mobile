@@ -47,9 +47,8 @@ Widget chartTile(
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    appText(
+                    CustomText(
                         title: title,
-                        context: context,
                         color: AppColor.darkBack,
                         fontSize: 12,
                         fontWeight: FontWeight.w600),
@@ -70,9 +69,8 @@ Widget chartTile(
                                           shape: BoxShape.circle,
                                           color: subtitleList[index].color),
                                     ),
-                                    appText(
+                                    CustomText(
                                         title: subtitleList[index].subtitle,
-                                        context: context,
                                         color: AppColor.darkBack,
                                         fontSize: 10,
                                         fontWeight: FontWeight.w400),
@@ -107,9 +105,8 @@ Widget chartTile(
         alignment: Alignment.centerRight,
         child: GestureDetector(
           onTap: viewDetailsCallBack,
-          child: appText(
+          child: CustomText(
             title: "View Detail",
-            context: context,
             fontSize: 10,
             fontWeight: FontWeight.w400,
             color: AppColor.darkBack,

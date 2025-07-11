@@ -381,22 +381,22 @@ class _HomeScreenState extends State<HomeScreen>
     return Center(
       child: Column(
         children: [
-          Text(
+          const Text(
             'No bids available.',
             style: TextStyle(fontSize: 16, color: Colors.grey),
           ),
           ElevatedButton(onPressed: (){
             Get.toNamed(AppRoutes.transportBidDetail);
-          }, child: Text("View Transport Bid")),
+          }, child: const Text("View Transport Bid")),
           ElevatedButton(onPressed: (){
             Get.toNamed(AppRoutes.waterBidDetail);
-          }, child: Text("View Water Bid")),
+          }, child: const Text("View Water Bid")),
           ElevatedButton(onPressed: (){
             Get.toNamed(AppRoutes.propertyBidDetail);
-          }, child: Text("Property related Bid")),
+          }, child: const Text("Property related Bid")),
           ElevatedButton(onPressed: (){
             Get.toNamed(AppRoutes.houseWorkBidDetail);
-          }, child: Text("Domestic Work Bid"))
+          }, child: const Text("Domestic Work Bid"))
         ],
 
       ),
@@ -490,14 +490,14 @@ Widget BidCard(Bid bid, UserData? userData, Function()? cancelFnc) {
                           ),
                         ),
                         const SizedBox(height: 5.62),
-                        Text(' ${bid.location ?? ""} ',
+                        Text(' ${bid.location} ',
                             style: const TextStyle(
                               color: Color(0xB2131A22),
                               fontSize: 8.99,
                               fontWeight: FontWeight.w500,
                             )),
                         const SizedBox(height: 5.62),
-                        Text('Status: ${bid.status ?? ""}',
+                        Text('Status: ${bid.status}',
                             style: const TextStyle(
                               color: Color(0xFF109B0E),
                               fontSize: 8.99,

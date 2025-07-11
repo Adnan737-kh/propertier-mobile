@@ -5,6 +5,7 @@ import 'package:propertier/App/Profile/Model/profile_model.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/divider.dart';
 import 'package:propertier/Utils/height_width_box.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 Widget profileInformationTile(BuildContext context, UserProfile user) {
@@ -13,14 +14,16 @@ Widget profileInformationTile(BuildContext context, UserProfile user) {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          appText(
+          CustomText(
             colorOpecity: 0.6,
-            title: 'Phone Number',
-            context: context,
+            title: context.local.phone_number,
             fontSize: 12,
             fontWeight: FontWeight.w600,
           ),
-          textBox(context, user.phoneNumber!,)
+          textBox(
+            context,
+            user.phoneNumber!,
+          )
           // textBox(context, user.phoneNumberCountryCode! + user.phoneNumber!,)
         ],
       ),
@@ -30,10 +33,9 @@ Widget profileInformationTile(BuildContext context, UserProfile user) {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          appText(
+          CustomText(
             colorOpecity: 0.6,
-            title: 'Email',
-            context: context,
+            title: context.local.email,
             fontSize: 12,
             fontWeight: FontWeight.w600,
           ),
@@ -46,14 +48,13 @@ Widget profileInformationTile(BuildContext context, UserProfile user) {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          appText(
+          CustomText(
             colorOpecity: 0.6,
-            title: 'Address',
-            context: context,
+            title: context.local.address,
             fontSize: 12,
             fontWeight: FontWeight.w600,
           ),
-          textBox(context, user.address.toString() ?? ""),
+          textBox(context, user.address.toString()),
         ],
       ),
       getHeight(context, 0.004),
@@ -62,10 +63,9 @@ Widget profileInformationTile(BuildContext context, UserProfile user) {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          appText(
+          CustomText(
             colorOpecity: 0.6,
-            title: 'Since',
-            context: context,
+            title: context.local.since,
             fontSize: 12,
             fontWeight: FontWeight.w600,
           ),
@@ -73,7 +73,8 @@ Widget profileInformationTile(BuildContext context, UserProfile user) {
               context,
               user.createdAt != null
                   ? DateFormat.yMMMMd()
-                      .format(DateTime.parse(user.createdAt!.toString())) : ""),
+                      .format(DateTime.parse(user.createdAt!.toString()))
+                  : ""),
         ],
       ),
     ],
@@ -83,11 +84,10 @@ Widget profileInformationTile(BuildContext context, UserProfile user) {
 SizedBox textBox(BuildContext context, String text) {
   return SizedBox(
       width: context.getSize.width * 0.5,
-      child: appText(
+      child: CustomText(
         textAlign: TextAlign.right,
         colorOpecity: 0.5,
         title: text,
-        context: context,
         fontSize: 12,
         fontWeight: FontWeight.normal,
       ));

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -7,7 +8,8 @@ import 'package:ionicons/ionicons.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:propertier/App/Details/View/component/details_title.dart';
 import 'package:propertier/App/Details/View/component/video_tour.dart';
-import 'package:propertier/Customer/screens/ServiceDetail/ServiceDetailController.dart';
+
+import 'package:propertier/Customer/screens/ServiceDetail/model/service_details_model.dart';
 
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/divider.dart';
@@ -22,16 +24,16 @@ import 'package:propertier/extensions/size_extension.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
 import '../../../../App/Profile/View/component/SingleVideoPlayer/SingleVideoScreen.dart';
-import '../../../../App/Services/Model/ServiceDashboardModel.dart';
 import '../../../../Model/property.dart';
 import '../../../../Utils/App Ad Mob/app_banner_ads.dart';
 import '../../../../Utils/border.dart';
 import '../../../../Utils/info_tile.dart';
+import '../controller/services_details_controller.dart';
 
 Widget detailTile(BuildContext context,
     {
       // required VideosModel videosModel,
-      required ServiceDetailController controller}) {
+      required ServiceDetailsController controller}) {
   return Container(
     padding: EdgeInsets.symmetric(
         horizontal: context.getSize.width * 0.015,
@@ -47,16 +49,15 @@ Widget detailTile(BuildContext context,
           children: [
             scrollableText(
                 width: 0.55,
-                title: controller.service.title!,
+                title: controller.serviceDetails.value.title!,
                 context: context,
                 textStyle: textStyle(
                     color: AppColor.blackColor.withOpacity(0.7),
                     context: context,
                     fontSize: 14,
                     fontWeight: FontWeight.bold)),
-            appText(
-              title: double.parse(controller.service.fixedPrice??"00.0").formatPrice(),
-              context: context,
+            CustomText(
+              title: double.parse(controller.serviceDetails.value.rate??"00.0").formatPrice(),
               fontSize: 14,
               color: AppColor.greenColor,
               fontWeight: FontWeight.w700,
@@ -104,25 +105,26 @@ Widget detailTile(BuildContext context,
           title: context.local.description,
         ),
         getHeight(context, 0.002),
-        appText(
+        CustomText(
             fontSize: 12,
             fontWeight: FontWeight.w400,
             colorOpecity: 0.8,
             textAlign: TextAlign.justify,
-            title: controller.service.service?.description??"",
-            context: context),
+            title: controller.serviceDetails.value.description??""),
         getHeight(context, 0.007),
         divider(context: context, color: const Color(0xffCFCFCF)),
         getHeight(context, 0.01),
         infoTile(
           context,
           title: context.local.vendor,
-          subtitle: controller.service.vendor?.name??"",
+          subtitle: controller.serviceDetails.value.vendor?.fullName??"",
           //  dataModel.property!.vendor,
         ),
         getHeight(context, 0.01),
-        infoTile(context,
-            title: context.local.type, subtitle: controller.service.isFeatured== null || controller.service.isFeatured! == false ? "Un-Featured":"Featured"),
+        // infoTile(context,
+        //     title: context.local.type,
+        //     subtitle: controller.serviceDetails.value.isFeatured== null
+        //     || controller.serviceDetails.isFeatured! == false ? "Un-Featured":"Featured"),
         getHeight(context, 0.01),
         // infoTile(context,
         //     title: context.local.area,
@@ -133,15 +135,15 @@ Widget detailTile(BuildContext context,
         // getHeight(context, 0.007),
         // divider(context: context, color: const Color(0xffCFCFCF)),
         getHeight(context, 0.015),
-        controller.service.videoUrl == null
+        controller.serviceDetails.value.youtubeVideoUrl == null
             ? const SizedBox.shrink()
             : detailsTitle(context: context, title: context.local.videoTour),
-        controller.service.videoUrl == null
+        controller.serviceDetails.value.youtubeVideoUrl== null
             ? const SizedBox.shrink()
             : getHeight(context, 0.005),
-        controller.service.videoUrl == null
+        controller.serviceDetails.value.youtubeVideoUrl == null
             ? const SizedBox.shrink()
-            : VideoTour(videoUrl: controller.service.videoUrl ?? ''),
+            : VideoTour(videoUrl: controller.serviceDetails.value.youtubeVideoUrl ?? ''),
         getHeight(context, 0.050),
         divider(context: context, color: const Color(0xffCFCFCF)),
         getHeight(context, 0.015),
@@ -150,9 +152,9 @@ Widget detailTile(BuildContext context,
             child: Center(child: AppBannerAd())),
         detailsTitle(context: context, title: context.local.detailShortVideo),
         getHeight(context, 0.005),
-        controller.service.shortVideoUrl != null
+        controller.serviceDetails.value.shortVideo != null
             ? DetailPageShortVideo(
-          services: controller.service,
+          services: controller.serviceDetails.value,
         )
             : const SizedBox(),
         getHeight(context, 0.010),
@@ -162,7 +164,7 @@ Widget detailTile(BuildContext context,
 }
 
 class DetailPageShortVideo extends StatefulWidget {
-  final SellingServices services;
+  final ServiceDetailsModel services;
 
   const DetailPageShortVideo({super.key, required this.services});
 
@@ -185,16 +187,19 @@ class _DetailPageShortVideoState extends State<DetailPageShortVideo> {
         _path = thumbnailPath;
       });
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       return null;
     }
   }
 
   @override
   void initState() {
-    widget.services.shortVideoUrl != null
+    print('short video ${widget.services.shortVideo}');
+    widget.services.shortVideo != null
         ? generateThumbnail(
-      widget.services.shortVideoUrl!,
+      widget.services.shortVideo!,
     )
         : null;
     super.initState();
@@ -204,7 +209,9 @@ class _DetailPageShortVideoState extends State<DetailPageShortVideo> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          Get.to(SingleVideoScreen(properties: [Property(shortVideo: widget.services.shortVideoUrl)], property: Property(shortVideo: widget.services.shortVideoUrl)));
+          Get.to(SingleVideoScreen(properties:
+          [Property(shortVideo: widget.services.shortVideo)],
+              property: Property(shortVideo: widget.services.shortVideo)));
         },
         child: SizedBox(
             width: context.getSize.width * 0.6,
@@ -229,7 +236,7 @@ class _DetailPageShortVideoState extends State<DetailPageShortVideo> {
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: border(color: AppColor.buttonColor, width: 1),
-                    image: DecorationImage(
+                    image:const  DecorationImage(
                         image: NetworkImage(Constant.dummyImage),
                         fit: BoxFit.cover)),
               ),

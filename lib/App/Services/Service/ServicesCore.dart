@@ -18,6 +18,10 @@ class ServicesCore {
       final response = await http.get(Uri.parse(API.fixedServices));
       if (response.statusCode == 200) {
         final decodedJson = jsonDecode(response.body);
+        if (kDebugMode) {
+          print("services status body !! ${response.body}");
+        }
+
         for (var data in decodedJson) {
           services.add(FixedServicesModel.fromJson(data));
         }
@@ -31,9 +35,8 @@ class ServicesCore {
           print("services status code !! ${response.statusCode}");
         }
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: appText(
+            content: CustomText(
                 title: 'Something went wrong Fixed Services.',
-                context: context,
                 color: AppColor.white)));
       }
     } catch (e) {
@@ -41,8 +44,8 @@ class ServicesCore {
         print("error: $e");
       }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: appText(
-              title: e.toString(), context: context, color: AppColor.white)));
+          content: CustomText(
+              title: e.toString(), color: AppColor.white)));
     }
 
     return services;
@@ -63,10 +66,14 @@ class ServicesCore {
         }
         return services;
       } else {
+        if (kDebugMode) {
+          print("Parent Services StatusCode: ${response.statusCode}");
+          print("Parent Services Body: ${response.body}");
+        }
+
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: appText(
+            content: CustomText(
                 title: 'Something went wrong getAllParentServices.',
-                context: context,
                 color: AppColor.white)));
       }
     } catch (e) {
@@ -74,8 +81,8 @@ class ServicesCore {
         print("error: $e");
       }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: appText(
-              title: e.toString(), context: context, color: AppColor.white)));
+          content: CustomText(
+              title: e.toString(), color: AppColor.white)));
     }
 
     return services;
@@ -91,22 +98,25 @@ class ServicesCore {
       }
       if (response.statusCode == 200) {
         final decodedJson = jsonDecode(response.body);
+        if (kDebugMode) {
+          print('servicesDashboard body${response.body}');
+        }
+
         model = ServiceDashboardModel.fromJson(decodedJson);
         return model;
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: appText(
+            content: CustomText(
                 title: 'Something went wrong servicesDashboard.',
-                context: context,
                 color: AppColor.white)));
       }
     } catch (e) {
       if (kDebugMode) {
-        print("error: $e");
+        print("error is: $e");
       }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: appText(
-              title: e.toString(), context: context, color: AppColor.white)));
+          content: CustomText(
+              title: e.toString(),color: AppColor.white)));
     }
     return null;
   }
@@ -115,26 +125,35 @@ class ServicesCore {
       {required BuildContext context}) async {
     ServicePaginationModel? model;
     try {
-      String url = "${API.servicesWithPagination}?limit=20";
+      String url = "${API.servicesWithPagination}?page=1&limit=20";
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         final decodedJson = jsonDecode(response.body);
+        if (kDebugMode) {
+          print('pagination data ${response.body}');
+        }
         model = ServicePaginationModel.fromJson(decodedJson);
         return model;
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: appText(
-                title: 'Something went wrong servicesPagination.',
-                context: context,
-                color: AppColor.white)));
+        if (kDebugMode) {
+          print('servicesWithPagination body ${response.body}');
+          print('servicesWithPagination status code ${response.statusCode}');
+
+        }
+
+        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //     content: appText(
+        //         title: 'Something went wrong servicesPagination.',
+        //         context: context,
+        //         color: AppColor.white)));
       }
     } catch (e) {
       if (kDebugMode) {
-        print("error: $e");
+        print("servicesWithPagination catch block error: $e");
       }
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: appText(
-              title: e.toString(), context: context, color: AppColor.white)));
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //     content: appText(
+      //         title: e.toString(), context: context, color: AppColor.white)));
     }
     return model;
   }

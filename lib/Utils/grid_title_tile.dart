@@ -12,16 +12,14 @@ Widget gridTitleTile(
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      appText(
+      CustomText(
           title: title,
-          context: context,
           fontSize: fontSize,
           fontWeight: FontWeight.w500),
       GestureDetector(
           onTap: callBack,
-          child: appText(
-              title: context.local.viewMore,
-              context: context,
+          child: CustomText(
+              title: context.local.view_more,
               fontSize: 12,
               color: AppColor.greenColor,
               fontWeight: FontWeight.w500))

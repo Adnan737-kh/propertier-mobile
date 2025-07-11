@@ -52,9 +52,8 @@ class PrivacyView extends GetView<PrivacyViewModel> {
                           size: 17,
                         ),
                         getWidth(context, 0.005),
-                        appText(
+                        CustomText(
                             title: "Private Account",
-                            context: context,
                             fontSize: 14,
                             colorOpecity: 0.6,
                             fontWeight: FontWeight.bold),

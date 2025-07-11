@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-// import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import '../../../../RoutesAndBindings/app_routes.dart';
 import '../../../../constant/AppTextField/app_textfield.dart';
 import '../../../../constant/colors.dart';
 import '../../../../Utils/app_text.dart';
 import '../../../../Utils/text_botton.dart';
 import '../ViewModel/email_verification_view_model.dart';
-// import '../../Email Verification copy/ViewModel/email_verification_view_model.dart';
 
 class EmailConfirmView extends StatelessWidget {
   EmailConfirmView({super.key});
   final confirmEmailVM = Get.find<EmailVerficationViewModel>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); // 👈 add local key here
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,16 +31,15 @@ class EmailConfirmView extends StatelessWidget {
           child: Center(
             child: SingleChildScrollView(
               child: Form(
-                key: confirmEmailVM.emailFormKey,
+                key: _formKey,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    appText(
+                    CustomText(
                         title:
                             "Please enter your Email to receive a verification code.",
-                        context: context,
                         fontSize: 16,
                         color: const Color(0xFF6D6E6F),
                         fontWeight: FontWeight.bold),
@@ -75,14 +73,15 @@ class EmailConfirmView extends StatelessWidget {
                                 ? const Center(child: CircularProgressIndicator())
                                 : textButton(
                               onClick: () async {
-                                if (confirmEmailVM.emailFormKey.currentState!.validate()) {
-                                  confirmEmailVM.emailFormKey.currentState?.save();
+                                if (_formKey.currentState!.validate()) {
+                                  _formKey.currentState?.save();
                                   confirmEmailVM.emailVerification(
                                     context,
                                     confirmEmailVM.accessToken!,
                                   );
                                 }
                               },
+
                               context: context,
                               title: 'Send',
                             );

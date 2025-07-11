@@ -4,7 +4,7 @@ import 'package:mobs_player/mobs_player.dart';
 import 'package:propertier/constant/colors.dart';
 
 class PLayerView extends StatefulWidget {
-  var videoUrl = Get.arguments;
+  final videoUrl = Get.arguments;
 
   PLayerView({
     super.key,

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:propertier/data/network/network_api_services.dart';
 import 'package:propertier/res/app_urls/app_url.dart';
 import 'package:http/http.dart' as http;
@@ -15,28 +14,38 @@ class ProfileUpdateRepository {
       print('🔹 Sending request with data: $data');
     }
 
-    dynamic response = await _apiServices.patchApi(
+    final response = await _apiServices.patchApi(
       data,
       AppUrls.profileUrl,
-      authToken: accessToken, // ✅ Pass authToken
+      authToken: accessToken,
     );
+
+    final statusCode = response['statusCode'];
+    final responseBody = response['body'];
+
+    if (kDebugMode) {
+      print('🔹 Update Profile Status Code: $statusCode');
+      print('🔹 Update Profile Response Body: $responseBody');
+    }
 
     return response;
   }
 
   Future<Map<String, dynamic>?> idCardVerification(
-      File frontImage,
-      File backImage,
-      String accessToken,
-      ) async {
+    File frontImage,
+    File backImage,
+    String accessToken,
+  ) async {
     try {
       var uri = Uri.parse(AppUrls.userVerificationUrl);
 
       var request = http.MultipartRequest("POST", uri)
         ..headers['Authorization'] = "Bearer $accessToken"
         ..fields['verification_type'] = "id_card"
-        ..files.add(await http.MultipartFile.fromPath("id_card_front", frontImage.path))
-        ..files.add(await http.MultipartFile.fromPath("id_card_back", backImage.path));
+        ..files.add(
+            await http.MultipartFile.fromPath("id_card_front", frontImage.path))
+        ..files.add(
+            await http.MultipartFile.fromPath("id_card_back", backImage.path));
 
       var response = await request.send();
 
@@ -54,7 +63,9 @@ class ProfileUpdateRepository {
       return null;
     }
   }
-  Future<Map<String, dynamic>?> faceVerification(File selfie, String accessToken) async {
+
+  Future<Map<String, dynamic>?> faceVerification(
+      File selfie, String accessToken) async {
     try {
       var uri = Uri.parse(AppUrls.userVerificationUrl);
 
@@ -78,9 +89,9 @@ class ProfileUpdateRepository {
     }
   }
 
-  Future<Map<String, dynamic>> emailAndNumberVerification(var data, String accessToken) async {
-    return await _apiServices.postApi(data, AppUrls.userVerificationUrl, authToken: accessToken);
+  Future<Map<String, dynamic>> emailAndNumberVerification(
+      var data, String accessToken) async {
+    return await _apiServices.postApi(data, AppUrls.userVerificationUrl,
+        authToken: accessToken);
   }
-
-
 }

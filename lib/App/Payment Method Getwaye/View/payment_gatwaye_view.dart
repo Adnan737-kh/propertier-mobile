@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
@@ -15,10 +16,6 @@ import 'package:propertier/extensions/size_extension.dart';
 
 import '../../../Features/Featured Pakages/Controller/featured_pakages_controller.dart';
 import '../../../Features/Featured Pakages/Views/featured_pakages_view.dart';
-// import '../../../Utils/divider.dart';
-import '../../../Features/Payment Method/Services/service.dart';
-import '../../../Features/Payment Method/Sockets/sockets.dart';
-import '../../../Network/api_urls.dart';
 import '../ViewModel/payment_gatewaye_viewmodel.dart';
 
 class PaymentGatwayeView extends GetView<PaymentGatwayeViewModel> {
@@ -49,17 +46,15 @@ class PaymentGatwayeView extends GetView<PaymentGatwayeViewModel> {
               getHeight(context, 0.035),
               Row(
                 children: [
-                  appText(
+                  CustomText(
                       title: "Total",
-                      style: context.textTheme.titleMedium,
-                      context: context),
+                      style: context.textTheme.titleMedium,),
                   const Spacer(),
                   Obx(() {
-                    return appText(
+                    return CustomText(
                         title:
                             "${Get.find<FeaturedPakagesController>().selectedFeaturedPakages.value.price ?? ""} PKR",
-                        style: context.textTheme.titleMedium,
-                        context: context);
+                        style: context.textTheme.titleMedium,);
                   })
                 ],
               )
@@ -69,41 +64,54 @@ class PaymentGatwayeView extends GetView<PaymentGatwayeViewModel> {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Obx(()=> customButton(
-            title: controller.isLoading.value? "Loading...": "Payment",
+        child: Obx(() => CustomButton(
+            title: controller.isLoading.value ? "Loading..." : "Payment",
             onTap: () async {
               // PaymentStatusSocketService().connect(
               //     "${Finance.paymentStatusSocket}${GetStorage().read("id").toString()}/");
               // PaymentApiService().payMobIntention("1", "ABCD");
-              try{
-                if(controller.isLoading.value){
+              try {
+                if (controller.isLoading.value) {
                   return;
                 }
-                String? featureId = Get.find<FeaturedPakagesController>().selectedFeaturedPakages.value.id.toString();
-                print(featureId);
-                print(controller.propertyId);
-                if(featureId == null || featureId == "" || controller.propertyId == null || controller.propertyId == ""){
-                  Get.rawSnackbar(message: 'Please Select Package and Property');
+                String? featureId = Get.find<FeaturedPakagesController>()
+                    .selectedFeaturedPakages
+                    .value
+                    .id
+                    .toString();
+                if (kDebugMode) {
+                  print(featureId);
+                  print(controller.propertyId);
+                }
+                if (featureId == null ||
+                    featureId == "" ||
+                    controller.propertyId == null ||
+                    controller.propertyId == "") {
+                  Get.rawSnackbar(
+                      message: 'Please Select Package and Property');
                   return;
                 }
                 controller.isLoading.value = true;
                 print(controller.featuredItem);
                 bool res = false;
-                if(controller.featuredItem == "Profile"){
-                  res = await FeaturedService().buyFeaturedProfileAd(GetStorage().read("id").toString(), featureId, "active", controller.image!);
-                }
-                else{
-                  res = await FeaturedService().buyFeaturedAd(featureId, controller.propertyId, "active", controller.image);
+                if (controller.featuredItem == "Profile") {
+                  res = await FeaturedService().buyFeaturedProfileAd(
+                      GetStorage().read("id").toString(),
+                      featureId,
+                      "active",
+                      controller.image!);
+                } else {
+                  res = await FeaturedService().buyFeaturedAd(featureId,
+                      controller.propertyId, "active", controller.image);
                 }
                 controller.isLoading.value = false;
-                if(res){
-                  Get.rawSnackbar(message: 'Featured Ad Purchased Successfully.');
-                }
-                else{
+                if (res) {
+                  Get.rawSnackbar(
+                      message: 'Featured Ad Purchased Successfully.');
+                } else {
                   Get.rawSnackbar(message: 'Could not succeed!');
                 }
-              }
-              catch(e){
+              } catch (e) {
                 print("error: $e");
               }
             })),
@@ -115,11 +123,11 @@ class PaymentGatwayeView extends GetView<PaymentGatwayeViewModel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        appText(
+        CustomText(
             title: "Get your Ad Featured:",
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            context: context),
+            ),
         radioOfFeaturebtns(
           context,
           "Reach up to 10x more buyers.",
@@ -159,7 +167,7 @@ class PaymentGatwayeView extends GetView<PaymentGatwayeViewModel> {
           onChanged: onChanged,
         ),
         const Gap(4),
-        appText(title: title, context: context, colorOpecity: 0.6),
+        CustomText(title: title,colorOpecity: 0.6),
       ],
     );
   }
@@ -210,7 +218,7 @@ class PaymentGatwayeView extends GetView<PaymentGatwayeViewModel> {
                 height: context.getSize.height * 0.04,
               ),
               getHeight(context, 0.01),
-              appText(title: title, context: context)
+              CustomText(title: title,)
             ],
           ),
         ),

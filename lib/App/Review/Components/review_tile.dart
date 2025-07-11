@@ -26,7 +26,10 @@ Widget reviewTile({
                   backgroundImage: NetworkImage(Constant.dummyImage),
                 ),
                 const Gap(8),
-                appText(title: title, fontSize: 12, context: context)
+                CustomText(
+                  title: title,
+                  fontSize: 12,
+                )
               ],
             ),
             DropdownButtonHideUnderline(
@@ -84,20 +87,18 @@ Widget reviewTile({
               direction: Axis.horizontal,
             ),
             const Gap(8),
-            appText(
+            const CustomText(
                 title: "10-2-24",
-                context: context,
                 fontSize: 10,
                 fontWeight: FontWeight.normal,
                 colorOpecity: 0.5)
           ],
         ),
         const Gap(8),
-        appText(
+        const CustomText(
             // overflow: TextOverflow.clip,
             title:
                 "This Privacy Policy sets out the commitment of Propertier Marketing PVT Ltd, the developer of Propertier, to protecting the privacy of our users. Our goal is to provide a safe and secure platform for users to search for and find real estate information.",
-            context: context,
             fontSize: 14,
             textAlign: TextAlign.start,
             fontWeight: FontWeight.normal,

@@ -97,7 +97,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                     Container(
                       height: Get.height * .6,
                       width: Get.size.width,
-                      decoration: BoxDecoration(),
+                      decoration: const BoxDecoration(),
                       child: Image.asset(
                         controller.items[index].image,
                         // height: Get.height * .64,
@@ -135,12 +135,12 @@ class _OnboardingViewState extends State<OnboardingView> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 18,
                     ),
                     Text(
                       controller.items[index].descriptions,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(0xB2131A22),
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -156,6 +156,6 @@ class _OnboardingViewState extends State<OnboardingView> {
   }
 
   Widget getStarted() {
-    return SizedBox();
+    return const SizedBox();
   }
 }

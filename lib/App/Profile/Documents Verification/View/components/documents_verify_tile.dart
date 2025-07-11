@@ -10,16 +10,14 @@ Widget documentsVerifyTile({
   required String title,
   required bool isVerify,
 }) {
-  var context = Get.context!;
   return Padding(
     padding: const EdgeInsets.fromLTRB(8, 12, 8, 12),
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         isVerify
-            ? appText(
+            ? CustomText(
                 title: '✓ ',
-                context: context,
                 fontSize: 60,
                 color: AppColor.buttonColor)
             : const Icon(
@@ -29,18 +27,16 @@ Widget documentsVerifyTile({
               ),
         const Gap(8),
         isVerify
-            ? appText(
+            ? CustomText(
                 title: 'Verified',
-                context: context,
                 fontSize: 20,
                 color: AppColor.blackColor)
-            : appText(
+            : CustomText(
                 title: 'Error',
-                context: context,
                 fontSize: 20,
                 color: AppColor.blackColor),
         const Gap(8),
-        appText(title: title, context: context, colorOpecity: 0.60),
+        CustomText(title: title, colorOpecity: 0.60),
         const Gap(8),
         isVerify
             ? const Gap(0)
@@ -48,10 +44,9 @@ Widget documentsVerifyTile({
                 onTap: () {
                   Get.toNamed(AppRoutes.documentsTypesView);
                 },
-                child: appText(
+                child: CustomText(
                     title: "Verify your Text Documents?",
                     color: AppColor.facebookColor,
-                    context: context,
                     colorOpecity: 0.90),
               )
       ],

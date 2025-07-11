@@ -6,12 +6,12 @@ import 'package:http/http.dart' as http;
 import 'package:propertier/Network/api_urls.dart';
 
 class DetailServices {
-  Future<SpecificPropertyModel> getDetailServices({required int id}) async {
+  Future<SpecificPropertyModel> getDetailServices({required String slug}) async {
     SpecificPropertyModel specificPropertyModel = SpecificPropertyModel();
 
     try {
       final response = await http.get(
-        Uri.parse("${API.propertyDetailUrl}?property_id=$id"),
+        Uri.parse("${API.propertyDetailUrl}?property_slug=$slug"),
         headers: <String, String>{'Content-Type': 'application/json'},
       );
       if (kDebugMode) {

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -27,10 +28,13 @@ class LoginServices {
           "Authorization": "Bearer $password"
         },
       );
-      print(API.userInfoUrl);
-      print("get info response ${response.body}");
-      print("get info response code ${response.statusCode}");
-      print("token ${password}");
+      if (kDebugMode) {
+        print(API.userInfoUrl);
+        print("get info response ${response.body}");
+        print("get info response code ${response.statusCode}");
+        print("token $password");
+      }
+
 
       if (response.statusCode == 200) {
         final decodedData = jsonDecode(response.body);
@@ -45,9 +49,8 @@ class LoginServices {
       } else if (response.statusCode == 404) {
         if (isLogin) {
           ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-              content: appText(
+              content: CustomText(
                   title: 'User not exist',
-                  context: Get.context!,
                   color: AppColor.white)));
         } else {
           Get.toNamed(AppRoutes.collectInfoProfile);
@@ -56,17 +59,15 @@ class LoginServices {
         return null;
       } else {
         ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-            content: appText(
+            content: CustomText(
                 title: 'Something went wrong.',
-                context: Get.context!,
                 color: AppColor.white)));
         return null;
       }
     } catch (e) {
       ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-          content: appText(
+          content: CustomText(
               title: 'Something went wrong. ${e.toString()}',
-              context: Get.context!,
               color: AppColor.white)));
       return null;
     }

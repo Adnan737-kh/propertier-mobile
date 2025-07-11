@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -43,8 +44,8 @@ class OnBoardingView extends GetView<OnBoardingViewModel> {
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(color: AppColor.buttonColor)),
-                        child: appText(
-                            title: 'Skip', context: context, fontSize: 16),
+                        child: CustomText(
+                            title: 'Skip', fontSize: 16),
                       ),
                     ),
                     const Gap(20)
@@ -74,7 +75,9 @@ class OnBoardingView extends GetView<OnBoardingViewModel> {
                       controller: controller.pageController,
                       onPageChanged: (val) {
                         controller.changeSelectedPageIndex(val);
-                        print(controller.selectedPageIndex);
+                        if (kDebugMode) {
+                          print(controller.selectedPageIndex);
+                        }
                       },
                       itemCount: controller.onBoardingList.length,
                       itemBuilder: (context, index) {
@@ -114,10 +117,10 @@ class OnBoardingView extends GetView<OnBoardingViewModel> {
                 SizedBox(
                   height: context.getSize.height * 0.020,
                 ),
-                appText(
+                CustomText(
                     title: controller
                         .onBoardingList[controller.selectedPageIndex].title,
-                    context: context),
+                ),
                 SizedBox(
                   height: context.getSize.height * 0.020,
                 ),
@@ -133,7 +136,7 @@ class OnBoardingView extends GetView<OnBoardingViewModel> {
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: controller.selectedPageIndex == index
-                                    ? AppColor.forgroundColor
+                                    ? AppColor.forGroundColor
                                     : AppColor.primaryColor.withOpacity(0.2)),
                           )),
                 )

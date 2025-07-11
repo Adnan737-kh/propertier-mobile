@@ -1,7 +1,6 @@
 // import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
@@ -78,9 +77,8 @@ class EditProfileTextField extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               label != null
-                  ? appText(
+                  ? CustomText(
                       title: label!,
-                      context: context,
                       fontSize: 16,
                       color: const Color(0xFF6D6E6F),
                       fontWeight: FontWeight.bold)
@@ -97,7 +95,7 @@ class EditProfileTextField extends StatelessWidget {
 
                   // DropdownButtonHideUnderline(
                   //   child: DropdownButton2(
-                  //     customButton: Icon(
+                  //     CustomButton: Icon(
                   //       Icons.more_horiz,
                   //       size: context.getSize.width * 0.050,
                   //       // color: Colors.red,
@@ -176,145 +174,133 @@ class EditProfileTextField extends StatelessWidget {
   }
 }
 
-Widget customPhoneNumberTextField(
-    {FocusNode? focusNode,
-    required String hintText,
-    void Function()? isEditablefun,
-    String? label,
-    required TextEditingController controller,
-    TextInputType textInputType = TextInputType.text,
-    TextInputAction textInputAction = TextInputAction.next,
-    bool obsecureText = false,
-    double height = 36,
-    double fontSize = 14,
-    double horizontalPadding = 12,
-    double verticalPadding = 8,
-    VoidCallback? onTap,
-    Widget? prefix,
-    Widget? suffix,
-    bool readOnly = false,
-    String? Function(String?)? validator,
-    Color borderColor = AppColor.backgroundColor,
-    double opacity = 0.10,
-    int maxLines = 1,
-    String initialCOde = "+92",
-    Function(Country)? onChangeCountry,
-    String? initialCountryCode,
-    FontWeight fontWeight = FontWeight.w400,
-    Function(PhoneNumber)? onChanged,
-    bool isEditable = false}) {
-  var context = Get.context!;
-  return Container(
-    decoration: BoxDecoration(
+
+class CustomPhoneNumberTextField extends StatelessWidget {
+  final FocusNode? focusNode;
+  final String hintText;
+  final VoidCallback? isEditField;
+  final String? label;
+  final TextEditingController controller;
+  final TextInputType textInputType;
+  final TextInputAction textInputAction;
+  final bool obSecureText;
+  final double height;
+  final double fontSize;
+  final double horizontalPadding;
+  final double verticalPadding;
+  final VoidCallback? onTap;
+  final Widget? prefix;
+  final Widget? suffix;
+  final bool readOnly;
+  final String? Function(String?)? validator;
+  final Color borderColor;
+  final double opacity;
+  final int maxLines;
+  final String initialCode;
+  final Function(Country)? onChangeCountry;
+  final String? initialCountryCode;
+  final FontWeight fontWeight;
+  final Function(PhoneNumber)? onChanged;
+  final bool isEditable;
+  final bool isShowEditIcon;
+  final void Function(String)? onFieldSubmitted;
+
+  const CustomPhoneNumberTextField({
+    super.key,
+    this.focusNode,
+    required this.hintText,
+    this.isEditField,
+    this.label,
+    required this.controller,
+    this.textInputType = TextInputType.text,
+    this.textInputAction = TextInputAction.next,
+    this.obSecureText = false,
+    this.height = 36,
+    this.fontSize = 14,
+    this.horizontalPadding = 12,
+    this.verticalPadding = 8,
+    this.onTap,
+    this.prefix,
+    this.suffix,
+    this.readOnly = false,
+    this.validator,
+    this.borderColor = AppColor.backgroundColor,
+    this.opacity = 0.10,
+    this.maxLines = 1,
+    this.initialCode = "+92",
+    this.onChangeCountry,
+    this.initialCountryCode,
+    this.fontWeight = FontWeight.w400,
+    this.onChanged,
+    this.isEditable = false,
+    this.isShowEditIcon = true,
+    this.onFieldSubmitted,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(6)),
         border: Border.all(
           color: borderColor.withOpacity(opacity),
-          // width: 1,
-        )),
-    // height: 90,
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            label != null
-                ? appText(
-                    title: label,
-                    context: context,
-                    fontSize: 16,
-                    color: const Color(0xFF6D6E6F),
-                    fontWeight: FontWeight.bold)
-                : const Gap(0),
-            Row(
-              children: [
-                GestureDetector(
-                    onTap: isEditablefun,
-                    child: Icon(
-                      Icons.edit,
-                      size: context.getSize.width * 0.050,
-                    )),
-                Gap(context.getSize.width * 0.01),
-
-                // DropdownButtonHideUnderline(
-                //   child: DropdownButton2(
-                //     customButton: Icon(
-                //       Icons.more_horiz,
-                //       size: context.getSize.width * 0.050,
-                //       // color: Colors.red,
-                //     ),
-                //     items: [
-                //       ...MenuItems.firstItems.map(
-                //         (item) => DropdownMenuItem<MenuItem>(
-                //           value: item,
-                //           child: MenuItems.buildItem(item),
-                //         ),
-                //       ),
-                //       const DropdownMenuItem<Divider>(
-                //           enabled: false, child: Divider()),
-                //       ...MenuItems.secondItems.map(
-                //         (item) => DropdownMenuItem<MenuItem>(
-                //           value: item,
-                //           child: MenuItems.buildItem(item),
-                //         ),
-                //       ),
-                //     ],
-                //     onChanged: (value) {
-                //       MenuItems.onChanged(context, value! as MenuItem);
-                //     },
-                //     dropdownStyleData: DropdownStyleData(
-                //       width: 100,
-                //       padding: const EdgeInsets.symmetric(vertical: 6),
-                //       decoration: BoxDecoration(
-                //         borderRadius: BorderRadius.circular(4),
-                //         // color: Colors.redAccent,
-                //       ),
-                //       offset: const Offset(0, 8),
-                //     ),
-                //     menuItemStyleData: MenuItemStyleData(
-                //       customHeights: [
-                //         ...List<double>.filled(MenuItems.firstItems.length, 48),
-                //         8,
-                //         ...List<double>.filled(
-                //             MenuItems.secondItems.length, 48),
-                //       ],
-                //       padding: const EdgeInsets.only(left: 16, right: 16),
-                //     ),
-                //   ),
-                // ),
-              ],
-            )
-          ],
         ),
-        IntlPhoneField(
-          initialValue: initialCOde,
-          // disableLengthCheck: true,
-          enabled: isEditable,
-          autofocus: true,
-          controller: controller,
-          focusNode: focusNode,
-          keyboardType: textInputType,
-          textInputAction: textInputAction,
-          decoration: InputDecoration(
-            contentPadding:
-                EdgeInsets.only(top: context.getSize.height * 0.019),
-            // labelText: 'Phone Number',
-            hintText: 'Phone Number',
-
-            border: const UnderlineInputBorder(
-              borderSide: BorderSide(),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (label != null)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomText(
+                  title: label!,
+                  fontSize: 16,
+                  color: const Color(0xFF6D6E6F),
+                  fontWeight: FontWeight.bold,
+                ),
+                if (isShowEditIcon)
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: isEditField,
+                        child: Icon(
+                          Icons.edit,
+                          size: context.getSize.width * 0.050,
+                        ),
+                      ),
+                      Gap(context.getSize.width * 0.01),
+                    ],
+                  ),
+              ],
             ),
+          IntlPhoneField(
+            onSubmitted: onFieldSubmitted,
+            initialValue: initialCode,
+            searchText: 'Search Country/Region',
+            autofocus: true,
+            controller: controller,
+            focusNode: focusNode,
+            keyboardType: textInputType,
+            textInputAction: textInputAction,
+            decoration: InputDecoration(
+              contentPadding:
+              EdgeInsets.only(top: context.getSize.height * 0.019),
+              hintText: hintText,
+              border: const UnderlineInputBorder(
+                borderSide: BorderSide(),
+              ),
+            ),
+            languageCode: "en",
+            onChanged: onChanged,
+            onCountryChanged: onChangeCountry,
           ),
-          languageCode: "en",
-          onChanged: (phone) {
-            print(phone.countryCode);
-          },
-          onCountryChanged: onChangeCountry,
-        )
-      ],
-    ),
-  );
+        ],
+      ),
+    );
+  }
 }
+
 
 class MenuItem {
   const MenuItem({

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 import '../../../../constant/constant.dart';
@@ -24,7 +25,9 @@ class NumberOTPViewModel extends GetxController {
   String get completePin => _completePin.value;
   onComplete(String value) {
     _completePin.value = value;
-    print(value);
+    if (kDebugMode) {
+      print(value);
+    }
   }
 
   void updatePin(String value, int index) {

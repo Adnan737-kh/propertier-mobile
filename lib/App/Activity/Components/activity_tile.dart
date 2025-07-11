@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 // import 'package:gap/gap.dart';
-import 'package:get/get.dart';
 
 import '../../../../../../constant/colors.dart';
 import '../../../../../../Utils/app_text.dart';
 
 Widget activityTile({required String title, Function()? onTap}) {
-  var context = Get.context!;
   return GestureDetector(
     onTap: onTap,
     child: Container(
@@ -28,7 +26,7 @@ Widget activityTile({required String title, Function()? onTap}) {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                appText(title: title, context: context, colorOpecity: 0.60)
+                CustomText(title: title, colorOpecity: 0.60)
               ],
             ),
             Icon(

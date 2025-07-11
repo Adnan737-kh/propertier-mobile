@@ -4,7 +4,8 @@ import 'package:propertier/Utils/textStyle.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
 
-Widget insideAppBarTile(BuildContext context, {required String title}) {
+Widget insideAppBarTile(BuildContext context,
+    {required String title}) {
   return Row(
     mainAxisSize: MainAxisSize.max,
     mainAxisAlignment: MainAxisAlignment.spaceBetween,

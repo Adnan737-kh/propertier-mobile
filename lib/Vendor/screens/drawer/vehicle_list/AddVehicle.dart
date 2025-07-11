@@ -8,26 +8,21 @@ import 'package:propertier/extensions/size_extension.dart';
 
 import '../../../../Utils/app_text.dart';
 import '../../../../constant/colors.dart';
-import '../../dashboard/profile/controller/profile_controller.dart';
 import '../../widgets/primary_textfield.dart';
 
-
-class Addvehicle extends StatefulWidget {
-  const Addvehicle({super.key});
+class AddVehicle extends StatefulWidget {
+  const AddVehicle({super.key});
 
   @override
-  State<Addvehicle> createState() => _AddvehicleState();
+  State<AddVehicle> createState() => _AddVehicleState();
 }
 
-class _AddvehicleState extends State<Addvehicle> {
-
-
+class _AddVehicleState extends State<AddVehicle> {
   late String vendorUserId;
   AddVehicleController controller = Get.put(AddVehicleController());
 
   @override
   void initState() {
-
     super.initState();
     final box = GetStorage();
     vendorUserId = box.read('vendorUserId') ?? '';
@@ -93,10 +88,10 @@ class _AddvehicleState extends State<Addvehicle> {
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   children: [
-                    Text(
+                    const Text(
                       'Enter Vehicle Information',
                       style: TextStyle(
                         fontSize: 22,
@@ -105,7 +100,7 @@ class _AddvehicleState extends State<Addvehicle> {
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
                     // Field: Make
                     PrimaryTextField(
@@ -117,7 +112,7 @@ class _AddvehicleState extends State<Addvehicle> {
                         color: Color(0xFF131A22),
                       ),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     // Field: Model
                     PrimaryTextField(
                       controller: controller.modelController,
@@ -129,8 +124,7 @@ class _AddvehicleState extends State<Addvehicle> {
                       ),
                     ),
 
-
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     // Field: Year
                     PrimaryTextField(
                       controller: controller.yearController,
@@ -141,7 +135,7 @@ class _AddvehicleState extends State<Addvehicle> {
                         color: Color(0xFF131A22),
                       ),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
                     // Field: Color
                     PrimaryTextField(
@@ -153,7 +147,7 @@ class _AddvehicleState extends State<Addvehicle> {
                         color: Color(0xFF131A22),
                       ),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
                     // Field: Registration Number
                     PrimaryTextField(
@@ -165,7 +159,7 @@ class _AddvehicleState extends State<Addvehicle> {
                         color: Color(0xFF131A22),
                       ),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
                     // Field: Owner Name
                     PrimaryTextField(
@@ -177,7 +171,7 @@ class _AddvehicleState extends State<Addvehicle> {
                         color: Color(0xFF131A22),
                       ),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
                     // Field: Capacity
                     PrimaryTextField(
@@ -189,7 +183,7 @@ class _AddvehicleState extends State<Addvehicle> {
                         color: Color(0xFF131A22),
                       ),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
                     // Field: Fuel Type
                     PrimaryTextField(
@@ -202,8 +196,7 @@ class _AddvehicleState extends State<Addvehicle> {
                       ),
                     ),
 
-
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
                     // Field: Transmission Type
                     PrimaryTextField(
@@ -214,84 +207,81 @@ class _AddvehicleState extends State<Addvehicle> {
                         Icons.edit,
                         color: Color(0xFF131A22),
                       ),
-
                     ),
 
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
                     Obx(
-                          () => controller.galleryImage.isEmpty
+                      () => controller.galleryImage.isEmpty
                           ? GestureDetector(
-                        onTap: () {
-                          controller.multiImagePick();
-                        },
-                        child: Container(
-                          height: context.getSize.height * 0.2,
-                          width: context.width * 0.8,
-                          decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Center(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.camera_alt_outlined,
-                                  color: Colors.black.withOpacity(0.4),
-                                  size: 38,
-                                ),
-                                appText(
-                                    title: "Pick Gallery Images",
-                                    context: context,
-                                    fontSize: 16,
-                                    colorOpecity: 0.4,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ],
-                            ),
-                          ),
-                        ),
-                      )
-                          : Wrap(
-                        runSpacing: 10,
-                        spacing: 10,
-                        children: List.generate(
-                          controller.galleryImage.length,
-                              (index) => Container(
-                            height: context.getSize.height * 0.1,
-                            width: context.getSize.width * 0.2,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                image: DecorationImage(
-                                  image: FileImage(
-                                    File(controller.galleryImage[index]),
-                                  ),
-                                  fit: BoxFit.cover,
-                                  colorFilter: ColorFilter.mode(
-                                    Colors.black.withOpacity(0.3),
-                                    BlendMode.colorBurn,
-                                  ),
-                                )),
-                            child: GestureDetector(
                               onTap: () {
-                                controller.removeImage(index);
+                                controller.multiImagePick();
                               },
-                              child: const Icon(
-                                Icons.close_outlined,
-                                color: AppColor.white,
+                              child: Container(
+                                height: context.getSize.height * 0.2,
+                                width: context.width * 0.8,
+                                decoration: BoxDecoration(
+                                    color: Colors.grey.withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        Icons.camera_alt_outlined,
+                                        color: Colors.black.withOpacity(0.4),
+                                        size: 38,
+                                      ),
+                                      CustomText(
+                                          title: "Pick Gallery Images",
+                                          fontSize: 16,
+                                          colorOpecity: 0.4,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Wrap(
+                              runSpacing: 10,
+                              spacing: 10,
+                              children: List.generate(
+                                controller.galleryImage.length,
+                                (index) => Container(
+                                  height: context.getSize.height * 0.1,
+                                  width: context.getSize.width * 0.2,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      image: DecorationImage(
+                                        image: FileImage(
+                                          File(controller.galleryImage[index]),
+                                        ),
+                                        fit: BoxFit.cover,
+                                        colorFilter: ColorFilter.mode(
+                                          Colors.black.withOpacity(0.3),
+                                          BlendMode.colorBurn,
+                                        ),
+                                      )),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      controller.removeImage(index);
+                                    },
+                                    child: const Icon(
+                                      Icons.close_outlined,
+                                      color: AppColor.white,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      ),
                     ),
 
-
-                    SizedBox(height: 24),
+                    const SizedBox(height: 24),
 
                     // Submit Button
                     InkWell(
-                      onTap: (){
+                      onTap: () {
                         controller.submitForm(context, vendorUserId);
                       },
                       child: Container(
@@ -315,7 +305,7 @@ class _AddvehicleState extends State<Addvehicle> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                   ],
                 ),
               ),
@@ -326,8 +316,6 @@ class _AddvehicleState extends State<Addvehicle> {
     );
   }
 }
-
-
 
 Widget buildTextFormField({
   required TextEditingController controller,

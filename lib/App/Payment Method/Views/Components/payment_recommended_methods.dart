@@ -15,9 +15,8 @@ Widget recommendedMethod(
       children: [
         Row(
           children: [
-            appText(
+            CustomText(
                 title: context.local.recommended_Method,
-                context: context,
                 colorOpecity: 0.7,
                 fontWeight: FontWeight.bold)
           ],
@@ -34,9 +33,8 @@ Widget recommendedMethod(
                   height: 10.17,
                 ),
                 const Gap(8),
-                appText(
+                CustomText(
                     title: "Credit/Debit Card",
-                    context: context,
                     fontSize: 12,
                     fontWeight: FontWeight.normal)
               ],

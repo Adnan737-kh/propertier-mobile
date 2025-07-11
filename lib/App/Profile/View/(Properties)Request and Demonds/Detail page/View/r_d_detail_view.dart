@@ -166,18 +166,16 @@ class RDDetailView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Gap(15),
-        appText(
+        CustomText(
             fontSize: 12,
             fontWeight: FontWeight.bold,
             title: title,
-            context: context,
             colorOpecity: 0.6),
         const Gap(5),
-        appText(
+        CustomText(
             textAlign: TextAlign.start,
             fontSize: 12,
             title: subTitle,
-            context: context,
             colorOpecity: 0.6),
         const Gap(5),
         divider(context: context, withOpacity: 0.6),

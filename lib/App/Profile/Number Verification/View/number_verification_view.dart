@@ -10,7 +10,7 @@ import 'components/number_verify_tile.dart';
 
 class NumberVerificationView extends StatelessWidget {
   NumberVerificationView({super.key});
-  final editProfileVM = Get.find<NumberVerficationViewModel>();
+  final editProfileVM = Get.find<NumberVerificationViewModel>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

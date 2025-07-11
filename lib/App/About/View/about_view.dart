@@ -49,7 +49,7 @@ class AboutView extends StatelessWidget {
                                       null
                                   ? viewModel.profileModel.value.userProfile!
                                       .coverPhotoUrl!
-                                  : Constant.dumyImage2),
+                                  : Constant.dummyImage2),
                               fit: BoxFit.cover)),
                     ),
                     getWidth(context, 0.040),
@@ -60,10 +60,9 @@ class AboutView extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            appText(
+                            CustomText(
                                 title: viewModel
                                     .profileModel.value.userProfile!.name!,
-                                context: context,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500),
                             getWidth(context, 0.010),
@@ -80,10 +79,9 @@ class AboutView extends StatelessWidget {
                             )
                           ],
                         ),
-                        appText(
+                        CustomText(
                             colorOpecity: 0.6,
-                            title: 'Dealer',
-                            context: context,
+                            title: context.local.dealer,
                             fontSize: 12,
                             fontWeight: FontWeight.w500),
                         RatingBarIndicator(
@@ -97,12 +95,11 @@ class AboutView extends StatelessWidget {
                           itemSize: context.getSize.width * 0.034,
                           direction: Axis.horizontal,
                         ),
-                        appText(
+                        CustomText(
                             color: AppColor.textColorGrey,
                             title: viewModel
                                 .profileModel.value.userProfile!.email
                                 .toString(),
-                            context: context,
                             fontSize: 14,
                             fontWeight: FontWeight.w600),
                       ],
@@ -119,12 +116,11 @@ class AboutView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     // boxShadow: [boxShadow()],
                   ),
-                  child: appText(
+                  child: CustomText(
                       color: AppColor.textColorGrey,
                       textAlign: TextAlign.start,
                       title:
                           viewModel.profileModel.value.userProfile!.email ?? "",
-                      context: context,
                       fontSize: 12,
                       fontWeight: FontWeight.w400),
                 )

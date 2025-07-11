@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:propertier/Vendor/screens/dashboard/Posts/add_post/view/add_post_screen.dart';
 import 'package:propertier/constant/constant.dart';
+
+import '../../../../RoutesAndBindings/app_routes.dart';
 
 class PostScreen extends StatefulWidget {
   const PostScreen({super.key});
@@ -30,7 +31,7 @@ class _PostScreenState extends State<PostScreen> {
           Center(
             child: InkWell(
               onTap: () {
-                Get.to(() => const AddPostScreen());
+                Get.toNamed(AppRoutes.vendorAddPostScreen);
               },
               child: Container(
                 height: Get.height * .066,

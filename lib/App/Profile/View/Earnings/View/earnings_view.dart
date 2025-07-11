@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/App/Profile/View/Earnings/ViewModel/earnings_view_model.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/appbar.dart';
@@ -7,6 +8,7 @@ import 'package:propertier/Utils/border.dart';
 import 'package:propertier/Utils/box_shadow.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 class EarningsView extends StatelessWidget {
@@ -31,7 +33,7 @@ class EarningsView extends StatelessWidget {
                 onTap: () {
                   Get.back();
                 },
-                title: 'Earnings'),
+                title: context.local.earnings),
             getHeight(context, 0.1),
             Expanded(
                 child: ListView(
@@ -48,9 +50,8 @@ class EarningsView extends StatelessWidget {
                               color: AppColor.white,
                               border: border(),
                               boxShadow: [boxShadow()]),
-                          child: appText(
+                          child: CustomText(
                             title: viewModel.earningsList[index].title,
-                            context: context,
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),

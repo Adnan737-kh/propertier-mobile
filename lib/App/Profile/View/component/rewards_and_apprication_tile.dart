@@ -7,6 +7,7 @@ import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 Widget rewardsAndAppreciationTile(
@@ -17,11 +18,10 @@ Widget rewardsAndAppreciationTile(
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              appText(
-                  title: "Awards",
+              CustomText(
+                  title:context.local.awards,
                   fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  context: context),
+                  fontWeight: FontWeight.w600,),
               getHeight(context, 0.008),
               InkWell(
                 onTap: () => Get.toNamed(AppRoutes.addAward),
@@ -55,12 +55,11 @@ Widget rewardsAndAppreciationTile(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            appText(
+                            CustomText(
                                 title: viewModel
                                     .profileModel.value.awards![index].title!,
                                 fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                context: context),
+                                fontWeight: FontWeight.w600,),
                             getHeight(context, 0.008),
                             InstaImageViewer(
                               imageUrl: viewModel.profileModel.value
@@ -92,7 +91,7 @@ Widget rewardsAndAppreciationTile(
                       );
                     },
                   ))
-              : appText(title: "No Awards", context: context),
+              : CustomText(title: context.local.no_awards, ),
         ],
       ));
 }

@@ -43,10 +43,10 @@ class LanguageView extends StatelessWidget {
                 children: List.generate(
                     viewModel.searchList.isNotEmpty
                         ? viewModel.searchList.length
-                        : viewModel.langaugesList.length, (index) {
+                        : viewModel.languagesList.length, (index) {
                   LanguageModel language = viewModel.searchList.isNotEmpty
                       ? viewModel.searchList[index]
-                      : viewModel.langaugesList[index];
+                      : viewModel.languagesList[index];
                   return GestureDetector(
                     onTap: () {
                       viewModel.switchLanguage(
@@ -68,11 +68,11 @@ class LanguageView extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              appText(
+                              CustomText(
                                   title: language.language,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
-                                  context: context),
+                                 ),
                               getWidth(context, 0.020),
                               viewModel.selectedLanguageIndex == index
                                   ? const Icon(Icons.check,
@@ -80,12 +80,11 @@ class LanguageView extends StatelessWidget {
                                   : const SizedBox.shrink(),
                             ],
                           ),
-                          appText(
+                          CustomText(
                               title: language.countryName,
                               fontSize: 12,
                               fontWeight: FontWeight.w200,
-                              colorOpecity: 0.2,
-                              context: context),
+                              colorOpecity: 0.2),
                           getHeight(context, 0.008),
                         ],
                       ),

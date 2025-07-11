@@ -8,10 +8,6 @@ import '../../../helpers/api_service.dart';
 class DashboardViewModel extends GetxController {
   bool _isLoopActive = false;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   void startLocationLoop() {
     if (_isLoopActive) return; // Prevent starting the loop multiple times
@@ -27,7 +23,7 @@ class DashboardViewModel extends GetxController {
     while (_isLoopActive) {
       final position = await Geolocator.getCurrentPosition();
       await updateVendorLocation(LatLng(position.latitude, position.longitude));
-      await Future.delayed(Duration(seconds: 10));
+      await Future.delayed(const Duration(seconds: 10));
     }
   }
 

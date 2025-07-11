@@ -6,28 +6,28 @@ import 'package:propertier/App/Profile/ViewModel/profile_view_model.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 Widget adsChart(BuildContext context, ProfileViewModel viewModel) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      appText(
-        title: 'Ads',
-        context: context,
+      CustomText(
+        title: context.local.ads,
         fontSize: 14,
         fontWeight: FontWeight.w600,
       ),
       getHeight(context, 0.008),
       chartTile(context,
-          title: 'Ads Overview',
+          title: context.local.ads_overview,
           dropDownValue: '1 Week',
           subtitleList: [
             ChartSubtitleModel(
-              subtitle: 'Team',
+              subtitle: context.local.team,
               color: AppColor.buttonColor,
             ),
             ChartSubtitleModel(
-              subtitle: 'Sales',
+              subtitle: context.local.sales,
               color: AppColor.lightBlueColor,
             ),
           ],

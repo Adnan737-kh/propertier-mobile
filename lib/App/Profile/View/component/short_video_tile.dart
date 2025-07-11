@@ -11,16 +11,16 @@ import 'package:propertier/Utils/border.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
 import '../../../../Model/property.dart';
 import '../../../../RoutesAndBindings/app_routes.dart';
 
-// ignore: must_be_immutable
 class ProfileShortVideosTile extends StatelessWidget {
-  List<Property> listOfProperties;
-  ProfileShortVideosTile({super.key, required this.listOfProperties});
+  final List<Property> listOfProperties;
+  const ProfileShortVideosTile({super.key, required this.listOfProperties});
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +42,8 @@ class ProfileShortVideosTile extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  appText(
-                    title: 'Short Videos',
-                    context: context,
+                  CustomText(
+                    title: context.local.short_videos,
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
                   ),
@@ -54,9 +53,8 @@ class ProfileShortVideosTile extends StatelessWidget {
                   )
                 ],
               ),
-              appText(
-                title: 'View More',
-                context: context,
+              CustomText(
+                title: context.local.view_more,
                 color: AppColor.greenColor,
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
@@ -66,7 +64,7 @@ class ProfileShortVideosTile extends StatelessWidget {
         ),
         getHeight(context, 0.011),
         newShortVideoList.isEmpty
-            ? const Text("No Data")
+            ? Text(context.local.no_data)
             : SizedBox(
                 height: context.getSize.height * 0.33,
                 width: context.getSize.width,
@@ -95,7 +93,8 @@ class ProfileShortVideosTile extends StatelessWidget {
                               future:
                                   newShortVideoList[index].shortVideo != null
                                       ? generateThumbnail(
-                                          newShortVideoList[index].shortVideo!,)
+                                          newShortVideoList[index].shortVideo!,
+                                        )
                                       : null,
                               builder: (context, snapshot) {
                                 return SizedBox(
@@ -114,27 +113,42 @@ class ProfileShortVideosTile extends StatelessWidget {
                                             padding: const EdgeInsets.all(15),
                                             alignment: Alignment.bottomCenter,
                                             decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(10),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
                                                 image: DecorationImage(
-                                                  image: FileImage(File(snapshot.data!)),
-                                                  fit: BoxFit.cover,)),
+                                                  image: FileImage(
+                                                      File(snapshot.data!)),
+                                                  fit: BoxFit.cover,
+                                                )),
                                             child: Container(
-                                              height: context.getSize.height * 0.043,
-                                              width: context.getSize.width * 0.086,
+                                              height: context.getSize.height *
+                                                  0.043,
+                                              width:
+                                                  context.getSize.width * 0.086,
                                               decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
-                                                  border: border(color: AppColor.buttonColor, width: 1),
+                                                  border: border(
+                                                      color:
+                                                          AppColor.buttonColor,
+                                                      width: 1),
                                                   image: DecorationImage(
-                                                      image: NetworkImage(newShortVideoList[index].image ??
-                                                              Constant.dummyImage),
+                                                      image: NetworkImage(
+                                                          newShortVideoList[
+                                                                      index]
+                                                                  .image ??
+                                                              Constant
+                                                                  .dummyImage),
                                                       fit: BoxFit.cover)),
                                             ),
                                           )
                                         : snapshot.error != null
-                                            ? const Text('Error generating thumbnail')
+                                            ? Text(context.local
+                                                .error_generating_thumbnail)
                                             : const Center(
-                                                child: CircularProgressIndicator(
-                                                  color: AppColor.buttonColor,)));
+                                                child:
+                                                    CircularProgressIndicator(
+                                                color: AppColor.buttonColor,
+                                              )));
                               },
                             ),
                           )

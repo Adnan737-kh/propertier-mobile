@@ -89,7 +89,7 @@ class _VehicleListState extends State<VehicleList> {
             child: FutureBuilder(future: profileController.fetchMyVehicles(vendorUserId),
                 builder: (context, snapshot){
                   if(snapshot.connectionState == ConnectionState.waiting){
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
@@ -106,7 +106,7 @@ class _VehicleListState extends State<VehicleList> {
                         }
                     );
                   }
-                  return Center(
+                  return const Center(
                     child: Text("No vehicle found!"),
                   );
                 }
@@ -115,11 +115,11 @@ class _VehicleListState extends State<VehicleList> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColor.forgroundColor,
+        backgroundColor: AppColor.forGroundColor,
           onPressed: (){
-            Get.to(Addvehicle());
+            Get.to(const AddVehicle());
           },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

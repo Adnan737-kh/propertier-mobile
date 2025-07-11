@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:propertier/App/NavBar/ViewModel/navbar_view_model.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/constant/colors.dart';
-// import 'package:propertier/App/Utils/text_botton.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 import '../../../constant/AppButton/text_button.dart';
@@ -31,33 +30,12 @@ class PostAddView extends StatelessWidget {
                   height: context.getSize.height * 0.03,
                 ),
                 getHeight(context, 0.075),
-                // customTextButton(
-                //     title: "Material",
-                //     onTap: () {
-                //       Get.toNamed(AppRoutes.addMaterialView);
-                //     },
-                //     buttonColor: AppColor.white,
-                //     textColor: AppColor.darkGreyColor.withOpacity(0.7)),
-                // getHeight(context, 0.008),
-                // customTextButton(
-                //     title: "Properties",
-                //     onTap: GetStorage().read('user') == null
-                //         ? () {
-                //             navBarVM.changeSelectedTab(2);
-                //           }
-                //         : () {
-                //             final cont = Get.put(UploadPropertyViewModel());
-                //             Get.toNamed(AppRoutes.addPropertiesView,
-                //                 arguments: cont);
-                //           },
-                //     buttonColor: AppColor.white,
-                //     textColor: AppColor.darkGreyColor.withOpacity(0.7)),
 
               FutureBuilder(
                 future: navBarVM.userPreference.getUserAccessToken(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator()); // Show loader while fetching data
+                    return const Center(child: CircularProgressIndicator());
                   }
 
                   if (snapshot.hasData) {

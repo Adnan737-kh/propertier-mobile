@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -27,16 +28,18 @@ class ServicesSearhViewModel extends GetxController {
   final ImagePicker imagePicker = ImagePicker();
   RxList<XFile> imageFileList = <XFile>[].obs;
   void selectedImage(bool isAlsoPicked, int index) async {
-    final selectedimges =
+    final selectedImages =
         await imagePicker.pickImage(source: ImageSource.gallery);
-    if (selectedimges != null) {
+    if (selectedImages != null) {
       if (isAlsoPicked == true) {
-        imageFileList[index] = selectedimges;
+        imageFileList[index] = selectedImages;
       } else {
-        imageFileList.add(selectedimges);
+        imageFileList.add(selectedImages);
       }
     }
-    print("Length ${imageFileList.length}");
+    if (kDebugMode) {
+      print("Length ${imageFileList.length}");
+    }
   }
 
   Future createBidByCustomer(BuildContext context,ParentServicesModel parentServicesModel, Subservices subservices)async{
@@ -46,21 +49,19 @@ class ServicesSearhViewModel extends GetxController {
     }
     if(imagesPath.isEmpty){
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: appText(
+          content: CustomText(
               title: 'Upload images',
-              context: context,
               color: AppColor.white)));
       return;
     }
     if(descriptionController.text == ""){
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: appText(
+          content: CustomText(
               title: 'Write a description.',
-              context: context,
               color: AppColor.white)));
       return;
     }
-    String? id =  await ServicessearchService().createBidByCustomer(context: context, images: imagesPath, description: descriptionController.text, service: parentServicesModel.id.toString(), subService: subservices.id.toString());
+    String? id =  await ServicesSearchService().createBidByCustomer(context: context, images: imagesPath, description: descriptionController.text, service: parentServicesModel.id.toString(), subService: subservices.id.toString());
     if(id != null){
       Get.toNamed(AppRoutes.servicesSearch2View,
           arguments: {

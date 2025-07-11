@@ -27,7 +27,7 @@ PreferredSize serviceProviderProfileAppBar(
                           null
                       ? viewModel.serviceProviderProfileModel.value.userProfile!
                           .coverPhotoUrl!
-                      : Constant.dumyImage2,
+                      : Constant.dummyImage2,
                   child: Container(
                     alignment: Alignment.topCenter,
                     padding: EdgeInsets.only(
@@ -49,7 +49,7 @@ PreferredSize serviceProviderProfileAppBar(
                                           null
                                       ? viewModel.serviceProviderProfileModel
                                           .value.userProfile!.coverPhotoUrl!
-                                      : Constant.dumyImage2,
+                                      : Constant.dummyImage2,
                                 ),
                                 fit: BoxFit.cover)),
                     child: Row(
@@ -85,7 +85,7 @@ PreferredSize serviceProviderProfileAppBar(
                       Obx(() => Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              appText(
+                              CustomText(
                                   title: viewModel.serviceProviderProfileModel
                                               .value.userProfile !=
                                           null
@@ -93,7 +93,6 @@ PreferredSize serviceProviderProfileAppBar(
                                               .value.userProfile!.name ??
                                           ""
                                       : "",
-                                  context: context,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600),
                               getWidth(context, 0.010),
@@ -119,24 +118,22 @@ PreferredSize serviceProviderProfileAppBar(
                           //     fontWeight: FontWeight.w600,
                           //     color: const Color(0xffB8B8B8),
                           //     context: context),
-                          appText(
+                          CustomText(
                               colorOpecity: 0.6,
                               title: 'Dealer',
                               fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                              context: context),
+                              fontWeight: FontWeight.w600,),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          appText(
+                          CustomText(
                             title: '2K',
                             fontSize: 10,
                             fontWeight: FontWeight.w600,
                             color: const Color(0xffB8B8B8),
-                            context: context,
                           ),
                           RatingBarIndicator(
                             rating: 4,
@@ -154,13 +151,13 @@ PreferredSize serviceProviderProfileAppBar(
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          appText(
+                          CustomText(
                               title: 'Following',
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
                               colorOpecity: 0.6,
-                              context: context),
-                          appText(
+                               ),
+                          CustomText(
                               color: const Color(0xffB8B8B8),
                               title: viewModel.serviceProviderProfileModel.value
                                           .properties !=
@@ -175,7 +172,7 @@ PreferredSize serviceProviderProfileAppBar(
                                   : "",
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
-                              context: context),
+                          ),
                         ],
                       ),
                     ],
@@ -196,7 +193,7 @@ PreferredSize serviceProviderProfileAppBar(
                       imageUrl: viewModel.serviceProviderProfileModel.value
                                   .userProfile!.profilePictureUrl ==
                               null
-                          ? Constant.dumyImage2
+                          ? Constant.dummyImage2
                           : viewModel.serviceProviderProfileModel.value
                               .userProfile!.profilePictureUrl!,
                       child: Container(
@@ -216,7 +213,7 @@ PreferredSize serviceProviderProfileAppBar(
                                                 .userProfile!
                                                 .profilePictureUrl ==
                                             null
-                                        ? Constant.dumyImage2
+                                        ? Constant.dummyImage2
                                         : viewModel
                                             .serviceProviderProfileModel
                                             .value

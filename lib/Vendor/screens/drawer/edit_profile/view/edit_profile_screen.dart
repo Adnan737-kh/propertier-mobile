@@ -450,9 +450,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Driving License Front",
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Color(0xFF131A22),
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -467,7 +467,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           },
                           child: (profileController.profile.value.drivingLicenseFrontUrl??"") == ""?
                           Container(
-                            margin: EdgeInsets.symmetric(vertical: 10),
+                            margin: const EdgeInsets.symmetric(vertical: 10),
                             width: Get.width,
                             height: 100,
                             decoration: BoxDecoration(
@@ -475,9 +475,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 borderRadius: BorderRadius.circular(10)
                             ),
                             alignment: Alignment.center,
-                            child: Text("Upload Image"),
+                            child: const Text("Upload Image"),
                           ): Container(
-                              margin: EdgeInsets.symmetric(vertical: 10),
+                              margin:const  EdgeInsets.symmetric(vertical: 10),
                               height: 150,
                               child: Center(child: Image.network(profileController.profile.value.drivingLicenseFrontUrl!))),
                         )
@@ -486,9 +486,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Driving License Back",
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Color(0xFF131A22),
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -503,7 +503,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           },
                           child: (profileController.profile.value.drivingLicenseBackUrl??"") == ""?
                           Container(
-                            margin: EdgeInsets.symmetric(vertical: 10),
+                            margin: const EdgeInsets.symmetric(vertical: 10),
                             width: Get.width,
                             height: 100,
                             decoration: BoxDecoration(
@@ -511,9 +511,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 borderRadius: BorderRadius.circular(10)
                             ),
                             alignment: Alignment.center,
-                            child: Text("Upload Image"),
+                            child:const  Text("Upload Image"),
                           ): Container(
-                            margin: EdgeInsets.symmetric(vertical: 10),
+                            margin: const EdgeInsets.symmetric(vertical: 10),
                             height: 150,
                               child: Center(child: Image.network(profileController.profile.value.drivingLicenseBackUrl!))),
                         ),

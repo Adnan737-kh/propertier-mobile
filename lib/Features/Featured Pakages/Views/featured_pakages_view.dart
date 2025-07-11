@@ -149,12 +149,11 @@ class FeaturedPakagesView extends StatelessWidget {
                   onChanged: onChanged,
                 ),
                 const Gap(4),
-                appText(title: days, context: context, colorOpecity: 0.6),
+                CustomText(title: days, colorOpecity: 0.6),
               ],
             ),
-            appText(
+            CustomText(
                 title: "$pkr PKR",
-                context: context,
                 color: AppColor.facebookColor),
           ],
         ),
@@ -163,9 +162,8 @@ class FeaturedPakagesView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             const Gap(50),
-            appText(
+            CustomText(
                 title: "For Duration : $dueration Days",
-                context: context,
                 colorOpecity: 0.5)
           ],
         ),
@@ -183,7 +181,7 @@ class FeaturedPakagesView extends StatelessWidget {
     String days = parts[0]; // The first part contains the number of days
 
     // Format the string as "days 00:00:00"
-    String formattedTime = "$days";
+    String formattedTime = days;
     return formattedTime;
   }
 }

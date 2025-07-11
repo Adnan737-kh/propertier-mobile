@@ -27,9 +27,8 @@ customAppBar(
     SizedBox(
       width: context.getSize.width * 0.010,
     ),
-    appText(
+    CustomText(
       title: title,
-      context: context,
       fontWeight: fontWeight,
       color: AppColor.textColor,
       fontSize: 14,

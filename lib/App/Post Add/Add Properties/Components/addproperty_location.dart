@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:propertier/App/Post%20Add/Add%20Properties/ViewModel/add_properties_view_model.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import '../../../../Utils/height_width_box.dart';
 import '../../../../extensions/list_of_types.dart';
 import 'add_property_dropdown.dart';
 
-Widget addPropertylocations({
+Widget addPropertyLocations({
   required AddPropertiesViewModel controller,
   required BuildContext context,
 }) {
@@ -20,13 +21,13 @@ Widget addPropertylocations({
               controller.selectedArea.value = val!;
             },
             context: context,
-            title: "Area type",
+            title: context.local.area_type,
             items: controller.areaType
                 .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                 .toList(),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Select Area type';
+                return context.local.select_area_type;
               } else {}
               return null;
             },
@@ -38,14 +39,14 @@ Widget addPropertylocations({
               controller.selectedPropertyType.value = val!;
             },
             context: context,
-            title: "Property Type",
+            title: context.local.property_type,
             items: ListOfTypes()
                 .types
                 .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                 .toList(),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Select PropertyType';
+                return context.local.select_property_type;
               } else {}
               return null;
             },
@@ -54,7 +55,7 @@ Widget addPropertylocations({
           Expanded(
               child: addPropertyDropdown(
             context: context,
-            title: "Area Unit",
+            title: context.local.area_unit,
             onChange: (p0) {
               controller.selectAreaUnitType.value = p0!;
             },
@@ -63,7 +64,7 @@ Widget addPropertylocations({
                 .toList(),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Select Area Unit';
+                return context.local.select_area_unit;
               }
               return null;
             },

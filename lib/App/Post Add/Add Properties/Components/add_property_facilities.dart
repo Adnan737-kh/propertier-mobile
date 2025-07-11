@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/App/Post%20Add/Add%20Properties/ViewModel/add_properties_view_model.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 import '../../../../Utils/app_text.dart';
@@ -13,14 +15,14 @@ Widget addPropertyFacilities({
 }) {
   return Column(
     children: [
-      appText(title: "Facilities", context: context, fontSize: 18),
+      CustomText(title: context.local.facilities, fontSize: 18),
       getHeight(context, 0.015),
       Obx((){
         if (controller.featuresList.value.data == null) {
           return const Center(child: CircularProgressIndicator()); // Show loading indicator
         }
         if (controller.featuresList.value.data!.features.isEmpty) {
-          return const Center(child: Text("No features available"));
+          return  Center(child: Text(context.local.no_features_available));
         }
         return Wrap(
           direction: Axis.horizontal,

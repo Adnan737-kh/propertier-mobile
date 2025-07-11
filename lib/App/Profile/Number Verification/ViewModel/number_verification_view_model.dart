@@ -9,7 +9,7 @@ import '../../../../constant/toast.dart';
 import '../../../../repository/profile_repo/profile_update/profile_updat_repo.dart';
 import '../../../Auth/User/Token/token_preference_view_model/token_preference_view_model.dart';
 
-class NumberVerficationViewModel extends GetxController {
+class NumberVerificationViewModel extends GetxController {
   final ProfileUpdateRepository _api = ProfileUpdateRepository();
   UserPreference userPreference = UserPreference();
   RxBool isLoading = false.obs;
@@ -61,21 +61,21 @@ class NumberVerficationViewModel extends GetxController {
         }
 
         if (statusCode == 200 || statusCode == 201) {
-          toast(title: 'Number Verification Submitted', context: context);
-          Get.toNamed(AppRoutes.verificationView);
+          CustomToast.show(title: 'Number Verification Submitted', context: context);
+          Get.offNamed(AppRoutes.verificationView);
         } else {
           if (body is Map && body.containsKey('detail')) {
             String errorMessage = body['detail'][0];
-            toast(title: errorMessage, context: context);
+            CustomToast.show(title: errorMessage, context: context);
           } else {
-            toast(
+            CustomToast.show(
               title: 'Verification failed. Please try again.',
               context: context,
             );
           }
         }
       } else {
-        toast(
+        CustomToast.show(
           title: 'Invalid response from server.',
             context: context,
         );
@@ -93,7 +93,7 @@ class NumberVerficationViewModel extends GetxController {
           var errorResponse = jsonDecode(jsonPart);
           if (errorResponse is Map && errorResponse.containsKey('detail')) {
             String errorMessage = errorResponse['detail'][0];
-            toast(title: errorMessage, context: context);
+            CustomToast.show(title: errorMessage, context: context);
             return;
           }
         }
@@ -103,7 +103,7 @@ class NumberVerficationViewModel extends GetxController {
         }
       }
 
-      toast(title: "Something went wrong. Please try again.", context: context);
+      CustomToast.show(title: "Something went wrong. Please try again.", context: context);
 
       if (kDebugMode) {
         print(" Error: $error");

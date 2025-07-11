@@ -1,10 +1,10 @@
 
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:path/path.dart';
-import 'package:propertier/App/Services/Model/FixedServicesModel.dart';
 import 'package:http/http.dart' as http;
 import '../../../Network/api_urls.dart';
 import '../../../Utils/app_text.dart';
@@ -12,9 +12,11 @@ import '../../../constant/colors.dart';
 
 
 
-class ServicessearchService{
+class ServicesSearchService{
 
-  Future<String?> createBidByCustomer({required BuildContext context, required List<String> images, required String service,required String subService, required String description, String? vendorId})async{
+  Future<String?> createBidByCustomer({required BuildContext context,
+    required List<String> images, required String service,
+    required String subService, required String description, String? vendorId})async{
     try{
       var request = http.MultipartRequest("POST", Uri.parse(API.createBidByCustomer));
 
@@ -38,33 +40,37 @@ class ServicessearchService{
       if(vendorId != null){
         request.fields['vendor'] = vendorId;
       }
-      print(request.fields);
+      if (kDebugMode) {
+        print(request.fields);
+      }
       var response = await request.send();
-      print(response.statusCode);
-      print(await response.stream.bytesToString());
+      if (kDebugMode) {
+        print(response.statusCode);
+        print(await response.stream.bytesToString());
+
+      }
       if (response.statusCode == 201) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: appText(
+            content: CustomText(
                 title: 'Your Request is online, Please Wait...',
-                context: context,
                 color: AppColor.white)));
         final responseBody = await response.stream.bytesToString();
         var jsonDecodeBody = jsonDecode(responseBody);
         return jsonDecodeBody['id'].toString();
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: appText(
+            content: CustomText(
                 title: 'Something went wrong.',
-                context: context,
                 color: AppColor.white)));
       }
     }
     catch(e){
-      print("error: $e");
+      if (kDebugMode) {
+        print("error: $e");
+      }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: appText(
+          content: CustomText(
               title: e.toString(),
-              context: context,
               color: AppColor.white)));
     }
 
@@ -75,18 +81,21 @@ class ServicessearchService{
   Future acceptBid(BuildContext context, String id, String status)async{
     try{
       String url = "${API.offerByVendor}$id/";
-      print(url);
+      if (kDebugMode) {
+        print(url);
+      }
       var request = http.MultipartRequest("PATCH", Uri.parse(url));
       request.fields['status'] = status;
       var response = await request.send();
       print(response.statusCode);
     }
     catch(e){
-      print("error: $e");
+      if (kDebugMode) {
+        print("error: $e");
+      }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: appText(
+          content: CustomText(
               title: e.toString(),
-              context: context,
               color: AppColor.white)));
     }
   }
@@ -94,7 +103,9 @@ class ServicessearchService{
   Future finalizeBid(BuildContext context, String id,String status, String vendorId)async{
     try{
       String url = "${API.offerByVendor}$id/";
-      print(url);
+      if (kDebugMode) {
+        print(url);
+      }
       var request = http.MultipartRequest("PATCH", Uri.parse(url));
       request.fields['status'] = status;
       request.fields['vendor'] = vendorId;
@@ -102,11 +113,12 @@ class ServicessearchService{
       print(response.statusCode);
     }
     catch(e){
-      print("error: $e");
+      if (kDebugMode) {
+        print("error: $e");
+      }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: appText(
+          content: CustomText(
               title: e.toString(),
-              context: context,
               color: AppColor.white)));
     }
   }
@@ -114,8 +126,10 @@ class ServicessearchService{
 
   Future<bool> createOrder({required BuildContext context,required String bidId,required String vendorId,required String customerId,required String serviceId,required String subServiceId,required String serviceLocation,required String status, required String paymentStatus})async{
     try{
-      String url = "${API.createOrder}";
-      print(url);
+      String url = API.createOrder;
+      if (kDebugMode) {
+        print(url);
+      }
       var request = http.MultipartRequest("POST", Uri.parse(url));
       request.fields['vendor'] = vendorId;
       request.fields['bid'] = bidId;
@@ -137,18 +151,16 @@ class ServicessearchService{
       }
       else{
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: appText(
+            content: CustomText(
                 title: data.toString(),
-                context: context,
                 color: AppColor.white)));
       }
     }
     catch(e){
       print("error: $e");
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: appText(
+          content: CustomText(
               title: e.toString(),
-              context: context,
               color: AppColor.white)));
     }
 
@@ -157,8 +169,10 @@ class ServicessearchService{
 
   Future<Map<String,dynamic>?> getSubService(String id)async{
     try{
-      String url = "${API.getSubService}$id";
-      print(url);
+      String url = "${API.getSubService}11";
+      if (kDebugMode) {
+        print('getSubService  v url $url');
+      }
       var response = await http.get(Uri.parse(url));
       if(response.statusCode == 200){
         var data = jsonDecode(response.body);
@@ -166,8 +180,11 @@ class ServicessearchService{
       }
     }
     catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
+    return null;
   }
 
 }

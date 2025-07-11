@@ -38,10 +38,9 @@ Widget textButton(
                 blurRadius: 4,
                 spreadRadius: 0)
           ]),
-      child: appText(
+      child: CustomText(
           title: title,
           color: textColor ?? AppColor.blackColor,
-          context: context,
           fontSize: textFontSize,
           fontWeight: textFontWeight),
     ),

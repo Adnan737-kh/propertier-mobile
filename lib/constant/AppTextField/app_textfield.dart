@@ -5,13 +5,8 @@ import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/textStyle.dart';
-// import 'package:propertierapp/extensions/size_extension.dart';
-
+import 'package:propertier/extensions/localization_extension.dart';
 import '../colors.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:google_fonts/google_fonts.dart';
-
-// import '../AppColors/colors.dart';
 
 Widget customTextField({
   FocusNode? focusNode,
@@ -20,44 +15,47 @@ Widget customTextField({
   required TextEditingController controller,
   TextInputType textInputType = TextInputType.text,
   TextInputAction textInputAction = TextInputAction.next,
-  bool obSecureText = false,
-  double height = 36,
   Function(String)? onChanged,
+  double height = 36,
   double width = double.infinity,
   double fontSize = 14,
   double horizontalPadding = 12,
   double verticalPadding = 8,
+  double opacity = 0.10,
   VoidCallback? onTap,
   Widget? prefix,
   Widget? suffix,
   Widget? suffixIcon,
   InputBorder? border,
-  bool readOnly = false,
   String? Function(String?)? validator,
+  Function(String)? onFieldSubmitted,
   Color borderColor = AppColor.backgroundColor,
-  double opacity = 0.10,
   int maxLines = 1,
   FontWeight fontWeight = FontWeight.w400,
+  Color? fillColor,
+  bool obSecureText = false,
+  bool? isFilled = false,
+  bool readOnly = false,
 }) {
   var context = Get.context!;
   return Stack(
     children: [
       Container(
         width: width,
-        decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(6)),
-            border: Border.all(
-              color: borderColor.withOpacity(opacity),
-              // width: 1,
-            )),
-        // height: 90,
+        decoration: (isFilled ?? false)
+            ? BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(6)),
+                border: Border.all(
+                  color: borderColor.withOpacity(opacity),
+                ),
+              )
+            : null, // ← No border at all if not filled
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             label != null
-                ? appText(
+                ? CustomText(
                     title: label,
-                    context: context,
                     fontSize: 14,
                     color: const Color.fromARGB(196, 141, 142, 143),
                     fontWeight: FontWeight.bold)
@@ -70,32 +68,40 @@ Widget customTextField({
               obscureText: obSecureText,
               keyboardType: textInputType,
               textInputAction: textInputAction,
-              // style:
               focusNode: focusNode,
               controller: controller,
               validator: validator,
-
+              onFieldSubmitted: onFieldSubmitted,
               decoration: InputDecoration(
                 prefix: prefix,
                 suffix: suffix,
                 suffixIcon: suffixIcon,
-                // prefixIcon: prefix,
+                fillColor: fillColor,
+                filled: isFilled,
                 hintText: hintText,
                 hintStyle: textStyle(
                     context: context, withOpacity: 0.30, fontSize: 14),
-                contentPadding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                border: const UnderlineInputBorder(),
-
-                focusedBorder: const UnderlineInputBorder(),
-                enabled: true,
-                enabledBorder: const UnderlineInputBorder(),
+                contentPadding: (isFilled ?? false)
+                    ? EdgeInsets.symmetric(
+                        vertical: MediaQuery.of(context).size.height * 0.020,
+                        horizontal: 8,
+                      )
+                    : const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                enabledBorder: !(isFilled ?? false)
+                    ? const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      )
+                    : InputBorder.none,
+                focusedBorder: !(isFilled ?? false)
+                    ? const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                      )
+                    : InputBorder.none,
               ),
             ),
           ],
         ),
       ),
-
-      // suffixIcon!=null?Positioned(child: suffixIcon):const Gap(0)
     ],
   );
 }
@@ -103,11 +109,11 @@ Widget customTextField({
 Widget customPhoneNumberTextField({
   FocusNode? focusNode,
   required String hintText,
-  String? labal,
+  String? label,
   required TextEditingController controller,
   TextInputType textInputType = TextInputType.text,
   TextInputAction textInputAction = TextInputAction.next,
-  bool obsecureText = false,
+  bool obSecureText = false,
   double height = 36,
   double fontSize = 14,
   double horizontalPadding = 12,
@@ -134,16 +140,17 @@ Widget customPhoneNumberTextField({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        labal != null
-            ? appText(
-                title: labal,
-                context: context,
+        label != null
+            ? CustomText(
+                title: label,
                 fontSize: 14,
                 color: const Color.fromARGB(196, 141, 142, 143),
                 fontWeight: FontWeight.bold)
             : const Gap(0),
         IntlPhoneField(
           // validator: ,
+
+          searchText: context.local.search_country_region,
           showCursor: true,
           readOnly: false,
           controller: controller,
@@ -157,7 +164,7 @@ Widget customPhoneNumberTextField({
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.only(top: 15),
             // labelText: 'Phone Number',
-            hintText: 'Phone Number',
+            hintText: context.local.phone_number,
             hintStyle:
                 textStyle(context: context, withOpacity: 0.30, fontSize: 14),
             border: const UnderlineInputBorder(

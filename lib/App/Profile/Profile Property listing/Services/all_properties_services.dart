@@ -25,16 +25,14 @@ class AllPropertiesServices {
         allPropertiesModel = AllPropertiesModel.fromJson(decodedJson);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: appText(
+            content: CustomText(
                 title: 'Something went wrong.',
-                context: context,
                 color: AppColor.white)));
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: appText(
+          content: CustomText(
               title: 'Something went wrong.',
-              context: context,
               color: AppColor.white)));
     }
     return allPropertiesModel;

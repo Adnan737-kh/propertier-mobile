@@ -6,7 +6,7 @@ import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
-GestureDetector dialButton(VeifySigninViewModel viewModel, int index,
+GestureDetector dialButton(VerifySignInViewModel viewModel, int index,
     String email, BuildContext context) {
   return GestureDetector(
     onTap: () {
@@ -25,7 +25,7 @@ GestureDetector dialButton(VeifySigninViewModel viewModel, int index,
           horizontal: context.getSize.width * 0.06,
           vertical: context.getSize.height * 0.01),
       decoration: BoxDecoration(
-          color: index == 9 ? Colors.transparent : AppColor.forgroundColor,
+          color: index == 9 ? Colors.transparent : AppColor.forGroundColor,
           borderRadius: BorderRadius.circular(10)),
       child: index == 11
           ? Padding(
@@ -35,9 +35,8 @@ GestureDetector dialButton(VeifySigninViewModel viewModel, int index,
                 height: 18,
               ),
             )
-          : appText(
+          : CustomText(
               title: viewModel.numberList[index],
-              context: context,
               fontSize: 40,
               fontWeight: FontWeight.w400),
     ),

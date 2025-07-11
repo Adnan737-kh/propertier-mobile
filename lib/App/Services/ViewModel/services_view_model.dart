@@ -9,7 +9,6 @@ import 'package:propertier/extensions/localization_extension.dart';
 import '../../../Vendor/screens/dashboard/Posts/add_post/Model/title_model.dart';
 import '../../../Vendor/screens/dashboard/Posts/select_category/View/select_category.dart';
 
-import '../../../repository/vendor/vendor_auth/vendor_auth.dart';
 import '../../Auth/User/Token/token_preference_view_model/token_preference_view_model.dart';
 import '../Model/ServiceDashboardModel.dart';
 import 'package:propertier/Vendor/helpers/api_service.dart';
@@ -18,7 +17,6 @@ class ServicesViewModel extends GetxController {
 
   Rxn<ServiceDashboardModel> serviceDashboardModel = Rxn<ServiceDashboardModel>();
   TextEditingController searchController = TextEditingController();
-  final VendorRegisterRepository _api =VendorRegisterRepository();
   ServicesCore servicesCore = ServicesCore();
   UserPreference userPreference = UserPreference();
   var profileImage = "".obs; // Make it observable
@@ -92,9 +90,9 @@ class ServicesViewModel extends GetxController {
  Future<List<ParentServicesModel>> getAllParentServices(BuildContext context)async{
    return servicesCore.getAllParentServices(context: context);
  }
- // Future<ServicePaginationModel?> getPaginationServices(BuildContext context)async{
- //   return await servicesCore.servicesPagination(context: context);
- // }
+ Future<ServicePaginationModel?> getPaginationServices(BuildContext context)async{
+   return await servicesCore.servicesPagination(context: context);
+ }
 
  Future getServicesDashboard()async{
    serviceDashboardModel.value = await servicesCore.servicesDashboard(context: Get.context!);
@@ -205,58 +203,5 @@ class ServicesViewModel extends GetxController {
  }
 
 
-  // Future<int?> registerVendor(
-  //     BuildContext context, String email, String firebaseID,
-  //     String serviceId, String serviceName) async {
-  //
-  //   isLoading(true);
-  //
-  //   final Map<String, dynamic> data = {
-  //     "email": email.toLowerCase(),
-  //     "firebase_id": firebaseID,
-  //     "type": 'vendor',
-  //     "profession_types": [serviceId, serviceName]
-  //   };
-  //
-  //   try {
-  //     final onValue = await _api.registerVendor(data, 'accessToken');
-  //
-  //     if (kDebugMode) {
-  //       print('onValue: $onValue');
-  //     }
-  //
-  //     if (onValue != null && onValue.containsKey('otp_token')) {
-  //       String otpToken = onValue['otp_token'];
-  //       if (kDebugMode) {
-  //         print('Save otpToken For Header: $otpToken');
-  //       }
-  //
-  //       // Save OTP token in SharedPreferences if needed
-  //       // SharedPreferences prefs = await SharedPreferences.getInstance();
-  //       // await prefs.setString('otp_token', otpToken);
-  //
-  //       toast(title: 'OTP Sent to Your Gmail', context: context);
-  //
-  //       isLoading(false);
-  //       return 1; // Success
-  //     }
-  //   } catch (error, stackTrace) {
-  //     isLoading(false);
-  //
-  //     if (error is UserAlreadyExistsException) {
-  //       toast(title: 'User with this email already exists', context: context);
-  //     } else {
-  //       toast(title: 'An error occurred: $error', context: context);
-  //     }
-  //
-  //     if (kDebugMode) {
-  //       print('$error and $stackTrace');
-  //     }
-  //     return 0; // Failure
-  //   }
-  //
-  //   isLoading(false);
-  //   return null; // Return null if nothing matches
-  // }
 
 }

@@ -45,9 +45,8 @@ class DocumentsTypesView extends StatelessWidget {
                         Get.toNamed(AppRoutes.documentsUploadView);
                       }),
                   getHeight(context, 0.005),
-                  appText(
+                  const CustomText(
                       title: "Will Verify  every three Months",
-                      context: context,
                       colorOpecity: 0.6,
                       fontSize: 16,
                       fontWeight: FontWeight.w400),
@@ -61,9 +60,8 @@ class DocumentsTypesView extends StatelessWidget {
                         Get.toNamed(AppRoutes.documentsUploadView);
                       }),
                   getHeight(context, 0.005),
-                  appText(
+                  const CustomText(
                       title: "Will Verify every year",
-                      context: context,
                       colorOpecity: 0.6,
                       fontSize: 16,
                       fontWeight: FontWeight.w400),

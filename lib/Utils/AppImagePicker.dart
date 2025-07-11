@@ -12,8 +12,8 @@ Future<File?> showOption(BuildContext context) async {
         return Container(
           height: 200,
           width: Get.width,
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-          decoration: BoxDecoration(
+          padding:const  EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+          decoration:const  BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
                 topRight: Radius.circular(20), topLeft: Radius.circular(20)),
@@ -22,7 +22,7 @@ Future<File?> showOption(BuildContext context) async {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 "Please Choose One.",
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
@@ -35,8 +35,8 @@ Future<File?> showOption(BuildContext context) async {
                   if (photo != null) file = File(photo.path);
                   Get.back();
                 },
-                title: Text("Camera"),
-                trailing: Icon(Icons.camera_alt_outlined),
+                title:const  Text("Camera"),
+                trailing: const Icon(Icons.camera_alt_outlined),
               ),
               ListTile(
                   onTap: () async {
@@ -45,8 +45,8 @@ Future<File?> showOption(BuildContext context) async {
                     if (photo != null) file = File(photo.path);
                     Get.back();
                   },
-                  title: Text("Gallery"),
-                  trailing: Icon(Icons.image)),
+                  title:const  Text("Gallery"),
+                  trailing: const Icon(Icons.image)),
             ],
           ),
         );

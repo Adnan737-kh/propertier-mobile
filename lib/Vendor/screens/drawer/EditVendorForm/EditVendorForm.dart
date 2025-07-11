@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/Vendor/screens/drawer/EditVendorForm/EditVendorFormController.dart';
@@ -10,6 +11,8 @@ import '../../ServiceForm/model/TransportModel.dart';
 class EditVendorForm extends GetView<EditVendorFormController>{
   final _formKey = GlobalKey<FormState>();
 
+  EditVendorForm({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +21,7 @@ class EditVendorForm extends GetView<EditVendorFormController>{
           onPressed: () {
             Get.back();
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: AppColor.blackColor,
           ),
@@ -36,7 +39,7 @@ class EditVendorForm extends GetView<EditVendorFormController>{
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if(field.id != 18 && field.id != 19)
-                    appText(title: field.requirementDetails?.fieldName ?? "", context: context),
+                    CustomText(title: field.requirementDetails?.fieldName ?? "",),
                   const SizedBox(height: 8),
                   _buildField(field.requirementDetails!, field.value),
                 ],
@@ -62,7 +65,7 @@ class EditVendorForm extends GetView<EditVendorFormController>{
   }
 
   Widget _buildField(ServiceFormModel field, dynamic value) {
-    if(field.id == 19) return SizedBox();
+    if(field.id == 19) return const SizedBox();
     if(field.id == 18){
       controller.selectedTransportName.value = value;
       controller.formFieldValues[field.fieldName??""] = value;
@@ -118,10 +121,10 @@ class EditVendorForm extends GetView<EditVendorFormController>{
           children: [
             ElevatedButton(
               onPressed: () => controller.multiImagePick(field.fieldName ?? ""),
-              child: Text("Upload Images for ${field.fieldName}"),
               style: ElevatedButton.styleFrom(
                   backgroundColor: AppColor.buttonColor
               ),
+              child: Text("Upload Images for ${field.fieldName}"),
             ),
             Obx(() {
               final images = controller.formFieldValues[field.fieldName ?? ""] as List<String>? ?? [];
@@ -197,7 +200,7 @@ class EditVendorForm extends GetView<EditVendorFormController>{
             controller.filteredTransports = transports;
             return _selectTransportDropdown(field);
           }
-          return SizedBox();
+          return const SizedBox();
         }
     );
   }
@@ -235,7 +238,9 @@ class EditVendorForm extends GetView<EditVendorFormController>{
             );
             controller.formFieldValues["Transport Id"] = selectedTransport.id;
 
-            print(controller.formFieldValues.values);
+            if (kDebugMode) {
+              print(controller.formFieldValues.values);
+            }
 
           },
           hint: const Text("Select a transport"),
@@ -245,7 +250,7 @@ class EditVendorForm extends GetView<EditVendorFormController>{
         Text(
           "Selected Transport: ${controller.selectedTransportName.value}",
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-        ):SizedBox()),
+        ):const SizedBox()),
       ],
     );
   }

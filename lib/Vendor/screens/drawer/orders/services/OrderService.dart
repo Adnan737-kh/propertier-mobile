@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:propertier/Network/api_urls.dart';
 import '../model/OrderModel.dart';
@@ -31,7 +32,9 @@ class OrderService{
   Future<Map<String,dynamic>?> getSubService(String id)async{
     try{
       String url = "${API.getSubService}$id";
-      print(url);
+      if (kDebugMode) {
+        print(url);
+      }
       var response = await http.get(Uri.parse(url));
       if(response.statusCode == 200){
         var data = jsonDecode(response.body);
@@ -41,6 +44,7 @@ class OrderService{
     catch(e){
       print(e);
     }
+    return null;
   }
 
   Future<bool> submitWork(String id, List<String> images, String extraPrice, String description)async{

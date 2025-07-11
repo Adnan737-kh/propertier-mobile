@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -21,7 +22,9 @@ class MyOrderViewModel extends GetxController {
   final RxInt _selectedTabIndex = 0.obs;
   int get seletcedTabIndex => _selectedTabIndex.value;
   changeTabIndex(int index) {
-    print("index is $index");
+    if (kDebugMode) {
+      print("index is $index");
+    }
     _selectedTabIndex.value = index;
     pageController.jumpToPage(
       index,

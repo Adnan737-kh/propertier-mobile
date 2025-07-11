@@ -17,7 +17,7 @@ Widget textIconButton(
     double radius = 10,
     double height = 58,
     double width = double.infinity,
-    IconData? icondata,
+    IconData? iconData,
     double shadowColorOpacity = 0.25,
     Color shadowColor = Colors.black,
     FontWeight fontWeight = FontWeight.w400}) {
@@ -44,19 +44,18 @@ Widget textIconButton(
           children: [
             const Gap(5),
             Center(
-              child: appText(
+              child: CustomText(
                   title: title,
                   fontSize: fontSize,
-                  context: context,
                   color: textColor,
                   fontWeight: FontWeight.normal),
             ),
             const Gap(5),
-            icondata != null
+            iconData != null
                 ? Padding(
                     padding: const EdgeInsets.only(right: 8.0),
                     child: Icon(
-                      icondata,
+                      iconData,
                       color: iconColor,
                       size: 15,
                     ),

@@ -18,12 +18,12 @@ Widget servicesSearchTabsTile(BuildContext context,
         borderRadius: BorderRadius.circular(10),
         color: selectedColor,
       ),
-      child: appText(
+      child: CustomText(
           title: title,
           fontSize: 10,
           fontWeight: FontWeight.w500,
           colorOpecity: 0.8,
-          context: context),
+          ),
     ),
   );
 }

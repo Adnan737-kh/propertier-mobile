@@ -35,18 +35,17 @@ doesNotExist({required BuildContext context, required String subtitle}) {
                   child: Column(
                     children: [
                       const Spacer(),
-                      appText(
+                      CustomText(
                           fontWeight: FontWeight.w600,
                           title: 'Oops !',
-                          context: context,
                           color: const Color(0xffD13135),
                           fontSize: 17),
                       getHeight(context, 0.01),
-                      appText(
+                      CustomText(
                           fontWeight: FontWeight.w600,
                           color: const Color(0xff00060E),
                           title: subtitle,
-                          context: context),
+                        ),
                       const Spacer(),
                       textButton(
                           context: context,

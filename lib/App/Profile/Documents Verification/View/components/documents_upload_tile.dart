@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../../../constant/colors.dart';
 
-Widget DocumentsUploadTile(
+Widget documentsUploadTile(
     {required bool isLoading, File? image, Function()? onTap}) {
   var context = Get.context!;
   return GestureDetector(

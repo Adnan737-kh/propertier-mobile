@@ -29,49 +29,48 @@ class _AuthViewState extends State<AuthView> {
       try {
         final tokenData = await userPreference.getUserAccessToken();
 
-        if (tokenData != null &&
-            tokenData.accessToken != null &&
+        if (tokenData.accessToken != null &&
             tokenData.accessToken!.isNotEmpty &&
             tokenData.accessToken != 'null') {
-          debugPrint('✅ Access Token Found: ${tokenData.accessToken}');
-
           // Fetch profile data
-          await viewModel.getProfilePageData(
+          await viewModel.getProfile(
             context: Get.context!,
-            id: tokenData.accessToken!,
+            accessToken: tokenData.accessToken!,
           );
+          debugPrint('Access Token Found: ${tokenData.accessToken}');
 
           final userProfile = await userPreference.getUserProfileData();
 
           if (userProfile != null && userProfile.email != null) {
-            debugPrint('✅ User profile email: ${userProfile.email}');
-            debugPrint('✅ Vendor info: ${userProfile.vendor}');
+            debugPrint(' User profile email: ${userProfile.email}');
+            debugPrint('Vendor info: ${userProfile.vendor}');
 
             // Navigate to home screen
             Get.offAllNamed(AppRoutes.navBarView);
           } else {
-            debugPrint('❌ User profile not found or email is null');
+            debugPrint('User profile not found or email is null');
             Get.offAllNamed(AppRoutes.onBoardingView);
           }
         } else {
-          debugPrint('❌ Access token is missing or invalid');
+          debugPrint('Access token is missing or invalid');
           Get.offAllNamed(AppRoutes.onBoardingView);
         }
       } catch (e, stackTrace) {
-        debugPrint('🚨 Error during auth flow: $e');
+        debugPrint('Error during auth flow: $e');
         debugPrint('StackTrace: $stackTrace');
         Get.offAllNamed(AppRoutes.onBoardingView);
       }
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: AppColor.backgroundColor,
       body: Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+          color: AppColor.buttonColor,
+        ),
       ),
     );
   }

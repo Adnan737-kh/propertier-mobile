@@ -11,6 +11,7 @@ import 'package:propertier/constant/AppTextField/app_textfield.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/list_of_types.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
@@ -83,20 +84,20 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
                       child: textIconButton(
                           height: 30,
                           fontSize: 12,
-                          title: "Price Range",
+                          title: context.local.price_range,
                           onTap: () {
                             selectPriceRange(
                                 context: context, viewModel: controller);
                           },
-                          icondata: Icons.arrow_drop_down_rounded))
+                          iconData: Icons.arrow_drop_down_rounded))
                 ],
               ),
               getHeight(context, 0.010),
               Obx(() => locationTile(
                     context: context,
                     tile: controller.selectedPlace.isNotEmpty
-                        ? "Selected: ${controller.selectedPlace}"
-                        : "Please Select Location",
+                        ? "${context.local.select} ${controller.selectedPlace}"
+                        : context.local.please_select_location,
                     onTap: () {
                       Get.to(() => SelectLocation(viewModel: controller));
                     },
@@ -132,9 +133,8 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
                                   )),
                               child: Row(
                                 children: [
-                                  appText(
+                                  CustomText(
                                       title: ListOfTypes().types[index],
-                                      context: context,
                                       fontSize: 12,
                                       color: AppColor.blackColor,
                                       fontWeight: FontWeight.normal)
@@ -157,7 +157,7 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
               getHeight(context, 0.015),
               additionalDetailsWRYSF(context),
               getHeight(context, 0.015),
-              bottomButtons(),
+              bottomButtons(context),
               getHeight(context, 0.005),
             ],
           ),
@@ -267,7 +267,7 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
   //                     child: Row(
   //                       children: [
   //                         Expanded(
-  //                           child: customButton(
+  //                           child: CustomButton(
   //                               buttonColor: AppColor.buttonColor,
   //                               textColor: AppColor.blackColor,
   //                               height: 30,
@@ -307,7 +307,7 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
                     child: Row(
                       children: [
                         Expanded(
-                          child: appText(
+                          child: CustomText(
                               title: tile,
                               // color: "Please Select Location" ==
                               //         tile
@@ -317,7 +317,7 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
                               textAlign: TextAlign.start,
                               fontWeight: FontWeight.normal,
                               colorOpecity: 0.7,
-                              context: context),
+                              ),
                         )
                       ],
                     )),
@@ -362,9 +362,8 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        appText(
-                            title: "Price Range",
-                            context: context,
+                        CustomText(
+                            title: context.local.price_range,
                             fontSize: 14,
                             fontWeight: FontWeight.bold),
                         Image.asset(height: 24, Constant.down)
@@ -380,9 +379,9 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
                           width: 60,
                           height: 30,
                           fontSize: 12,
-                          title: "PKR",
+                          title: context.local.pkr,
                           onTap: () {},
-                          icondata: Icons.arrow_drop_down_rounded),
+                          iconData: Icons.arrow_drop_down_rounded),
                     ],
                   ),
                   SfRangeSlider(
@@ -496,12 +495,12 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
                   //   ],
                   // ),
                   getHeight(context, 0.015),
-                  customButton(
+                  CustomButton(
                       height: 38,
                       fontSize: 14,
                       buttonColor: AppColor.buttonColor,
                       textColor: AppColor.blackColor,
-                      title: "Apply",
+                      title: context.local.apply,
                       onTap: () {
                         Get.back();
                       })
@@ -512,7 +511,7 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
     );
   }
 
-  Container bottomButtons() {
+  Container bottomButtons(BuildContext context ) {
     return Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
@@ -524,27 +523,27 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
               : Row(
                   children: [
                     Expanded(
-                      child: customButton(
+                      child: CustomButton(
                           height: 30,
                           fontSize: 14,
                           buttonColor: Colors.transparent,
                           textColor: AppColor.greenColor,
                           borderColor: AppColor.greenColor,
                           radius: 15,
-                          title: "Clear All",
+                          title: context.local.clear_all,
                           onTap: () {
                             // Get.offAndToNamed(AppRoutes.whatAreYouSearchingView);
                           }),
                     ),
                     const Gap(10),
                     Expanded(
-                      child: customButton(
+                      child: CustomButton(
                           fontSize: 14,
                           buttonColor: AppColor.buttonColor,
                           textColor: AppColor.blackColor,
                           height: 30,
                           radius: 15,
-                          title: "Submit",
+                          title: context.local.submit,
                           onTap: () {
                             controller.postCustomerRequest();
                           }),
@@ -567,7 +566,7 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
             children: [
               RichText(
                 text: TextSpan(
-                    text: "Additional Details",
+                    text: context.local.additional_details,
                     style: textStyle(
                         context: context,
                         fontSize: 14,
@@ -584,17 +583,17 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
           getHeight(context, 0.010),
           textFieldWRYSF(
               context: context,
-              hint: "Name:",
+              hint: context.local.name,
               controller: controller.nameController),
           getHeight(context, 0.010),
           textFieldWRYSF(
               context: context,
-              hint: "Phone Number:",
+              hint: context.local.phone_number,
               controller: controller.phoneNumberController),
           getHeight(context, 0.010),
           textFieldWRYSF(
               context: context,
-              hint: "Email:",
+              hint: context.local.email,
               controller: controller.emailController),
           getHeight(context, 0.010),
           // textFieldWRYSF(context: context, hint: "Comment:", expend: true),
@@ -611,9 +610,8 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        appText(
+        CustomText(
             title: hint,
-            context: context,
             fontSize: 12,
             fontWeight: FontWeight.bold,
             colorOpecity: 0.7),
@@ -650,9 +648,8 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
             children: [
               Row(
                 children: [
-                  appText(
-                      title: "Size:",
-                      context: context,
+                  CustomText(
+                      title: context.local.size,
                       fontSize: 14,
                       fontWeight: FontWeight.bold)
                 ],
@@ -679,7 +676,7 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
               GestureDetector(
                 onTap: () {
                   Get.defaultDialog(
-                    title: "Enter Custom Size",
+                    title: context.local.enter_custom_size,
                     content: Container(
                       padding: const EdgeInsets.all(16),
                       child: Column(
@@ -688,8 +685,8 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
                               hintText: "",
                               controller: controller.customAreaSizeController),
                           const Gap(15),
-                          customButton(
-                              title: "Add",
+                          CustomButton(
+                              title: context.local.add,
                               onTap: () {
                                 vm.sizeType
                                     .add(vm.customAreaSizeController.text);
@@ -704,10 +701,10 @@ class WhatAreYouSearchView extends GetView<WhatAreYouSearchViewModel> {
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: appText(
-                      title: "Add Custom",
+                  child: CustomText(
+                      title: context.local.add_custom,
                       color: AppColor.facebookColor,
-                      context: context),
+                      ),
                 ),
               ),
             ],
@@ -733,9 +730,8 @@ class DescriptionWRYSF extends StatelessWidget {
         children: [
           Row(
             children: [
-              appText(
-                  title: "Description:",
-                  context: context,
+              CustomText(
+                  title: context.local.description,
                   fontSize: 14,
                   fontWeight: FontWeight.bold)
             ],
@@ -753,7 +749,7 @@ class DescriptionWRYSF extends StatelessWidget {
               decoration: InputDecoration(
                   hintStyle: textStyle(
                       fontSize: 12, context: context, withOpacity: 0.4),
-                  hintText: "Detail here...",
+                  hintText: context.local.detail_here,
                   border: InputBorder.none),
             ),
           )
@@ -784,7 +780,7 @@ class SelectLocation extends StatelessWidget {
                   onTap: () {
                     Get.back();
                   },
-                  title: "Set Location",
+                  title: context.local.set_location,
                 ),
                 getHeight(context, 0.04),
                 Row(
@@ -812,7 +808,7 @@ class SelectLocation extends StatelessWidget {
                                         Icons.close,
                                       ),
                                     ),
-                          hintText: "Search here...",
+                          hintText: context.local.search_here,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
                               borderSide: BorderSide.none),
@@ -843,8 +839,8 @@ class SelectLocation extends StatelessWidget {
                             children: [
                               Image.asset(height: 20, Constant.mape),
                               const Gap(3),
-                              appText(
-                                  title: "Map", fontSize: 12, context: context),
+                              CustomText(
+                                  title: context.local.map, fontSize: 12, ),
                             ],
                           ),
                         ),
@@ -853,31 +849,31 @@ class SelectLocation extends StatelessWidget {
                   ],
                 ),
                 getHeight(context, 0.04),
-                appText(
-                    title: "Current Locations:",
+                CustomText(
+                    title: context.local.current_locations,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    context: context),
+                     ),
                 getHeight(context, 0.01),
                 Obx(() => InkWell(
                       onTap: () {
                         viewModel.setSelectedPlace(viewModel.currentAddress);
                       },
-                      child: appText(
+                      child: CustomText(
                           title: viewModel.currentAddress,
                           textAlign: TextAlign.start,
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
-                          context: context),
+                          ),
                     )),
                 getHeight(context, 0.020),
-                appText(
-                    title: "Selected:",
+                CustomText(
+                    title: context.local.selected,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    context: context),
+                    ),
                 viewModel.selectedPlace.isNotEmpty
-                    ? Obx(() => loctionTile(
+                    ? Obx(() => locationTile(
                           context: context,
                           tile: viewModel.selectedPlace,
                           onTap: () async {
@@ -886,11 +882,11 @@ class SelectLocation extends StatelessWidget {
                         ))
                     : const SizedBox(),
                 getHeight(context, 0.020),
-                appText(
-                    title: "Locations:",
+                CustomText(
+                    title: context.local.locations,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    context: context),
+                    ),
                 getHeight(context, 0.020),
                 DestinationSection(),
                 getHeight(context, 0.020),
@@ -903,12 +899,12 @@ class SelectLocation extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(
-                        child: customButton(
+                        child: CustomButton(
                             buttonColor: AppColor.buttonColor,
                             textColor: AppColor.blackColor,
                             height: 40,
                             radius: 20,
-                            title: "Confirm",
+                            title: context.local.confirm,
                             onTap: () {
                               Get.back();
                             }),
@@ -924,7 +920,7 @@ class SelectLocation extends StatelessWidget {
     );
   }
 
-  InkWell loctionTile(
+  InkWell locationTile(
       {required BuildContext context,
       required String tile,
       Function()? onTap}) {
@@ -943,13 +939,13 @@ class SelectLocation extends StatelessWidget {
                     child: Row(
                       children: [
                         Expanded(
-                          child: appText(
+                          child: CustomText(
                               title: tile,
                               fontSize: 16,
                               textAlign: TextAlign.start,
                               fontWeight: FontWeight.normal,
                               colorOpecity: 0.7,
-                              context: context),
+                              ),
                         )
                       ],
                     )),
@@ -991,7 +987,7 @@ class DestinationSection extends StatelessWidget {
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
-          return loctionTile(
+          return locationTile(
             context: context,
             tile: controller.places[index].description,
             onTap: () async {
@@ -1004,7 +1000,7 @@ class DestinationSection extends StatelessWidget {
     );
   }
 
-  InkWell loctionTile(
+  InkWell locationTile(
       {required BuildContext context,
       required String tile,
       Function()? onTap}) {
@@ -1023,13 +1019,13 @@ class DestinationSection extends StatelessWidget {
                     child: Row(
                       children: [
                         Expanded(
-                          child: appText(
+                          child: CustomText(
                               title: tile,
                               fontSize: 16,
                               textAlign: TextAlign.start,
                               fontWeight: FontWeight.normal,
                               colorOpecity: 0.7,
-                              context: context),
+                              ),
                         )
                       ],
                     )),

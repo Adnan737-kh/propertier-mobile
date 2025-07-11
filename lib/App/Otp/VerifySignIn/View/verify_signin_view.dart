@@ -15,8 +15,8 @@ class VerifySigninView extends StatelessWidget {
   const VerifySigninView({super.key});
   @override
   Widget build(BuildContext context) {
-    return GetX<VeifySigninViewModel>(
-        init: VeifySigninViewModel(),
+    return GetX<VerifySignInViewModel>(
+        init: VerifySignInViewModel(),
         builder: (viewModel) {
           return Scaffold(
             bottomSheet: ClipRRect(
@@ -66,18 +66,16 @@ class VerifySigninView extends StatelessWidget {
                   SizedBox(
                     height: context.getSize.height * 0.06,
                   ),
-                  appText(
+                  CustomText(
                       title: 'Enter your verification Code here',
-                      context: context,
                       fontSize: 14,
                       color: AppColor.primaryColor),
                   GestureDetector(
                     onTap: () {
                       Get.back();
                     },
-                    child: appText(
+                    child: CustomText(
                       title: 'Wrong Email/Password?',
-                      context: context,
                       fontSize: 13,
                       fontWeight: FontWeight.w300,
                       color: const Color(0xff4286F5),

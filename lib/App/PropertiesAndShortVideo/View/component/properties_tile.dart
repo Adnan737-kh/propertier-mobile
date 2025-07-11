@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:propertier/App/PropertiesAndShortVideo/Model/all_properties_model.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/box_shadow.dart';
@@ -12,7 +11,6 @@ import 'package:propertier/Utils/textStyle.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
-import 'package:propertier/extensions/area_convert_extension.dart';
 import 'package:propertier/extensions/dimension_extension.dart';
 import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/price_extension.dart';
@@ -41,8 +39,8 @@ Widget propertiesTile(
       children: [
         GestureDetector(
           onTap: () {
-            Get.toNamed(AppRoutes.detailView,
-                arguments: {"id": property.id, "user": "null"});
+            Get.toNamed(AppRoutes.propertyDetailView,
+                arguments: {"slug": property.slug, "user": "null"});
           },
           child: Container(
             height: sizeHeight(0.22, 0.18),
@@ -83,12 +81,11 @@ Widget propertiesTile(
                             fontWeight: FontWeight.bold,
                             color: AppColor.blackColor),
                         title: property.title.parseHtmlString()),
-                    appText(
+                    CustomText(
                        title: property.price.isNum
                            ? double.parse(property.price).formatPrice()
                            : property.price,
 
-                        context: context,
                         fontSize: 12,
                         color: AppColor.greenColor,
                         fontWeight: FontWeight.w700,
@@ -96,38 +93,37 @@ Widget propertiesTile(
                   ],
                 ),
                 getHeight(context, 0.006),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Ionicons.location,
-                      color: AppColor.buttonColor,
-                      size: sizeWidth(0.030, 0.020),
-                    ),
-                    scrollableText(
-                        context: context,
-                        textStyle: textStyle(
-                            context: context,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColor.blackColor.withOpacity(0.8)),
-                        title: property.address),
-                    const Spacer(),
-                    appText(
-                        title: property.areaType.toUpperCase(),
-                        context: context,
-                        fontSize: 12,
-                        color: AppColor.blackColor,
-                        fontWeight: FontWeight.w500,
-                        colorOpecity: 0.8)
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   children: [
+                //     Icon(
+                //       Ionicons.location,
+                //       color: AppColor.buttonColor,
+                //       size: sizeWidth(0.030, 0.020),
+                //     ),
+                //     scrollableText(
+                //         context: context,
+                //         textStyle: textStyle(
+                //             context: context,
+                //             fontSize: 14,
+                //             fontWeight: FontWeight.w400,
+                //             color: AppColor.blackColor.withOpacity(0.8)),
+                //         title: property.address),
+                //     const Spacer(),
+                //     appText(
+                //         title: property.areaType.toUpperCase(),
+                //         context: context,
+                //         fontSize: 12,
+                //         color: AppColor.blackColor,
+                //         fontWeight: FontWeight.w500,
+                //         colorOpecity: 0.8)
+                //   ],
+                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    appText(
+                    CustomText(
                         title: getTimeAgo(property.createdAt),
-                        context: context,
                         colorOpecity: 0.7,
                         fontSize: 10,
                         fontWeight: FontWeight.w500),
@@ -141,10 +137,9 @@ Widget propertiesTile(
                   children: [
                     SizedBox(
                       width: context.getSize.width * 0.3,
-                      child: appText(
+                      child: CustomText(
                           textAlign: TextAlign.start,
                           title: "${context.local.area}: ",
-                          context: context,
                           fontSize: 12,
                           colorOpecity: 0.8,
                           fontWeight: FontWeight.bold),
@@ -154,9 +149,9 @@ Widget propertiesTile(
                     getWidth(context, 0.010),
                     scrollableText(
                       width: 0.40,
-                      title:
-                          '${double.parse(property.area.toString()).convertArea(areaType: property.areaUnit)}'
-                              ' ${property.areaUnit}',
+                      title:'${(property.area.toString())} ${property.areaUnit}',
+                          // '${double.parse(property.area.toString()).convertArea(areaType: property.areaUnit)}'
+                          //     ' ${property.areaUnit}',
                       context: context,
                       textStyle: textStyle(
                         // color: AppColor.blackColor.withOpacity(0.8),
@@ -174,10 +169,9 @@ Widget propertiesTile(
                   children: [
                     SizedBox(
                       width: context.getSize.width * 0.3,
-                      child: appText(
+                      child: CustomText(
                           textAlign: TextAlign.start,
                           title: "${context.local.dimension}: ",
-                          context: context,
                           fontSize: 12,
                           colorOpecity: 0.8,
                           fontWeight: FontWeight.bold),
@@ -220,8 +214,8 @@ Widget propertiesTile(
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      customButton(
-                                        title: "Call",
+                                      CustomButton(
+                                        title: context.local.call,
                                         onTap: () {
                                           openDialer(property.agent
                                                   .phoneNumberCountryCode +
@@ -229,8 +223,8 @@ Widget propertiesTile(
                                         },
                                       ),
                                       const Gap(10),
-                                      customButton(
-                                        title: "SMS",
+                                      CustomButton(
+                                        title: context.local.sms,
                                         onTap: () {
                                           textMe(property.agent
                                                   .phoneNumberCountryCode +
@@ -247,10 +241,9 @@ Widget propertiesTile(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(42),
                                   color: AppColor.greenColor),
-                              child: appText(
+                              child: CustomText(
                                   color: AppColor.white,
                                   title: propertySaleOrRent.toUpperCase(),
-                                  context: context,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400),
                             )),
@@ -259,8 +252,8 @@ Widget propertiesTile(
                       Expanded(
                         child: GestureDetector(
                             onTap: () {
-                              Get.toNamed(AppRoutes.detailView,
-                                  arguments: {"id": property.id, "user": "null"});
+                              Get.toNamed(AppRoutes.propertyDetailView,
+                                  arguments: {"slug": property.slug, "user": "null"});
                             },
                             child: Container(
                               padding: const EdgeInsets.all(5),
@@ -271,10 +264,9 @@ Widget propertiesTile(
                                   ),
                                   borderRadius: BorderRadius.circular(42),
                                   color: AppColor.buttonColor),
-                              child: appText(
+                              child: CustomText(
                                   color: AppColor.blackColor,
-                                  title: 'Detail',
-                                  context: context,
+                                  title: context.local.detail,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400),
                             )),

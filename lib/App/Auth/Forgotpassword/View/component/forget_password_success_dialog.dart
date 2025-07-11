@@ -33,17 +33,15 @@ forgetPasswordSuccessDialog({required BuildContext context}) {
                 child: Image.asset(Constant.appLogo),
               ),
               getHeight(context, 0.020),
-              appText(
+              const CustomText(
                   fontWeight: FontWeight.w700,
                   title: 'Password change successfully.',
-                  context: context,
                   fontSize: 16),
               getHeight(context, 0.01),
-              appText(
+              const CustomText(
                   textAlign: TextAlign.left,
                   title:
-                      'You can recieved your new password at your email with in 2 to 3 minutes.You can change your new password from "Edit" section of your profile.',
-                  context: context),
+                      'You can recieved your new password at your email with in 2 to 3 minutes.You can change your new password from "Edit" section of your profile.',),
               getHeight(context, 0.01),
               textButton(
                   context: context,

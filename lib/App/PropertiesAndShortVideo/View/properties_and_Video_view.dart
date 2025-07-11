@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/App/Home/View/home_view.dart';
 import 'package:propertier/App/PropertiesAndShortVideo/View/component/inside_appbar_tile.dart';
 import 'package:propertier/App/PropertiesAndShortVideo/View/component/properties_and_video_app_bar.dart';
@@ -10,6 +11,7 @@ import 'package:propertier/App/PropertiesAndShortVideo/View/component/properties
 import 'package:propertier/App/PropertiesAndShortVideo/View/component/videos_tile.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/height_width_box.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 import '../../../Utils/loading_view.dart';
@@ -23,13 +25,13 @@ class PropertiesAndVideoView extends StatelessWidget {
   var data = Get.arguments;
   @override
   Widget build(BuildContext context) {
-
     // print('print viewModel.propertyList[index]${viewModel.propertyList}');
     var selectedTile = data["PropertyEnum"];
     viewModel.setSelectTab(
         data["PropertiesType"] != "" ? data["PropertiesType"] : "All Types");
 
-    // print('ProperTy Type: ${data["PropertiesType"]}');
+    print('selectedTile ${data["PropertiesType"]}');
+
     return Scaffold(
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
@@ -48,9 +50,9 @@ class PropertiesAndVideoView extends StatelessWidget {
                   context,
                   title: selectedTile == PropertiesAndVideoEnum.video
                       ? '${viewModel.propertyList.length} ${viewModel.selectedTab} '
-                      'in ${viewModel.currentLocation}'
+                          'in ${viewModel.currentLocation}'
                       : '${viewModel.propertyList.length} ${viewModel.selectedTab} '
-                      'in ${viewModel.currentLocation}',
+                          'in ${viewModel.currentLocation}',
                 ),
               ),
               centerTitle: true,
@@ -87,7 +89,6 @@ class PropertiesAndVideoView extends StatelessWidget {
       String type,
       PropertiesAndVideoEnum data,
       BuildContext context) {
-
     switch (data) {
       case PropertiesAndVideoEnum.topSelling:
         return Padding(
@@ -158,7 +159,7 @@ class PropertiesAndVideoView extends StatelessWidget {
                             itemCount: viewModel.propertyList.length,
                             itemBuilder: (context, index) {
                               return propertiesTile(
-                                propertySaleOrRent: viewModel.purpose,
+                                  propertySaleOrRent: viewModel.purpose,
                                   context,
                                   property: viewModel.propertyList[index]);
                             }),
@@ -171,10 +172,9 @@ class PropertiesAndVideoView extends StatelessWidget {
 
   Widget forNoData(BuildContext context) {
     return Center(
-      child: appText(
+      child: CustomText(
           colorOpecity: 0.6,
-          title: "Sorry! \nNo data Available",
-          context: context),
+          title: context.local.sorry_no_data_available,),
     );
   }
 }

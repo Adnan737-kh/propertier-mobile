@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 class Features {
   Features({
     this.data,
@@ -28,7 +30,9 @@ class Data {
   final List<Feature> features;
 
   factory Data.fromJson(Map<String, dynamic> json) {
-    print("json id in Data ${json["amenities"]}"); // Debugging print
+    if (kDebugMode) {
+      print("json id in Data ${json["amenities"]}");
+    } // Debugging print
     return Data(
       features: json["amenities"] == null
           ? []

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/App/Review/Components/review_tile.dart';
 import 'package:propertier/App/Review/ViewModel/review_viewmodel.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 import '../../../Utils/appbar.dart';
 
@@ -26,7 +28,7 @@ class ReviewView extends StatelessWidget {
                   customAppBar(
                       context: context,
                       onTap: () => Get.back(),
-                      title: "Review",
+                      title: context.local.review,
                       fontSize: 12,
                       fontWeight: FontWeight.w600),
                   getHeight(context, 0.050),
@@ -35,7 +37,7 @@ class ReviewView extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  appText(title: "Customer Reviews", context: context),
+                  CustomText(title: context.local.customer_reviews,),
                   Container(
                     decoration: BoxDecoration(
                         color: AppColor.backgroundColor,
@@ -49,9 +51,8 @@ class ReviewView extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),
                       child: Row(
                         children: [
-                          appText(
-                              title: "This month",
-                              context: context,
+                          CustomText(
+                              title: context.local.this_month,
                               fontSize: 12),
                           const Icon(
                             Icons.keyboard_arrow_down_sharp,

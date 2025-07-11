@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:bottom_picker/bottom_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -12,9 +13,14 @@ class WaterServiceFormController extends GetxController{
 
   static const apiKey = Constant.googleApiKey;
 
-  TextEditingController descriptionController = TextEditingController();
+  TextEditingController amountController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
   TextEditingController quantityController = TextEditingController();
+  final Rx<String?> pricingModelSelectedItem = Rx<String?>(null);
+
+  final List<String> pricingModeItems = ['hourly','Day'];
+
   Rxn selectedWaterType = Rxn();
   Rxn selectedPacking = Rxn();
   Rxn selectedDeliveryType = Rxn();
@@ -77,14 +83,9 @@ class WaterServiceFormController extends GetxController{
     }
   }
 
-
-
-
-
-
   void showDateTimePicker(BuildContext context) {
     BottomPicker.dateTime(
-      pickerTitle: Text(
+      pickerTitle: const Text(
         'Set the event exact time and date',
         style: TextStyle(
           fontWeight: FontWeight.bold,
@@ -93,16 +94,18 @@ class WaterServiceFormController extends GetxController{
         ),
       ),
       onSubmit: (date) {
-        print(date);
+        if (kDebugMode) {
+          print(date);
+        }
         dateTime.value = date;
       },
       onClose: () {
         Get.back();
       },
       minDateTime: DateTime.now(),
-      maxDateTime: DateTime.now().add(Duration(days: 7)),
+      maxDateTime: DateTime.now().add(const Duration(days: 7)),
       initialDateTime: DateTime.now(),
-      gradientColors: [
+      gradientColors: const [
         AppColor.buttonColor,
         AppColor.buttonColor,
       ],

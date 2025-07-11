@@ -7,6 +7,7 @@ import 'package:propertier/Utils/divider.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/Utils/textStyle.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 // ignore: must_be_immutable
 class ProfilePostsTile extends StatelessWidget {
@@ -24,7 +25,7 @@ class ProfilePostsTile extends StatelessWidget {
                     context: context,
                     fontSize: 10,
                     fontWeight: FontWeight.w500),
-                text: "What are you searching for? ",
+                text: context.local.what_are_you_searching_for,
                 children: [
               TextSpan(
                   style: textStyle(
@@ -32,7 +33,7 @@ class ProfilePostsTile extends StatelessWidget {
                       context: context,
                       fontWeight: FontWeight.w700,
                       color: AppColor.greenColor),
-                  text: 'Post Here',
+                  text: context.local.post_here,
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
                       Get.toNamed(AppRoutes.whatAreYouSearchingView);

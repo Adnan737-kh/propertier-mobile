@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -15,6 +14,7 @@ import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/Utils/search_text_field.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 import '../../../../Vendor/screens/Auth/Service/auth_service.dart'
     as vendor_service;
@@ -59,6 +59,7 @@ PreferredSize servicesAppBar(BuildContext context,
                 children: [
                   GestureDetector(
                     onTap: () {
+                      Get.lazyPut(()=>NavBarViewModel());
                       // Change the tab to Profile (index 2) in NavBarView
                       Get.find<NavBarViewModel>().changeSelectedTab(2);
                       // Navigate to NavBarView
@@ -72,82 +73,33 @@ PreferredSize servicesAppBar(BuildContext context,
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      // UserLoginModel? currentUser = await AuthService().getCurrentUser();
-                      // if (kDebugMode) {
-                      //   print(currentUser?.users?.first.type);
-                      // }
-                      // if (currentUser != null) {
-                      //   for(User user in currentUser.users??[]){
-                      //     if(user.type == "vendor"){
-                      //       GetStorage().write('vendorUserId', user.id);
-                      //       Get.toNamed(AppRoutes.vendordashborad);
-                      //       return;
-                      //     }}}
+                      UserProfile? userProfileData =
+                      await viewModel.userPreference.getUserProfileData();
 
-                      UserProfile? user =
-                          await viewModel.userPreference.getUserProfileData();
-
-                      if (user == null) {
-                        if (kDebugMode) {
-                          print("no user**");
-                        }
+                      if (userProfileData == null) {
                         return Get.toNamed(AppRoutes.loginView);
                       }
-                      if (kDebugMode) {
-                        print("status ${user.vendor}");
-                      }
-
-                      if (kDebugMode) {
-                        print("general status ${user.verificationStatus}");
-                      }
-                      if (user.verificationStatus == "incomplete") {
+                      if (userProfileData.verificationStatus == "incomplete") {
                         Get.toNamed(AppRoutes.verificationView);
                       } else {
-                        if (user.vendor == null) {
+                        if (userProfileData.vendor == null) {
                           await viewModel.openSelectCategoryScreen(context);
-
-                          if (kDebugMode) {
-                            print(
-                                "selected services ${viewModel.selectedParentServiceId}");
-                            print(
-                                "selected services name ${viewModel.selectedCategory}");
-                          }
 
                           if (viewModel.selectedParentServiceId == null ||
                               viewModel.selectedCategory == null) {
                             Fluttertoast.showToast(
-                                msg: "Please Select a Category");
+                                msg: context.local.please_select_a_category);
                             return;
                           } else {
-                            Fluttertoast.showToast(msg: "Please Wait...");
+                            Fluttertoast.showToast(msg: context.local.please_wait);
                           }
 
                           VendorRegistrationModel? vendorResponse =
                               await vendor_service.AuthService().registerVendor(
                             context,
-                            viewModel.selectedParentServiceId!,
-                            viewModel.selectedCategory!,
                             viewModel.accessToken!,
                           );
 
-                          if (vendorResponse != null) {
-                            int vendorId = vendorResponse.id;
-                            String? title = vendorResponse.serviceTitle;
-                            String? mainCategory =
-                                vendorResponse.serviceMainCategory;
-                            int userId = vendorResponse.user;
-
-                            if (kDebugMode) {
-                              print("Vendor ID: $vendorId");
-                              print("Service Title: $title");
-                              print("Main Category: $mainCategory");
-                              print("User ID: $userId");
-                              print(
-                                  "category else pre ${user.vendor?.submittedRequirements}");
-                              print(
-                                  "mainCategory else ${user.vendor?.assignedService?.mainCategory}");
-                            }
-                          }
 
                           if (vendorResponse?.id != null) {
                             Get.toNamed(AppRoutes.serviceForm, arguments: {
@@ -157,14 +109,9 @@ PreferredSize servicesAppBar(BuildContext context,
                             AuthService().logout();
                             GoogleSignInServices().logout();
                           }
-                        } else if (user.vendor?.submittedRequirements == null) {
-                          if (kDebugMode) {
-                            print(
-                                "category else he ${user.vendor?.assignedService?.mainCategory}");
-                          }
+                        } else if (userProfileData.vendor?.submittedRequirements == null) {
                           Get.toNamed(AppRoutes.serviceForm, arguments: {
-                            'category':
-                                user.vendor?.assignedService?.mainCategory,
+                            'category': userProfileData.vendor?.assignedService?.mainCategory,
                           });
                         } else {
                           Get.toNamed(AppRoutes.vendorDashBoard);
@@ -178,9 +125,8 @@ PreferredSize servicesAppBar(BuildContext context,
                         vertical: 10.0,
                       ),
                     ),
-                    child: const Text(
-                      'Switch to Vendor',
-                      style: TextStyle(
+                    child:  Text(context.local.switch_to_vendor,
+                      style: const TextStyle(
                         color: Colors.black,
                         fontSize: 12,
                       ),
@@ -192,9 +138,8 @@ PreferredSize servicesAppBar(BuildContext context,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  appText(
+                  CustomText(
                     title: viewModel.userName.toString(),
-                    context: context,
                     fontSize: 14,
                     fontFamily: 'Rubik',
                     fontWeight: FontWeight.w500,
@@ -210,7 +155,7 @@ PreferredSize servicesAppBar(BuildContext context,
               CarouselSliderWidget(),
               getHeight(context, 0.008),
               SearchTextField(
-                  hintText: 'What are you looking for',
+                  hintText: context.local.what_are_you_looking_for,
                   horzontalPadding: 0,
                   searchController: viewModel.searchController,
                   suFixIcon: Image.asset(Constant.mic))

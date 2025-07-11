@@ -34,11 +34,10 @@ class BankPaymentMethodView extends GetView<BankPaymentMethodViewModel> {
                   },
                 ),
                 getHeight(context, 0.045),
-                appText(
+                CustomText(
                     textAlign: TextAlign.start,
                     title:
                         "Lorem ipsum dolor sit amet consectetur. Diam scelerisque fermentum lectus turpis senectus. Eget sed auctor leo egestas.",
-                    context: context,
                     fontSize: 14,
                     colorOpecity: 0.4),
                 getHeight(context, 0.026),
@@ -68,8 +67,8 @@ class BankPaymentMethodView extends GetView<BankPaymentMethodViewModel> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    appText(title: "Total Amount", context: context),
-                    appText(title: "100M", context: context, fontSize: 10),
+                    CustomText(title: "Total Amount",),
+                    CustomText(title: "100M", fontSize: 10),
                   ],
                 ),
                 getHeight(context, 0.015),

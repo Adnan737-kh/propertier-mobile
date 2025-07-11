@@ -1,11 +1,12 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:ndialog/ndialog.dart';
@@ -15,14 +16,17 @@ import 'package:propertier/Vendor/screens/dashboard/profile/model/award_model.da
 import 'package:propertier/Vendor/screens/dashboard/profile/model/service_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../../App/Auth/User/Token/token_preference_view_model/token_preference_view_model.dart';
 import '../../../../../Network/api_urls.dart';
 import '../../../../../Utils/App Ad Mob/app_interstitial_ads.dart';
+import '../../../../../repository/vendor/vendor_auth/vendor_auth.dart';
 import '../../../drawer/vehicle_list/model/VehicleModel.dart';
 import '../model/profile_model.dart';
 
 class ProfileController extends GetxController {
   RxString selectedCoverPhotoPath = ''.obs;
   RxBool isLoading = false.obs;
+  RxBool isLoadingProfile = false.obs;
   var profile = ProfileModel().obs;
   var errorMessage = ''.obs;
   List<AwardModel> allAwards = [];
@@ -30,10 +34,38 @@ class ProfileController extends GetxController {
   RxList<FeatureAd> allFeaturedServices = <FeatureAd>[].obs;
   bool _isProfileLoaded = false; // Flag to track profile loading
   bool isImageAdded = false; // Flag to check if image is added
+  final VendorRepository _profileViewRepository = VendorRepository();
+  // Rx<profile_model.ProfileModel> profileModel = profile_model.ProfileModel().obs;
+  Rx<VendorProfileModel> profileModel = VendorProfileModel().obs;
+  String? accessToken;
+  UserPreference userPreference = UserPreference();
 
   @override
   Future<void> onInit() async {
     super.onInit();
+    userPreference.getUserAccessToken().then((value) async {
+      if (kDebugMode) {
+        print('Vendor Access Token  !!! ${value.accessToken}');
+      }
+      if (value.accessToken!.isNotEmpty ||
+          value.accessToken.toString() != 'null') {
+        accessToken = value.accessToken;
+        profileModel.value = await getVendorProfile(
+          context: Get.context!,
+          id: value.accessToken!,
+        );
+
+        userPreference.getUserProfileData().then((value) async {
+          if (value!.email!.isNotEmpty || value.email.toString() != 'null') {
+            getAwards(profileModel.value.id!.toString());
+            if (kDebugMode) {
+              print('user saved id $value.id.toString()');
+            }
+          }
+        });
+      }
+    });
+
     if (!_isProfileLoaded) {
       loadProfile();
 
@@ -41,10 +73,12 @@ class ProfileController extends GetxController {
 
       if (vendorUserId != null) {
         getFeaturedServices(vendorUserId);
-        getServices(vendorUserId);
+        // getServices(vendorUserId);
         getAwards(vendorUserId);
       } else {
-        print('Vendor User ID is null');
+        if (kDebugMode) {
+          print('Vendor User ID is null');
+        }
       }
     }
     loadExpirationDate();
@@ -61,6 +95,9 @@ class ProfileController extends GetxController {
   }
 
   Future<void> getAwards(String vendorUserId) async {
+    if (kDebugMode) {
+      print('vendorUserId $vendorUserId');
+    }
     try {
       isLoading(true);
       allAwards = await apiService.getAwards(vendorUserId);
@@ -93,34 +130,96 @@ class ProfileController extends GetxController {
     isLoading.value = false;
   }
 
+  Future<void> addService(
+      AwardModel awardModel, String accessToken, BuildContext context) async {
+    isLoading.value = true;
 
+    try {
+      final result = await apiService.addAwards(awardModel, accessToken);
+      final statusCode = result['statusCode'];
+      final responseBody = result['body'];
 
-  Future<void> addService(AwardModel awardModel) async {
+      if (statusCode == 201) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Award added successfully')),
+        );
+        if (kDebugMode) print("responseBody $responseBody");
 
-  isLoading.value = true; 
+        await getAwards(profileModel.value.id.toString());
+        isImageAdded = true;
+        update();
+      } else {
+        String errorMessage = 'Unknown error occurred';
 
-  try {
-    await apiService.addAwards(awardModel); 
-    Get.snackbar('Success', 'Award added successfully');
+        // Handle error message based on response type
+        if (responseBody is String) {
+          try {
+            final parsed = jsonDecode(responseBody);
+            errorMessage = parsed['detail'] ?? errorMessage;
+          } catch (_) {
+            errorMessage = 'Error parsing the response';
+          }
+        } else if (responseBody is Map && responseBody['detail'] != null) {
+          errorMessage = responseBody['detail'];
+        }
 
-    final box = GetStorage();
-    String? vendorUserId = box.read('vendorUserId');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(errorMessage)),
+        );
 
-    await getAwards(vendorUserId!); 
-    isImageAdded = true; 
-    update(); 
-
-  } catch (e) {
-    Get.snackbar('Error', 'An error occurred while adding service: $e');
-
-  } finally {
-    isLoading.value = false; 
+        if (kDebugMode) {
+          print('statusCode $statusCode');
+          print('response $responseBody');
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error $e');
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('An error occurred: $e')),
+      );
+    } finally {
+      isLoading.value = false;
+    }
   }
-}
 
+  Future<VendorProfileModel> getVendorProfile({
+    required BuildContext context,
+    required String id,
+  }) async {
+    isLoading.value = true;
+
+    try {
+      final result =
+          await _profileViewRepository.viewVendorProfileDetails(accessToken!);
+
+      final dataResponse = VendorProfileModel.fromJson(result);
+      profileModel.value = dataResponse;
+
+      // await userPreference.saveUserProfileData(profileModel.value.user!);
+
+      if (kDebugMode) {
+        print('Vendor Profile Data Saved: $result');
+      }
+
+      return profileModel.value;
+    } catch (error, stackTrace) {
+      if (kDebugMode) {
+        print('Error fetching profile: $error');
+        print('$stackTrace');
+      }
+
+      // Get.offAllNamed(AppRoutes.loginView);
+      isLoading(false);
+      rethrow;
+    } finally {
+      isLoading(false);
+    }
+  }
 
   Future<void> loadProfile() async {
-    if (_isProfileLoaded) return; 
+    if (_isProfileLoaded) return;
 
     String? vendorUserId = (await ApiService().getVendorUserId());
 
@@ -128,14 +227,20 @@ class ProfileController extends GetxController {
       try {
         ProfileModel profile = await ApiService().fetchProfile(vendorUserId);
         this.profile.value = profile;
-        _isProfileLoaded = true; 
+        _isProfileLoaded = true;
 
-        print('Profile loaded: ${profile.toJson()}');
+        if (kDebugMode) {
+          print('Profile loaded: ${profile.toJson()}');
+        }
       } catch (e) {
-        print('Error loading profile: $e');
+        if (kDebugMode) {
+          print('Error loading profile: $e');
+        }
       }
     } else {
-      print('Vendor user ID not found');
+      if (kDebugMode) {
+        print('Vendor user ID not found');
+      }
     }
   }
 
@@ -144,7 +249,9 @@ class ProfileController extends GetxController {
       isLoading.value = true;
       allServices = await apiService.getServices(vendorUserId);
     } catch (e) {
-      print('Error fetching services: $e');
+      if (kDebugMode) {
+        print('Error fetching services: $e');
+      }
     } finally {
       isLoading.value = false;
     }
@@ -153,7 +260,9 @@ class ProfileController extends GetxController {
   Future<void> getFeaturedServices(String vendorUserId,
       {bool forceRefresh = false}) async {
     if (!forceRefresh && allFeaturedServices.isNotEmpty) {
-      print('Using cached featured services data.');
+      if (kDebugMode) {
+        print('Using cached featured services data.');
+      }
       return;
     }
 
@@ -166,7 +275,9 @@ class ProfileController extends GetxController {
       allFeaturedServices.assignAll(services);
     } catch (e) {
       errorMessage.value = 'Failed to load featured services: $e';
-      print('Error in fetchVendorFeaturedServices: $e');
+      if (kDebugMode) {
+        print('Error in fetchVendorFeaturedServices: $e');
+      }
     } finally {
       isLoading.value = false;
     }
@@ -214,22 +325,18 @@ class ProfileController extends GetxController {
     }
   }
 
+  Future<void> deleteAward(int awardId, String accessToken) async {
+    if (kDebugMode) {
+      print('award id $awardId');
+    }
+    isLoading.value = true;
 
-  Future <void> deleteAward(int awardId) async{
-    isLoading.value=true;
+    final success = await apiService.deleteAward(awardId, accessToken);
 
-    final success= await apiService.deleteAward(awardId);
-
-     isLoading.value = false;
+    isLoading.value = false;
 
     if (success) {
-
-
-      final box = GetStorage();
-      String? vendorUserId = box.read('vendorUserId');
-      if (vendorUserId != null) {
-        await getAwards(vendorUserId);
-      }
+      await getAwards(profileModel.value.id!.toString());
 
       Get.snackbar('Success', 'Award deleted successfully');
     } else {
@@ -237,71 +344,74 @@ class ProfileController extends GetxController {
     }
   }
 
+  Future<void> updateUserProfile(String vendorUserId, ProfileModel profileModel,
+      ProfileController profileController, BuildContext context) async {
+    ProgressDialog progressDialog = ProgressDialog(context,
+        title: const Text('Updating Profile'),
+        message: const Text('Please wait'));
+    progressDialog.show();
 
+    try {
+      await apiService.updateUserProfile(
+          vendorUserId, profileModel, profileController);
 
+      Get.snackbar('Success', 'Profile updated successfully');
 
-Future<void> updateUserProfile(String vendorUserId, ProfileModel profileModel, ProfileController profileController, BuildContext context) async {
-  ProgressDialog progressDialog = ProgressDialog(context,
-      title: const Text('Updating Profile'),
-      message: const Text('Please wait'));
-  progressDialog.show();
-
-  try {
-    await apiService.updateUserProfile(vendorUserId, profileModel, profileController); 
-
-    Get.snackbar('Success', 'Profile updated successfully');
-    
-    profileController._isProfileLoaded = false;
-    await profileController.loadProfile();
-  } catch (e) {
-    Get.snackbar('Error', 'An error occurred while updating the profile: $e');
-  } finally {
-       progressDialog.dismiss();
+      profileController._isProfileLoaded = false;
+      await profileController.loadProfile();
+    } catch (e) {
+      Get.snackbar('Error', 'An error occurred while updating the profile: $e');
+    } finally {
+      progressDialog.dismiss();
+    }
   }
-}
 
   Future<void> updateCoverPicture(String vendorUserId, File imageFile) async {
     ProgressDialog progressDialog = ProgressDialog(Get.context!,
         title: const Text('Updating Cover Picture'),
         message: const Text('Please wait'));
     progressDialog.show();
-     try {
-    await apiService.updateCoverPicture(vendorUserId, imageFile,profile.value.firebaseId!, profile.value.email!);
+    try {
+      await apiService.updateCoverPicture(vendorUserId, imageFile,
+          profile.value.firebaseId!, profile.value.email!);
 
-    profile.value = ProfileModel(); 
-    _isProfileLoaded = false;       
+      profile.value = ProfileModel();
+      _isProfileLoaded = false;
 
-    await loadProfile(); 
+      await loadProfile();
 
-    Get.snackbar('Success', 'Cover picture updated successfully');
-  } catch (e) {
-    Get.snackbar('Error', 'An error occurred while updating the cover picture: $e');
-  } finally {
-     progressDialog.dismiss();
+      Get.snackbar('Success', 'Cover picture updated successfully');
+    } catch (e) {
+      Get.snackbar(
+          'Error', 'An error occurred while updating the cover picture: $e');
+    } finally {
+      progressDialog.dismiss();
+    }
   }
-}
 
-Future<void> updateDrivingLicense(File? front, File? back, String vendorUserId) async {
+  Future<void> updateDrivingLicense(
+      File? front, File? back, String vendorUserId) async {
     ProgressDialog progressDialog = ProgressDialog(Get.context!,
         title: const Text('Updating License Picture'),
         message: const Text('Please wait'));
     progressDialog.show();
-     try {
-    await apiService.updateDrivingLicense(front, back, vendorUserId, profile.value.firebaseId!, profile.value.email!);
+    try {
+      await apiService.updateDrivingLicense(front, back, vendorUserId,
+          profile.value.firebaseId!, profile.value.email!);
 
-    profile.value = ProfileModel();
-    _isProfileLoaded = false;
+      profile.value = ProfileModel();
+      _isProfileLoaded = false;
 
-    await loadProfile();
+      await loadProfile();
 
-    Get.snackbar('Success', 'License picture updated successfully');
-  } catch (e) {
-    Get.snackbar('Error', 'An error occurred while updating the cover picture: $e');
-  } finally {
-     progressDialog.dismiss();
+      Get.snackbar('Success', 'License picture updated successfully');
+    } catch (e) {
+      Get.snackbar(
+          'Error', 'An error occurred while updating the cover picture: $e');
+    } finally {
+      progressDialog.dismiss();
+    }
   }
-}
-
 
 // need to work on this api
 
@@ -323,8 +433,10 @@ Future<void> updateDrivingLicense(File? front, File? back, String vendorUserId) 
       request.fields['email'] = profile.value.email!;
 
       var response = await request.send();
-      print(apiUrl);
-      print(response.statusCode);
+      if (kDebugMode) {
+        print(apiUrl);
+        print(response.statusCode);
+      }
       if (response.statusCode == 200) {
         // Handle successful response
         Get.snackbar('Success', 'Profile picture updated successfully');
@@ -335,18 +447,17 @@ Future<void> updateDrivingLicense(File? front, File? back, String vendorUserId) 
       }
     } catch (e) {
       Get.snackbar('Error', 'An error occurred: $e');
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     } finally {
       progressDialog.dismiss();
     }
   }
 
-
   Future<List<VehicleModel>> fetchMyVehicles(String vendorId) async {
     return await apiService.fetchMyVehicles(vendorId);
   }
-
-
 
   // *********** License *****************
   final GetStorage storage = GetStorage();
@@ -372,11 +483,11 @@ Future<void> updateDrivingLicense(File? front, File? back, String vendorUserId) 
   // Renew license by setting a new expiration date
   void renewLicense() async {
     await loadAndShowInterstitialAd(flag: true);
-    final newExpiration = DateTime.now().add(Duration(hours: 24));
+    final newExpiration = DateTime.now().add(const Duration(hours: 24));
     storage.write(expirationKey, newExpiration.toIso8601String());
-    expirationDate.value = newExpiration; // This will automatically update the UI
+    expirationDate.value =
+        newExpiration; // This will automatically update the UI
   }
 
   // *********** License *****************
-
 }

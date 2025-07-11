@@ -45,9 +45,8 @@ class _AddAwardImageViewState extends State<AddAwardImageView> {
       children: [
         Row(
           children: [
-            appText(
+            CustomText(
               title: "File",
-              context: context,
               fontSize: 18,
               fontWeight: FontWeight.normal,
             ),
@@ -97,9 +96,8 @@ Widget iDUploadTile({required bool isLoading, File? image, Function()? onTap}) {
                       color: AppColor.darkGreyColor.withOpacity(0.5),
                       size: 38,
                     ),
-                    appText(
+                    CustomText(
                         title: "Upload File Here",
-                        context: context,
                         fontSize: 16,
                         colorOpecity: 0.5,
                         color: AppColor.darkGreyColor,

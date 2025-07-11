@@ -17,9 +17,8 @@ Widget emailVerifyTile({
       mainAxisSize: MainAxisSize.min,
       children: [
         isVerify
-            ? appText(
+            ? CustomText(
                 title: '✓ ',
-                context: context,
                 fontSize: 60,
                 color: AppColor.buttonColor)
             : const Icon(
@@ -29,28 +28,25 @@ Widget emailVerifyTile({
               ),
         const Gap(8),
         isVerify
-            ? appText(
+            ? CustomText(
                 title: 'Verified',
-                context: context,
                 fontSize: 20,
                 color: AppColor.blackColor)
-            : appText(
+            : CustomText(
                 title: 'Error',
-                context: context,
                 fontSize: 20,
                 color: AppColor.blackColor),
         const Gap(8),
-        appText(title: title, context: context, colorOpecity: 0.60),
+        CustomText(title: title,colorOpecity: 0.60),
         const Gap(8),
         !isVerify
             ? GestureDetector(
                 onTap: () {
-                  Get.toNamed(AppRoutes.emailEnterView);
+                  Get.offNamed(AppRoutes.emailEnterView);
                 },
-                child: appText(
+                child: CustomText(
                     title: "Verify your number?",
                     color: AppColor.facebookColor,
-                    context: context,
                     colorOpecity: 0.90),
               )
             : const Gap(0)

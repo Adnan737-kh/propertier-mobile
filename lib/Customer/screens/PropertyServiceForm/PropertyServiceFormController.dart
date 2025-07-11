@@ -84,7 +84,7 @@ class PropertyServiceFormController extends GetxController{
 
   void showDateTimePicker(BuildContext context) {
     BottomPicker.dateTime(
-      pickerTitle: Text(
+      pickerTitle:const  Text(
         'Set the event exact time and date',
         style: TextStyle(
           fontWeight: FontWeight.bold,
@@ -100,9 +100,9 @@ class PropertyServiceFormController extends GetxController{
         Get.back();
       },
       minDateTime: DateTime.now(),
-      maxDateTime: DateTime.now().add(Duration(days: 7)),
+      maxDateTime: DateTime.now().add(const Duration(days: 7)),
       initialDateTime: DateTime.now(),
-      gradientColors: [
+      gradientColors:const  [
         AppColor.buttonColor,
         AppColor.buttonColor,
       ],

@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 import '../../../../RoutesAndBindings/app_routes.dart';
 import '../../../../Utils/appbar.dart';
@@ -35,7 +36,7 @@ class ForgotPasswordView extends StatelessWidget {
                   customAppBar(
                       fontWeight: FontWeight.w600,
                       context: context,
-                      title: 'Forgot Password',
+                      title: context.local.forgot_password,
                       onTap: () {
                         Get.back();
                       }),
@@ -44,11 +45,10 @@ class ForgotPasswordView extends StatelessWidget {
                   const SizedBox(
                     height: 80,
                   ),
-                  appText(
+                  CustomText(
                       textAlign: TextAlign.left,
-                      title:
-                          'Please enter your Email/Phone number to receive a verification code',
-                      context: context,
+                      title: context.local
+                          .please_enter_your_email_to_receive_a_verification_code,
                       fontSize: 12,
                       color: const Color(0xFF6D6E6F),
                       fontWeight: FontWeight.bold),
@@ -56,14 +56,16 @@ class ForgotPasswordView extends StatelessWidget {
                     height: 30,
                   ),
                   customTextField(
-                    label: "Enter Your Email",
-                    hintText: 'Email',
+                    label: context.local.enter_your_email,
+                    hintText: context.local.email,
                     controller: forgetPassVM.emailController,
                     textInputType: TextInputType.emailAddress,
                     suffix: GestureDetector(
                       onTap: () {
-                        print("Start Listing");
-                        forgetPassVM.startListening(textFieldNo: 0);
+                        // if (kDebugMode) {
+                        //   print("Start Listing");
+                        // }
+                        // forgetPassVM.startListening(textFieldNo: 0);
                       },
                       child: Image.asset(
                         Constant.mic,
@@ -73,7 +75,7 @@ class ForgotPasswordView extends StatelessWidget {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter valid  Email/phone number';
+                        return context.local.please_enter_valid_email;
                       }
                       return null;
                     },
@@ -97,17 +99,8 @@ class ForgotPasswordView extends StatelessWidget {
                                   onClick: () async {
                                     forgetPassVM.forgetPasswordViaEmail(
                                         email:
-                                            forgetPassVM.emailController.text, context: context);
-
-                                    // forgetPassVM.postForgetPassword(
-                                    //     email:
-                                    //         forgetPassVM.emailController.text,
-                                    //     context: context);
-                                    // if (forgetPassVM.formKey.currentState!.validate()) {
-                                    //   forgetPassVM.formKey.currentState?.save();
-
-                                    //   // Get.toNamed(AppRoutes.newPasswordView);
-                                    // } else {}
+                                            forgetPassVM.emailController.text,
+                                        context: context);
                                   },
                                   context: context,
                                   title: 'Send',
@@ -127,7 +120,7 @@ class ForgotPasswordView extends StatelessWidget {
                   RichText(
                       text: TextSpan(
                           style: textStyle(context: context, fontSize: 12),
-                          text: "Don't have an account?",
+                          text: context.local.dont_have_an_account,
                           children: [
                         TextSpan(
                             style: textStyle(
@@ -135,7 +128,7 @@ class ForgotPasswordView extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 color: AppColor.buttonColor,
                                 fontSize: 14),
-                            text: ' Sign Up',
+                            text: context.local.sign_up,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 Get.toNamed(AppRoutes.signUpView);

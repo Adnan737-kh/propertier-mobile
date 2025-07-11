@@ -8,7 +8,7 @@ import 'package:propertier/extensions/size_extension.dart';
 
 import '../../ViewModel/service_provider_profile_viewmodel.dart';
 
-Widget SPPrewardsAndAppricationTile(
+Widget sPPrewardsAndAppricationTile(
     BuildContext context, ServiceProviderProfileViewModel viewModel) {
   return Obx(() => Column(
         children: [
@@ -36,12 +36,12 @@ Widget SPPrewardsAndAppricationTile(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            appText(
+                            CustomText(
                                 title: viewModel.serviceProviderProfileModel
                                     .value.awards![index].title!,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
-                                context: context),
+                                 ),
                             getHeight(context, 0.008),
                             InstaImageViewer(
                               imageUrl: viewModel.serviceProviderProfileModel
@@ -76,7 +76,7 @@ Widget SPPrewardsAndAppricationTile(
                       );
                     },
                   ))
-              : appText(title: "No Awards", context: context),
+              : CustomText(title: "No Awards",),
         ],
       ));
 }

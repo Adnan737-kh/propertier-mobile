@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:propertier/Vendor/helpers/api_service.dart';
 import 'package:propertier/Vendor/screens/dashboard/Posts/add_post/Model/title_model.dart';
@@ -52,8 +53,11 @@ class SelectCategoryController extends GetxController {
 
       titles.value = titlesList;
       selectedParentServiceId.value = parentServicesMap[parentServiceName] ?? '';
-      print('Fetched Titles for $parentServiceName: $titlesList');
-      print('Selected Parent Service ID: ${selectedParentServiceId.value}');
+      if (kDebugMode) {
+        print('Fetched Titles for $parentServiceName: $titlesList');
+        print('Selected Parent Service ID: ${selectedParentServiceId.value}');
+
+      }
       errorMessage.value = null;
     } catch (e) {
       errorMessage.value = 'An error occurred: $e';

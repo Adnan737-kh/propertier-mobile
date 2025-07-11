@@ -35,16 +35,14 @@ class PayOutView extends StatelessWidget {
                   },
                   title: context.local.payout),
               getHeight(context, 0.045),
-              appText(
-                title: context.local.totalBalance,
-                context: context,
+              CustomText(
+                title: context.local.total_balance,
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
                 colorOpecity: 0.7,
               ),
-              appText(
+              const CustomText(
                 title: '20,000',
-                context: context,
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
               ),
@@ -77,9 +75,8 @@ class PayOutView extends StatelessWidget {
                 ],
               ),
               getHeight(context, 0.015),
-              appText(
-                  title: context.local.widthDrawal,
-                  context: context,
+              CustomText(
+                  title: context.local.width_draw,
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                   colorOpecity: 0.7),

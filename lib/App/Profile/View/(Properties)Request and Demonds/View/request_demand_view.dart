@@ -151,7 +151,7 @@ class RequestDemandView extends GetView<RequestDemandViewModel> {
                                                                     .spaceBetween,
                                                             children: [
                                                               Expanded(
-                                                                  child: appText(
+                                                                  child: CustomText(
                                                                       title:
                                                                           "${e.city}, ${e.area}",
                                                                       fontSize:
@@ -161,10 +161,8 @@ class RequestDemandView extends GetView<RequestDemandViewModel> {
                                                                               .left,
                                                                       fontWeight:
                                                                           FontWeight
-                                                                              .w400,
-                                                                      context:
-                                                                          context)),
-                                                              appText(
+                                                                              .w400,)),
+                                                              CustomText(
                                                                   title: DateFormat
                                                                           .jm()
                                                                       .format(e
@@ -175,8 +173,7 @@ class RequestDemandView extends GetView<RequestDemandViewModel> {
                                                                           .w400,
                                                                   colorOpecity:
                                                                       0.6,
-                                                                  context:
-                                                                      context)
+                                                              )
                                                             ],
                                                           ),
                                                           getHeight(
@@ -189,8 +186,8 @@ class RequestDemandView extends GetView<RequestDemandViewModel> {
                                                   ],
                                                 ))
                                             .toList())
-                                    : appText(
-                                        title: "No Data", context: context)
+                                    : CustomText(
+                                        title: "No Data", )
                                 : snapshot.error != null
                                     ? const Text('Error generating thumbnail')
                                     : const Center(
@@ -234,7 +231,7 @@ class RequestDemandView extends GetView<RequestDemandViewModel> {
                                                                     .spaceBetween,
                                                             children: [
                                                               Expanded(
-                                                                  child: appText(
+                                                                  child: CustomText(
                                                                       title:
                                                                           "${e.city}, ${e.area}",
                                                                       fontSize:
@@ -244,10 +241,8 @@ class RequestDemandView extends GetView<RequestDemandViewModel> {
                                                                               .left,
                                                                       fontWeight:
                                                                           FontWeight
-                                                                              .w400,
-                                                                      context:
-                                                                          context)),
-                                                              appText(
+                                                                              .w400)),
+                                                              CustomText(
                                                                   title: DateFormat
                                                                           .jm()
                                                                       .format(e
@@ -257,9 +252,7 @@ class RequestDemandView extends GetView<RequestDemandViewModel> {
                                                                       FontWeight
                                                                           .w400,
                                                                   colorOpecity:
-                                                                      0.6,
-                                                                  context:
-                                                                      context)
+                                                                      0.6)
                                                             ],
                                                           ),
                                                           getHeight(
@@ -272,8 +265,7 @@ class RequestDemandView extends GetView<RequestDemandViewModel> {
                                                   ],
                                                 ))
                                             .toList())
-                                    : appText(
-                                        title: "No Data", context: context)
+                                    : CustomText(title: "No Data")
                                 : snapshot.error != null
                                     ? const Text('Error generating thumbnail')
                                     : const Center(

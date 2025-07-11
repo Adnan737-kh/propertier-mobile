@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/App/Post%20Add/Add%20Properties/ViewModel/add_properties_view_model.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 import '../../../../Utils/app_text.dart';
 import '../../../../Utils/height_width_box.dart';
@@ -22,9 +24,8 @@ class AddPropertyInspectReportView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            appText(
-              title: "Thumbnail",
-              context: context,
+            CustomText(
+              title: context.local.thumbnail,
               fontSize: 18,
               fontWeight: FontWeight.normal,
             ),
@@ -95,9 +96,8 @@ Widget iDUploadTile({
                     color: Colors.black.withOpacity(0.4),
                     size: 38,
                   ),
-                  appText(
-                      title: "Upload Thumbnail Image",
-                      context: context,
+                  CustomText(
+                      title: context.local.upload_thumbnail_image,
                       fontSize: 16,
                       colorOpecity: 0.4,
                       color: controller.thumbnailImage != ""

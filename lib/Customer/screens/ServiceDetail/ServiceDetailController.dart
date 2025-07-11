@@ -1,22 +1,22 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:propertier/App/Services/Model/FixedServicesModel.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
-import '../../../App/Services/Model/ServiceDashboardModel.dart';
 
 class ServiceDetailController extends GetxController{
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     service = Get.arguments;
     checkScroll();
   }
 
-  late SellingServices service;
+  late FixedServicesModel service;
   ScrollController scrollController = ScrollController();
   final RxBool _isCollapsed = false.obs;
   bool get isCollapsed => _isCollapsed.value;
@@ -28,7 +28,9 @@ class ServiceDetailController extends GetxController{
               ? Get.context!.getSize.height * (0.36 - 0.030)
               : Get.context!.getSize.height * (0.31 - 0.030) -
               Get.context!.getSize.height * 0.07);
-      print("ISCollapsed ${_isCollapsed.value}");
+      if (kDebugMode) {
+        print("ISCollapsed ${_isCollapsed.value}");
+      }
     });
   }
 

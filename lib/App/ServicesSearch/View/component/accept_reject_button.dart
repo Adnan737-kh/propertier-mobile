@@ -25,9 +25,8 @@ acceptRejectButton(
         color: color,
         borderRadius: BorderRadius.circular(radius),
       ),
-      child: appText(
+      child: CustomText(
           title: title,
-          context: context,
           color: textColor,
           fontSize: textFontSize,
           fontWeight: textFontWeight),

@@ -26,10 +26,9 @@ Widget infoTile(BuildContext context,
     children: [
       SizedBox(
         width: context.getSize.width * titleWidth,
-        child: appText(
+        child: CustomText(
             textAlign: TextAlign.start,
             title: "$title: ",
-            context: context,
             color: titleColor,
             fontSize: titleFontSize,
             colorOpecity: titleOpacity,

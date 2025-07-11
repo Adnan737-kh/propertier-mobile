@@ -6,21 +6,23 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../constant/colors.dart';
 
 
-class Ytplayer extends StatelessWidget {
-  const Ytplayer({super.key});
+class YtPlayer extends StatelessWidget {
+  const YtPlayer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Ytplayercontroller controller = Get.put(Ytplayercontroller());
+    YtPlayerController controller = Get.put(YtPlayerController());
+
     return Scaffold(
       backgroundColor: AppColor.blackColor,
       appBar: AppBar(
         backgroundColor: AppColor.blackColor,
       ),
-      body: Center(
-        child: controller.videoUrl == null
-            ? Center(child: Text("Invalid URL"))
-            : YoutubePlayer(
+      body: controller.videoUrl == null ||
+          YoutubePlayer.convertUrlToId(controller.videoUrl!) == null
+          ? const Center(child: Text("Invalid URL"))
+          : GetBuilder<YtPlayerController>(
+        builder: (_) => YoutubePlayer(
           controller: controller.youtubeController,
         ),
       ),

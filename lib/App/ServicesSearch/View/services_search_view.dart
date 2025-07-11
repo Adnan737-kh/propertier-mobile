@@ -9,9 +9,8 @@ import 'package:propertier/App/Services/Model/services_model.dart';
 import 'package:propertier/App/ServicesSearch/View/component/description_text_field.dart';
 import 'package:propertier/App/ServicesSearch/View/component/services_search_tab_tile.dart';
 import 'package:propertier/App/ServicesSearch/View/component/upload_work_photos_tile.dart';
-import 'package:propertier/App/ServicesSearch/View/component/yourself_textfield.dart';
+import 'package:propertier/App/ServicesSearch/View/component/custom_textfield.dart';
 import 'package:propertier/App/ServicesSearch/ViewModel/services_search_view_model.dart';
-import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/appbar.dart';
 import 'package:propertier/Utils/divider.dart';
@@ -28,8 +27,8 @@ import '../../../Utils/box_shadow.dart';
 class ServicesSearchView extends StatelessWidget {
   ServicesSearchView({super.key});
 
-  ParentServicesModel parentServicesModel = Get.arguments['parentServiceModel'];
-  Subservices subservices = Get.arguments['subService'];
+  final ParentServicesModel parentServicesModel = Get.arguments['parentServiceModel'];
+  final Subservices subServices = Get.arguments['subService'];
 
   @override
   Widget build(BuildContext context) {
@@ -90,8 +89,8 @@ class ServicesSearchView extends StatelessWidget {
                             ],
                           )),
                       getHeight(context, 0.015),
-                      parentServicesModel.imageUrl != null?
-                          Image.network(parentServicesModel.imageUrl??Constant.dummyImage,height: 100,
+                      parentServicesModel.image != null?
+                          Image.network(parentServicesModel.image??Constant.dummyImage,height: 100,
                             width: 86,):
                       SvgPicture.asset(
                         Constant.servicesSearchIcon,
@@ -99,19 +98,19 @@ class ServicesSearchView extends StatelessWidget {
                         width: 86,
                       ),
                       getHeight(context, 0.01),
-                      appText(
+                      CustomText(
                           title: parentServicesModel.title??"",
                           fontSize: 18,
                           colorOpecity: 0.6,
                           fontWeight: FontWeight.w500,
-                          context: context),
+                          ),
                       getHeight(context, 0.01),
                       Column(
                         children: [
                           InstaImageViewer(
                             imageUrl:
-                            subservices.coverImageUrl??
-                                Constant.dumyImage2,
+                            subServices.coverImageUrl??
+                                Constant.dummyImage2,
                             child: Container(
                               alignment: Alignment.topCenter,
                               padding: EdgeInsets.only(
@@ -123,11 +122,11 @@ class ServicesSearchView extends StatelessWidget {
                               decoration: BoxDecoration(
                                 // border: Border.all(width: 5),
                                   boxShadow: [boxShadow()],
-                                  image: subservices.coverImageUrl == null
+                                  image: subServices.coverImageUrl == null
                                       ? null
                                       : DecorationImage(
-                                      image: NetworkImage(subservices.coverImageUrl??
-                                          Constant.dumyImage2),
+                                      image: NetworkImage(subServices.coverImageUrl??
+                                          Constant.dummyImage2),
                                       fit: BoxFit.cover)),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -162,9 +161,8 @@ class ServicesSearchView extends StatelessWidget {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    appText(
-                                        title: subservices.title ??"",
-                                        context: context,
+                                    CustomText(
+                                        title: subServices.title ??"",
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600),
                                     getWidth(context, 0.010),
@@ -199,12 +197,12 @@ class ServicesSearchView extends StatelessWidget {
                                 getHeight(context, 0.020),
                                 Align(
                                   alignment: Alignment.centerLeft,
-                                  child: appText(
+                                  child: CustomText(
                                       colorOpecity: 0.6,
-                                      title: subservices.description??"",
+                                      title: subServices.description??"",
                                       fontSize: 10,
                                       fontWeight: FontWeight.w600,
-                                      context: context),
+                                      ),
                                 ),
                               ],
                             ),
@@ -215,7 +213,7 @@ class ServicesSearchView extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          YourSelfTextField(
+                          CustomTextField(
                               controller: viewModel.yourSelfController),
                           getHeight(context, 0.01),
                           SizedBox(
@@ -246,19 +244,19 @@ class ServicesSearchView extends StatelessWidget {
                               context: context,
                               color: AppColor.blackColor.withOpacity(0.75)),
                           getHeight(context, 0.015),
-                          appText(
+                          CustomText(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                               title: context.local.uploadWorkPhoto,
-                              context: context),
+                              ),
                           getHeight(context, 0.008),
                           const UploadWorkPhotosTile(),
                           getHeight(context, 0.015),
-                          appText(
+                          CustomText(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                               title: context.local.descriptionAboutYourWork,
-                              context: context),
+                          ),
                           getHeight(context, 0.008),
                           DescriptionTextField(
                             descriptionController:
@@ -271,7 +269,7 @@ class ServicesSearchView extends StatelessWidget {
                               context: context,
                               title: 'Offer to Plumber',
                               onClick: () {
-                                viewModel.createBidByCustomer(context,parentServicesModel,subservices);
+                                viewModel.createBidByCustomer(context,parentServicesModel,subServices);
                               })
                         ],
                       )

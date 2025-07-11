@@ -90,7 +90,7 @@ class VideoPlayerScreen extends StatelessWidget {
                                             Constant.heartUnFill,
                                           ))
                                 : const Gap(0),
-                            appText(
+                            CustomText(
                                 title: controller.activeVideoIndex.value <
                                         controller.properties.length
                                     ? controller
@@ -99,14 +99,13 @@ class VideoPlayerScreen extends StatelessWidget {
                                         .likes
                                         .toString()
                                     : "",
-                                context: context,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500,
                                 color: AppColor.white),
                             getHeight(context, 0.060),
                             InkWell(
                               onTap: () {
-                                controller.ShareReel();
+                                controller.shareReel();
                               },
                               child: SvgPicture.asset(
                                 Constant.shareRight,
@@ -126,11 +125,11 @@ class VideoPlayerScreen extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.offNamed(AppRoutes.detailView, arguments: {
-                                "id": controller
+                              Get.offNamed(AppRoutes.propertyDetailView, arguments: {
+                                "slug": controller
                                     .properties[
                                         controller.activeVideoIndex.value]
-                                    .id!,
+                                    .slug!,
                                 "user": "null"
                               });
                               if (kDebugMode) {
@@ -156,12 +155,8 @@ class VideoPlayerScreen extends StatelessWidget {
                                         onTap: () {
                                           Get.offNamed(
                                               AppRoutes.serviceProviderProfile,
-                                              arguments: controller
-                                                  .properties[controller
-                                                      .activeVideoIndex.value]
-                                                  .agent!
-                                                  .id
-                                                  .toString());
+                                              arguments: controller.properties[
+                                                controller.activeVideoIndex.value].agent!.id.toString());
                                           if (kDebugMode) {
                                             print("clicked profile");
                                           }
@@ -187,7 +182,7 @@ class VideoPlayerScreen extends StatelessWidget {
                                   getWidth(context, 0.020),
                                   SizedBox(
                                       width: context.getSize.width * 0.7,
-                                      child: appText(
+                                      child: CustomText(
                                           fontSize: 18,
                                           overflow: TextOverflow.ellipsis,
                                           textAlign: TextAlign.start,
@@ -202,17 +197,16 @@ class VideoPlayerScreen extends StatelessWidget {
                                                       .title ??
                                                   " "
                                               : "",
-                                          context: context))
+                                        ))
                                 ],
                               ),
                             ),
                           ),
                           // getHeight(context, 0.010),
-                          appText(
+                          CustomText(
                               maxLines: 3,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.justify,
-                              context: context,
                               color: AppColor.white,
                               fontWeight: FontWeight.w400,
                               fontSize: 16,

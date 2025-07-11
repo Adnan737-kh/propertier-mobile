@@ -1,11 +1,8 @@
 import 'package:get/get.dart';
-import 'package:propertier/App/Like%20And%20Unlike%20Service/Model/isLiked.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../../../Model/property.dart';
 import '../../../../Home/ViewModel/home_view_model.dart';
-import '../../../../Like And Unlike Service/like_unlike_services.dart';
 
 class SingleVideoScreenController extends GetxController {
   List<Property> properties;

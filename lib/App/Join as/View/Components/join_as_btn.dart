@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
 import '../../../../constant/colors.dart';
 import '../../../../Utils/app_text.dart';
 
@@ -14,18 +13,15 @@ Widget customJoinAsButton(
     double fontSize = 20,
     double radius = 10,
     double height = 58,
-    IconData? icondata,
+    IconData? iconData,
     FontWeight fontWeight = FontWeight.w500}) {
-  var context = Get.context!;
   return SizedBox(
     child: GestureDetector(
       onTap: () {
         onTap();
       },
       child: Container(
-        // padding: EdgeInsets.fromLTRB(10.w, 12.h, 10.w, 12.h),
         height: height,
-        // width: double.infinity,
         decoration: BoxDecoration(
             color: buttonColor,
             boxShadow: [
@@ -43,22 +39,21 @@ Widget customJoinAsButton(
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              icondata != null
+              iconData != null
                   ? Padding(
                       padding: const EdgeInsets.only(right: 8.0),
                       child: Icon(
-                        icondata,
+                        iconData,
                         color: iconColor,
                         size: 28,
                       ),
                     )
                   : const Gap(0),
               Center(
-                child: appText(
+                child: CustomText(
                     fontFamily: "rozha one",
                     title: title,
                     fontSize: fontSize,
-                    context: context,
                     color: textColor,
                     fontWeight: FontWeight.bold),
               ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../../../../constant/colors.dart';
@@ -18,17 +17,15 @@ Widget verifyTile({
       statusIcon = Image.asset("assets/icons/AlertIcon.png", width: 27);
       break;
     case "pending":
-      statusIcon = appText(
+      statusIcon = CustomText(
         title: '✓ ',
-        context: context,
         fontSize: 32,
         color: AppColor.buttonColor,
       );
       break;
     case "verified":
-      statusIcon = appText(
+      statusIcon = CustomText(
         title: '✓ ',
-        context: context,
         fontSize: 32,
         color: AppColor.greenColor,
       );
@@ -66,9 +63,8 @@ Widget verifyTile({
                   children: [
                     statusIcon,
                     const SizedBox(width: 8),
-                    appText(
+                    CustomText(
                       title: title,
-                      context: context,
                       colorOpecity: 0.60,
                     ),
                   ],
@@ -111,9 +107,8 @@ Widget _buildStatusText(String verify,String title, BuildContext context) {
 
   return Padding(
     padding: const EdgeInsets.only(top: 4.0),
-    child: appText(
+    child: CustomText(
       title: text,
-      context: context,
       fontSize: 12,
       color: color,
     ),

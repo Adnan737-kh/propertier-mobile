@@ -21,6 +21,9 @@ import '../../ServicesSearch/model/VendorResponseModel.dart';
 
 
 class BidViewScreen extends GetView<BidViewModel>{
+  const BidViewScreen({super.key});
+
+  @override
   Widget build(BuildContext context) {
     final day = DateFormat.d().format(DateTime.now());
     final month = DateFormat.M().format(DateTime.now());
@@ -49,9 +52,8 @@ class BidViewScreen extends GetView<BidViewModel>{
                 getHeight(context, 0.01),
                 SizedBox(
                   width: context.getSize.width * 0.7,
-                  child: appText(
-                    title: context.local.servciesSearchNotificationRequestSend,
-                    context: context,
+                  child: CustomText(
+                    title: context.local.services_search_notification_request_send,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                   ),
@@ -112,18 +114,17 @@ class BidViewScreen extends GetView<BidViewModel>{
                                     //               fontSize: context.fontSize(8),
                                     //               fontWeight: FontWeight.w400))
                                     //     ])),
-                                    appText(
+                                    CustomText(
                                         colorOpecity: 0.5,
                                         fontSize: 8,
                                         fontWeight: FontWeight.w400,
-                                        title: "$day-$month-$year",
-                                        context: context),
-                                    appText(
+                                        title: "$day-$month-$year",),
+                                    CustomText(
                                         color: offer.bidResponse?.status == "accepted"?AppColor.joinAsBtnColor:AppColor.appleColor,
                                         fontSize: 8,
                                         fontWeight: FontWeight.w400,
-                                        title: "${offer.bidResponse?.status??"pending."}",
-                                        context: context),
+                                        title: offer.bidResponse?.status??"pending.",
+                                     ),
                                   ],
                                 ),
                               ),
@@ -152,7 +153,7 @@ class BidViewScreen extends GetView<BidViewModel>{
                                             CircleAvatar(
                                               radius: 16,
                                               backgroundImage: NetworkImage(
-                                                  offer.bidResponse?.vendor?.profilePictureUrl??Constant.dumyImage2),
+                                                  offer.bidResponse?.vendor?.profilePictureUrl??Constant.dummyImage2),
                                             ),
                                             getWidth(context, 0.01),
                                             Column(
@@ -246,11 +247,11 @@ class BidViewScreen extends GetView<BidViewModel>{
                                                   controller.acceptBid(context, offer.bidResponse?.id.toString()??"", "rejected");
                                                 }),
                                             getHeight(context, 0.01),
-                                            appText(
+                                            const CustomText(
                                                 title: '00:15',
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.w500,
-                                                context: context)
+                                                )
                                           ],
                                         )
                                       ],

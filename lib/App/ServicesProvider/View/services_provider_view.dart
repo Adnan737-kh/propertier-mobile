@@ -10,6 +10,7 @@ import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 class ServicesProviderView extends StatelessWidget {
@@ -46,9 +47,8 @@ class ServicesProviderView extends StatelessWidget {
                         color: const Color(0xff109B0E)),
                     child: Column(
                       children: [
-                        appText(
-                            title: 'Select Services You Want',
-                            context: context,
+                          CustomText(
+                            title: context.local.select_services_you_want,
                             fontFamily: 'Rozha One',
                             color: Colors.white,
                             fontSize: 24,
@@ -97,19 +97,17 @@ class ServicesProviderView extends StatelessWidget {
                                         width: 1,
                                       ),
                                       color: Colors.white),
-                                  child: Row(
+                                  child: const Row(
                                     children: [
-                                      appText(
+                                      CustomText(
                                           title: '✓ ',
-                                          context: context,
                                           fontSize: 23,
                                           color: AppColor.buttonColor),
                                       Expanded(
-                                          child: appText(
+                                          child: CustomText(
                                               textAlign: TextAlign.start,
                                               title:
                                                   'Document verification by advocate,legal expert etc',
-                                              context: context,
                                               fontSize: 14,
                                               fontWeight: FontWeight.w500,
                                               colorOpecity: 0.6,
@@ -233,9 +231,8 @@ class ServicesProviderView extends StatelessWidget {
                                   width: 12,
                                   height: 9,
                                 ),
-                                appText(
+                                const CustomText(
                                     title: '+447848950763',
-                                    context: context,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500)
                               ],

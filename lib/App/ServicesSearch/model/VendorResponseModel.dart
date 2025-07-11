@@ -4,13 +4,13 @@ class VendorOfferModel {
   VendorOfferModel({this.bidResponse});
 
   VendorOfferModel.fromJson(Map<String, dynamic> json) {
-    bidResponse = json['bid_response'] != null ? new BidResponse.fromJson(json['bid_response']) : null;
+    bidResponse = json['bid_response'] != null ?  BidResponse.fromJson(json['bid_response']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.bidResponse != null) {
-      data['bid_response'] = this.bidResponse!.toJson();
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    if (bidResponse != null) {
+      data['bid_response'] =bidResponse!.toJson();
     }
     return data;
   }
@@ -30,7 +30,7 @@ class BidResponse {
 
   BidResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    vendor = json['vendor'] != null ? new UserData.fromJson(json['vendor']) : null;
+    vendor = json['vendor'] != null ?  UserData.fromJson(json['vendor']) : null;
     message = json['message'];
     status = json['status'];
     amount = json['amount'];
@@ -40,17 +40,17 @@ class BidResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    if (this.vendor != null) {
-      data['vendor'] = this.vendor!.toJson();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
+    data['id'] = id;
+    if (vendor != null) {
+      data['vendor'] =vendor!.toJson();
     }
-    data['message'] = this.message;
-    data['status'] = this.status;
-    data['amount'] = this.amount;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['bid'] = this.bid;
+    data['message'] = message;
+    data['status'] = status;
+    data['amount'] = amount;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['bid'] = bid;
     return data;
   }
 }

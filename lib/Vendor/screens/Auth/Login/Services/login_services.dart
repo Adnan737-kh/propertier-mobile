@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -27,16 +28,20 @@ class LoginServices {
         },
       );
 
-      print("StatusCode: ${response.statusCode}");
-      print("Response Body: ${response.body}");
+      if (kDebugMode) {
+        print("StatusCode: ${response.statusCode}");
+        print("Response Body: ${response.body}");
+      }
 
       if (response.statusCode == 200) {
         final decodedData = jsonDecode(response.body);
-        print("Decoded Data: $decodedData");
+        if (kDebugMode) {
+          print("Decoded Data: $decodedData");
+        }
 
         if (decodedData['success'] == false) {
           doesNotExist(context: Get.context!, subtitle: decodedData['message']);
-          loginResponseModel = UserLoginModel();
+          loginResponseModel = const UserLoginModel();
         } else {
           loginResponseModel = UserLoginModel.fromJson(decodedData);
         }
@@ -44,27 +49,26 @@ class LoginServices {
         debugPrint(loginResponseModel.message ?? "No message in response");
       } else {
         ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-          content: appText(
+          content: CustomText(
             title: 'Something went wrong. Status code: ${response.statusCode}',
-            context: Get.context!,
             color: AppColor.white,
           ),
         ));
-        loginResponseModel = UserLoginModel();
+        loginResponseModel = const UserLoginModel();
       }
       return loginResponseModel;
     } catch (e) {
-      print("Error: $e");
+      if (kDebugMode) {
+        print("Error: $e");
+      }
       ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
-        content: appText(
+        content: CustomText(
           title: 'Something went wrong. Error: ${e.toString()}',
-      
-          context: Get.context!,
           color: AppColor.white,
         ),
        
       ));
-      return UserLoginModel();
+      return const UserLoginModel();
     }
   }
 }

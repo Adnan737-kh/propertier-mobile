@@ -53,7 +53,7 @@ class _FilterScreenState extends State<FilterScreen> {
               decoration: const ShapeDecoration(
                 color: Color(0xFF131A22),
                 shape: RoundedRectangleBorder(
-                  borderRadius: const BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(40),
                     bottomRight: Radius.circular(40),
                   ),
@@ -151,7 +151,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                          Get.to(() => SelectLocationScreen());
+                          Get.to(() => const SelectLocationScreen());
                         },
                         child: Container(
                           height: 40,
@@ -212,7 +212,7 @@ class _FilterScreenState extends State<FilterScreen> {
                           value: _category,
                           hint: const Text('PKR'),
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(bottom: 4 ,left: 6,right: 6),
+                            contentPadding: const EdgeInsets.only(bottom: 4 ,left: 6,right: 6),
                               fillColor: const Color(0x05131A22),
                               enabledBorder: OutlineInputBorder(
                                    borderSide: BorderSide(

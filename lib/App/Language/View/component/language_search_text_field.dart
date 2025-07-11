@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/font_size_extension.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 class LanguageSearchTextField extends StatelessWidget {
   final Widget suFixIcon;
   final double height;
   final Function(String) voidCallBack;
-  LanguageSearchTextField(
+  const LanguageSearchTextField(
       {super.key,
       required this.voidCallBack,
       required this.searchController,
       required this.suFixIcon,
       this.height = 0.1});
-  TextEditingController searchController;
-  var border = InputBorder.none;
+  final TextEditingController searchController;
+  final border = InputBorder.none;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,7 @@ class LanguageSearchTextField extends StatelessWidget {
           voidCallBack(val);
         },
         decoration: InputDecoration(
-          hintText: 'Search Language',
+          hintText: context.local.search_language,
           hintStyle: TextStyle(
             fontSize: context.fontSize(14),
             color: AppColor.blackColor.withOpacity(0.2),

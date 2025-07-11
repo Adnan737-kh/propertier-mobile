@@ -31,7 +31,7 @@ class _SubmitWorkState extends State<SubmitWork> {
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
               Column(
@@ -42,30 +42,30 @@ class _SubmitWorkState extends State<SubmitWork> {
                       context: context,
                       color: AppColor.blackColor.withOpacity(0.75)),
                   getHeight(context, 0.015),
-                  appText(
+                  CustomText(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       title: context.local.uploadWorkPhoto,
-                      context: context),
+                      ),
                   getHeight(context, 0.008),
                   const UploadWorkPhotosWidget(),
                   getHeight(context, 0.015),
-                  appText(
+                  CustomText(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       title: context.local.descriptionAboutYourWork,
-                      context: context),
+                      ),
                   getHeight(context, 0.008),
                   DescriptionTextField(
                     descriptionController:
                     controller.descriptionController,
                   ),
                   getHeight(context, 0.015),
-                  appText(
+                  CustomText(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       title: "Extra price",
-                      context: context),
+                      ),
                   getHeight(context, 0.008),
                   DescriptionTextField(
                     descriptionController:

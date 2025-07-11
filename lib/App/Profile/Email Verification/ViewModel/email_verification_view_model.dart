@@ -56,15 +56,15 @@ class EmailVerficationViewModel extends GetxController {
       }
 
       if (statusCode == 200 || statusCode == 201) {
-        toast(title: 'Email Verification Submitted', context: context);
-        Get.toNamed(AppRoutes.verificationView);
+        CustomToast.show(title: 'Email Verification Submitted', context: context);
+        Get.offNamed(AppRoutes.verificationView);
       } else {
         // Catch expected API error message
         if (body is Map && body.containsKey('detail')) {
           String errorMessage = body['detail'][0];
-          toast(title: errorMessage, context: context);
+          CustomToast.show(title: errorMessage, context: context);
         } else {
-          toast(title: '❌ Verification failed. Please try again.', context: context);
+          CustomToast.show(title: '❌ Verification failed. Please try again.', context: context);
         }
       }
     }).catchError((error, stackTrace) {
@@ -83,16 +83,16 @@ class EmailVerficationViewModel extends GetxController {
           Map<String, dynamic> errorMap = jsonDecode(jsonPart);
           if (errorMap.containsKey('detail')) {
             String message = errorMap['detail'][0];
-            toast(title: message, context: context);
+            CustomToast.show(title: message, context: context);
             return;
           }
         }
 
         // If no JSON or 'detail' key
-        toast(title: "Something went wrong. Please try again.", context: context);
+        CustomToast.show(title: "Something went wrong. Please try again.", context: context);
       } catch (e) {
         // If parsing fails
-        toast(title: "Unexpected error occurred.", context: context);
+        CustomToast.show(title: "Unexpected error occurred.", context: context);
         if (kDebugMode) {
           print("Error parsing the message: $e");
         }

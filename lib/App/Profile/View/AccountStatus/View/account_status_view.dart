@@ -51,10 +51,10 @@ class AccountStatusView extends StatelessWidget {
                           boxShadow: [boxShadow()],
                           borderRadius: BorderRadius.circular(10)),
                       child: ExpansionTile(
-                          title: appText(
+                          title: CustomText(
                               textAlign: TextAlign.start,
                               title: accountStatus.title,
-                              context: context),
+                             ),
                           children: index == 2
                               ? [
                                   Container(
@@ -68,13 +68,12 @@ class AccountStatusView extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        appText(
+                                        CustomText(
                                             textAlign: TextAlign.start,
                                             fontSize: 12,
                                             fontWeight: FontWeight.w400,
                                             title:
                                                 "Lorem ipsum dolor sit amet consectetur. Est orci sit a risus id faucibus. Nam risus sed velit in. Arcu at sit vitae diam nibh congue. Urna massa risus egestas sagittis.",
-                                            context: context,
                                             color: AppColor.buttonColor),
                                         getHeight(context, 0.010),
                                         Row(
@@ -83,17 +82,15 @@ class AccountStatusView extends StatelessWidget {
                                           children: [
                                             GestureDetector(
                                                 onTap: () {},
-                                                child: appText(
+                                                child: CustomText(
                                                     title: 'need Help?',
-                                                    context: context,
                                                     fontSize: 12,
                                                     fontWeight: FontWeight.w400,
                                                     color: AppColor.white)),
                                             GestureDetector(
                                               onTap: () {},
-                                              child: appText(
+                                              child: CustomText(
                                                   title: 'Contact Support',
-                                                  context: context,
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w400,
                                                   color: AppColor.white),
@@ -120,16 +117,14 @@ class AccountStatusView extends StatelessWidget {
                       width: context.getSize.height * 0.23,
                       decoration: const BoxDecoration(shape: BoxShape.circle),
                       alignment: Alignment.center,
-                      child: appText(
+                      child: CustomText(
                           title: '60 %',
-                          context: context,
                           fontSize: 40,
                           fontWeight: FontWeight.w600),
                     )),
                 getHeight(context, 0.040),
-                appText(
+                CustomText(
                     title: 'Profile Complete',
-                    context: context,
                     fontSize: 14,
                     fontWeight: FontWeight.w600)
               ],

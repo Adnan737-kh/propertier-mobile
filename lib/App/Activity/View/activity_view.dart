@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/App/Activity/ViewModel/activity_viewmodel.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 import '../../../RoutesAndBindings/app_routes.dart';
@@ -38,24 +40,24 @@ class ActivityView extends GetView<ActivityViewModel> {
                     title: 'Activity'),
                 getHeight(context, 0.045),
                 activityTile(
-                  title: "Post You Searched For",
+                  title:context.local.post_you_searched_for,
                   onTap: () => Get.toNamed(AppRoutes.searchedActivityView),
                 ),
                 getHeight(context, 0.010),
                 activityTile(
-                  title: "Videos You have watched",
+                  title: context.local.videos_you_have_watched,
                 ),
                 getHeight(context, 0.010),
                 activityTile(
-                  title: "Comments",
+                  title: context.local.comments,
                 ),
                 getHeight(context, 0.010),
                 activityTile(
-                  title: "People You Followed",
+                  title:  context.local.people_you_followed,
                 ),
                 getHeight(context, 0.010),
                 activityTile(
-                  title: "Your Post",
+                  title:context.local.your_post,
                 ),
                 getHeight(context, 0.06),
               ],

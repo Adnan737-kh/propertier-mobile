@@ -51,25 +51,25 @@ class RentalView extends GetView<RentalViewModel> {
                 getHeight(context, 0.008),
                 GestureDetector(
                   onTap: () {},
-                  child: appText(
-                      title: "Post Your Property",
+                  child: CustomText(
+                      title: context.local.post_your_property,
                       color: AppColor.facebookColor,
-                      context: context),
+                      ),
                 ),
                 getHeight(context, 0.015),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    appText(title: "Title", context: context, fontSize: 18),
+                    CustomText(title:context.local.title, fontSize: 18),
                   ],
                 ),
                 getHeight(context, 0.008),
-                CustomAddTextfield(
+                CustomAddTextField(
                   textEditingController: controller.titleController,
                   border: InputBorder.none,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter Title';
+                      return context.local.please_enter_title;
                     }
                     return null;
                   },
@@ -78,17 +78,17 @@ class RentalView extends GetView<RentalViewModel> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    appText(
-                        title: "Description", context: context, fontSize: 18),
+                    CustomText(
+                        title: context.local.description, fontSize: 18),
                   ],
                 ),
                 getHeight(context, 0.008),
-                CustomAddTextfield(
+                CustomAddTextField(
                   textEditingController: controller.descriptionController,
                   border: InputBorder.none,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Provide Description';
+                      return context.local.provide_description;
                     }
                     return null;
                   },
@@ -112,7 +112,7 @@ class RentalView extends GetView<RentalViewModel> {
                             if (controller.formKey.currentState!.validate()) {}
                           },
                           context: context,
-                          title: 'Submit',
+                          title: context.local.submit,
                         ),
                       ),
                     ],
@@ -128,8 +128,8 @@ class RentalView extends GetView<RentalViewModel> {
   }
 }
 
-class CustomAddTextfield extends StatelessWidget {
-  const CustomAddTextfield({
+class CustomAddTextField extends StatelessWidget {
+  const CustomAddTextField({
     super.key,
     this.labelText,
     required this.textEditingController,

@@ -1,14 +1,17 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/divider.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 import '../../../RoutesAndBindings/app_routes.dart';
 import '../../../constant/constant.dart';
 import '../../Auth/User/Token/token_preference_view_model/token_preference_view_model.dart';
+import '../../NavBar/ViewModel/navbar_view_model.dart';
 import '../Components/drawer_tile.dart';
 
 Widget customDrawer({required BuildContext context}) {
@@ -27,13 +30,12 @@ Widget customDrawer({required BuildContext context}) {
             Align(
                 alignment: Alignment.center,
                 child: Image.asset(
-                  Constant.drawerlogo,
+                  Constant.drawerLogo,
                   height: context.getSize.height * 0.043,
                 )),
             const Gap(24),
-            appText(
-                title: "Dashboard",
-                context: context,
+            CustomText(
+                title: context.local.dashboard,
                 color: Colors.white,
                 fontSize: 20,
                 fontWeight: FontWeight.bold),
@@ -42,182 +44,98 @@ Widget customDrawer({required BuildContext context}) {
             drawerTile(
               onTap: () => Get.toNamed(AppRoutes.accountStatusView),
               context: context,
-              title: "Account Status",
+              title: context.local.account_status,
             ),
             divider(context: context),
             drawerTile(
               onTap: () => Get.toNamed(AppRoutes.editProfileView),
               context: context,
-              title: "Edit Profile",
+              title: context.local.edit_profile,
+            ),
+            divider(context: context),
+            drawerTile(
+              onTap: () => Get.toNamed(AppRoutes.changePasswordView),
+              context: context,
+              title:context.local.change_password,
             ),
             divider(context: context),
             drawerTile(
               onTap: () => Get.toNamed(AppRoutes.customerWallet),
               context: context,
-              title: "Wallet",
+              title: context.local.wallet,
             ),
             divider(context: context),
             drawerTile(
               onTap: () => Get.toNamed(AppRoutes.verificationView),
               context: context,
-              title: "Verification",
+              title: context.local.verification,
             ),
             divider(context: context),
             drawerTile(
               onTap: () => Get.toNamed(AppRoutes.requestDemandView),
               context: context,
-              title: "Request Properties",
+              title: context.local.request_properties,
             ),
             divider(context: context),
 
-            // drawerTile(
-            //   onTap: () => Get.toNamed(AppRoutes.earningsView),
-            //   context: context,
-            //   title: "Earnings",
-            // ),
-            // divider(context: context),
-            // drawerTile(
-            //   onTap: () => Get.toNamed(AppRoutes.analyticsView),
-            //   context: context,
-            //   title: "Analytics",
-            // ),
-            // divider(context: context),
-            // drawerTile(
-            //   context: context,
-            //   title: "Inventory",
-            // ),
-            // divider(context: context),
-            // drawerTile(
-            //   context: context,
-            //   title: "Sales",
-            // ),
-            // divider(context: context),
-            // drawerTile(
-            //   onTap: () => Get.toNamed(AppRoutes.adsView),
-            //   context: context,
-            //   title: "Ads",
-            // ),
-            // divider(context: context),
-            // drawerTile(
-            //   onTap: () => Get.toNamed(AppRoutes.myOrderView),
-            //   context: context,
-            //   title: "My Orders",
-            // ),
-            // divider(context: context),
-            // drawerTile(
-            //   context: context,
-            //   title: "Pending Orders",
-            // ),
-            // divider(context: context),
-            // drawerTile(
-            //   onTap: () => Get.toNamed(AppRoutes.oficialTeamView),
-            //   context: context,
-            //   title: "Official team",
-            // ),
-            // divider(context: context),
-            // drawerTile(
-            //   context: context,
-            //   title: "Marketing Team",
-            // ),
-            // divider(context: context),
 
             drawerTile(
               onTap: () => Get.toNamed(AppRoutes.settingsView),
               context: context,
-              title: "Settings",
+              title: context.local.settings,
             ),
             divider(context: context),
-
-            // drawerTile(
-            //   onTap: () => Get.toNamed(AppRoutes.reviewView),
-            //   context: context,
-            //   title: "Reviews",
-            // ),
-            // divider(context: context),
 
             drawerTile(
               onTap: () => Get.toNamed(AppRoutes.privacyView),
               context: context,
-              title: "Privacy",
+              title: context.local.privacy,
             ),
             divider(context: context),
             drawerTile(
               onTap: () => Get.toNamed(AppRoutes.policyView),
               context: context,
-              title: "Policy",
+              title:context.local.policy,
             ),
             divider(context: context),
             drawerTile(
               onTap: () => Get.toNamed(AppRoutes.supportView),
               context: context,
-              title: "Support",
+              title: context.local.support,
             ),
             divider(context: context),
             drawerTile(
               onTap: () => Get.toNamed(AppRoutes.languageView),
               context: context,
-              title: "Language",
+              title: context.local.language,
             ),
             divider(context: context),
             drawerTile(
               onTap: () => Get.toNamed(AppRoutes.aboutView),
               context: context,
-              title: "About",
+              title:context.local.about,
             ),
-            // divider(context: context),
-            // drawerTile(
-            //   onTap: () => Get.toNamed(AppRoutes.offeredServices),
-            //   context: context,
-            //   title: "Offerd Services",
-            // ),
             divider(context: context),
             drawerTile(
               onTap: () => Get.toNamed(AppRoutes.activityView),
               context: context,
-              title: "Activity",
+              title: context.local.activity,
             ),
 
-            // divider(context: context),
-            // drawerTile(
-            //   context: context,
-            //   title: "Post Listings",
-            // ),
-            // divider(context: context),
-            // drawerTile(
-            //   context: context,
-            //   title: "All Listings",
-            // ),
-            // divider(context: context),
-            // drawerTile(
-            //   context: context,
-            //   title: "Ai Video Editing",
-            // ),
-            // divider(context: context),
-            // drawerTile(
-            //   context: context,
-            //   title: "Ai Image Editing",
-            // ),
-            // divider(context: context),
-            // drawerTile(
-            //   context: context,
-            //   title: "Report",
-            // ),
-            // divider(context: context),
-            // drawerTile(
-            //   onTap: () => Get.toNamed(AppRoutes.payoutView),
-            //   context: context,
-            //   title: "Pay out",
-            // ),
 
             InkWell(
-              onTap: () {
-                // AuthService().logout();
-                // GoogleSiginServices().logout();
-                // Get.offAllNamed(AppRoutes.loginView);
-                UserPreference up = UserPreference();
-                up.logOut().then((value){
-                  Get.toNamed(AppRoutes.loginView);
-                });
+              onTap: () async {
+                final up = UserPreference();
+                final success = await up.logOut();
+                if (success) {
+                  Get.offAllNamed(AppRoutes.navBarView);
+                  Get.find<NavBarViewModel>().changeSelectedTab(4);
+                } else {
+                  // Show error or toast if needed
+                  if (kDebugMode) {
+                    print("⚠️ Failed to clear preferences");
+                  }
+                }
               },
               child: Container(
                 width: context.width,
@@ -239,9 +157,8 @@ Widget customDrawer({required BuildContext context}) {
                         color: AppColor.backgroundColor,
                       ),
                     ),
-                    appText(
-                        title: "Sign Out",
-                        context: context,
+                    CustomText(
+                        title:context.local.sign_out ,
                         fontWeight: FontWeight.bold)
                   ],
                 ),

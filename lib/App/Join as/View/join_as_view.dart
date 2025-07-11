@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import '../../../RoutesAndBindings/app_routes.dart';
 import '../../../constant/colors.dart';
 import 'Components/join_as_btn.dart';
@@ -23,7 +24,7 @@ class JoinView extends StatelessWidget {
               ),
               const Gap(43),
               customJoinAsButton(
-                  title: "Join as",
+                  title: context.local.join_as,
                   onTap: () {
                     Get.toNamed(AppRoutes.servicesProviderView);
                   },
@@ -34,40 +35,40 @@ class JoinView extends StatelessWidget {
                 spacing: 10.0,
                 direction: Axis.horizontal,
                 children: [
-                  ServiceTile(
+                  serviceTile(
                       context: context,
-                      title: "Guest",
-                      AssetimageString: "assets/icons/Guest.png",
+                      title: context.local.guest,
+                      assetImageString: "assets/icons/Guest.png",
                       content:
                           "Lorem ipsum dolor sit amet amet consectetur. Neque posuere tortor purus non id dignissim malesuada."),
-                  ServiceTile(
+                  serviceTile(
                       context: context,
-                      title: "Seller",
-                      AssetimageString: "assets/icons/Seller.png",
+                      title: context.local.seller,
+                      assetImageString: "assets/icons/Seller.png",
                       content:
                           "Lorem ipsum dolor sit amet amet consectetur. Neque posuere tortor purus non id dignissim malesuada."),
-                  ServiceTile(
+                  serviceTile(
                       context: context,
-                      title: "Supplier",
-                      AssetimageString: "assets/icons/Supplier.png",
+                      title:context.local.supplier,
+                      assetImageString: "assets/icons/Supplier.png",
                       content:
                           "Lorem ipsum dolor sit amet amet consectetur. Neque posuere tortor purus non id dignissim malesuada."),
-                  ServiceTile(
+                  serviceTile(
                       context: context,
-                      title: "Service Provider",
-                      AssetimageString: "assets/icons/Service provider.png",
+                      title: context.local.service_provider,
+                      assetImageString: "assets/icons/Service provider.png",
                       content:
                           "Lorem ipsum dolor sit amet amet consectetur. Neque posuere tortor purus non id dignissim malesuada."),
-                  ServiceTile(
+                  serviceTile(
                       context: context,
-                      title: "Corporate Service",
-                      AssetimageString: "assets/icons/Corporate Services.png",
+                      title: context.local.corporate_service,
+                      assetImageString: "assets/icons/Corporate Services.png",
                       content:
                           "Lorem ipsum dolor sit amet amet consectetur. Neque posuere tortor purus non id dignissim malesuada."),
-                  ServiceTile(
+                  serviceTile(
                       context: context,
-                      title: "Rental",
-                      AssetimageString: "assets/icons/Rental.png",
+                      title: context.local.rental,
+                      assetImageString: "assets/icons/Rental.png",
                       content:
                           "Lorem ipsum dolor sit amet amet consectetur. Neque posuere tortor purus non id dignissim malesuada."),
                 ],

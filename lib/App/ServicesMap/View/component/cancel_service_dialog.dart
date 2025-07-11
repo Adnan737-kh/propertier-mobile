@@ -70,20 +70,20 @@ void showCustomPopup(BuildContext context,
                                         getWidth(context, 0.060),
                                       getWidth(context, 0.020),
                                       if (index == 0)
-                                        appText(
+                                        CustomText(
                                             title:
                                                 '$serviceName ${viewModel.cencelJobIssue[index]}',
-                                            context: context),
+                                             ),
                                       if (index == 1)
-                                        appText(
+                                        CustomText(
                                             title:
                                                 viewModel.cencelJobIssue[index],
-                                            context: context),
+                                            ),
                                       if (index == 2)
-                                        appText(
+                                        CustomText(
                                             title:
                                                 viewModel.cencelJobIssue[index],
-                                            context: context),
+                                             ),
                                     ],
                                   ),
                                 ),

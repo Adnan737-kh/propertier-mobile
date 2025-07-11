@@ -12,7 +12,7 @@ import 'package:propertier/extensions/size_extension.dart';
 
 class ServicesCompletedView extends StatelessWidget {
   ServicesCompletedView({super.key});
-  ServicesModel service = Get.arguments;
+ final ServicesModel service = Get.arguments;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +36,7 @@ class ServicesCompletedView extends StatelessWidget {
                 textAlign: TextAlign.center,
                 text: TextSpan(
                     text:
-                        "${context.local.orderCompleted}\n${context.local.pleasePay} ",
+                        "${context.local.order_completed}\n${context.local.please_pay} ",
                     style: textStyle(
                         context: context,
                         fontSize: 14,
@@ -52,7 +52,7 @@ class ServicesCompletedView extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: "${context.local.to} Maryam Nawaz",
+                        text: "${context.local.to} Imran Khan",
                         style: textStyle(
                           context: context,
                           fontSize: 14,

@@ -80,9 +80,9 @@ class ServiceProviderProfileViewModel extends GetxController {
           }
         },
         titleColor: AppColor.backgroundColor,
-        borderColor: AppColor.forgroundColor,
+        borderColor: AppColor.forGroundColor,
         title: 'Chat',
-        color: AppColor.forgroundColor,
+        color: AppColor.forGroundColor,
         icon: null),
   ].obs;
 

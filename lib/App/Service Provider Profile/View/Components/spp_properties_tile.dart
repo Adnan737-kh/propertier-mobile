@@ -20,7 +20,7 @@ import '../../../../extensions/ago_time_converter.dart';
 import '../../../Home/Model/properties_tiler_button_model.dart';
 import '../../ViewModel/service_provider_profile_viewmodel.dart';
 
-Widget sPPpropertiesTile(
+Widget propertiesTile(
     {required Property property,
     required BuildContext context,
     required ServiceProviderProfileViewModel controller,
@@ -44,8 +44,8 @@ Widget sPPpropertiesTile(
       children: [
         InkWell(
           onTap: () {
-            Get.toNamed(AppRoutes.detailView,
-                arguments: {"id": property.id!, "user": "null"});
+            Get.toNamed(AppRoutes.propertyDetailView,
+                arguments: {"slug": property.slug!, "user": "null"});
           },
           child: Container(
             padding: EdgeInsets.symmetric(
@@ -83,25 +83,22 @@ Widget sPPpropertiesTile(
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  appText(
+                  CustomText(
                       title: getTimeAgo(property.createdAt!),
-                      context: context,
                       colorOpecity: 0.7,
                       fontSize: 8,
                       fontWeight: FontWeight.w500),
-                  appText(
+                  CustomText(
                       title: 'Residential',
-                      context: context,
                       colorOpecity: 0.7,
                       fontSize: 8,
                       fontWeight: FontWeight.w500),
                 ],
               ),
               getHeight(context, 0.008),
-              appText(
+              CustomText(
                   textAlign: TextAlign.left,
                   title: property.title!,
-                  context: context,
                   colorOpecity: 1,
                   fontSize: 10,
                   overflow: TextOverflow.ellipsis,
@@ -121,11 +118,10 @@ Widget sPPpropertiesTile(
                 ]),
               ),
               getHeight(context, 0.008),
-              appText(
+              CustomText(
                   textAlign: TextAlign.left,
                   overflow: TextOverflow.ellipsis,
                   title: property.address!,
-                  context: context,
                   colorOpecity: 0.7,
                   fontSize: 8,
                   fontWeight: FontWeight.w500),
@@ -140,9 +136,8 @@ Widget sPPpropertiesTile(
                         width: context.getSize.width * 0.050,
                         height: context.getSize.height * 0.02,
                       ),
-                      appText(
+                      CustomText(
                           title: " ${(property.area! / 250).toString()} Marla",
-                          context: context,
                           colorOpecity: 1,
                           fontSize: 10,
                           fontWeight: FontWeight.w400),
@@ -155,11 +150,11 @@ Widget sPPpropertiesTile(
                         size: 12,
                       ),
                       const Gap(4),
-                      appText(
+                      CustomText(
                           fontSize: 10,
                           colorOpecity: 0.60,
                           title: property.likes!.toString(),
-                          context: context),
+                          ),
                     ],
                   ),
                 ],
@@ -203,9 +198,8 @@ Widget sPPpropertiesTile(
                           propertiesButton.icon != null
                               ? const Gap(4)
                               : const Gap(0),
-                          appText(
+                          CustomText(
                             title: propertiesButton.title,
-                            context: context,
                             color: propertiesButton.titleColor,
                             fontSize: 10,
                             fontWeight: FontWeight.w500,

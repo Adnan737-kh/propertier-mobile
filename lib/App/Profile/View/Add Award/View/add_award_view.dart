@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/App/Profile/View/Add%20Award/ViewModel/add_award_viewmolel.dart';
 import 'package:propertier/App/Profile/ViewModel/profile_view_model.dart';
 import 'package:propertier/App/What%20are%20you%20searching/View/Components/custom_botton_wryf.dart';
@@ -8,6 +8,7 @@ import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/appbar.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/toast.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 import '../../../../../Utils/height_width_box.dart';
@@ -20,7 +21,6 @@ class AddAwardView extends GetView<AddAwardViewModel> {
   @override
   Widget build(BuildContext context) {
     final viewModel = Get.put(AddAwardViewModel());
-    print('ADD AWARD USER ID!!! ${viewModel.accessToken}');
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -42,29 +42,28 @@ class AddAwardView extends GetView<AddAwardViewModel> {
                       customAppBar(
                           context: context,
                           onTap: () => Get.back(),
-                          title: "Add Award",
+                          title: context.local.add_award,
                           fontWeight: FontWeight.w600),
                     ],
                   ),
                   getHeight(context, 0.025),
-                  appText(
-                      title: "Add Award Information",
+                  CustomText(
+                      title: context.local.add_award_information,
                       color: AppColor.white,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      context: context),
+                      ),
                   getHeight(context, 0.015),
                 ],
               ),
             ),
             getHeight(context, 0.025),
-            appText(
-                title: "Please Upload your information for propertier account.",
+            CustomText(
+                title: context.local.please_upload_your_information_for_propertier_account,
                 // color: AppColor.blackColor,
                 colorOpecity: 0.6,
                 fontSize: 16,
-                fontWeight: FontWeight.normal,
-                context: context),
+                fontWeight: FontWeight.normal,),
             getHeight(context, 0.025),
             additionalDetailsWRYSF(context, controller),
             getHeight(context, 0.025),
@@ -73,16 +72,16 @@ class AddAwardView extends GetView<AddAwardViewModel> {
                   horizontal: context.getSize.width * 0.030),
               child: Obx(
                 () => controller.isSuccess == true
-                    ? customButton(
+                    ? CustomButton(
                         fontSize: 16,
                         buttonColor: AppColor.buttonColor,
                         textColor: AppColor.blackColor,
                         fontWeight: FontWeight.bold,
-                        title: "Submit",
+                        title: context.local.submit,
                         onTap: () async {
                           if (controller.selectedStringDate == '') {
-                            toast(
-                                title: 'Please select award date and time',
+                            CustomToast.show(
+                                title: context.local.please_select_award_date_and_time,
                                 context: context);
                           } else {
                             await controller
@@ -96,9 +95,9 @@ class AddAwardView extends GetView<AddAwardViewModel> {
                                     date: controller.selectedDate.value!)
                                 .whenComplete(() {
                               final vm = Get.put(ProfileViewModel());
-                              vm.getProfilePageData(
+                              vm.getProfile(
                                   context: context,
-                                  id: viewModel.accessToken!);
+                                  accessToken: viewModel.accessToken!);
                             });
                           }
                         })
@@ -126,7 +125,7 @@ class AddAwardView extends GetView<AddAwardViewModel> {
         children: [
           getHeight(context, 0.010),
           textFieldWRYSF(
-              context: context, hint: "Title:", controller: vm.titleController),
+              context: context, hint: "${context.local.title}:", controller: vm.titleController),
           getHeight(context, 0.010),
           Container(
             height: 48,
@@ -140,9 +139,9 @@ class AddAwardView extends GetView<AddAwardViewModel> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Obx(() => appText(
-                    title: controller.selectedDate.value ?? "Select",
-                    context: context)),
+                Obx(() => CustomText(
+                    title: controller.selectedDate.value ?? context.local.select,
+                    )),
                 InkWell(
                     onTap: () {
                       controller.chooseDate(context);
@@ -154,7 +153,7 @@ class AddAwardView extends GetView<AddAwardViewModel> {
           getHeight(context, 0.010),
           textFieldWRYSF(
               context: context,
-              hint: "Description:",
+              hint: "${context.local.description}:",
               expend: true,
               controller: vm.descriptionController),
           getHeight(context, 0.010),
@@ -174,9 +173,8 @@ class AddAwardView extends GetView<AddAwardViewModel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        appText(
+        CustomText(
             title: hint,
-            context: context,
             fontSize: 12,
             fontWeight: FontWeight.bold,
             colorOpecity: 0.7),

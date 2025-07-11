@@ -17,9 +17,8 @@ Widget incorporationVerifyTile({
       mainAxisSize: MainAxisSize.min,
       children: [
         isVerify
-            ? appText(
+            ? CustomText(
                 title: '✓ ',
-                context: context,
                 fontSize: 60,
                 color: AppColor.buttonColor)
             : const Icon(
@@ -29,18 +28,16 @@ Widget incorporationVerifyTile({
               ),
         const Gap(8),
         isVerify
-            ? appText(
+            ? CustomText(
                 title: 'Verified',
-                context: context,
                 fontSize: 20,
                 color: AppColor.blackColor)
-            : appText(
+            : CustomText(
                 title: 'Error',
-                context: context,
                 fontSize: 20,
                 color: AppColor.blackColor),
         const Gap(8),
-        appText(title: title, context: context, colorOpecity: 0.60),
+        CustomText(title: title, colorOpecity: 0.60),
         const Gap(8),
         isVerify
             ? const Gap(0)
@@ -48,10 +45,9 @@ Widget incorporationVerifyTile({
                 onTap: () {
                   Get.toNamed(AppRoutes.incorporationUploadView);
                 },
-                child: appText(
+                child: CustomText(
                     title: "Verify your Incorporation?",
                     color: AppColor.facebookColor,
-                    context: context,
                     colorOpecity: 0.90),
               )
       ],

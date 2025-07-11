@@ -6,7 +6,6 @@ import 'package:propertier/App/Home/View/home_view.dart';
 import 'package:propertier/App/PropertiesAndShortVideo/View/component/properties_search_tile.dart';
 import 'package:propertier/Utils/animated_toggle.dart';
 import 'package:propertier/Utils/app_text.dart';
-import 'package:propertier/Utils/bottom_sheet.dart';
 import 'package:propertier/Utils/box_shadow.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
@@ -79,9 +78,8 @@ class PropertiesAndVideosAppBar extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      appText(
+                      CustomText(
                           title: context.local.location,
-                          context: context,
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
                           colorOpecity: 0.6),
@@ -114,10 +112,9 @@ class PropertiesAndVideosAppBar extends StatelessWidget {
                                 color: AppColor.buttonColor,
                               ),
                               Expanded(
-                                child: appText(
+                                child: CustomText(
                                     maxLines: 1,
                                     title: viewModel.currentLocation,
-                                    context: context,
                                     fontSize: 14),
                               ),
                               Icon(
@@ -183,9 +180,8 @@ class PropertiesAndVideosAppBar extends StatelessWidget {
                             )),
                         child: Row(
                           children: [
-                            appText(
-                                title: "All Types",
-                                context: context,
+                            CustomText(
+                                title: context.local.all_types,
                                 fontSize: 12,
                                 color: AppColor.blackColor,
                                 fontWeight: FontWeight.normal)
@@ -224,9 +220,8 @@ class PropertiesAndVideosAppBar extends StatelessWidget {
                                   )),
                               child: Row(
                                 children: [
-                                  appText(
+                                  CustomText(
                                       title: viewModel.listOfTab[index],
-                                      context: context,
                                       fontSize: 12,
                                       color: AppColor.blackColor,
                                       fontWeight: FontWeight.normal)

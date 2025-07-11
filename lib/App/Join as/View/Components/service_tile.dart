@@ -5,10 +5,10 @@ import 'package:info_popup/info_popup.dart';
 import '../../../../constant/colors.dart';
 import '../../../../Utils/app_text.dart';
 
-Widget ServiceTile({
+Widget serviceTile({
   required String content,
   required String title,
-  required String AssetimageString,
+  required String assetImageString,
   required BuildContext context,
 }) {
   return Container(
@@ -41,14 +41,13 @@ Widget ServiceTile({
             ],
           ),
           Image.asset(
-            AssetimageString,
+            assetImageString,
             width: 74,
             height: 63,
           ),
           const Gap(15),
-          appText(
+          CustomText(
               title: title,
-              context: context,
               fontSize: 15,
               fontWeight: FontWeight.w600,
               colorOpecity: 0.6)

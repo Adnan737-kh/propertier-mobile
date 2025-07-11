@@ -54,11 +54,11 @@ class SelectFeaturedTypeView extends GetView<SelectFeatuedTypeController> {
                     children: [
                       Row(
                         children: [
-                          appText(
+                          CustomText(
                               title: "Select What to make ads",
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              context: context),
+                              ),
                         ],
                       ),
                       getHeight(context, 0.01),
@@ -92,8 +92,8 @@ class SelectFeaturedTypeView extends GetView<SelectFeatuedTypeController> {
                           Text(controller.featuredItem.value == 'Property' && controller.selectedPropertyID.value.id == null? "Select Property":controller.featuredItem.value == 'Property' && controller.selectedPropertyID.value.id != null? "Selected Property": ""),
                           if(controller.featuredItem.value == 'Property')
                             TextButton(onPressed: (){
-                              Get.to(FullScreenProperties());
-                            }, child: Text("View All",style: TextStyle(
+                              Get.to(const FullScreenProperties());
+                            }, child: const Text("View All",style: TextStyle(
                               color: AppColor.blueColor
                             ),),)
                         ],
@@ -124,18 +124,17 @@ class SelectFeaturedTypeView extends GetView<SelectFeatuedTypeController> {
                                         crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                         children: [
-                                          appText(
+                                          CustomText(
                                               title: "Title ",
                                               style: context
-                                                  .textTheme.titleSmall,
-                                              context: context),
+                                                  .textTheme.titleSmall,),
                                           const Gap(3),
-                                          appText(
+                                          CustomText(
                                               title:
                                               " ${controller.selectedPropertyID.value.title!}",
                                               style: context
                                                   .textTheme.bodySmall,
-                                              context: context),
+                                              ),
                                         ],
                                       ),
                                     ],
@@ -150,18 +149,18 @@ class SelectFeaturedTypeView extends GetView<SelectFeatuedTypeController> {
                                         crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                         children: [
-                                          appText(
+                                          CustomText(
                                               title: "Description ",
                                               style: context
                                                   .textTheme.titleSmall,
-                                              context: context),
+                                              ),
                                           const Gap(3),
-                                          appText(
+                                          CustomText(
                                               title:
                                               " ${controller.selectedPropertyID.value.description!}",
                                               style: context
                                                   .textTheme.bodySmall,
-                                              context: context),
+                                              ),
                                         ],
                                       ),
                                     ],
@@ -201,11 +200,11 @@ class SelectFeaturedTypeView extends GetView<SelectFeatuedTypeController> {
                     children: [
                       Row(
                         children: [
-                          appText(
+                          CustomText(
                               title: "Select Ad Type",
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              context: context),
+                              ),
                         ],
                       ),
                       getHeight(context, 0.01),
@@ -250,7 +249,7 @@ class SelectFeaturedTypeView extends GetView<SelectFeatuedTypeController> {
         ),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: customButton(
+          child: CustomButton(
               title: "Next",
               onTap: () async {
                 print(controller.selectedPropertyID.value.id.toString());
@@ -324,7 +323,7 @@ class SelectFeaturedTypeView extends GetView<SelectFeatuedTypeController> {
           onChanged: onChanged,
         ),
         const Gap(4),
-        appText(title: title, context: context, colorOpecity: 0.6),
+        CustomText(title: title, colorOpecity: 0.6),
       ],
     );
   }
@@ -358,9 +357,8 @@ Widget iDUploadTile({
                     color: Colors.black.withOpacity(0.4),
                     size: 38,
                   ),
-                  appText(
+                  CustomText(
                       title: "Upload Banner Image",
-                      context: context,
                       fontSize: 16,
                       colorOpecity: 0.4,
                       color: controller.pickedImage != ""

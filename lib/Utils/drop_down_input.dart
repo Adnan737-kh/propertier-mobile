@@ -56,9 +56,8 @@ class AppDropdownInput<T> extends StatelessWidget {
                       value: value,
                       child: value == ''
                           ? const SizedBox.shrink()
-                          : appText(
+                          : CustomText(
                               title: value.toString(),
-                              context: context,
                               fontSize: 8,
                               fontWeight: FontWeight.w400));
                 }).toList(),

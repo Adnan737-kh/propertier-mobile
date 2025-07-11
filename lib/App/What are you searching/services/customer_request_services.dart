@@ -12,9 +12,9 @@ class CustomerRequest {
     required String email,
     required String city,
     required String area,
-    required String area_unit,
-    required String min_price,
-    required String max_price,
+    required String areaUnit,
+    required String minPrice,
+    required String maxPrice,
     required String size,
     required String type,
     required String purpose,
@@ -33,9 +33,9 @@ class CustomerRequest {
       request.fields['phone_number'] = phoneNumber;
       request.fields['city'] = city;
       request.fields['area'] = area;
-      request.fields['area_unit'] = area_unit;
-      request.fields['max_price'] = max_price;
-      request.fields['min_price'] = min_price;
+      request.fields['area_unit'] = areaUnit;
+      request.fields['max_price'] = maxPrice;
+      request.fields['min_price'] = minPrice;
       request.fields['agent'] = agent;
       request.fields['longitude'] = longitude;
       request.fields['latitude'] = latitude;

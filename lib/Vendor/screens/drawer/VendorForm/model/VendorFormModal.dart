@@ -21,7 +21,7 @@ class VendorFormModal {
   VendorFormModal.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     requirementDetails = json['requirement_details'] != null
-        ? new ServiceFormModel.fromJson(json['requirement_details'])
+        ?  ServiceFormModel.fromJson(json['requirement_details'])
         : null;
     value = json['value'];
     createdAt = json['created_at'];
@@ -31,16 +31,16 @@ class VendorFormModal {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    if (this.requirementDetails != null) {
-      data['requirement_details'] = this.requirementDetails!.toJson();
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = id;
+    if (requirementDetails != null) {
+      data['requirement_details'] = requirementDetails!.toJson();
     }
-    data['value'] = this.value;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['vendor_id'] = this.vendorId;
-    data['requirement'] = this.requirement;
+    data['value'] = value;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['vendor_id'] = vendorId;
+    data['requirement'] =requirement;
     return data;
   }
 }

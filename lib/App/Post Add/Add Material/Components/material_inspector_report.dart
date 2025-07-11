@@ -45,9 +45,8 @@ class _MaterialInspectReportViewState extends State<MaterialInspectReportView> {
           mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            appText(
+            CustomText(
               title: "Inspection Report",
-              context: context,
               fontSize: 18,
               fontWeight: FontWeight.normal,
             ),
@@ -63,9 +62,8 @@ class _MaterialInspectReportViewState extends State<MaterialInspectReportView> {
               },
             ),
             getHeight(context, 0.015),
-            appText(
+            CustomText(
               title: "Near By Ware House ",
-              context: context,
               fontSize: 18,
               fontWeight: FontWeight.normal,
             ),
@@ -74,15 +72,13 @@ class _MaterialInspectReportViewState extends State<MaterialInspectReportView> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                appText(
+                CustomText(
                     title: "Talk ID",
-                    context: context,
                     fontSize: 14,
                     color: const Color(0xFF6D6E6F),
                     fontWeight: FontWeight.bold),
-                appText(
+                CustomText(
                     title: "73648A467383",
-                    context: context,
                     fontSize: 14,
                     color: const Color(0xFF6D6E6F),
                     fontWeight: FontWeight.bold),
@@ -124,9 +120,8 @@ Widget iDUploadTile({required bool isLoading, File? image, Function()? onTap}) {
                     color: Colors.white,
                     size: 38,
                   ),
-                  appText(
+                  CustomText(
                       title: "Upload PDf File / Images",
-                      context: context,
                       fontSize: 16,
                       color: AppColor.white,
                       fontWeight: FontWeight.bold),
