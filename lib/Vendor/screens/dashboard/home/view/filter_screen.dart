@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/Vendor/screens/dashboard/home/view/select_location_screen.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 class FilterScreen extends StatefulWidget {
   const FilterScreen({super.key});
@@ -81,9 +82,9 @@ class _FilterScreenState extends State<FilterScreen> {
                           const SizedBox(
                             width: 2,
                           ),
-                          const Text(
-                            'Filter',
-                            style: TextStyle(
+                           Text(
+                            context.local.filter,
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.w400,
@@ -91,11 +92,11 @@ class _FilterScreenState extends State<FilterScreen> {
                           )
                         ],
                       ),
-                      const Padding(
-                        padding: EdgeInsets.only(right: 14),
+                       Padding(
+                        padding: const EdgeInsets.only(right: 14),
                         child: Text(
-                          'Done',
-                          style: TextStyle(
+                          context.local.done,
+                          style: const TextStyle(
                             color: Color(0xFFFDCD54),
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
@@ -132,7 +133,7 @@ class _FilterScreenState extends State<FilterScreen> {
                                 borderRadius: BorderRadius.circular(33),
                                 borderSide:
                                     const BorderSide(color: Colors.black12)),
-                            hintText: 'Search here',
+                            hintText: context.local.search_here,
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(33),
                             ),
@@ -168,15 +169,15 @@ class _FilterScreenState extends State<FilterScreen> {
                               borderRadius: BorderRadius.circular(20),
                             ),
                           ),
-                          child: const Row(
+                          child:  Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.location_pin,
                                 color: Color(0xFFFDCD54),
                               ),
                               Text(
-                                'Map',
-                                style: TextStyle(
+                                context.local.map,
+                                style: const TextStyle(
                                   color: Color(0xFF131A22),
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
@@ -194,9 +195,8 @@ class _FilterScreenState extends State<FilterScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        'Price Range',
-                        style: TextStyle(
+                       Text(context.local.price_range,
+                        style: const TextStyle(
                           color: Color(0x99131A22),
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -210,7 +210,7 @@ class _FilterScreenState extends State<FilterScreen> {
                         width: Get.width * .22,
                         child: DropdownButtonFormField<String>(
                           value: _category,
-                          hint: const Text('PKR'),
+                          hint:  Text(context.local.pkr),
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.only(bottom: 4 ,left: 6,right: 6),
                               fillColor: const Color(0x05131A22),
@@ -292,7 +292,7 @@ class _FilterScreenState extends State<FilterScreen> {
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
                               ),
-                              hintText: 'Minimun'),
+                              hintText: context.local.minimum),
                         ),
                       ),
                       Container(
@@ -338,7 +338,7 @@ class _FilterScreenState extends State<FilterScreen> {
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
                               ),
-                              hintText: 'Maximum'),
+                              hintText: context.local.maximum),
                         ),
                       )
                     ],
@@ -543,14 +543,13 @@ class _FilterScreenState extends State<FilterScreen> {
                                 borderRadius: BorderRadius.circular(30),
                               ),
                             ),
-                            child: const Row(
+                            child:  Row(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(
-                                  'Clear All',
-                                  style: TextStyle(
+                                Text(context.local.clear_all,
+                                  style: const TextStyle(
                                     color: Color(0xFF109B0E),
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
@@ -577,14 +576,14 @@ class _FilterScreenState extends State<FilterScreen> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                           ),
-                          child: const Row(
+                          child:  Row(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                'Submit',
-                                style: TextStyle(
+                                context.local.submit,
+                                style: const TextStyle(
                                   color: Color(0xFF131A22),
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,

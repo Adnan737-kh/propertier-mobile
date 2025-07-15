@@ -30,7 +30,9 @@ class ServicesSearhViewModel2 extends GetxController {
   void connectToWebSocket() {
     try {
       String url = "${API.listenBidByVendor}$id/";
-      print(url);
+      if (kDebugMode) {
+        print(url);
+      }
       channel = WebSocketChannel.connect(
         Uri.parse(url),
       );
@@ -49,14 +51,20 @@ class ServicesSearhViewModel2 extends GetxController {
           }
         },
         onError: (error) {
-          print('WebSocket Error: $error');
+          if (kDebugMode) {
+            print('WebSocket Error: $error');
+          }
         },
         onDone: () {
-          print('WebSocket connection closed.');
+          if (kDebugMode) {
+            print('WebSocket connection closed.');
+          }
         },
       );
     } catch (e) {
-      print('Error connecting to WebSocket: $e');
+      if (kDebugMode) {
+        print('Error connecting to WebSocket: $e');
+      }
     }
   }
 
@@ -88,7 +96,7 @@ class ServicesSearhViewModel2 extends GetxController {
         status: status,
         paymentStatus: paymentStatus);
     if (res) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: CustomText(
               title: "Order Created Successfully",
               color: AppColor.white)));

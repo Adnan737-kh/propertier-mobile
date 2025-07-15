@@ -9,6 +9,7 @@ import 'package:propertier/Utils/appbar.dart';
 import 'package:propertier/Utils/loading_view.dart';
 import 'package:propertier/Utils/logo_tile.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 class VerifySigninView extends StatelessWidget {
@@ -67,7 +68,7 @@ class VerifySigninView extends StatelessWidget {
                     height: context.getSize.height * 0.06,
                   ),
                   CustomText(
-                      title: 'Enter your verification Code here',
+                      title: context.local.enter_your_verification_code_here,
                       fontSize: 14,
                       color: AppColor.primaryColor),
                   GestureDetector(
@@ -75,7 +76,7 @@ class VerifySigninView extends StatelessWidget {
                       Get.back();
                     },
                     child: CustomText(
-                      title: 'Wrong Email/Password?',
+                      title: context.local.wrong_email_password,
                       fontSize: 13,
                       fontWeight: FontWeight.w300,
                       color: const Color(0xff4286F5),

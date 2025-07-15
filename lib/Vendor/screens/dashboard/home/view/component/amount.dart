@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/Vendor/screens/dashboard/home/Controller/DetailScreenController.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 class KeypadScreen extends StatefulWidget {
   const KeypadScreen({super.key});
@@ -51,9 +52,9 @@ DetailScreenController controller = Get.find();
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  'Enter Your Amount',
-                  style: TextStyle(
+                 Text(
+                  context.local.enter_your_amount,
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: AppColor.textColor, // Text color
@@ -73,9 +74,9 @@ DetailScreenController controller = Get.find();
                     textAlign: TextAlign.center,
                     keyboardType: TextInputType.none, // Disable keyboard
                     readOnly: true, // Make it read-only
-                    decoration: const InputDecoration(
+                    decoration:  InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'Enter amount', // Hint text
+                      hintText: context.local.enter_amount, // Hint text
                     ),
                   ),
                 ),

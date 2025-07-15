@@ -5,13 +5,13 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:propertier/App/Payment%20Method%20Getwaye/Services/services.dart';
-// import 'package:paymob_pakistan/paymob_payment.dart';
 import 'package:propertier/App/What%20are%20you%20searching/View/Components/custom_botton_wryf.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/appbar.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 import '../../../Features/Featured Pakages/Controller/featured_pakages_controller.dart';
@@ -92,7 +92,9 @@ class PaymentGatwayeView extends GetView<PaymentGatwayeViewModel> {
                   return;
                 }
                 controller.isLoading.value = true;
-                print(controller.featuredItem);
+                if (kDebugMode) {
+                  print(controller.featuredItem);
+                }
                 bool res = false;
                 if (controller.featuredItem == "Profile") {
                   res = await FeaturedService().buyFeaturedProfileAd(
@@ -112,7 +114,9 @@ class PaymentGatwayeView extends GetView<PaymentGatwayeViewModel> {
                   Get.rawSnackbar(message: 'Could not succeed!');
                 }
               } catch (e) {
-                print("error: $e");
+                if (kDebugMode) {
+                  print("error: $e");
+                }
               }
             })),
       ),
@@ -124,7 +128,7 @@ class PaymentGatwayeView extends GetView<PaymentGatwayeViewModel> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomText(
-            title: "Get your Ad Featured:",
+            title: context.local.get_your_ad_featured,
             fontSize: 16,
             fontWeight: FontWeight.bold,
             ),

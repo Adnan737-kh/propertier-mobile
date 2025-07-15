@@ -10,10 +10,15 @@ class OrderService{
     List<OrderModel> orders = [];
     try{
       String url = "${API.vendorOrder}$id";
-      print(url);
+      if (kDebugMode) {
+        print(url);
+      }
       var response = await http.get(Uri.parse(url));
-      print(response.statusCode);
-      print(response.body);
+      if (kDebugMode) {
+        print(response.statusCode);
+
+        print(response.body);
+      }
       if(response.statusCode == 200){
         var data = jsonDecode(response.body);
         for(var d in data){
@@ -23,9 +28,13 @@ class OrderService{
       }
     }
     catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
-    print(orders.length);
+    if (kDebugMode) {
+      print(orders.length);
+    }
     return orders;
   }
 
@@ -42,7 +51,9 @@ class OrderService{
       }
     }
     catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return null;
   }
@@ -50,7 +61,9 @@ class OrderService{
   Future<bool> submitWork(String id, List<String> images, String extraPrice, String description)async{
     try{
       String url = "${API.createOrder}$id/";
-      print(url);
+      if (kDebugMode) {
+        print(url);
+      }
       var request = http.MultipartRequest('PUT', Uri.parse(url));
       request.fields['work_description'] = description;
       request.fields['extra_price'] = extraPrice;
@@ -66,18 +79,24 @@ class OrderService{
       // Send the request
       var response = await request.send();
 
-      print(response.statusCode);
+      if (kDebugMode) {
+        print(response.statusCode);
+      }
 
       if(response.statusCode == 200){
         return true;
       }
 
       final responseBody = await response.stream.bytesToString();
-      print(responseBody);
+      if (kDebugMode) {
+        print(responseBody);
+      }
 
     }
     catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return false;
   }

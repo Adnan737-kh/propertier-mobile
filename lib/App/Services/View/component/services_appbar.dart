@@ -156,7 +156,7 @@ PreferredSize servicesAppBar(BuildContext context,
               getHeight(context, 0.008),
               SearchTextField(
                   hintText: context.local.what_are_you_looking_for,
-                  horzontalPadding: 0,
+                  horizontalPadding: 0,
                   searchController: viewModel.searchController,
                   suFixIcon: Image.asset(Constant.mic))
             ],

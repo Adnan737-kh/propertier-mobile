@@ -8,12 +8,9 @@ import 'package:propertier/Utils/border.dart';
 import 'package:propertier/Utils/box_shadow.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
-// typedef DropDownCallBack =String Function(String);
-// DropDownCallBack onChange = (String val){
-//   return val;
-// };
 Widget chartTile(
   BuildContext context, {
   required String title,
@@ -106,7 +103,7 @@ Widget chartTile(
         child: GestureDetector(
           onTap: viewDetailsCallBack,
           child: CustomText(
-            title: "View Detail",
+            title: context.local.view_detail,
             fontSize: 10,
             fontWeight: FontWeight.w400,
             color: AppColor.darkBack,
@@ -116,22 +113,3 @@ Widget chartTile(
     ],
   );
 }
-
-// Widget charts(
-//     {required ChartsType chartType,
-//     required BuildContext context,
-//     required List<SalesData> spline1,
-//     required List<SalesData> spline2,
-//     required List<SalesData> lineChartData,
-//     required List<SalesData> columnChartData}) {
-//   switch (chartType) {
-//     // case ChartsType.line:
-//     //   return lineChart(context, lineChartData: lineChartData);
-//     // case ChartsType.combination:
-//     //   return columnChart(context, columChartData: columnChartData);
-//     // case ChartsType.spline:
-//     //   return spLineChart(context, chartData: spline1, chartData2: spline2);
-//     // case ChartsType.lineArea:
-//     //   return lineAreaChart(context, lineChartData: lineChartData);
-//   }
-// }

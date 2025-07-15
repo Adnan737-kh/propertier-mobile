@@ -68,7 +68,7 @@ class WaterServiceForm extends GetView<WaterServiceFormController> {
                     width: 86,
                   ),
                   getHeight(context, 0.01),
-                  CustomText(
+                  const CustomText(
                       title: "Domestic And Professional",
                       fontSize: 18,
                       colorOpecity: 0.6,
@@ -201,7 +201,7 @@ _buildDomesticAndProfessionalForm(BuildContext context,
           labelText: 'Pricing Model:',
           itemToString: (s) => s),
       getHeight(context, 0.015),
-      CustomText(
+      const CustomText(
           fontSize: 14,
           fontWeight: FontWeight.w500,
           title: "Amount",
@@ -209,7 +209,7 @@ _buildDomesticAndProfessionalForm(BuildContext context,
       customTextField(
           hintText: 'Enter Amount', controller: controller.amountController),
       getHeight(context, 0.015),
-      CustomText(
+      const CustomText(
           fontSize: 14,
           fontWeight: FontWeight.w500,
           title: "Address",
@@ -221,7 +221,7 @@ _buildDomesticAndProfessionalForm(BuildContext context,
 
       getHeight(context, 0.015),
 
-      CustomText(
+      const CustomText(
           fontSize: 14,
           fontWeight: FontWeight.w500,
           title: "Description",
@@ -380,7 +380,7 @@ class SelectLocation extends StatelessWidget {
                 ),
               ),
               getHeight(context, 0.020),
-              CustomText(
+              const CustomText(
                   title: "Locations:",
                   fontSize: 16,
                   fontWeight: FontWeight.bold,

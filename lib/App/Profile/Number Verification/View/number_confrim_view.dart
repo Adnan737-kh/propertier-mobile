@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import '../../../../constant/AppTextField/app_textfield.dart';
 import '../../../../constant/colors.dart';
 import '../../../../Utils/app_text.dart';
@@ -36,8 +37,7 @@ class NumberConfirmView extends StatelessWidget {
                   // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomText(
-                        title:
-                            "Please enter your Number to \nreceive a verification code.",
+                        title:context.local.please_enter_your_number_to_receive_a_verification_code,
                         fontSize: 16,
                         color: const Color(0xFF6D6E6F),
                         fontWeight: FontWeight.bold),

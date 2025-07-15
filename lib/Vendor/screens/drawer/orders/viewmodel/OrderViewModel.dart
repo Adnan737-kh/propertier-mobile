@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -46,7 +47,9 @@ class OrderViewModel extends GetxController{
         imageFileList.add(selectedimges);
       }
     }
-    print("Length ${imageFileList.length}");
+    if (kDebugMode) {
+      print("Length ${imageFileList.length}");
+    }
   }
 
 
@@ -57,7 +60,7 @@ class OrderViewModel extends GetxController{
     }
     bool res = await OrderService().submitWork(id, imagesPath, extraPriceC.text, descriptionController.text);
     if(res){
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: CustomText(
               title: "Work submit Successfully",
               color: AppColor.white)));

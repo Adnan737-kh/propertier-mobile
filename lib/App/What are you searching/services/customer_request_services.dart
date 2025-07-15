@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -45,7 +46,10 @@ class CustomerRequest {
       request.fields['description'] = description;
 
       final response = await http.Response.fromStream(await request.send());
-      print("Status code is that ${response.statusCode}");
+      if (kDebugMode) {
+          print("Status code is that ${response.statusCode}");
+
+      }
       if (response.statusCode == 200 || response.statusCode == 201) {
         Get.back();
         toast(title: 'Requested Successfully', context: context);

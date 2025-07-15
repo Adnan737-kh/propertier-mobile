@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
@@ -60,7 +61,9 @@ class EditVendorFormController extends GetxController{
 
     }
     catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return items;
   }
@@ -73,10 +76,13 @@ class EditVendorFormController extends GetxController{
 
   Future saveVendorData(Map<String, dynamic> d)async{
     for(VendorFormModal vendorFormModel in data){
-      print(vendorFormModel.requirementDetails!.id);
-      print(d[vendorFormModel.requirementDetails!.fieldName]);
-      print(d[vendorFormModel.requirementDetails!.fieldName] is List);
-      print("-------");
+
+      if (kDebugMode) {
+        print(vendorFormModel.requirementDetails!.id);
+        print(d[vendorFormModel.requirementDetails!.fieldName]);
+        print(d[vendorFormModel.requirementDetails!.fieldName] is List);
+        print("-------");
+      }
       if(d[vendorFormModel.requirementDetails!.fieldName] == null){
 
       }
@@ -100,15 +106,24 @@ class EditVendorFormController extends GetxController{
       request.fields['vendor_id'] = vendorId.toString();
       request.fields['requirement'] = id.toString();
       request.fields['value'] = "\"$value\"";
-      print(request.fields);
+      if (kDebugMode) {
+        print(request.fields);
+      }
       var streamedResponse = await request.send();
-      print("result****");
-      print(streamedResponse.statusCode);
+      if (kDebugMode) {
+        print("result****");
+        print(streamedResponse.statusCode);
+
+      }
       var res = await http.Response.fromStream(streamedResponse);
-      print(res.body);
+      if (kDebugMode) {
+        print(res.body);
+      }
     }
     catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -128,13 +143,20 @@ class EditVendorFormController extends GetxController{
             await http.MultipartFile.fromPath('value', img));
       }
       var streamedResponse = await request.send();
-      print("result****");
-      print(streamedResponse.statusCode);
+      if (kDebugMode) {
+        print("result****");
+        print(streamedResponse.statusCode);
+
+      }
       var res = await http.Response.fromStream(streamedResponse);
-      print(res.body);
+      if (kDebugMode) {
+        print(res.body);
+      }
     }
     catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 

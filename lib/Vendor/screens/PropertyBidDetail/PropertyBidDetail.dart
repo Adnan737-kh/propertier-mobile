@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:propertier/Vendor/screens/PropertyBidDetail/PropertyBidDetailController.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../Utils/app_text.dart';
@@ -27,7 +28,7 @@ class PropertyBidDetail extends GetView<PropertyBidDetailController> {
               color: AppColor.blackColor,
             )),
         title: CustomText(
-            title: "Property Service Bid Detail",
+            title: context.local.property_service_bid_detail,
             fontSize: 16,
             fontWeight: FontWeight.w600),
       ),
@@ -104,13 +105,13 @@ class PropertyBidDetail extends GetView<PropertyBidDetailController> {
               Align(
                 alignment: Alignment.center,
                 child: CustomText(
-                    title: "Order Detail",
+                    title: context.local.order_detail,
                     fontWeight: FontWeight.w600,
                     fontSize: 16),
               ),
               ListTile(
                 title: CustomText(
-                    title: "Work Overview",
+                    title: context.local.work_overview,
                     fontWeight: FontWeight.w600,
                     fontSize: 14,
                     textAlign: TextAlign.start),
@@ -122,11 +123,11 @@ class PropertyBidDetail extends GetView<PropertyBidDetailController> {
               ),
               ListTile(
                 title: CustomText(
-                    title: "Property Address",
+                    title: context.local.property_address,
                     fontWeight: FontWeight.w600,
                     fontSize: 14,
                     textAlign: TextAlign.start),
-                subtitle: CustomText(
+                subtitle: const CustomText(
                     title: "G7 street No 5, House No 11, Islamabad",
                     fontWeight: FontWeight.w500,
                     fontSize: 14,
@@ -134,11 +135,11 @@ class PropertyBidDetail extends GetView<PropertyBidDetailController> {
               ),
               ListTile(
                 title: CustomText(
-                    title: "Description",
+                    title: context.local.description,
                     fontWeight: FontWeight.w600,
                     fontSize: 14,
                     textAlign: TextAlign.start),
-                subtitle: CustomText(
+                subtitle: const CustomText(
                     title:
                         "Description Iron frames for the piston dei. dummy text for the order.",
                     fontWeight: FontWeight.w500,
@@ -147,11 +148,11 @@ class PropertyBidDetail extends GetView<PropertyBidDetailController> {
               ),
               ListTile(
                 title: CustomText(
-                    title: "Order Date & Time",
+                    title: context.local.order_date_and_time,
                     fontWeight: FontWeight.w600,
                     fontSize: 14,
                     textAlign: TextAlign.start),
-                subtitle: CustomText(
+                subtitle: const CustomText(
                     title: "10-10-2025 12:30 pm",
                     fontWeight: FontWeight.w500,
                     fontSize: 14,
@@ -185,7 +186,7 @@ class PropertyBidDetail extends GetView<PropertyBidDetailController> {
                           textFontSize: 20,
                           textFontWeight: FontWeight.w500,
                           context: context,
-                          title: 'Reject',
+                          title: context.local.reject,
                           textColor: AppColor.white,
                           buttonColor: AppColor.googleColor,
                           onClick: () {
@@ -200,7 +201,7 @@ class PropertyBidDetail extends GetView<PropertyBidDetailController> {
                           textFontSize: 20,
                           textFontWeight: FontWeight.w500,
                           context: context,
-                          title: 'Accept',
+                          title: context.local.accept,
                           onClick: () {}),
                     ),
                   )

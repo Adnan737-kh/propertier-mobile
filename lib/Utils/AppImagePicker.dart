@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 Future<File?> showOption(BuildContext context) async {
   File? file;
@@ -35,7 +36,7 @@ Future<File?> showOption(BuildContext context) async {
                   if (photo != null) file = File(photo.path);
                   Get.back();
                 },
-                title:const  Text("Camera"),
+                title:  Text(context.local.camera),
                 trailing: const Icon(Icons.camera_alt_outlined),
               ),
               ListTile(
@@ -45,7 +46,7 @@ Future<File?> showOption(BuildContext context) async {
                     if (photo != null) file = File(photo.path);
                     Get.back();
                   },
-                  title:const  Text("Gallery"),
+                  title: Text(context.local.gallery),
                   trailing: const Icon(Icons.image)),
             ],
           ),

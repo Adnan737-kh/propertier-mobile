@@ -13,6 +13,7 @@ import 'package:propertier/Vendor/screens/dashboard/profile/model/profile_model.
 import 'package:propertier/Vendor/screens/dashboard/profile/view/Services_details.dart';
 import 'package:propertier/Vendor/screens/dashboard/profile/view/about.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 class ProfileScreen extends StatefulWidget {
    
@@ -107,7 +108,7 @@ class _ProfileScreenState extends State<ProfileScreen>
             return const Center(child: CircularProgressIndicator());
           } else if (profileController.errorMessage.isNotEmpty) {
             return Center(
-                child: Text('Error: ${profileController.errorMessage}'));
+                child: Text('${context.local.error} ${profileController.errorMessage}'));
           } else {
             return SingleChildScrollView(
                 child: Column(
@@ -193,9 +194,9 @@ class _ProfileScreenState extends State<ProfileScreen>
                                   ),
                                 ),
                                 const SizedBox(height: 2),
-                                const Text(
-                                  'Followers',
-                                  style: TextStyle(
+                                 Text(
+                                   context.local.followers,
+                                   style: const TextStyle(
                                     color: Color(0x99131A22),
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
@@ -216,9 +217,9 @@ class _ProfileScreenState extends State<ProfileScreen>
                                   ),
                                 ),
                                 const SizedBox(height: 2),
-                                const Text(
-                                  'Likes',
-                                  style: TextStyle(
+                                 Text(
+                                  context.local.likes,
+                                  style: const TextStyle(
                                     color: Color(0x99131A22),
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
@@ -279,7 +280,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                                   borderRadius: BorderRadius.only(bottomRight: Radius.circular(20), bottomLeft: Radius.circular(20))
                                 ),
                                 alignment: Alignment.center,
-                                child: const Text("License Card",style: TextStyle(
+                                child:  Text(context.local.license_card,style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold
                                 ),),
@@ -324,11 +325,11 @@ class _ProfileScreenState extends State<ProfileScreen>
                               if (profileController.isLicenseExpired()) {
                                 return ElevatedButton(
                                   onPressed: profileController.renewLicense,
-                                  child: const Text("Renew License Card"),
+                                  child:  Text(context.local.renew_license_card),
                                 );
                               } else {
                                 return Text(
-                                  "License valid until: ${DateFormat('yyyy-MM-dd HH:mm:ss').format(profileController.expirationDate.value!)}",
+                                  "${context.local.license_valid_until} ${DateFormat('yyyy-MM-dd HH:mm:ss').format(profileController.expirationDate.value!)}",
                                   style: const TextStyle(fontSize: 16),
                                 );
                               }
@@ -345,26 +346,26 @@ class _ProfileScreenState extends State<ProfileScreen>
                       TabBar(
                         controller: tabController,
                         labelPadding: EdgeInsets.zero,
-                        tabs: const [
+                        tabs:  [
                           Text(
-                            'About',
-                            style: TextStyle(
+                            context.local.about,
+                            style: const TextStyle(
                               color: Color(0xE5131A22),
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                           Text(
-                            'Award',
-                            style: TextStyle(
+                            context.local.awards,
+                            style: const TextStyle(
                               color: Color(0xE5131A22),
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                           Text(
-                            'Appreciations',
-                            style: TextStyle(
+                            context.local.appreciations,
+                            style: const TextStyle(
                               color: Color(0xE5131A22),
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -453,13 +454,13 @@ class _ProfileScreenState extends State<ProfileScreen>
                             ),
 
                             const SizedBox(height: 10),
-                            const Row(
+                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Expanded(
                                   child: Text(
-                                    'Uploaded Posts',
-                                    style: TextStyle(
+                                    context.local.uploaded_posts,
+                                    style: const TextStyle(
                                       color: Color(0xFF131A22),
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
@@ -469,8 +470,8 @@ class _ProfileScreenState extends State<ProfileScreen>
                                 Opacity(
                                   opacity: 0.60,
                                   child: Text(
-                                    'View All',
-                                    style: TextStyle(
+                                    context.local.view_all,
+                                    style: const TextStyle(
                                       color: Color(0xFF109B0E),
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
@@ -671,7 +672,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                                                                 4),
                                                       ),
                                                     ),
-                                                    child: const Row(
+                                                    child:  Row(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
                                                       mainAxisAlignment:
@@ -682,8 +683,8 @@ class _ProfileScreenState extends State<ProfileScreen>
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          'Delete',
-                                                          style: TextStyle(
+                                                          context.local.delete,
+                                                          style: const TextStyle(
                                                             color:
                                                                 Color(0xFF109B0E),
                                                             fontSize: 12,
@@ -728,7 +729,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                                                                 4),
                                                       ),
                                                     ),
-                                                    child: const Row(
+                                                    child:  Row(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
                                                       mainAxisAlignment:
@@ -739,8 +740,8 @@ class _ProfileScreenState extends State<ProfileScreen>
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          'Detail',
-                                                          style: TextStyle(
+                                                          context.local.detail,
+                                                          style: const TextStyle(
                                                             color:
                                                                 Color(0xE5131A22),
                                                             fontSize: 12,
@@ -908,16 +909,16 @@ class _ProfileScreenState extends State<ProfileScreen>
                                         ),
                                       if (profileController.image == null &&
                                           !profileController.isImageAdded)
-                                        const Text('No image selected'),
+                                         Text(context.local.no_image_selected),
                                       if (!profileController.isImageAdded)
                                         ElevatedButton(
                                           onPressed: () async {
                                             if (kDebugMode) {
                                               print('add ur award');
                                             }
-                                            final box = GetStorage();
-                                            String? vendorUserId =
-                                                box.read('vendorUserId');
+                                            // final box = GetStorage();
+                                            // String? vendorUserId =
+                                            //     box.read('vendorUserId');
 
                                             if (profileController.image != null
                                                 && profileController.accessToken!.isNotEmpty ) {
@@ -981,9 +982,9 @@ class _ProfileScreenState extends State<ProfileScreen>
                                     onTap: () {
                                       profileController.pickImage();
                                     },
-                                    child: const Text(
-                                      'Add Award1',
-                                      style: TextStyle(
+                                    child:  Text(
+                                     context.local.add_award,
+                                      style: const TextStyle(
                                         color: Color(0xFF109B0E),
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500,
@@ -1025,8 +1026,8 @@ class _ProfileScreenState extends State<ProfileScreen>
                               height: 12,
                             ),
                             profileController.allFeaturedServices.isEmpty
-                                ? const Center(
-                                    child: Text('No Featured Service Available'),
+                                ?  Center(
+                                    child: Text(context.local.no_featured_service_available),
                                   )
                                 : GridView.builder(
                                     padding: EdgeInsets.zero,
@@ -1115,7 +1116,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                                                         ),
                                                       ),
                                                     ),
-                                                    child: const Row(
+                                                    child:  Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment.start,
                                                       crossAxisAlignment:
@@ -1123,8 +1124,8 @@ class _ProfileScreenState extends State<ProfileScreen>
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          'Featured',
-                                                          style: TextStyle(
+                                                          context.local.featured,
+                                                          style: const TextStyle(
                                                             color:
                                                                 Color(0xFF131A22),
                                                             fontSize: 11.88,
@@ -1302,10 +1303,10 @@ class _ProfileScreenState extends State<ProfileScreen>
                                                                       .isLoading
                                                                       .value
                                                                   ? const CircularProgressIndicator()
-                                                                  : const Text(
-                                                                      'Delete',
+                                                                  :  Text(
+                                                                      context.local.delete,
                                                                       style:
-                                                                          TextStyle(
+                                                                          const TextStyle(
                                                                         color: Color(
                                                                             0xFF109B0E),
                                                                         fontSize:
@@ -1338,7 +1339,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                                                                           .circular(
                                                                               4)),
                                                         ),
-                                                        child: const Row(
+                                                        child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.min,
                                                           mainAxisAlignment:
@@ -1349,8 +1350,8 @@ class _ProfileScreenState extends State<ProfileScreen>
                                                                   .center,
                                                           children: [
                                                             Text(
-                                                              'Detail',
-                                                              style: TextStyle(
+                                                              context.local.detail,
+                                                              style: const TextStyle(
                                                                 color: Color(
                                                                     0xE5131A22),
                                                                 fontSize: 12,
@@ -1481,9 +1482,9 @@ class _ProfileScreenState extends State<ProfileScreen>
                                     ),
                                   ),
                                   const SizedBox(width: 9),
-                                  const Text(
-                                    'Add Award',
-                                    style: TextStyle(
+                                   Text(
+                                    context.local.add_award,
+                                    style: const TextStyle(
                                       color: Color(0xFF109B0E),
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
@@ -1498,9 +1499,9 @@ class _ProfileScreenState extends State<ProfileScreen>
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Text(
-                                  'Uploaded Posts',
-                                  style: TextStyle(
+                                 Text(
+                                  context.local.uploaded_posts,
+                                  style: const TextStyle(
                                     color: Color(0xFF131A22),
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
@@ -1509,11 +1510,11 @@ class _ProfileScreenState extends State<ProfileScreen>
                                 const SizedBox(width: 10),
                                 GestureDetector(
                                   onTap: widget.onViewAllTap,
-                                  child: const Opacity(
+                                  child:  Opacity(
                                     opacity: 0.60,
                                     child: Text(
-                                      'View All',
-                                      style: TextStyle(
+                                      context.local.view_all,
+                                      style: const TextStyle(
                                         color: Color(0xFF109B0E),
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500,
@@ -1528,8 +1529,8 @@ class _ProfileScreenState extends State<ProfileScreen>
                               height: 12,
                             ),
                             profileController.allFeaturedServices.isEmpty
-                                ? const Center(
-                                    child: Text('No Featured Service Available'),
+                                ?  Center(
+                                    child: Text(context.local.no_featured_service_available),
                                   )
                                 : GridView.builder(
                                     padding: EdgeInsets.zero,
@@ -1922,17 +1923,17 @@ class _ProfileScreenState extends State<ProfileScreen>
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Confirm Deletion'),
-          content: const Text('Are you sure you want to delete this service?'),
+          title:  Text(context.local.confirm_deletion),
+          content:  Text(context.local.are_you_sure_you_want_to_delete_this_service),
           actions: <Widget>[
             TextButton(
-              child: const Text('Cancel'),
+              child:  Text(context.local.cancel),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: const Text('Delete'),
+              child:  Text(context.local.delete),
               onPressed: () {
                 profileController.deleteAward(awardId,profileController.accessToken!);
                 // print("$serviceId");
@@ -1950,17 +1951,17 @@ class _ProfileScreenState extends State<ProfileScreen>
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Confirm Deletion'),
-          content: const Text('Are you sure you want to delete this service?'),
+          title:  Text(context.local.confirm_deletion),
+          content:  Text(context.local.are_you_sure_you_want_to_delete_this_service),
           actions: <Widget>[
             TextButton(
-              child: const Text('Cancel'),
+              child:  Text(context.local.cancel),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: const Text('Delete'),
+              child:  Text(context.local.delete),
               onPressed: () {
                 profileController.deleteService(serviceId);
                 // print("$serviceId");

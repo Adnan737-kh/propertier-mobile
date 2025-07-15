@@ -55,7 +55,7 @@ class PropertyServiceForm extends GetView<PropertyServiceFormController> {
                   ),
                   getHeight(context, 0.01),
                   CustomText(
-                      title: "Property",
+                      title: context.local.property,
                       fontSize: 18,
                       colorOpecity: 0.6,
                       fontWeight: FontWeight.w500,
@@ -113,7 +113,7 @@ class PropertyServiceForm extends GetView<PropertyServiceFormController> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 CustomText(
-                                    title: "Sub service Name",
+                                    title: context.local.sub_service_name,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600),
                                 getWidth(context, 0.010),
@@ -150,7 +150,7 @@ class PropertyServiceForm extends GetView<PropertyServiceFormController> {
                               alignment: Alignment.centerLeft,
                               child: CustomText(
                                   colorOpecity: 0.6,
-                                  title: "sub service short description.",
+                                  title: context.local.sub_service_short_description,
                                   fontSize: 10,
                                   fontWeight: FontWeight.w600,
                                   ),
@@ -177,7 +177,7 @@ class PropertyServiceForm extends GetView<PropertyServiceFormController> {
                       getHeight(context, 0.008),
                       const UploadWorkPhotosTile(),
                       getHeight(context, 0.015),
-                      CustomText(
+                      const CustomText(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           title: "Brief Overview",
@@ -186,7 +186,7 @@ class PropertyServiceForm extends GetView<PropertyServiceFormController> {
                           controller: controller.overviewController),
                       getHeight(context, 0.008),
                       getHeight(context, 0.015),
-                      CustomText(
+                      const CustomText(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           title: "Address Detail (Street, House/Office No)",
@@ -198,13 +198,13 @@ class PropertyServiceForm extends GetView<PropertyServiceFormController> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CustomText(
-                              title: "Property Location", ),
+                              title:context.local.property_location, ),
                           TextButton(
                               onPressed: () {
                                 controller.places.clear();
-                                Get.to(SelectLocation(isPickup: false));
+                                Get.to(const SelectLocation(isPickup: false));
                               },
-                              child: const Text("Select"))
+                              child:  Text(context.local.select))
                         ],
                       ),
                       Obx(() => controller.dropLocation.value != null
@@ -212,7 +212,7 @@ class PropertyServiceForm extends GetView<PropertyServiceFormController> {
                               title: controller.dropLocation.value,
                                )
                           : CustomText(
-                              title: "Not Selected",
+                              title: context.local.not_selected,
                               fontSize: 12)),
                       getHeight(context, 0.008),
                       const Divider(),
@@ -250,7 +250,7 @@ class PropertyServiceForm extends GetView<PropertyServiceFormController> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     CustomText(
-                                        title: "Date Time", ),
+                                        title: context.local.date_time, ),
                                     TextButton(
                                         onPressed: () {
                                           controller
@@ -262,7 +262,7 @@ class PropertyServiceForm extends GetView<PropertyServiceFormController> {
                                 Obx(() => controller.dateTime.value != null
                                     ? Text(controller.dateTime.value.toString())
                                     : CustomText(
-                                        title: "Not Selected",
+                                        title:context.local.not_selected,
                                         fontSize: 12)),
                               ],
                             )
@@ -300,11 +300,11 @@ class PropertyServiceForm extends GetView<PropertyServiceFormController> {
 }
 
 class SelectLocation extends StatelessWidget {
-  SelectLocation({super.key, required this.isPickup});
-  bool isPickup;
+  const SelectLocation({super.key, required this.isPickup});
+  final bool isPickup;
   @override
   Widget build(BuildContext context) {
-    final FocusNode _focusNode = FocusNode();
+    final FocusNode focusNode = FocusNode();
     TextEditingController searchAddressTextController = TextEditingController();
     PropertyServiceFormController controller = Get.find();
     return Scaffold(
@@ -325,7 +325,7 @@ class SelectLocation extends StatelessWidget {
                 height: 54,
                 // width: context.width * 0.688,
                 child: TextFormField(
-                  focusNode: _focusNode,
+                  focusNode: focusNode,
                   controller: searchAddressTextController,
                   style: textStyle(context: context, fontSize: 12),
                   decoration: InputDecoration(
@@ -355,7 +355,7 @@ class SelectLocation extends StatelessWidget {
               ),
               getHeight(context, 0.020),
               CustomText(
-                  title: "Locations:",
+                  title: context.local.locations,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,),
               getHeight(context, 0.020),
@@ -373,12 +373,11 @@ class SelectLocation extends StatelessWidget {
 
 class DestinationSection extends StatelessWidget {
   DestinationSection({super.key, required this.isPickup});
-  bool isPickup;
-  PropertyServiceFormController controller = Get.find();
+  final bool isPickup;
+  final PropertyServiceFormController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    print("Places Length ${controller.places.length}");
     return Obx(
       () => ListView.builder(
         itemCount: controller.places.length,

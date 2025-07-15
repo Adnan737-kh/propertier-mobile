@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:geolocator/geolocator.dart';
@@ -8,6 +9,7 @@ import 'package:propertier/App/What%20are%20you%20searching/ViewModel/what_are_v
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/textStyle.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
@@ -34,14 +36,14 @@ class _MyMapState extends State<MapViewWRYSF> {
   // );
 
   // on below line we have created the list of markers
-  final List<Marker> _markers = <Marker>[
-    const Marker(
-        markerId: MarkerId('1'),
-        position: LatLng(33.738045, 73.084488),
-        infoWindow: InfoWindow(
-          title: 'Islamabad',
-        )),
-  ];
+  // final List<Marker> _markers = <Marker>[
+  //   const Marker(
+  //       markerId: MarkerId('1'),
+  //       position: LatLng(33.738045, 73.084488),
+  //       infoWindow: InfoWindow(
+  //         title: 'Islamabad',
+  //       )),
+  // ];
 
   // created method for getting user current location
   Future<Position> getUserCurrentLocation() async {
@@ -49,7 +51,9 @@ class _MyMapState extends State<MapViewWRYSF> {
         .then((value) {})
         .onError((error, stackTrace) async {
       await Geolocator.requestPermission();
-      print("ERROR$error");
+      if (kDebugMode) {
+        print("ERROR$error");
+      }
     });
     return await Geolocator.getCurrentPosition();
   }
@@ -207,7 +211,7 @@ class _MyMapState extends State<MapViewWRYSF> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 CustomText(
-                                    title: "Area Range",
+                                    title: context.local.area_range,
                                     fontSize: 12),
                                 CustomText(
                                     title:

@@ -32,13 +32,13 @@ class HomeServices {
 
         homeModel = HomeModel.fromJson(decodedJson);
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: CustomText(
                 title: 'Something went wrong.',
                 color: AppColor.white)));
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: CustomText(
               title: 'Something went wrong.',
               color: AppColor.white)));
@@ -57,7 +57,7 @@ class HomeServices {
       final response = await http.get(Uri.parse(API.homeDataUrl));
       if (response.statusCode == 200) {
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: CustomText(
                 title: 'Something went wrong getShortVideoData.',
                 color: AppColor.white)));

@@ -27,7 +27,7 @@ class SignupServices {
     // Check if the user already exists
     final exists = await _checkUserExists(email, firebaseID);
     if (exists) {
-      ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(Get.context!).showSnackBar(const SnackBar(
         content: CustomText(
           title: 'User with this email and Firebase ID already exists.',
           color: AppColor.white,
@@ -76,7 +76,7 @@ class SignupServices {
         return null;
       }
     } catch (e) {
-      ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(Get.context!).showSnackBar(const SnackBar(
         content: CustomText(
           title: 'Something went wrong.',
           color: AppColor.white,

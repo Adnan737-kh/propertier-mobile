@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/App/Activity/ViewModel/activity_viewmodel.dart';
 import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';

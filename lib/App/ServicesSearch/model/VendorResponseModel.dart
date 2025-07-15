@@ -8,7 +8,7 @@ class VendorOfferModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (bidResponse != null) {
       data['bid_response'] =bidResponse!.toJson();
     }
@@ -40,7 +40,7 @@ class BidResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  Map<String, dynamic>();
+    final Map<String, dynamic> data =  <String, dynamic>{};
     data['id'] = id;
     if (vendor != null) {
       data['vendor'] =vendor!.toJson();

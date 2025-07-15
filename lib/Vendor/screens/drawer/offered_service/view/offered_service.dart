@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OfferedService extends StatefulWidget {
@@ -65,10 +66,10 @@ class _OfferedServiceState extends State<OfferedService> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text(
-            'Add your Service',
+          title:  Text(
+            context.local.add_your_service,
             textAlign: TextAlign.start,
-            style: TextStyle(
+            style: const TextStyle(
               color: Color(0x99131A22),
               fontSize: 12,
               fontWeight: FontWeight.w500,
@@ -88,7 +89,7 @@ class _OfferedServiceState extends State<OfferedService> {
                     borderSide: BorderSide(
                       color: Colors.black.withOpacity(0.10000000149011612),
                     )),
-                hintText: 'Enter Service here..',
+                hintText: context.local.enter_service_here,
                 focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     borderSide: BorderSide(
@@ -209,9 +210,9 @@ class _OfferedServiceState extends State<OfferedService> {
                         const SizedBox(
                           width: 2,
                         ),
-                        const Text(
-                          'Offered Services',
-                          style: TextStyle(
+                        Text(
+                          context.local.offered_services,
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,
                             fontWeight: FontWeight.w400,

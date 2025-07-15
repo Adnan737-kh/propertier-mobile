@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:propertier/App/Profile/View/(Properties)Request%20and%20Demonds/Detail%20page/View/r_d_detail_view.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/divider.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 // import 'package:order_tracker_zen/order_tracker_zen.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
@@ -187,7 +188,7 @@ class RequestDemandView extends GetView<RequestDemandViewModel> {
                                                 ))
                                             .toList())
                                     : CustomText(
-                                        title: "No Data", )
+                                        title: context.local.no_data, )
                                 : snapshot.error != null
                                     ? const Text('Error generating thumbnail')
                                     : const Center(
@@ -265,7 +266,7 @@ class RequestDemandView extends GetView<RequestDemandViewModel> {
                                                   ],
                                                 ))
                                             .toList())
-                                    : CustomText(title: "No Data")
+                                    : CustomText(title: context.local.no_data)
                                 : snapshot.error != null
                                     ? const Text('Error generating thumbnail')
                                     : const Center(

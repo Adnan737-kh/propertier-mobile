@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -43,9 +44,11 @@ class FeaturedPakagesView extends StatelessWidget {
                 children: List.generate(controller.featuredPakages.length,
                     (int index) {
               if (controller.featuredPakages[index].status == "active") {
-                print(Get.find<SelectFeatuedTypeController>()
+                if (kDebugMode) {
+                  print(Get.find<SelectFeatuedTypeController>()
                     .selectedFeaturedType
                     .value);
+                }
                 if (Get.find<SelectFeatuedTypeController>()
                             .selectedFeaturedType
                             .value ==

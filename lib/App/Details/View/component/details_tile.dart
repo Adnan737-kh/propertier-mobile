@@ -205,7 +205,7 @@ Widget detailTile(BuildContext context,
                     "slug": dataModel.relatedProperties[index].slug,
                     "user": "null"
                   });},
-                child: recommandedTile(
+                child: recommendedTile(
                   context: context,
                   imageUrl: dataModel.relatedProperties[index].image ??
                       Constant.dummyImage,

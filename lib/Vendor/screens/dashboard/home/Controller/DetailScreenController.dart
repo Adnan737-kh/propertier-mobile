@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:geocoding/geocoding.dart' as geocode;
@@ -21,7 +22,9 @@ class DetailScreenController extends GetxController{
   }
 
   void showMyLocation(){
-    print("Moving...");
+    if (kDebugMode) {
+      print("Moving...");
+    }
     mapController.moveCamera(CameraUpdate.newLatLng(LatLng(latitude.value, longitude.value)));
   }
 

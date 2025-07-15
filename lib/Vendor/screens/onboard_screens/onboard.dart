@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 // import 'package:propertier/Vendor/screens/auth/view/signin_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -123,10 +124,10 @@ class _OnboardingViewState extends State<OnboardingView> {
                             borderRadius: BorderRadius.circular(6),
                           ),
                         ),
-                        child: const Center(
+                        child:  Center(
                           child: Text(
-                            'Next',
-                            style: TextStyle(
+                            context.local.next,
+                            style: const TextStyle(
                               color: Color(0xFF131A22),
                               fontSize: 17,
                               fontWeight: FontWeight.w500,

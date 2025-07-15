@@ -56,13 +56,18 @@ class FeaturedService {
         headers: <String, String>{'Content-Type': 'application/json'},
         body: encodedData,
       );
-      print(response.statusCode);
-      print(response.body);
+      if (kDebugMode) {
+        print(response.statusCode);
+        print(response.body);
+
+      }
       if(response.statusCode == 201){
         flag = true;
       }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return flag;
   }
@@ -104,14 +109,20 @@ class FeaturedService {
       if (response.statusCode == 201) {
         flag = true;
       } else {
-        print('Failed with status code: ${response.statusCode}');
+        if (kDebugMode) {
+          print('Failed with status code: ${response.statusCode}');
+        }
       }
 
       // Print response body
       final responseBody = await response.stream.bytesToString();
-      print(responseBody);
+      if (kDebugMode) {
+        print(responseBody);
+      }
     } catch (e) {
-      print('Error: $e');
+      if (kDebugMode) {
+        print('Error: $e');
+      }
     }
 
     return flag;

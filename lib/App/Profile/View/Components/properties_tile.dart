@@ -213,7 +213,7 @@ Container propertiesTile(BuildContext context,
                                 WidgetStatePropertyAll(AppColor.googleColor)),
                         // color: AppColor.googleColor,
                         label: CustomText(
-                            title: "Delete",
+                            title: context.local.delete,
                             color: AppColor.white,),
                         onPressed: () {
                           showDialog(

@@ -7,7 +7,7 @@ import '../../../../../Handlers/permissions_handler.dart';
 
 class AddVehicleController extends GetxController{
 
-  final _formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
 
   // TextEditingControllers for each field
   final TextEditingController makeController = TextEditingController();

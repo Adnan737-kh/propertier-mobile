@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/Vendor/screens/dashboard/fearture_ads/Model/feature_model.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 
@@ -284,12 +285,12 @@ class _FeatureAdsDetailScreenState extends State<FeatureAdsDetailScreen> {
                           const SizedBox(height: 2),
                           const Divider(),
                           const SizedBox(height: 2),
-                          const Row(
+                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                'Description',
-                                style: TextStyle(
+                                context.local.description,
+                                style: const TextStyle(
                                   color: Color(0xB2131A22),
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
@@ -312,9 +313,9 @@ class _FeatureAdsDetailScreenState extends State<FeatureAdsDetailScreen> {
                     const SizedBox(
                       height: 22,
                     ),
-                    const Text(
-                      'Short Tour',
-                      style: TextStyle(
+                     Text(
+                     context.local.short_tour,
+                      style: const TextStyle(
                         color: Color(0xFF131A22),
                         fontSize: 16,
                         fontWeight: FontWeight.w500,

@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:propertier/App/Home/View/component/grid_tile.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/divider.dart';
 import 'package:propertier/extensions/localization_extension.dart';

@@ -6,6 +6,7 @@ import 'package:propertier/App/Rental/Components/rental_cutom_btn.dart';
 
 import 'package:propertier/constant/AppButton/text_button.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 import '../../../../Utils/app_text.dart';
@@ -86,12 +87,12 @@ class MarketPlacePaymentView extends GetView<MarketPlacePaymentViewModel> {
                                     color: Color.fromRGBO(207, 14, 0, 1),
                                   ),
                                   CustomText(
-                                      title: "Oops",
+                                      title: context.local.oops,
                                       fontSize: 18,
                                       colorOpecity: 0.6,
                                       fontWeight: FontWeight.bold),
                                   getHeight(context, 0.008),
-                                  CustomText(
+                                  const CustomText(
                                     title:
                                         "You enter amount more \nthen your Current Balance.",
                                     fontSize: 16,
@@ -100,7 +101,7 @@ class MarketPlacePaymentView extends GetView<MarketPlacePaymentViewModel> {
                                   getHeight(context, 0.008),
                                   GestureDetector(
                                     child: CustomText(
-                                        title: "Enter Again?",
+                                        title: context.local.enter_again,
                                         fontSize: 12,
                                         color: AppColor.facebookColor,
                                         fontWeight: FontWeight.normal),

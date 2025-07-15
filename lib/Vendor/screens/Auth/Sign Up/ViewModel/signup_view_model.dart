@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 // ignore: depend_on_referenced_packages
@@ -89,7 +90,9 @@ class SignUpViewModel extends GetxController {
       changeLoading(isGoogleLogin);
       final firebaseSignup = await _auth.createUserWithEmailAndPassword(
           email: email!, password: password!);
-      print("Firebase ID ${firebaseSignup.user!.uid}");
+      if (kDebugMode) {
+        print("Firebase ID ${firebaseSignup.user!.uid}");
+      }
       bool isDone = false;
       if (firebaseSignup.user != null) {
         final result = await SignupServices().signupUserData(
@@ -102,7 +105,9 @@ class SignUpViewModel extends GetxController {
             email: email,
             firebaseID: firebaseSignup.user!.uid,
             phoneNumber: phoneNumber);
-        print("Data is Here $result");
+        if (kDebugMode) {
+          print("Data is Here $result");
+        }
         await AuthService().registerUser(result!, password);
         isDone = true;
       }
@@ -182,7 +187,9 @@ class SignUpViewModel extends GetxController {
       },
       verificationFailed: (FirebaseAuthException e) {},
       codeSent: (String verificationId, int? resendToken) {
-        print("E is Ths $verificationId");
+        if (kDebugMode) {
+          print("E is Ths $verificationId");
+        }
 
         GetStorage().write('authkey', verificationId);
       },
@@ -202,7 +209,9 @@ class SignUpViewModel extends GetxController {
         otpType: OTPType.digitsOnly);
     myAuth.setTheme(theme: "v3");
     final data = await myAuth.sendOTP();
-    print("Email OTP $data");
+    if (kDebugMode) {
+      print("Email OTP $data");
+    }
     if (data == true) {
       changeLoading(true);
 
@@ -225,11 +234,17 @@ class SignUpViewModel extends GetxController {
 
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      print(response.statusCode);
+      if (kDebugMode) {
+        print(response.statusCode);
+      }
       final data = json.decode(response.body);
-      print('Prediction $data');
+      if (kDebugMode) {
+        print('Prediction $data');
+      }
       final predictions = data['predictions'] as List<dynamic>;
-      print("Prediction ${predictions.length}");
+      if (kDebugMode) {
+        print("Prediction ${predictions.length}");
+      }
       places.value = predictions
           .map((prediction) => Place(
                 placeId: prediction['place_id'],
@@ -247,18 +262,26 @@ class SignUpViewModel extends GetxController {
 
   Future<void> sigupWithGoogle({required BuildContext context}) async {
     isGoogleSigninLoading.value = true;
-    print("Starting Google Sign-In process...");
+    if (kDebugMode) {
+      print("Starting Google Sign-In process...");
+    }
 
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      print("Google Sign-In result: $googleUser");
+      if (kDebugMode) {
+        print("Google Sign-In result: $googleUser");
+      }
 
       if (googleUser != null) {
-        print("GOOGLE MAIL: ${googleUser.email}");
+        if (kDebugMode) {
+          print("GOOGLE MAIL: ${googleUser.email}");
+        }
 
         final GoogleSignInAuthentication googleAuth =
             await googleUser.authentication;
-        print("Google Authentication: $googleAuth");
+        if (kDebugMode) {
+          print("Google Authentication: $googleAuth");
+        }
 
         final AuthCredential credential = GoogleAuthProvider.credential(
           accessToken: googleAuth.accessToken,

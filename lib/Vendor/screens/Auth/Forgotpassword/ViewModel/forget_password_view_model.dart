@@ -109,7 +109,7 @@ class ForgotPasswordViewModel extends GetxController {
       forgetPasswordSuccessDialog(context: context);
     } catch (e) {
       // Handle other exceptions that may occur
-      var status0 = AuthExceptionHandler.generateErrorMessage(e);
+      // var status0 = AuthExceptionHandler.generateErrorMessage(e);
       isLoading.value = false; // Assuming you manage loading state somewhere
       toast(title: 'Error sending password reset email', context: context);
     }

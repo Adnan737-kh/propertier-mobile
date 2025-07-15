@@ -24,13 +24,13 @@ class AllPropertiesServices {
 
         allPropertiesModel = AllPropertiesModel.fromJson(decodedJson);
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: CustomText(
                 title: 'Something went wrong.',
                 color: AppColor.white)));
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: CustomText(
               title: 'Something went wrong.',
               color: AppColor.white)));

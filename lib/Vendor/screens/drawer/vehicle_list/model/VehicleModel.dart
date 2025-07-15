@@ -53,7 +53,7 @@ class VehicleModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  Map<String, dynamic>();
+    final Map<String, dynamic> data =  <String, dynamic>{};
     data['id'] = id;
     data['make'] = make;
     data['model'] = model;
@@ -90,7 +90,7 @@ class Images {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  Map<String, dynamic>();
+    final Map<String, dynamic> data =  <String, dynamic>{};
     data['id'] = id;
     data['image_url'] = imageUrl;
     data['description'] = description;

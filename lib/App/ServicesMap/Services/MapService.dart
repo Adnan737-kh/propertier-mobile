@@ -18,7 +18,9 @@ class MapService {
       }
       if (response.statusCode == 200) {
         final body = jsonDecode(response.body);
-        print(body);
+        if (kDebugMode) {
+          print(body);
+        }
         return body;
       }
     } catch (e) {

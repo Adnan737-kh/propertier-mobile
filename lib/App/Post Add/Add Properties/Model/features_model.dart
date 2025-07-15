@@ -56,7 +56,9 @@ class Feature {
   final String? name;
 
   factory Feature.fromJson(Map<String, dynamic> json) {
-    print("json id is here ${json["id"]}"); // Debugging print
+    if (kDebugMode) {
+      print("json id is here ${json["id"]}");
+    } // Debugging print
     return Feature(
       id: json["id"] ??'',
       name: json["name"] ?? '',

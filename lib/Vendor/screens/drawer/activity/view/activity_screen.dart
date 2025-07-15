@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 class ActivityScreen extends StatefulWidget {
   const ActivityScreen({super.key});
@@ -55,9 +56,9 @@ class _ActivityScreenState extends State<ActivityScreen> {
                         const SizedBox(
                           width: 2,
                         ),
-                        const Text(
-                          'Activity',
-                          style: TextStyle(
+                         Text(
+                          context.local.activity,
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
@@ -89,12 +90,12 @@ class _ActivityScreenState extends State<ActivityScreen> {
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return const Column(
+                      return Column(
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
+                              const Text(
                                 ' 11 Feb',
                                 style: TextStyle(
                                   color: Color(0xB2131A22),
@@ -111,7 +112,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Opacity(
+                                      const Opacity(
                                         opacity: 0.60,
                                         child: Text(
                                           'Washing Machine Repair',
@@ -122,12 +123,12 @@ class _ActivityScreenState extends State<ActivityScreen> {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(width: 1),
+                                      const SizedBox(width: 1),
                                       Opacity(
                                         opacity: 0.60,
                                         child: Text(
-                                          ' you Posted',
-                                          style: TextStyle(
+                                          context.local.you_posted,
+                                          style: const TextStyle(
                                             color: Color(0xB2131A22),
                                             fontSize: 12,
                                             fontWeight: FontWeight.w400,
@@ -136,7 +137,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                                       ),
                                     ],
                                   ),
-                                  Row(
+                                  const Row(
                                     mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -160,7 +161,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                                   ),
                                 ],
                               ),
-                              Column(
+                              const Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Icon(Icons.more_horiz),
@@ -176,8 +177,8 @@ class _ActivityScreenState extends State<ActivityScreen> {
                               )
                             ],
                           ),
-                          Divider(),
-                          SizedBox(
+                          const Divider(),
+                          const SizedBox(
                             height: 16,
                           )
                         ],

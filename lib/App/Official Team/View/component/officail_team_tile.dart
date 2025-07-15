@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import '../../../../constant/colors.dart';
 import '../../../../constant/constant.dart';
 import '../../../../Utils/app_text.dart';
@@ -48,7 +49,7 @@ class TeamOfficailTile extends StatelessWidget {
                     Row(
                       children: [
                         CustomText(
-                            title: "ID: ",
+                            title: context.local.id,
                             fontSize: 8,
                             fontWeight: FontWeight.w600,
                             colorOpecity: 0.6),
@@ -62,7 +63,7 @@ class TeamOfficailTile extends StatelessWidget {
                     Row(
                       children: [
                         CustomText(
-                            title: "Salary ",
+                            title: context.local.salary,
                             fontSize: 8,
                             fontWeight: FontWeight.w600,
                             colorOpecity: 0.6),
@@ -150,7 +151,7 @@ class TeamOfficailTile extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 3),
                             child: CustomText(
-                                title: "Remove",
+                                title: context.local.remove,
                                 fontSize: 10,
                                 color: Colors.white,
                                 fontWeight: FontWeight.normal,

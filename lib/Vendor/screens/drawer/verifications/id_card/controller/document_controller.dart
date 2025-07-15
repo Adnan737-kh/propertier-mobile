@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -41,7 +42,9 @@ class DocumentController extends GetxController {
       }
     } catch (e) {
       Get.snackbar('Error', 'An error occurred: $e');
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -63,7 +66,9 @@ class DocumentController extends GetxController {
       }
     } catch (e) {
       Get.snackbar('Error', 'An error occurred: $e');
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     } finally {
       progressDialog.dismiss();
     }

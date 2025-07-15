@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 import '../../../../../RoutesAndBindings/app_routes.dart';
 import '../../../../../constant/colors.dart';
@@ -17,7 +18,7 @@ Widget numberVerifyTile({
       mainAxisSize: MainAxisSize.min,
       children: [
         isVerify
-            ? CustomText(
+            ? const CustomText(
                 title: '✓ ',
                 fontSize: 60,
                 color: AppColor.buttonColor)
@@ -29,11 +30,11 @@ Widget numberVerifyTile({
         const Gap(8),
         isVerify
             ? CustomText(
-                title: 'Verified',
+                title: context.local.verified,
                 fontSize: 20,
                 color: AppColor.blackColor)
             : CustomText(
-                title: 'Error',
+                title: context.local.error,
                 fontSize: 20,
                 color: AppColor.blackColor),
         const Gap(8),
@@ -46,7 +47,7 @@ Widget numberVerifyTile({
                   Get.offNamed(AppRoutes.numberEnterView);
                 },
                 child: CustomText(
-                    title: "Verify your number?",
+                    title: context.local.verify_your_number,
                     color: AppColor.facebookColor,
                     colorOpecity: 0.90),
               )

@@ -39,7 +39,7 @@ class CreditPaymentMethodView extends GetView<CreditCardMethodViewModel> {
                   },
                 ),
                 getHeight(context, 0.045),
-                CustomText(
+                const CustomText(
                     textAlign: TextAlign.start,
                     title:
                         "Lorem ipsum dolor sit amet consectetur. Diam scelerisque fermentum lectus turpis senectus. Eget sed auctor leo egestas.",
@@ -133,8 +133,8 @@ class CreditPaymentMethodView extends GetView<CreditCardMethodViewModel> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomText(title: "Total Amount"),
-                    CustomText(title: "100M", fontSize: 10),
+                    CustomText(title:context.local.total_amount),
+                    const CustomText(title: "100M", fontSize: 10),
                   ],
                 ),
                 getHeight(context, 0.015),

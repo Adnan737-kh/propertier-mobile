@@ -337,7 +337,7 @@ class LoginView extends StatelessWidget {
                                   text: TextSpan(
                                       style: textStyle(
                                           context: context, fontSize: 12),
-                                      text: context.local.dont_have_an_account,
+                                      text: context.local.do_not_have_an_account,
                                       children: [
                                     TextSpan(
                                         style: textStyle(

@@ -51,7 +51,7 @@ class MarketPlaceView extends StatelessWidget {
                       }),
                   getHeight(context, 0.04),
                   SearchTextField(
-                      horzontalPadding: 0,
+                      horizontalPadding: 0,
                       searchController: viewModel.searchController,
                       suFixIcon: Row(
                         mainAxisAlignment: MainAxisAlignment.end,

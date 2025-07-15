@@ -7,7 +7,6 @@ import 'package:propertier/App/Services/Service/ServicesCore.dart';
 import 'package:propertier/constant/constant.dart';
 import 'package:propertier/extensions/localization_extension.dart';
 import '../../../Vendor/screens/dashboard/Posts/add_post/Model/title_model.dart';
-import '../../../Vendor/screens/dashboard/Posts/select_category/View/select_category.dart';
 
 import '../../Auth/User/Token/token_preference_view_model/token_preference_view_model.dart';
 import '../Model/ServiceDashboardModel.dart';
@@ -114,50 +113,50 @@ class ServicesViewModel extends GetxController {
      print('Fetched Parent Services Map: $parentServicesMap');
    }
 
-   final String? selected = await showModalBottomSheet<String?>(
-     context: context,
-     isScrollControlled: true,
-     shape: const RoundedRectangleBorder(
-       borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-     ),
-     builder: (context) {
-       return SelectCategory(
-         category: selectedCategory ?? '',
-         onCategorySelected: (category) async {
-           if (category != null) {
-             showDialog(
-               context: context,
-               barrierDismissible: false,
-               builder: (context) =>
-                   const Center(child: CircularProgressIndicator()),
-             );
-
-             if (kDebugMode) {
-               print('Selected Category: $category');
-             }
-             await fetchTitlesForParentService(category);
-             if (kDebugMode) {
-               print('Fetched Titles for $category:');
-             }
-
-             for (var titleModel in titles) {
-               if (kDebugMode) {
-                 print('Title: ${titleModel.title}, ID: ${titleModel.id}');
-               }
-             }
-
-               parentId = selectedParentServiceId;
-               selectedCategory = category;
-
-             if (Navigator.of(context).canPop()) {
-               Navigator.of(context).pop();
-             }
-           }
-         },
-         parentServices: parentServicesMap.keys.toList(),
-       );
-     },
-   );
+   // final String? selected = await showModalBottomSheet<String?>(
+   //   context: context,
+   //   isScrollControlled: true,
+   //   shape: const RoundedRectangleBorder(
+   //     borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+   //   ),
+   //   builder: (context) {
+   //     return SelectCategory(
+   //       category: selectedCategory ?? '',
+   //       onCategorySelected: (category) async {
+   //         if (category != null) {
+   //           showDialog(
+   //             context: context,
+   //             barrierDismissible: false,
+   //             builder: (context) =>
+   //                 const Center(child: CircularProgressIndicator()),
+   //           );
+   //
+   //           if (kDebugMode) {
+   //             print('Selected Category: $category');
+   //           }
+   //           await fetchTitlesForParentService(category);
+   //           if (kDebugMode) {
+   //             print('Fetched Titles for $category:');
+   //           }
+   //
+   //           for (var titleModel in titles) {
+   //             if (kDebugMode) {
+   //               print('Title: ${titleModel.title}, ID: ${titleModel.id}');
+   //             }
+   //           }
+   //
+   //             parentId = selectedParentServiceId;
+   //             selectedCategory = category;
+   //
+   //           if (Navigator.of(context).canPop()) {
+   //             Navigator.of(context).pop();
+   //           }
+   //         }
+   //       },
+   //       parentServices: parentServicesMap.keys.toList(),
+   //     );
+   //   },
+   // );
  }
 
  // Fetch Parent Services

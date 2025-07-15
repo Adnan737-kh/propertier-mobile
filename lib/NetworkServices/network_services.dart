@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 class NetWorkServcies {
@@ -46,7 +47,9 @@ class NetWorkServcies {
   }
 
   String extractVideoIdFromUrl(String url) {
-    print("MY URL is $url");
+    if (kDebugMode) {
+      print("MY URL is $url");
+    }
     RegExp regExp = RegExp(
         r'^.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*');
     Match? match = regExp.firstMatch(url);

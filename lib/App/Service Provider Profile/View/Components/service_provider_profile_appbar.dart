@@ -7,6 +7,7 @@ import 'package:propertier/Utils/box_shadow.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 import '../../ViewModel/service_provider_profile_viewmodel.dart';
@@ -109,7 +110,7 @@ PreferredSize serviceProviderProfileAppBar(
                               )
                             ],
                           )),
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           // appText(
@@ -129,11 +130,11 @@ PreferredSize serviceProviderProfileAppBar(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          CustomText(
+                          const CustomText(
                             title: '2K',
                             fontSize: 10,
                             fontWeight: FontWeight.w600,
-                            color: const Color(0xffB8B8B8),
+                            color: Color(0xffB8B8B8),
                           ),
                           RatingBarIndicator(
                             rating: 4,
@@ -152,7 +153,7 @@ PreferredSize serviceProviderProfileAppBar(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CustomText(
-                              title: 'Following',
+                              title: context.local.following,
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
                               colorOpecity: 0.6,

@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/height_width_box.dart';
@@ -55,7 +54,7 @@ class UserNotLoginView extends StatelessWidget {
                   style: textStyle(
                     context: context,
                   ),
-                  text: context.local.dont_have_an_account),
+                  text: context.local.do_not_have_an_account),
               TextSpan(
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
@@ -66,7 +65,7 @@ class UserNotLoginView extends StatelessWidget {
                       color: AppColor.buttonColor,
                       fontSize: 16,
                       fontWeight: FontWeight.w700),
-                  text: ' Signup')
+                  text: context.local.sign_up)
             ]))
           ],
         ),

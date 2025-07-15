@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 import '../../../Utils/app_text.dart';
 import '../../../Utils/divider.dart';
@@ -67,7 +68,7 @@ Widget privacyTile({required BuildContext context, required String title}) {
               colorOpecity: 0.6,
               fontWeight: FontWeight.bold),
           CustomText(
-              title: "Only me",
+              title: context.local.only_me,
               fontSize: 12,
               colorOpecity: 0.6,
               fontWeight: FontWeight.w400),

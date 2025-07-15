@@ -124,7 +124,7 @@ class AuthService {
       if (response.statusCode == 204) {
         AuthService().logout();
         GoogleSigInServices().logout();
-        ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(Get.context!).showSnackBar(const SnackBar(
           content: CustomText(
             title: 'Vendor account deleted',
             color: AppColor.white,
@@ -165,7 +165,7 @@ class AuthService {
       }
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: CustomText(
         title: 'Please fill this form.',
         color: AppColor.white,

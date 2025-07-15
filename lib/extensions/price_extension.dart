@@ -9,7 +9,6 @@ extension PriceExtension on double {
       double k = this / 1000;
       return '${k.toStringAsFixed(2)}K';
     } else {
-      double t = this;
       // If number is greater than or equal to 1 crore
       return toStringAsFixed(2);
     }

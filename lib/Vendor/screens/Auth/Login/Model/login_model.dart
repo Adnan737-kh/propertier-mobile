@@ -1,30 +1,30 @@
 import 'dart:convert';
 
-UserModel UserModelFromJson(String str) => UserModel.fromJson(json.decode(str));
+UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
 
-String UserModelToJson(UserModel data) => json.encode(data.toJson());
+String userModelToJson(UserModel data) => json.encode(data.toJson());
 
 class UserModel {
   String token;
   DateTime expiration;
   String email;
   List<String> userRoles;
-  String? phonenumber;
-  String? fname;
-  String? lname;
+  String? phoneNumber;
+  String? fName;
+  String? lName;
   String id;
-  int timeSheettype;
+  int timeSheetType;
 
   UserModel({
     required this.token,
     required this.expiration,
     required this.email,
     required this.userRoles,
-    this.phonenumber,
-    this.fname,
-    this.lname,
+    this.phoneNumber,
+    this.fName,
+    this.lName,
     required this.id,
-    required this.timeSheettype,
+    required this.timeSheetType,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -36,11 +36,11 @@ class UserModel {
         userRoles: json["userRoles"] != null
             ? List<String>.from(json["userRoles"].map((x) => x))
             : [],
-        phonenumber: json["phonenumber"]?.toString(),
-        fname: json["fname"],
-        lname: json["lname"],
+        phoneNumber: json["phonenumber"]?.toString(),
+        fName: json["fname"],
+        lName: json["lname"],
         id: json["id"] ?? "",
-        timeSheettype: json["timeSheettype"] ?? 0,
+        timeSheetType: json["timeSheettype"] ?? 0,
       );
 
   Map<String, dynamic> toJson() => {
@@ -48,10 +48,10 @@ class UserModel {
         "expiration": expiration.toIso8601String(),
         "email": email,
         "userRoles": List<dynamic>.from(userRoles.map((x) => x)),
-        "phonenumber": phonenumber,
-        "fname": fname,
-        "lname": lname,
+        "phonenumber": phoneNumber,
+        "fname": fName,
+        "lname": lName,
         "id": id,
-        "timeSheettype": timeSheettype,
+        "timeSheettype": timeSheetType,
       };
 }

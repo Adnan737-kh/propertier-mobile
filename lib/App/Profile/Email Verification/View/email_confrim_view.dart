@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import '../../../../constant/AppTextField/app_textfield.dart';
 import '../../../../constant/colors.dart';
 import '../../../../Utils/app_text.dart';
@@ -38,8 +39,7 @@ class EmailConfirmView extends StatelessWidget {
                   // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomText(
-                        title:
-                            "Please enter your Email to receive a verification code.",
+                        title:context.local.please_enter_your_email_to_receive_a_verification_code,
                         fontSize: 16,
                         color: const Color(0xFF6D6E6F),
                         fontWeight: FontWeight.bold),
@@ -47,8 +47,8 @@ class EmailConfirmView extends StatelessWidget {
                       height: 30,
                     ),
                     customTextField(
-                      label: "Enter your email",
-                      hintText: 'Enter your email',
+                      label: context.local.enter_your_email,
+                      hintText:  context.local.enter_your_email,
                       controller: confirmEmailVM.emailController,
                       textInputType: TextInputType.emailAddress,
                       suffix: IconButton(
@@ -57,7 +57,7 @@ class EmailConfirmView extends StatelessWidget {
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter valid  Email';
+                          return context.local.please_enter_valid_email;
                         }
                         return null;
                       },

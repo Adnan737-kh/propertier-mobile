@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/height_width_box.dart';
@@ -15,6 +16,7 @@ import 'package:propertier/constant/AppButton/text_button.dart';
 import 'package:propertier/constant/AppTextField/app_textfield.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 // import '../../../../RoutesAndBindings/app_routes.dart';
@@ -118,7 +120,7 @@ class LoginView extends StatelessWidget {
                                 Get.toNamed(AppRoutes.forgotPasswordView);
                               },
                               child: CustomText(
-                                  title: "Forgot Password?",
+                                  title: context.local.forgot_password,
                                   fontSize: 14,
                                   color: AppColor.facebookColor,
                                   fontWeight: FontWeight.w400))

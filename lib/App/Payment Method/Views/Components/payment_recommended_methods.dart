@@ -34,7 +34,7 @@ Widget recommendedMethod(
                 ),
                 const Gap(8),
                 CustomText(
-                    title: "Credit/Debit Card",
+                    title: context.local.credit_debit_card,
                     fontSize: 12,
                     fontWeight: FontWeight.normal)
               ],

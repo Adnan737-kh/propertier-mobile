@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/Vendor/screens/widgets/round_checkbox.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 class PrivacyScreen extends StatefulWidget {
   const PrivacyScreen({super.key});
@@ -11,9 +12,9 @@ class PrivacyScreen extends StatefulWidget {
 }
 
 class _PrivacyScreenState extends State<PrivacyScreen> {
-  bool isMe=false;
-  bool isEvery=false;
-  bool isprivate=false;
+  bool isMe = false;
+  bool isEvery = false;
+  bool isprivate = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,8 +22,8 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
         children: [
           Container(
               width: Get.size.width,
-               height: Get.height * .124,
-            padding: const EdgeInsets.only(top: 38, left: 8),
+              height: Get.height * .124,
+              padding: const EdgeInsets.only(top: 38, left: 8),
               decoration: ShapeDecoration(
                 color: const Color(0xFF131A22),
                 shape: RoundedRectangleBorder(
@@ -55,9 +56,9 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                         color: Colors.white,
                       )),
                   const SizedBox(width: 4),
-                  const Text(
-                    'Privacy',
-                    style: TextStyle(
+                  Text(
+                    context.local.privacy,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 17,
                       fontWeight: FontWeight.w500,
@@ -82,13 +83,13 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Row(
+                      Row(
                         children: [
-                          Icon(Icons.lock),
-                          SizedBox(width: 7),
+                          const Icon(Icons.lock),
+                          const SizedBox(width: 7),
                           Text(
-                            'Private Account',
-                            style: TextStyle(
+                            context.local.private_account,
+                            style: const TextStyle(
                               color: Color(0xE5131A22),
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
@@ -102,7 +103,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                         activeColor: Colors.amber,
                         onChanged: (value) {
                           setState(() {
-                            isprivate=value;
+                            isprivate = value;
                           });
                         },
                       )
@@ -117,18 +118,18 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Comment',
-                        style: TextStyle(
+                        context.local.comment,
+                        style: const TextStyle(
                           color: Color(0xE5131A22),
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      Text(
+                      const Text(
                         'Every One',
                         style: TextStyle(
                           color: Color(0xB2131A22),
@@ -147,18 +148,18 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Posts',
-                        style: TextStyle(
+                        context.local.posts,
+                        style: const TextStyle(
                           color: Color(0xE5131A22),
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      Text(
+                      const Text(
                         'Every One',
                         style: TextStyle(
                           color: Color(0xB2131A22),
@@ -176,7 +177,6 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                   ),
                 ],
               )),
-
           const Spacer(),
           Container(
             width: Get.size.width,
@@ -209,20 +209,20 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Column(
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Only Me',
-                            style: TextStyle(
+                            context.local.only_me,
+                            style: const TextStyle(
                               color: Color(0xFF596068),
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                           Text(
-                            'Only you Can see your Comments',
-                            style: TextStyle(
+                            context.local.only_you_can_see_your_comments,
+                            style: const TextStyle(
                               color: Color(0xB2131A22),
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -236,7 +236,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                         // activeColor: Colors.grey,
                         onChanged: (value) {
                           setState(() {
-                            isMe=value;
+                            isMe = value;
                           });
                         },
                       ),
@@ -244,7 +244,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                   ),
                 ),
                 const SizedBox(height: 15),
-                  Container(
+                Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 11, vertical: 10),
                   decoration: ShapeDecoration(
@@ -257,10 +257,10 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Column(
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             'Every one',
                             style: TextStyle(
                               color: Color(0xFF596068),
@@ -269,8 +269,8 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                             ),
                           ),
                           Text(
-                            'Every one Can see your Comments',
-                            style: TextStyle(
+                            context.local.every_one_can_see_your_comments,
+                            style: const TextStyle(
                               color: Color(0xB2131A22),
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -283,21 +283,16 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                         activeColor: Colors.amber,
                         onChanged: (value) {
                           setState(() {
-                            isEvery=value;
+                            isEvery = value;
                           });
                         },
                       ),
                     ],
                   ),
                 ),
-               
               ],
             ),
           ),
-       
-      
-       
-       
         ],
       ),
     );

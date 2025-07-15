@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -43,11 +44,15 @@ class VendorWalletController extends GetxController{
       };
       var encodedData = jsonEncode(data);
       String url = "${API.topUpWallet}$vendorUserId/";
-      print(url);
+      if (kDebugMode) {
+        print(url);
+      }
       var response = await http.put(Uri.parse(url),
           headers: <String, String>{'Content-Type': 'application/json'},
           body: encodedData);
-      print(response.body);
+      if (kDebugMode) {
+        print(response.body);
+      }
       if(response.statusCode == 200){
         Fluttertoast.showToast(msg: "successful");
         flag = true;
@@ -56,7 +61,9 @@ class VendorWalletController extends GetxController{
 
     }
     catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
 
     return flag;
@@ -66,17 +73,25 @@ class VendorWalletController extends GetxController{
   Future getWallet()async{
     try{
       String url = "${API.getWallet}$vendorUserId";
-      print(url);
+      if (kDebugMode) {
+        print(url);
+      }
       var response = await http.get(Uri.parse(url));
-      print("********* ${response.statusCode}");
-      print(response.body);
+      if (kDebugMode) {
+        print("********* ${response.statusCode}");
+      }
+      if (kDebugMode) {
+        print(response.body);
+      }
       if(response.statusCode == 200){
         var data = jsonDecode(response.body);
         balance.value = double.parse(data['balance']??"0.0");
       }
     }
     catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -96,7 +111,9 @@ class VendorWalletController extends GetxController{
       );
       if(response.statusCode == 200){
         var data = jsonDecode(response.body);
-        print(data);
+        if (kDebugMode) {
+          print(data);
+        }
         String? url = data['redirect_url'];
         if(url != null){
           await openPaymentLink(url);
@@ -107,7 +124,9 @@ class VendorWalletController extends GetxController{
       }
     }
     catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -116,7 +135,9 @@ class VendorWalletController extends GetxController{
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
     } else {
-      print("URL can't be launched.");
+      if (kDebugMode) {
+        print("URL can't be launched.");
+      }
     }
   }
 

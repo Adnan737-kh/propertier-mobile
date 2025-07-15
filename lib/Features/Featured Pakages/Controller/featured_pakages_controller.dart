@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:propertier/Features/Featured%20Pakages/Service/service.dart';
 
@@ -35,7 +36,9 @@ class FeaturedPakagesController extends GetxController {
     for (var pakage in sfeaturedPakages) {
       _featuredPakages.add(pakage);
     }
-    print(_featuredPakages.length);
+    if (kDebugMode) {
+      print(_featuredPakages.length);
+    }
     isLoading(false);
     super.onInit();
   }

@@ -53,10 +53,14 @@ class EditVendorForm extends GetView<EditVendorFormController>{
           if (_formKey.currentState?.validate() == true) {
             _formKey.currentState?.save();
             final formData = controller.getFormValues();
-            print("Form Data: $formData");
+            if (kDebugMode) {
+              print("Form Data: $formData");
+            }
             // controller.saveVendorData(formData);
           } else {
-            print("Form validation failed.");
+            if (kDebugMode) {
+              print("Form validation failed.");
+            }
           }
         },
         child: const Icon(Icons.save),

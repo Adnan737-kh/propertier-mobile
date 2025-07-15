@@ -18,7 +18,7 @@ class _PLayerViewState extends State<PLayerView> {
   late PodPlayerController _videoPlayerController;
 
   bool isPlaying = false;
-  String? _image;
+  // String? _image;
   @override
   void initState() {
     super.initState();

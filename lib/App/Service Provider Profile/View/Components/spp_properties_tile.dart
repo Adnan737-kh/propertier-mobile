@@ -88,7 +88,7 @@ Widget propertiesTile(
                       colorOpecity: 0.7,
                       fontSize: 8,
                       fontWeight: FontWeight.w500),
-                  CustomText(
+                  const CustomText(
                       title: 'Residential',
                       colorOpecity: 0.7,
                       fontSize: 8,

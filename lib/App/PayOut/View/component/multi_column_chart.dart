@@ -7,6 +7,7 @@ import 'package:propertier/Utils/box_shadow.dart';
 import 'package:propertier/Utils/drop_down_input.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 // import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -89,7 +90,7 @@ Widget multiColumnChartTile(
         child: GestureDetector(
           onTap: viewDetailsCallBack,
           child: CustomText(
-            title: "View Detail",
+            title: context.local.view_detail,
             fontSize: 10,
             fontWeight: FontWeight.w400,
             color: AppColor.darkBack,

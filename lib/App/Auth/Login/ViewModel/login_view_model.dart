@@ -10,6 +10,7 @@ import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
 import 'package:propertier/data/app_exception.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import '../../../../constant/AppButton/text_button.dart';
 import '../../../../constant/toast.dart';
 import '../../../../repository/auth_repo/login_repo/login_repo.dart';
@@ -86,14 +87,14 @@ class LoginViewModel extends GetxController {
                         children: [
                           Gap(Get.context!.width * 0.10),
                           CustomText(
-                              title: "Opps !",
+                              title: context.local.oops,
                               fontSize: 17,
                               color: Colors.red,
                               fontWeight: FontWeight.bold,
                           ),
                           Gap(Get.context!.width * 0.10),
                           CustomText(
-                              title: "Invalid Credentials",
+                              title:context.local.invalid_credentials,
                               // title: e.toString(),
                               color: AppColor.darkGreyColor,
                               ),

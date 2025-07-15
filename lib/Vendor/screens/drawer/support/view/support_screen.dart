@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 class SupportScreen extends StatefulWidget {
   const SupportScreen({super.key});
@@ -30,9 +31,9 @@ class _SupportScreenState extends State<SupportScreen> {
               Get.back();
             },
             icon: const Icon(Icons.arrow_back_ios_new)),
-        title: const Text(
-          'Support Center',
-          style: TextStyle(
+        title:  Text(
+          context.local.support_center,
+          style: const TextStyle(
             color: Color(0xFF0F1828),
             fontSize: 18,
             fontWeight: FontWeight.w600,
@@ -123,8 +124,8 @@ class _SupportScreenState extends State<SupportScreen> {
                                       decoration: const BoxDecoration(
                                           color: Color(0xFFFDCD54)),
                                     ),
-                                    const Padding(
-                                      padding: EdgeInsets.all(8.0),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         mainAxisAlignment:
@@ -133,15 +134,15 @@ class _SupportScreenState extends State<SupportScreen> {
                                             CrossAxisAlignment.end,
                                         children: [
                                           Text(
-                                            'Support Center',
-                                            style: TextStyle(
+                                            context.local.support_center,
+                                            style: const TextStyle(
                                               color: Color(0xFF002DE3),
                                               fontSize: 10,
                                               fontWeight: FontWeight.w600,
                                             ),
                                           ),
-                                          SizedBox(height: 4),
-                                          Text(
+                                          const SizedBox(height: 4),
+                                          const Text(
                                             'I am waiting for you.',
                                             style: TextStyle(
                                               color: Color(0xFF1B2B48),
@@ -196,7 +197,7 @@ class _SupportScreenState extends State<SupportScreen> {
                   margin: const EdgeInsets.only(left: 6),
                   child: TextFormField(
                     decoration: InputDecoration(
-                      hintText: 'Type here...',
+                      hintText: context.local.type_here,
                       hintStyle: const TextStyle(fontSize: 14),
                         contentPadding: const EdgeInsets.symmetric(
                             horizontal: 6, vertical: 7),

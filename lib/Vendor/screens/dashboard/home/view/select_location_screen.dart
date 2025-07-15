@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 class SelectLocationScreen extends StatefulWidget {
   const SelectLocationScreen({super.key});
@@ -58,9 +59,9 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                           const SizedBox(
                             width: 2,
                           ),
-                          const Text(
-                            'Location',
-                            style: TextStyle(
+                          Text(
+                            context.local.location,
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.w400,
@@ -98,7 +99,7 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                                 borderRadius: BorderRadius.circular(33),
                                 borderSide:
                                     const BorderSide(color: Colors.black12)),
-                            hintText: 'Search here',
+                            hintText: context.local.search_here,
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(33),
                             ),
@@ -130,15 +131,15 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                         ),
-                        child: const Row(
+                        child: Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.location_pin,
                               color: Color(0xFFFDCD54),
                             ),
                             Text(
-                              'Map',
-                              style: TextStyle(
+                              context.local.map,
+                              style: const TextStyle(
                                 color: Color(0xFF131A22),
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
@@ -149,7 +150,6 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                       )
                     ],
                   ),
-              
                   ListView.builder(
                     padding: EdgeInsets.zero,
                     itemCount: cityData.length,
@@ -186,44 +186,40 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                       );
                     },
                   ),
-        
-                     SizedBox(
-              height: Get.height*.24,
-            ),
-        
-             Container(
-            height: 38,
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: ShapeDecoration(
-              color: const Color(0xFFFDCD54),
-              shape: RoundedRectangleBorder(
-                side:const  BorderSide(
-                  width: 0.40,
-                  strokeAlign: BorderSide.strokeAlignCenter,
-                  color: Color(0x19131A22),
-                ),
-                borderRadius: BorderRadius.circular(30),
-              ),
-            ),
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Confirm',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
+                  SizedBox(
+                    height: Get.height * .24,
                   ),
-                ),
-              ],
-            ),
-          
-        ),
+                  Container(
+                    height: 38,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: ShapeDecoration(
+                      color: const Color(0xFFFDCD54),
+                      shape: RoundedRectangleBorder(
+                        side: const BorderSide(
+                          width: 0.40,
+                          strokeAlign: BorderSide.strokeAlignCenter,
+                          color: Color(0x19131A22),
+                        ),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          context.local.confirm,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
-        
-         
           ],
         ),
       ),

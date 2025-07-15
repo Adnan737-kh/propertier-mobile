@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:propertier/Vendor/screens/dashboard/earnings/Controller/earning_controller.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import '../../../widgets/tabbar_item.dart';
-
 
 class EarningScreen extends StatefulWidget {
   const EarningScreen({super.key});
@@ -35,7 +35,7 @@ class _EarningScreenState extends State<EarningScreen>
       Get.snackbar('Error', 'Vendor ID is not available');
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -200,9 +200,9 @@ class _EarningScreenState extends State<EarningScreen>
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Text(
-                              'Withdrawal',
-                              style: TextStyle(
+                            Text(
+                              context.local.width_draw,
+                              style: const TextStyle(
                                 color: Color(0xFFFDCD54),
                                 fontSize: 10,
                                 fontWeight: FontWeight.w400,
@@ -273,12 +273,12 @@ class _EarningScreenState extends State<EarningScreen>
                               const BoxDecoration(), // Remove the underline
                           tabs: [
                             TabBarItem(
-                              title: 'Completed',
+                              title: context.local.completed,
                               isSelected: tabController.index == 0,
                               selectedColor: Colors.white,
                             ),
                             TabBarItem(
-                              title: 'Cancelled',
+                              title: context.local.cancelled,
                               isSelected: tabController.index == 1,
                               selectedColor: Colors.white,
                             ),
@@ -363,21 +363,21 @@ class EarningTab extends StatelessWidget {
                     ),
                   ),
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text.rich(
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: 'Order ID:',
-                            style: TextStyle(
+                            text: context.local.order_id,
+                            style: const TextStyle(
                               color: Color(0xFF109B0E),
                               fontSize: 8,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          TextSpan(
+                          const TextSpan(
                             text: ' ',
                             style: TextStyle(
                               color: Color(0xB2131A22),
@@ -385,7 +385,7 @@ class EarningTab extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          TextSpan(
+                          const TextSpan(
                             text: '8347438893',
                             style: TextStyle(
                               color: Color(0xB2131A22),
@@ -397,8 +397,8 @@ class EarningTab extends StatelessWidget {
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(width: 5),
-                    Text(
+                    const SizedBox(width: 5),
+                    const Text(
                       '2-10-2024',
                       textAlign: TextAlign.center,
                       style: TextStyle(

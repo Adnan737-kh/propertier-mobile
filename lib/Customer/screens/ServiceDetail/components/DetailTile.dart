@@ -196,7 +196,9 @@ class _DetailPageShortVideoState extends State<DetailPageShortVideo> {
 
   @override
   void initState() {
-    print('short video ${widget.services.shortVideo}');
+    if (kDebugMode) {
+      print('short video ${widget.services.shortVideo}');
+    }
     widget.services.shortVideo != null
         ? generateThumbnail(
       widget.services.shortVideo!,

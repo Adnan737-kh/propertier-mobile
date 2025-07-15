@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/constant.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import '../../../constant/colors.dart';
 import '../../../Utils/app_text.dart';
 import '../../../Utils/appbar.dart';
@@ -75,19 +76,19 @@ class OfficialTeamView extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        CustomText(
+                                        const CustomText(
                                           title: "Khuram Mistri",
                                           fontSize: 12,
                                           fontWeight: FontWeight.normal,
                                         ),
                                         const Gap(5),
                                         CustomText(
-                                          title: "Employee",
+                                          title: context.local.employee,
                                           fontSize: 10,
                                           fontWeight: FontWeight.w400,
                                         ),
                                         const Gap(5),
-                                        CustomText(
+                                        const CustomText(
                                             title: "Steel Worker",
                                             fontSize: 8,
                                             fontWeight: FontWeight.normal,
@@ -133,7 +134,7 @@ class OfficialTeamView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CustomText(
-                            title: "Leader",
+                            title: context.local.leader,
                             fontSize: 12,
                             fontWeight: FontWeight.normal,
                           ),
@@ -171,7 +172,7 @@ class OfficialTeamView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CustomText(
-                            title: "Employee",
+                            title: context.local.employee,
                             fontSize: 12,
                             fontWeight: FontWeight.normal,
                           ),

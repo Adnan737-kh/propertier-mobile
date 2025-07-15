@@ -6,7 +6,7 @@ import 'package:propertier/Utils/textStyle.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
-recommandedTile({
+recommendedTile({
   required BuildContext context,
   required String imageUrl,
   required String title,

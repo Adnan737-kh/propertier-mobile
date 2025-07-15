@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -37,7 +38,9 @@ class ServicesMapView extends StatelessWidget {
                     canPop: true,
                     onPopInvoked: (val) {
                       if (val == true) {
-                        print("is Val $val");
+                        if (kDebugMode) {
+                          print("is Val $val");
+                        }
                         viewModel.isShowCancelButton(true);
                       }
                     },

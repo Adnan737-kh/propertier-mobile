@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../../../Network/api_urls.dart';
@@ -85,7 +86,7 @@ class BidViewModel extends GetxController{
     if(res){
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: CustomText(
-              title: "Order Created Successfully",
+              title: context.local.order_created_successfully,
               color: AppColor.white)));
     }
     return res;

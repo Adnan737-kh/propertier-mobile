@@ -44,7 +44,9 @@ class WaterServiceFormController extends GetxController{
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       final predictions = data['predictions'] as List<dynamic>;
-      print("Predictions count: ${predictions.length}");
+      if (kDebugMode) {
+        print("Predictions count: ${predictions.length}");
+      }
 
       // Fetch details for each place
       List<Place> placesList = [];
@@ -72,13 +74,17 @@ class WaterServiceFormController extends GetxController{
             ),
           );
         } else {
-          print('Failed to fetch details for placeId: $placeId');
+          if (kDebugMode) {
+            print('Failed to fetch details for placeId: $placeId');
+          }
         }
       }
 
       places.value = placesList;
     } else {
-      print('Failed to fetch autocomplete predictions: ${response.statusCode}');
+      if (kDebugMode) {
+        print('Failed to fetch autocomplete predictions: ${response.statusCode}');
+      }
       places.value = [];
     }
   }

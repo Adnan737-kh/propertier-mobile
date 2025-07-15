@@ -5,6 +5,7 @@ import 'package:propertier/Vendor/screens/drawer/orders/model/OrderModel.dart';
 import 'package:propertier/Vendor/screens/drawer/orders/view/submit_work.dart';
 import 'package:propertier/Vendor/screens/drawer/orders/viewmodel/OrderViewModel.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
@@ -35,9 +36,9 @@ class _OrderScreenState extends State<OrderScreen>
         iconTheme: const IconThemeData(color: Colors.white),
 
         // title: ,
-        title: const Text(
-          'Orders',
-          style: TextStyle(
+        title: Text(
+          context.local.orders,
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 17,
             fontWeight: FontWeight.w500,
@@ -62,10 +63,9 @@ class _OrderScreenState extends State<OrderScreen>
                 dividerColor: Colors.transparent,
                 labelPadding: EdgeInsets.zero,
                 controller: tabController,
-             
                 tabs: [
                   Text(
-                    'All',
+                    context.local.all,
                     style: TextStyle(
                       color: tabController.index == 0
                           ? const Color(0xFFFFCE58)
@@ -75,7 +75,7 @@ class _OrderScreenState extends State<OrderScreen>
                     ),
                   ),
                   Text(
-                    'Completed',
+                    context.local.completed,
                     style: TextStyle(
                       color: tabController.index == 1
                           ? const Color(0xFFFFCE58)
@@ -85,7 +85,7 @@ class _OrderScreenState extends State<OrderScreen>
                     ),
                   ),
                   Text(
-                    'Cancelled',
+                    context.local.cancelled,
                     style: TextStyle(
                       // color: Colors.white,
                       color: tabController.index == 2
@@ -97,7 +97,7 @@ class _OrderScreenState extends State<OrderScreen>
                     ),
                   ),
                   Text(
-                    'Pending',
+                    context.local.pending,
                     style: TextStyle(
                       // color: Colors.white,
                       color: tabController.index == 3
@@ -115,61 +115,59 @@ class _OrderScreenState extends State<OrderScreen>
           ),
           Expanded(
               child: TabBarView(controller: tabController, children: [
-                Obx(()=>
-            controller.orders.isEmpty ?
-                Center(child: orderCard(OrderModel(id: 1, status: "pending",serviceLocation: "Lahore, Modal Town",totalAmount: "2500", selectedSubServices: [1])),)
-                  :ListView.builder(
+            Obx(() => controller.orders.isEmpty
+                ? Center(
+                    child: orderCard(OrderModel(
+                        id: 1,
+                        status: "pending",
+                        serviceLocation: "Lahore, Modal Town",
+                        totalAmount: "2500",
+                        selectedSubServices: [1])),
+                  )
+                : ListView.builder(
                     itemCount: controller.orders.length,
-                    itemBuilder: (context, index){
+                    itemBuilder: (context, index) {
                       OrderModel order = controller.orders[index];
                       return orderCard(order);
                     },
-                  )
-                ),
-                Obx(()=>
-                    ListView.builder(
-                      itemCount: controller.orders.length,
-                      itemBuilder: (context, index){
-                        OrderModel order = controller.orders[index];
-                        if(order.status == "completed"){
-                          return orderCard(order);
-                        }
-                        return const SizedBox();
-                      },
-                    )
-                ),
-                Obx(()=>
-                    ListView.builder(
-                      itemCount: controller.orders.length,
-                      itemBuilder: (context, index){
-                        OrderModel order = controller.orders[index];
-                        if(order.status == "canceled"){
-                          return orderCard(order);
-                        }
-                        return const SizedBox();
-                      },
-                    )
-                ),
-                Obx(()=>
-                    ListView.builder(
-                      itemCount: controller.orders.length,
-                      itemBuilder: (context, index){
-                        OrderModel order = controller.orders[index];
-                        if(order.status == "pending"){
-                          return orderCard(order);
-                        }
-                        return const SizedBox();
-                      },
-                    )
-                ),
+                  )),
+            Obx(() => ListView.builder(
+                  itemCount: controller.orders.length,
+                  itemBuilder: (context, index) {
+                    OrderModel order = controller.orders[index];
+                    if (order.status == "completed") {
+                      return orderCard(order);
+                    }
+                    return const SizedBox();
+                  },
+                )),
+            Obx(() => ListView.builder(
+                  itemCount: controller.orders.length,
+                  itemBuilder: (context, index) {
+                    OrderModel order = controller.orders[index];
+                    if (order.status == "canceled") {
+                      return orderCard(order);
+                    }
+                    return const SizedBox();
+                  },
+                )),
+            Obx(() => ListView.builder(
+                  itemCount: controller.orders.length,
+                  itemBuilder: (context, index) {
+                    OrderModel order = controller.orders[index];
+                    if (order.status == "pending") {
+                      return orderCard(order);
+                    }
+                    return const SizedBox();
+                  },
+                )),
           ]))
         ],
       ),
     );
   }
 
-
-  Widget orderCard(OrderModel order){
+  Widget orderCard(OrderModel order) {
     Rxn selectedValue = Rxn();
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
@@ -204,9 +202,9 @@ class _OrderScreenState extends State<OrderScreen>
                 Text.rich(
                   TextSpan(
                     children: [
-                      const TextSpan(
-                        text: 'Order ID:',
-                        style: TextStyle(
+                      TextSpan(
+                        text: context.local.order_id,
+                        style: const TextStyle(
                           color: Color(0xFF109B0E),
                           fontSize: 8,
                           fontWeight: FontWeight.w500,
@@ -221,7 +219,7 @@ class _OrderScreenState extends State<OrderScreen>
                         ),
                       ),
                       TextSpan(
-                        text: order.id?.toString()??"",
+                        text: order.id?.toString() ?? "",
                         style: const TextStyle(
                           color: Color(0xB2131A22),
                           fontSize: 8,
@@ -256,13 +254,16 @@ class _OrderScreenState extends State<OrderScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FutureBuilder(future: controller.getSubService(order.selectedSubServices?.isNotEmpty == true
-                        ? order.selectedSubServices!.first.toString()
-                        : ""),
-                        builder: (context, subServiceSnap){
-                          if(subServiceSnap.connectionState == ConnectionState.done){
+                    FutureBuilder(
+                        future: controller.getSubService(
+                            order.selectedSubServices?.isNotEmpty == true
+                                ? order.selectedSubServices!.first.toString()
+                                : ""),
+                        builder: (context, subServiceSnap) {
+                          if (subServiceSnap.connectionState ==
+                              ConnectionState.done) {
                             return Text(
-                              "${subServiceSnap.data?['title']??""}",
+                              "${subServiceSnap.data?['title'] ?? ""}",
                               style: const TextStyle(
                                 color: Color(0xE5131A22),
                                 fontSize: 11.23,
@@ -271,8 +272,7 @@ class _OrderScreenState extends State<OrderScreen>
                             );
                           }
                           return const SizedBox();
-                        }
-                    ),
+                        }),
                     const SizedBox(height: 6),
                     Row(
                       children: [
@@ -281,8 +281,7 @@ class _OrderScreenState extends State<OrderScreen>
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                  color: const Color(0xFF5A5A5E),
-                                  width: 1)),
+                                  color: const Color(0xFF5A5A5E), width: 1)),
                           child: const Icon(
                             Icons.circle,
                             color: Color(0xFF5A5A5E),
@@ -292,10 +291,10 @@ class _OrderScreenState extends State<OrderScreen>
                         const SizedBox(
                           width: 8,
                         ),
-                        const Text(
-                          "Location",
+                        Text(
+                          context.local.location,
                           textAlign: TextAlign.right,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Color(0xFF596068),
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
@@ -309,16 +308,16 @@ class _OrderScreenState extends State<OrderScreen>
                   TextSpan(
                     children: [
                       TextSpan(
-                        text: order.totalAmount??"",
+                        text: order.totalAmount ?? "",
                         style: const TextStyle(
                           color: Color(0xFF131A22),
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      const TextSpan(
-                        text: "Rs",
-                        style: TextStyle(
+                      TextSpan(
+                        text: context.local.rs,
+                        style: const TextStyle(
                           color: Color(0xFF109B0E),
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -344,11 +343,11 @@ class _OrderScreenState extends State<OrderScreen>
                       color: Color(0xFFE4A951),
                       size: 17,
                     ),
-                    const  SizedBox(
+                    const SizedBox(
                       width: 3,
                     ),
                     Text(
-                      order.serviceLocation??"",
+                      order.serviceLocation ?? "",
                       style: const TextStyle(
                         color: Color(0xFF596068),
                         fontSize: 12,
@@ -370,7 +369,7 @@ class _OrderScreenState extends State<OrderScreen>
                         )),
                     const SizedBox(width: 2),
                     Text(
-                      order.status??"",
+                      order.status ?? "",
                       style: const TextStyle(
                         color: Color(0x7F131A22),
                         fontSize: 8,
@@ -389,41 +388,50 @@ class _OrderScreenState extends State<OrderScreen>
               Expanded(
                 child: SizedBox(
                   height: 40,
-                  child: Obx(()=> DropdownButton<String>(
-                    value: selectedValue.value,
-                    hint: const Text('Update Order Status'),
-                    isExpanded: true, // Ensures dropdown takes full width
-                    items: <String>['Not Started', 'Started', 'Completed', 'Cancel']
-                        .map((String value) => DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    ))
-                        .toList(),
-                    onChanged: (String? newValue) {
-                      selectedValue.value = newValue;
-                    },
-                    style: const TextStyle(fontSize: 14,color: AppColor.blackColor), // Customize text style
-                  )),
+                  child: Obx(() => DropdownButton<String>(
+                        value: selectedValue.value,
+                        hint: Text(context.local.update_order_status),
+                        isExpanded: true, // Ensures dropdown takes full width
+                        items: <String>[
+                          'Not Started',
+                          'Started',
+                          'Completed',
+                          'Cancel'
+                        ]
+                            .map((String value) => DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                ))
+                            .toList(),
+                        onChanged: (String? newValue) {
+                          selectedValue.value = newValue;
+                        },
+                        style: const TextStyle(
+                            fontSize: 14,
+                            color: AppColor.blackColor), // Customize text style
+                      )),
                 ),
               ),
-              if(order.status == "pending")
-              InkWell(
-                onTap: (){
-                  Get.to(SubmitWork(id: order.id.toString(),));
-                },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 2),
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(5)
+              if (order.status == "pending")
+                InkWell(
+                  onTap: () {
+                    Get.to(SubmitWork(
+                      id: order.id.toString(),
+                    ));
+                  },
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                    decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(5)),
+                    alignment: Alignment.center,
+                    child: Text(
+                      context.local.submit_work,
+                      style: const TextStyle(color: AppColor.white, fontSize: 12),
+                    ),
                   ),
-                  alignment: Alignment.center,
-                  child: const Text("Submit Work",style: TextStyle(
-                    color: AppColor.white,
-                    fontSize: 12
-                  ),),
-                ),
-              )
+                )
             ],
           )
         ],
@@ -488,21 +496,21 @@ class EarningTab extends StatelessWidget {
                     ),
                   ),
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text.rich(
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: 'Order ID:',
-                            style: TextStyle(
+                            text: context.local.order_id,
+                            style: const TextStyle(
                               color: Color(0xFF109B0E),
                               fontSize: 8,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          TextSpan(
+                          const TextSpan(
                             text: ' ',
                             style: TextStyle(
                               color: Color(0xB2131A22),
@@ -510,7 +518,7 @@ class EarningTab extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          TextSpan(
+                          const TextSpan(
                             text: '8347438893',
                             style: TextStyle(
                               color: Color(0xB2131A22),
@@ -522,8 +530,8 @@ class EarningTab extends StatelessWidget {
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(width: 5),
-                    Text(
+                    const SizedBox(width: 5),
+                    const Text(
                       '2-10-2024',
                       textAlign: TextAlign.center,
                       style: TextStyle(

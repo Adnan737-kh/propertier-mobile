@@ -17,14 +17,14 @@ Widget verifyTile({
       statusIcon = Image.asset("assets/icons/AlertIcon.png", width: 27);
       break;
     case "pending":
-      statusIcon = CustomText(
+      statusIcon = const CustomText(
         title: '✓ ',
         fontSize: 32,
         color: AppColor.buttonColor,
       );
       break;
     case "verified":
-      statusIcon = CustomText(
+      statusIcon = const CustomText(
         title: '✓ ',
         fontSize: 32,
         color: AppColor.greenColor,

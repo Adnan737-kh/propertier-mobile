@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/Vendor/screens/Wallet/VendorWalletController.dart';
 import 'package:propertier/constant/colors.dart';
-
+import 'package:propertier/extensions/localization_extension.dart';
 
 class VendorWallet extends GetView<VendorWalletController> {
   const VendorWallet({super.key});
@@ -12,7 +12,7 @@ class VendorWallet extends GetView<VendorWalletController> {
     return Scaffold(
       // backgroundColor: Colors.blue.shade50,
       appBar: AppBar(
-        title: const Text("Wallet"),
+        title: Text(context.local.wallet),
         backgroundColor: AppColor.forGroundColor,
       ),
       body: Padding(
@@ -35,61 +35,66 @@ class VendorWallet extends GetView<VendorWalletController> {
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                   const SizedBox(height: 10),
-                  Obx(()=> Text(
-                    "\$${controller.balance.value.toStringAsFixed(2)}",
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold),
-                  )),
+                  Obx(() => Text(
+                        "\$${controller.balance.value.toStringAsFixed(2)}",
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold),
+                      )),
                   const SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: (){
+                    onPressed: () {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: const Text('Enter Amount'),
                             content: Form(
                               key: controller.formKey,
                               child: TextFormField(
                                 controller: controller.priceController,
                                 keyboardType: TextInputType.number,
-                                decoration: const InputDecoration(
-                                  labelText: 'Amount',
-                                  border: OutlineInputBorder(),
+                                decoration: InputDecoration(
+                                  labelText: context.local.amount,
+                                  border: const OutlineInputBorder(),
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter amount';
+                                    return context.local.please_enter_amount;
                                   }
                                   if (int.tryParse(value) == null) {
-                                    return 'Please enter a valid integer';
+                                    return context
+                                        .local.please_enter_a_valid_number;
                                   }
                                   return null;
                                 },
                               ),
                             ),
+                            title: Text(context.local.enter_amount),
                             actions: [
                               TextButton(
                                 onPressed: () {
-                                  Navigator.of(context).pop(); // Close the dialog
+                                  Navigator.of(context)
+                                      .pop(); // Close the dialog
                                 },
-                                child: const Text('Cancel'),
+                                child: Text(context.local.cancel),
                               ),
                               ElevatedButton(
-                                onPressed: () async{
-                                  if (controller.formKey.currentState!.validate()) {
+                                onPressed: () async {
+                                  if (controller.formKey.currentState!
+                                      .validate()) {
                                     // Price is valid
-                                    final price = int.parse(controller.priceController.text);
+                                    final price = int.parse(
+                                        controller.priceController.text);
                                     await controller.walletTestPayment(price);
                                     // double totalPrice = controller.balance.value + price;
                                     // print('Entered Price: $totalPrice');
                                     // controller.updateBalance(totalPrice);
-                                    Navigator.of(context).pop(); // Close the dialog
+                                    Navigator.of(context)
+                                        .pop(); // Close the dialog
                                   }
                                 },
-                                child: const Text('Continue'),
+                                child: Text(context.local.continues),
                               ),
                             ],
                           );
@@ -98,12 +103,14 @@ class VendorWallet extends GetView<VendorWalletController> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColor.forGroundColor,
-                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 40, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    child: const Text("Top Up", style: TextStyle(fontSize: 16)),
+                    child: Text(context.local.top_up,
+                        style: const TextStyle(fontSize: 16)),
                   ),
                 ],
               ),

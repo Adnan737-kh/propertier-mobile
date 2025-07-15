@@ -34,7 +34,7 @@ class ServicesCore {
         if (kDebugMode) {
           print("services status code !! ${response.statusCode}");
         }
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: CustomText(
                 title: 'Something went wrong Fixed Services.',
                 color: AppColor.white)));
@@ -71,7 +71,7 @@ class ServicesCore {
           print("Parent Services Body: ${response.body}");
         }
 
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: CustomText(
                 title: 'Something went wrong getAllParentServices.',
                 color: AppColor.white)));
@@ -105,7 +105,7 @@ class ServicesCore {
         model = ServiceDashboardModel.fromJson(decodedJson);
         return model;
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: CustomText(
                 title: 'Something went wrong servicesDashboard.',
                 color: AppColor.white)));

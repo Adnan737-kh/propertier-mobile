@@ -35,7 +35,7 @@ Widget otherPaymentMethod(
                 height: 13.17,
               ),
               const Gap(8),
-              CustomText(
+              const CustomText(
                   title: "031******123",
                   fontSize: 12,
                   fontWeight: FontWeight.normal)

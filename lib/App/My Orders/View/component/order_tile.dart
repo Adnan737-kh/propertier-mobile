@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/App/My%20Orders/Model/order_model.dart';
 import 'package:propertier/extensions/localization_extension.dart';
 

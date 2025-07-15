@@ -9,6 +9,7 @@ import 'package:propertier/Utils/border.dart';
 import 'package:propertier/Utils/box_shadow.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 class AccountStatusView extends StatelessWidget {
@@ -68,7 +69,7 @@ class AccountStatusView extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        CustomText(
+                                        const CustomText(
                                             textAlign: TextAlign.start,
                                             fontSize: 12,
                                             fontWeight: FontWeight.w400,
@@ -83,14 +84,14 @@ class AccountStatusView extends StatelessWidget {
                                             GestureDetector(
                                                 onTap: () {},
                                                 child: CustomText(
-                                                    title: 'need Help?',
+                                                    title: context.local.need_help,
                                                     fontSize: 12,
                                                     fontWeight: FontWeight.w400,
                                                     color: AppColor.white)),
                                             GestureDetector(
                                               onTap: () {},
                                               child: CustomText(
-                                                  title: 'Contact Support',
+                                                  title: context.local.contact_support,
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w400,
                                                   color: AppColor.white),
@@ -117,14 +118,14 @@ class AccountStatusView extends StatelessWidget {
                       width: context.getSize.height * 0.23,
                       decoration: const BoxDecoration(shape: BoxShape.circle),
                       alignment: Alignment.center,
-                      child: CustomText(
+                      child: const CustomText(
                           title: '60 %',
                           fontSize: 40,
                           fontWeight: FontWeight.w600),
                     )),
                 getHeight(context, 0.040),
                 CustomText(
-                    title: 'Profile Complete',
+                    title: context.local.profile_complete,
                     fontSize: 14,
                     fontWeight: FontWeight.w600)
               ],

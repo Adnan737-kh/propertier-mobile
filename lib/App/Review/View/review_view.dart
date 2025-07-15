@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/App/Review/Components/review_tile.dart';
 import 'package:propertier/App/Review/ViewModel/review_viewmodel.dart';
 import 'package:propertier/Utils/app_text.dart';

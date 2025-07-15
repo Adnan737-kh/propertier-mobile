@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-UserModelOld UserModelFromJson(String str) => UserModelOld.fromJson(json.decode(str));
+UserModelOld userModelFromJson(String str) => UserModelOld.fromJson(json.decode(str));
 
-String UserModelToJson(UserModelOld data) => json.encode(data.toJson());
+String userModelToJson(UserModelOld data) => json.encode(data.toJson());
 
 class UserModelOld {
   String token;

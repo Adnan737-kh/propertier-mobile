@@ -30,7 +30,7 @@ class VendorOffer extends GetView<VendorOfferController> {
               color: AppColor.blackColor,
             )),
         title: CustomText(
-            title: "Vendor Offers",
+            title: context.local.vendor_offers,
             fontSize: 16,
             fontWeight: FontWeight.w600),
       ),
@@ -105,7 +105,7 @@ class OfferCard extends StatelessWidget {
                 //               fontSize: context.fontSize(8),
                 //               fontWeight: FontWeight.w400))
                 //     ])),
-                CustomText(
+                const CustomText(
                     colorOpecity: 0.5,
                     fontSize: 8,
                     fontWeight: FontWeight.w400,
@@ -115,7 +115,7 @@ class OfferCard extends StatelessWidget {
                     color: AppColor.appleColor,
                     fontSize: 8,
                     fontWeight: FontWeight.w400,
-                    title: "pending",
+                    title: context.local.pending,
                      ),
               ],
             ),
@@ -212,7 +212,7 @@ class OfferCard extends StatelessWidget {
                             title: context.local.reject,
                             onClick: () {}),
                         getHeight(context, 0.01),
-                        CustomText(
+                        const CustomText(
                             title: '00:15',
                             fontSize: 10,
                             fontWeight: FontWeight.w500,

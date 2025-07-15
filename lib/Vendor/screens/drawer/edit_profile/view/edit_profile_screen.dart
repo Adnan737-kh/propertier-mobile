@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:propertier/Vendor/screens/dashboard/profile/controller/profile_controller.dart';
 import 'package:propertier/Vendor/screens/dashboard/profile/model/profile_model.dart';
 import 'package:propertier/Vendor/screens/widgets/primary_textfield.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -27,13 +28,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final ProfileController profileController = Get.put(ProfileController());
   late String vendorUserId;
   ProfileModel? originalProfile;
-  bool _obscurePassword = true;
-
-  void _togglePasswordVisibility() {
-    setState(() {
-      _obscurePassword = !_obscurePassword;
-    });
-  }
+  // bool _obscurePassword = true;
+  //
+  // void _togglePasswordVisibility() {
+  //   setState(() {
+  //     _obscurePassword = !_obscurePassword;
+  //   });
+  // }
 
   Country selectedCountry = Country(
     phoneCode: ProfileController().profile.value.phoneNumberCountryCode ?? "",
@@ -175,9 +176,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               Icons.arrow_back,
                               color: Colors.white,
                             )),
-                        const Text(
-                          'Edit Profile',
-                          style: TextStyle(
+                         Text(
+                          context.local.edit_profile,
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
@@ -235,9 +236,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ),
                           ),
                           const SizedBox(height: 2),
-                          const Text(
-                            'Followers',
-                            style: TextStyle(
+                           Text(
+                            context.local.followers,
+                            style: const TextStyle(
                               color: Color(0x99131A22),
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -260,9 +261,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ),
                           ),
                           const SizedBox(height: 2),
-                          const Text(
-                            'Likes',
-                            style: TextStyle(
+                           Text(
+                            context.local.likes,
+                            style: const TextStyle(
                               color: Color(0x99131A22),
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -331,8 +332,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     PrimaryTextField(
                       controller: TextEditingController(
                           text: profileController.profile.value.name),
-                      headertext: 'Full Name',
-                      text: 'your name',
+                      headertext: context.local.full_name,
+                      text: context.local.your_name,
                       suffixIcon: const Icon(
                         Icons.edit,
                         color: Colors.blue,
@@ -343,9 +344,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     const SizedBox(
                       height: 19,
                     ),
-                    const Text(
-                      'Phone Number',
-                      style: TextStyle(
+                     Text(
+                         context.local.phone_number,
+                      style: const TextStyle(
                         color: Color(0xFF131A22),
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -367,7 +368,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           labelStyle: const TextStyle(
                             fontSize: 16,
                           ),
-                          hintText: 'your number',
+                          hintText: context.local.your_number,
                           hintStyle: const TextStyle(
                             color: Color(0xB2131A22),
                             fontSize: 16,
@@ -386,8 +387,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   countryListTheme: CountryListThemeData(
                                     bottomSheetHeight: Get.height * .5,
                                     inputDecoration: InputDecoration(
-                                      labelText: 'Search',
-                                      hintText: 'Start typing to search',
+                                      labelText: context.local.search,
+                                      hintText: context.local.start_typing_to_search,
                                       prefixIcon: const Icon(Icons.search),
                                       border: OutlineInputBorder(
                                         borderSide: BorderSide(
@@ -426,7 +427,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     PrimaryTextField(
                       controller: passwordController,
-                      headertext: 'Password',
+                      headertext: context.local.password,
                       text: '24643456',
                       // obsecure: _obscurePassword,
                       suffixIcon: const Icon(
@@ -437,7 +438,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     const SizedBox(height: 19),
                     PrimaryTextField(
                       controller: addressController,
-                      headertext: 'Address',
+                      headertext: context.local.address,
                       text: 'Bahria town phase 7 ,lahore',
                       suffixIcon: const Icon(
                         Icons.edit,
@@ -450,9 +451,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Driving License Front",
-                          style: TextStyle(
+                         Text(context.local.driving_license_front,
+                          style: const TextStyle(
                             color: Color(0xFF131A22),
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -475,7 +475,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 borderRadius: BorderRadius.circular(10)
                             ),
                             alignment: Alignment.center,
-                            child: const Text("Upload Image"),
+                            child:  Text(context.local.upload_image),
                           ): Container(
                               margin:const  EdgeInsets.symmetric(vertical: 10),
                               height: 150,
@@ -486,9 +486,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Driving License Back",
-                          style: TextStyle(
+                         Text(
+                          context.local.driving_License_back,
+                          style: const TextStyle(
                             color: Color(0xFF131A22),
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -511,7 +511,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 borderRadius: BorderRadius.circular(10)
                             ),
                             alignment: Alignment.center,
-                            child:const  Text("Upload Image"),
+                            child:  Text(context.local.upload_image),
                           ): Container(
                             margin: const EdgeInsets.symmetric(vertical: 10),
                             height: 150,
@@ -554,10 +554,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        child: const Center(
+                        child:  Center(
                           child: Text(
-                            'Save',
-                            style: TextStyle(
+                            context.local.save,
+                            style: const TextStyle(
                               color: Color(0xFF131A22),
                               fontSize: 19,
                               fontWeight: FontWeight.w500,

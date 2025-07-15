@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:propertier/Vendor/screens/drawer/vehicle_list/controller/AddVehicleController.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 import '../../../../Utils/app_text.dart';
@@ -72,9 +73,9 @@ class _AddVehicleState extends State<AddVehicle> {
                     ),
                   ),
                   const SizedBox(width: 4),
-                  const Text(
-                    'Add New Transport',
-                    style: TextStyle(
+                  Text(
+                    context.local.add_new_transport,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 17,
                       fontWeight: FontWeight.w500,
@@ -91,9 +92,9 @@ class _AddVehicleState extends State<AddVehicle> {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   children: [
-                    const Text(
-                      'Enter Vehicle Information',
-                      style: TextStyle(
+                    Text(
+                      context.local.enter_vehicle_information,
+                      style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
                         color: Colors.blue,
@@ -105,7 +106,7 @@ class _AddVehicleState extends State<AddVehicle> {
                     // Field: Make
                     PrimaryTextField(
                       controller: controller.makeController,
-                      headertext: 'Make',
+                      headertext: context.local.make,
                       text: 'Enter vehicle make (e.g., Toyota)',
                       suffixIcon: const Icon(
                         Icons.edit,
@@ -117,7 +118,7 @@ class _AddVehicleState extends State<AddVehicle> {
                     PrimaryTextField(
                       controller: controller.modelController,
                       headertext: 'Model',
-                      text: 'Enter vehicle model (e.g. Campry)',
+                      text: 'Enter vehicle model (e.g. Camry)',
                       suffixIcon: const Icon(
                         Icons.edit,
                         color: Color(0xFF131A22),
@@ -128,7 +129,7 @@ class _AddVehicleState extends State<AddVehicle> {
                     // Field: Year
                     PrimaryTextField(
                       controller: controller.yearController,
-                      headertext: 'Year',
+                      headertext: context.local.year,
                       text: 'Enter year of manufacture (e.g., 2020)',
                       suffixIcon: const Icon(
                         Icons.edit,
@@ -140,7 +141,7 @@ class _AddVehicleState extends State<AddVehicle> {
                     // Field: Color
                     PrimaryTextField(
                       controller: controller.colorController,
-                      headertext: 'Color',
+                      headertext: context.local.color,
                       text: 'Enter color (e.g., Blue)',
                       suffixIcon: const Icon(
                         Icons.edit,
@@ -152,7 +153,7 @@ class _AddVehicleState extends State<AddVehicle> {
                     // Field: Registration Number
                     PrimaryTextField(
                       controller: controller.registrationNumberController,
-                      headertext: 'Registration Number',
+                      headertext: context.local.registration_number,
                       text: 'Enter registration number (e.g., ABC1234)',
                       suffixIcon: const Icon(
                         Icons.edit,
@@ -164,7 +165,7 @@ class _AddVehicleState extends State<AddVehicle> {
                     // Field: Owner Name
                     PrimaryTextField(
                       controller: controller.ownerNameController,
-                      headertext: 'Owner Name',
+                      headertext: context.local.owner_name,
                       text: 'Enter owner name (e.g., John Doe)',
                       suffixIcon: const Icon(
                         Icons.edit,
@@ -176,7 +177,7 @@ class _AddVehicleState extends State<AddVehicle> {
                     // Field: Capacity
                     PrimaryTextField(
                       controller: controller.capacityController,
-                      headertext: 'Capacity',
+                      headertext: context.local.capacity,
                       text: 'Enter capacity (e.g., 5 passengers)',
                       suffixIcon: const Icon(
                         Icons.edit,
@@ -188,7 +189,7 @@ class _AddVehicleState extends State<AddVehicle> {
                     // Field: Fuel Type
                     PrimaryTextField(
                       controller: controller.fuelTypeController,
-                      headertext: 'Fuel Type',
+                      headertext: context.local.fuel_type,
                       text: 'Enter fuel type (e.g., Gasoline)',
                       suffixIcon: const Icon(
                         Icons.edit,
@@ -201,7 +202,7 @@ class _AddVehicleState extends State<AddVehicle> {
                     // Field: Transmission Type
                     PrimaryTextField(
                       controller: controller.transmissionTypeController,
-                      headertext: 'Transmission Type',
+                      headertext: context.local.transmission_type,
                       text: 'Enter transmission type (e.g., Automatic)',
                       suffixIcon: const Icon(
                         Icons.edit,
@@ -233,7 +234,8 @@ class _AddVehicleState extends State<AddVehicle> {
                                         size: 38,
                                       ),
                                       CustomText(
-                                          title: "Pick Gallery Images",
+                                          title:
+                                              context.local.pick_gallery_images,
                                           fontSize: 16,
                                           colorOpecity: 0.4,
                                           color: Colors.black,
@@ -293,10 +295,10 @@ class _AddVehicleState extends State<AddVehicle> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        child: const Center(
+                        child: Center(
                           child: Text(
-                            'Save',
-                            style: TextStyle(
+                            context.local.save,
+                            style: const TextStyle(
                               color: Color(0xFF131A22),
                               fontSize: 19,
                               fontWeight: FontWeight.w500,

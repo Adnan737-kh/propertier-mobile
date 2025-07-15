@@ -30,7 +30,7 @@ class SearchEngineView extends StatelessWidget {
                     viewModel.searchedList.clear();
                   }
                 },
-                horzontalPadding: 0,
+                horizontalPadding: 0,
                 searchController: viewModel.searchController,
                 suFixIcon: Row(
                   mainAxisSize: MainAxisSize.min,

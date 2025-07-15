@@ -48,14 +48,14 @@ class ServicesSearhViewModel extends GetxController {
       imagesPath.add(file.path);
     }
     if(imagesPath.isEmpty){
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: CustomText(
               title: 'Upload images',
               color: AppColor.white)));
       return;
     }
     if(descriptionController.text == ""){
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: CustomText(
               title: 'Write a description.',
               color: AppColor.white)));

@@ -15,6 +15,7 @@ import 'package:propertier/Vendor/screens/dashboard/viewmodel/DashboardViewModel
 import 'package:propertier/Vendor/screens/widgets/drawer_widget.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -82,9 +83,9 @@ class DashboardState extends State<Dashboard>
                           Get.offAllNamed(AppRoutes.navBarView);
                           Get.put(NavBarView());
                         },
-                        child: const Text(
-                          'Switch to Client',
-                          style: TextStyle(
+                        child:  Text(
+                          context.local.switch_to_client,
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 12,
                           ),

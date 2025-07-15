@@ -8,20 +8,20 @@ import 'package:propertier/extensions/size_extension.dart';
 class SearchTextField extends StatelessWidget {
   final Widget suFixIcon;
   final double height;
-  final double horzontalPadding;
+  final double horizontalPadding;
   final String hintText;
   final Function(String)? onChange;
 
   SearchTextField(
       {super.key,
-      this.horzontalPadding = 0.090,
+      this.horizontalPadding = 0.090,
       required this.searchController,
       this.onChange,
       this.hintText = '',
       required this.suFixIcon,
       this.height = 0.04});
-  TextEditingController searchController;
-  var border = OutlineInputBorder(
+  final TextEditingController searchController;
+  final border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
       borderSide: const BorderSide(
         color: Colors.transparent,
@@ -32,7 +32,7 @@ class SearchTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-        horizontal: context.getSize.width * horzontalPadding,
+        horizontal: context.getSize.width * horizontalPadding,
       ),
       decoration: BoxDecoration(
           boxShadow: [boxShadow()],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 import '../../../../../RoutesAndBindings/app_routes.dart';
 import '../../../../../constant/colors.dart';
@@ -17,10 +18,8 @@ Widget emailVerifyTile({
       mainAxisSize: MainAxisSize.min,
       children: [
         isVerify
-            ? CustomText(
-                title: '✓ ',
-                fontSize: 60,
-                color: AppColor.buttonColor)
+            ? const CustomText(
+                title: '✓ ', fontSize: 60, color: AppColor.buttonColor)
             : const Icon(
                 Icons.cancel_outlined,
                 color: Colors.red,
@@ -29,15 +28,15 @@ Widget emailVerifyTile({
         const Gap(8),
         isVerify
             ? CustomText(
-                title: 'Verified',
+                title: context.local.verified,
                 fontSize: 20,
                 color: AppColor.blackColor)
             : CustomText(
-                title: 'Error',
+                title: context.local.error,
                 fontSize: 20,
                 color: AppColor.blackColor),
         const Gap(8),
-        CustomText(title: title,colorOpecity: 0.60),
+        CustomText(title: title, colorOpecity: 0.60),
         const Gap(8),
         !isVerify
             ? GestureDetector(
@@ -45,7 +44,7 @@ Widget emailVerifyTile({
                   Get.offNamed(AppRoutes.emailEnterView);
                 },
                 child: CustomText(
-                    title: "Verify your number?",
+                    title: context.local.verify_your_number,
                     color: AppColor.facebookColor,
                     colorOpecity: 0.90),
               )

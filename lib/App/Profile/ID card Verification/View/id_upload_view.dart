@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import '../../../../Utils/app_text.dart';
 import '../../../../Utils/appbar.dart';
 import '../../../../Utils/text_botton.dart';
@@ -80,7 +81,7 @@ class _IDUploadViewState extends State<IDUploadView> {
                     height: 30,
                   ),
                   CustomText(
-                      title: "Please Take photo of your ID Card from front.",
+                      title: context.local.please_take_photo_of_your_id_card_from_front,
                       fontSize: 16,
                       color: const Color(0xFF6D6E6F),
                       fontWeight: FontWeight.bold),
@@ -101,7 +102,7 @@ class _IDUploadViewState extends State<IDUploadView> {
                     height: 30,
                   ),
                   CustomText(
-                      title: "Please Take photo of your ID Card from Back",
+                      title: context.local.please_take_photo_of_your_id_card_from_back,
                       fontSize: 16,
                       color: const Color(0xFF6D6E6F),
                       fontWeight: FontWeight.bold),

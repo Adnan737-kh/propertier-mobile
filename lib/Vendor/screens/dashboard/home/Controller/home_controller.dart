@@ -116,10 +116,14 @@ class WebSocketController extends GetxController {
         }
 
       } catch (e) {
-        print('Error loading profile: $e');
+        if (kDebugMode) {
+          print('Error loading profile: $e');
+        }
       }
     } else {
-      print('Vendor user ID not found');
+      if (kDebugMode) {
+        print('Vendor user ID not found');
+      }
     }
   }
 

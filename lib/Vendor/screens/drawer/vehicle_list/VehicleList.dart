@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:propertier/Vendor/screens/drawer/vehicle_list/AddVehicle.dart';
 import 'package:propertier/Vendor/screens/drawer/vehicle_list/model/VehicleModel.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 import '../../dashboard/profile/controller/profile_controller.dart';
 import 'component/components.dart';
@@ -72,9 +73,9 @@ class _VehicleListState extends State<VehicleList> {
                     ),
                   ),
                   const SizedBox(width: 4),
-                  const Text(
-                    'My Vehicles',
-                    style: TextStyle(
+                   Text(
+                    context.local.my_vehicles,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 17,
                       fontWeight: FontWeight.w500,
@@ -106,8 +107,8 @@ class _VehicleListState extends State<VehicleList> {
                         }
                     );
                   }
-                  return const Center(
-                    child: Text("No vehicle found!"),
+                  return  Center(
+                    child: Text(context.local.no_vehicle_found),
                   );
                 }
             ),

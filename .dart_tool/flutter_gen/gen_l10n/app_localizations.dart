@@ -1037,11 +1037,11 @@ abstract class AppLocalizations {
   /// **'Sign Out'**
   String get sign_out;
 
-  /// No description provided for @dont_have_an_account.
+  /// No description provided for @do_not_have_an_account.
   ///
   /// In en, this message translates to:
   /// **'Don\'t have an account?'**
-  String get dont_have_an_account;
+  String get do_not_have_an_account;
 
   /// No description provided for @privacy_policy.
   ///
@@ -2260,6 +2260,1068 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please enter a valid Number'**
   String get please_enter_a_valid_number;
+
+  /// No description provided for @linked_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Linked Account'**
+  String get linked_account;
+
+  /// No description provided for @total_earning.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Earning'**
+  String get total_earning;
+
+  /// No description provided for @deductions.
+  ///
+  /// In en, this message translates to:
+  /// **'Deductions'**
+  String get deductions;
+
+  /// No description provided for @short_tour.
+  ///
+  /// In en, this message translates to:
+  /// **'Short Tour'**
+  String get short_tour;
+
+  /// No description provided for @description_detail.
+  ///
+  /// In en, this message translates to:
+  /// **'Description Detail'**
+  String get description_detail;
+
+  /// No description provided for @offer.
+  ///
+  /// In en, this message translates to:
+  /// **'Offer'**
+  String get offer;
+
+  /// No description provided for @filter.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get filter;
+
+  /// No description provided for @minimum.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum'**
+  String get minimum;
+
+  /// No description provided for @maximum.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum'**
+  String get maximum;
+
+  /// No description provided for @customer_id.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer ID:'**
+  String get customer_id;
+
+  /// No description provided for @enter_your_amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Your Amount'**
+  String get enter_your_amount;
+
+  /// No description provided for @availability_schedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Availability Schedule'**
+  String get availability_schedule;
+
+  /// No description provided for @service_charges.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Charges:'**
+  String get service_charges;
+
+  /// No description provided for @enter_service_charges.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Service Charges'**
+  String get enter_service_charges;
+
+  /// No description provided for @upload_image.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload Image:'**
+  String get upload_image;
+
+  /// No description provided for @please_enter_url.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload Image:'**
+  String get please_enter_url;
+
+  /// No description provided for @upload_short_video_less_than.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload Short Video Less Than 25MB'**
+  String get upload_short_video_less_than;
+
+  /// No description provided for @do_you_wanna_feature_your_ad.
+  ///
+  /// In en, this message translates to:
+  /// **'Do your wanna Feature your ad?'**
+  String get do_you_wanna_feature_your_ad;
+
+  /// No description provided for @feature_ad.
+  ///
+  /// In en, this message translates to:
+  /// **'Feature Ad'**
+  String get feature_ad;
+
+  /// No description provided for @save_post.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Post'**
+  String get save_post;
+
+  /// No description provided for @select_pricing_model.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Pricing Model'**
+  String get select_pricing_model;
+
+  /// No description provided for @pricing_model.
+  ///
+  /// In en, this message translates to:
+  /// **'Pricing Model:'**
+  String get pricing_model;
+
+  /// No description provided for @select_visiting_charge.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Visiting Charge'**
+  String get select_visiting_charge;
+
+  /// No description provided for @visiting_charges.
+  ///
+  /// In en, this message translates to:
+  /// **'Visiting Charges:'**
+  String get visiting_charges;
+
+  /// No description provided for @select_services_radius.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Services Radius'**
+  String get select_services_radius;
+
+  /// No description provided for @services_radius.
+  ///
+  /// In en, this message translates to:
+  /// **'Services Radius'**
+  String get services_radius;
+
+  /// No description provided for @invalid_video_url.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid video URL'**
+  String get invalid_video_url;
+
+  /// No description provided for @select_tools_provided.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Tools Provided'**
+  String get select_tools_provided;
+
+  /// No description provided for @tools_provided.
+  ///
+  /// In en, this message translates to:
+  /// **'Tools Provided:'**
+  String get tools_provided;
+
+  /// No description provided for @select_water_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Water Type'**
+  String get select_water_type;
+
+  /// No description provided for @water_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Water Types:'**
+  String get water_type;
+
+  /// No description provided for @select_delivery_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Delivery Type'**
+  String get select_delivery_type;
+
+  /// No description provided for @delivery_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery Types:'**
+  String get delivery_type;
+
+  /// No description provided for @enter_about_information.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter about information'**
+  String get enter_about_information;
+
+  /// No description provided for @likes.
+  ///
+  /// In en, this message translates to:
+  /// **'Likes'**
+  String get likes;
+
+  /// No description provided for @license_card.
+  ///
+  /// In en, this message translates to:
+  /// **'License Card'**
+  String get license_card;
+
+  /// No description provided for @renew_license_card.
+  ///
+  /// In en, this message translates to:
+  /// **'Renew License Card'**
+  String get renew_license_card;
+
+  /// No description provided for @license_valid_until.
+  ///
+  /// In en, this message translates to:
+  /// **'License valid until:'**
+  String get license_valid_until;
+
+  /// No description provided for @appreciations.
+  ///
+  /// In en, this message translates to:
+  /// **'Appreciations'**
+  String get appreciations;
+
+  /// No description provided for @uploaded_posts.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploaded Posts'**
+  String get uploaded_posts;
+
+  /// No description provided for @view_all.
+  ///
+  /// In en, this message translates to:
+  /// **'View All'**
+  String get view_all;
+
+  /// No description provided for @no_image_selected.
+  ///
+  /// In en, this message translates to:
+  /// **'No Image Selected'**
+  String get no_image_selected;
+
+  /// No description provided for @featured.
+  ///
+  /// In en, this message translates to:
+  /// **'Featured'**
+  String get featured;
+
+  /// No description provided for @just_now.
+  ///
+  /// In en, this message translates to:
+  /// **'Just now'**
+  String get just_now;
+
+  /// No description provided for @no_featured_service_available.
+  ///
+  /// In en, this message translates to:
+  /// **'No Featured Service Available'**
+  String get no_featured_service_available;
+
+  /// No description provided for @are_you_sure_you_want_to_delete_this_service.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this service?'**
+  String get are_you_sure_you_want_to_delete_this_service;
+
+  /// No description provided for @switch_to_client.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to Client'**
+  String get switch_to_client;
+
+  /// No description provided for @you_posted.
+  ///
+  /// In en, this message translates to:
+  /// **'you Posted'**
+  String get you_posted;
+
+  /// No description provided for @full_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get full_name;
+
+  /// No description provided for @your_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name Name'**
+  String get your_name;
+
+  /// No description provided for @your_number.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Number'**
+  String get your_number;
+
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
+
+  /// No description provided for @start_typing_to_search.
+  ///
+  /// In en, this message translates to:
+  /// **'Start typing to search'**
+  String get start_typing_to_search;
+
+  /// No description provided for @driving_license_front.
+  ///
+  /// In en, this message translates to:
+  /// **'Driving License Front'**
+  String get driving_license_front;
+
+  /// No description provided for @driving_License_back.
+  ///
+  /// In en, this message translates to:
+  /// **'Driving License Back'**
+  String get driving_License_back;
+
+  /// No description provided for @upload_images_for.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload Images for'**
+  String get upload_images_for;
+
+  /// No description provided for @enter_service_here.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Service here..'**
+  String get enter_service_here;
+
+  /// No description provided for @offered_services.
+  ///
+  /// In en, this message translates to:
+  /// **'Offered Services'**
+  String get offered_services;
+
+  /// No description provided for @update_order_status.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Order Status'**
+  String get update_order_status;
+
+  /// No description provided for @submit_work.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit Work'**
+  String get submit_work;
+
+  /// No description provided for @information_collected.
+  ///
+  /// In en, this message translates to:
+  /// **'Information Collected'**
+  String get information_collected;
+
+  /// No description provided for @purpose_of_Collecting_information.
+  ///
+  /// In en, this message translates to:
+  /// **'Purpose of Collecting Information'**
+  String get purpose_of_Collecting_information;
+
+  /// No description provided for @sharing_information.
+  ///
+  /// In en, this message translates to:
+  /// **'Sharing Information'**
+  String get sharing_information;
+
+  /// No description provided for @access_and_control_of_your_information.
+  ///
+  /// In en, this message translates to:
+  /// **'Access and Control of Your Information'**
+  String get access_and_control_of_your_information;
+
+  /// No description provided for @purpose_of_collecting_information.
+  ///
+  /// In en, this message translates to:
+  /// **'Purpose of Collecting Information'**
+  String get purpose_of_collecting_information;
+
+  /// No description provided for @data_security.
+  ///
+  /// In en, this message translates to:
+  /// **'Data Security'**
+  String get data_security;
+
+  /// No description provided for @comment.
+  ///
+  /// In en, this message translates to:
+  /// **'Comment'**
+  String get comment;
+
+  /// No description provided for @posts.
+  ///
+  /// In en, this message translates to:
+  /// **'Posts'**
+  String get posts;
+
+  /// No description provided for @only_me.
+  ///
+  /// In en, this message translates to:
+  /// **'Only Me'**
+  String get only_me;
+
+  /// No description provided for @only_you_can_see_your_comments.
+  ///
+  /// In en, this message translates to:
+  /// **'Only you Can see your Comments'**
+  String get only_you_can_see_your_comments;
+
+  /// No description provided for @every_one_can_see_your_comments.
+  ///
+  /// In en, this message translates to:
+  /// **'Every one Can see your Comments'**
+  String get every_one_can_see_your_comments;
+
+  /// No description provided for @support_center.
+  ///
+  /// In en, this message translates to:
+  /// **'Support Center'**
+  String get support_center;
+
+  /// No description provided for @type_here.
+  ///
+  /// In en, this message translates to:
+  /// **'Type here...'**
+  String get type_here;
+
+  /// No description provided for @add_new_transport.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Transport'**
+  String get add_new_transport;
+
+  /// No description provided for @enter_vehicle_information.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Vehicle Information'**
+  String get enter_vehicle_information;
+
+  /// No description provided for @make.
+  ///
+  /// In en, this message translates to:
+  /// **'Make'**
+  String get make;
+
+  /// No description provided for @model.
+  ///
+  /// In en, this message translates to:
+  /// **'Model'**
+  String get model;
+
+  /// No description provided for @year.
+  ///
+  /// In en, this message translates to:
+  /// **'Year'**
+  String get year;
+
+  /// No description provided for @color.
+  ///
+  /// In en, this message translates to:
+  /// **'Color'**
+  String get color;
+
+  /// No description provided for @registration_number.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration Number'**
+  String get registration_number;
+
+  /// No description provided for @owner_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Owner Name'**
+  String get owner_name;
+
+  /// No description provided for @capacity.
+  ///
+  /// In en, this message translates to:
+  /// **'Capacity'**
+  String get capacity;
+
+  /// No description provided for @fuel_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Capacity'**
+  String get fuel_type;
+
+  /// No description provided for @transmission_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Transmission Type'**
+  String get transmission_type;
+
+  /// No description provided for @my_vehicles.
+  ///
+  /// In en, this message translates to:
+  /// **'My Vehicles'**
+  String get my_vehicles;
+
+  /// No description provided for @no_vehicle_found.
+  ///
+  /// In en, this message translates to:
+  /// **'No vehicle found!'**
+  String get no_vehicle_found;
+
+  /// No description provided for @edit_data.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Data'**
+  String get edit_data;
+
+  /// No description provided for @no_images_selected.
+  ///
+  /// In en, this message translates to:
+  /// **'No images selected'**
+  String get no_images_selected;
+
+  /// No description provided for @order_detail.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Detail'**
+  String get order_detail;
+
+  /// No description provided for @work_overview.
+  ///
+  /// In en, this message translates to:
+  /// **'Work Overview'**
+  String get work_overview;
+
+  /// No description provided for @workplace_address.
+  ///
+  /// In en, this message translates to:
+  /// **'Workplace Address'**
+  String get workplace_address;
+
+  /// No description provided for @customer_will_pay.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer will pay'**
+  String get customer_will_pay;
+
+  /// No description provided for @daily.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily'**
+  String get daily;
+
+  /// No description provided for @domestic_service_bid_detail.
+  ///
+  /// In en, this message translates to:
+  /// **'Domestic Service Bid Detail'**
+  String get domestic_service_bid_detail;
+
+  /// No description provided for @property_service_bid_detail.
+  ///
+  /// In en, this message translates to:
+  /// **'Property Service Bid Detail'**
+  String get property_service_bid_detail;
+
+  /// No description provided for @property_address.
+  ///
+  /// In en, this message translates to:
+  /// **'Property Address'**
+  String get property_address;
+
+  /// No description provided for @order_date_and_time.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Date & Time'**
+  String get order_date_and_time;
+
+  /// No description provided for @upload_service_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Date & Time'**
+  String get upload_service_info;
+
+  /// No description provided for @vehicle_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle Type'**
+  String get vehicle_type;
+
+  /// No description provided for @vehicle_registration_number.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle Registration Number'**
+  String get vehicle_registration_number;
+
+  /// No description provided for @max_load_capacity.
+  ///
+  /// In en, this message translates to:
+  /// **'Max Load capacity'**
+  String get max_load_capacity;
+
+  /// No description provided for @driver_selfie.
+  ///
+  /// In en, this message translates to:
+  /// **'Driver Selfie'**
+  String get driver_selfie;
+
+  /// No description provided for @vehicle_front.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle Front'**
+  String get vehicle_front;
+
+  /// No description provided for @vehicle_back.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle Back'**
+  String get vehicle_back;
+
+  /// No description provided for @vehicle_left.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle Left'**
+  String get vehicle_left;
+
+  /// No description provided for @vehicle_right.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle Right'**
+  String get vehicle_right;
+
+  /// No description provided for @vehicle_interior.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle Interior'**
+  String get vehicle_interior;
+
+  /// No description provided for @vehicle_trunk.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle Trunk'**
+  String get vehicle_trunk;
+
+  /// No description provided for @vehicle_registration.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle Registration'**
+  String get vehicle_registration;
+
+  /// No description provided for @insurance_document.
+  ///
+  /// In en, this message translates to:
+  /// **'Insurance Document'**
+  String get insurance_document;
+
+  /// No description provided for @fitness_certificate.
+  ///
+  /// In en, this message translates to:
+  /// **'Insurance Document'**
+  String get fitness_certificate;
+
+  /// No description provided for @years_of_experience.
+  ///
+  /// In en, this message translates to:
+  /// **'Years of Experience'**
+  String get years_of_experience;
+
+  /// No description provided for @upload_experience_files.
+  ///
+  /// In en, this message translates to:
+  /// **'Years of Experience'**
+  String get upload_experience_files;
+
+  /// No description provided for @delivery_radius_km.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery Radius KM'**
+  String get delivery_radius_km;
+
+  /// No description provided for @water_quality_certificate.
+  ///
+  /// In en, this message translates to:
+  /// **'Water Quality Certificate'**
+  String get water_quality_certificate;
+
+  /// No description provided for @portfolio_url.
+  ///
+  /// In en, this message translates to:
+  /// **'Portfolio Url'**
+  String get portfolio_url;
+
+  /// No description provided for @certifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Certifications'**
+  String get certifications;
+
+  /// No description provided for @this_field_is_required.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required'**
+  String get this_field_is_required;
+
+  /// No description provided for @top_up.
+  ///
+  /// In en, this message translates to:
+  /// **'Top Up'**
+  String get top_up;
+
+  /// No description provided for @water_bid_detail.
+  ///
+  /// In en, this message translates to:
+  /// **'Water Bid Detail'**
+  String get water_bid_detail;
+
+  /// No description provided for @delivery_service.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery Service'**
+  String get delivery_service;
+
+  /// No description provided for @packing_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Packing Type'**
+  String get packing_type;
+
+  /// No description provided for @verification_form.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification Form'**
+  String get verification_form;
+
+  /// No description provided for @gallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get gallery;
+
+  /// No description provided for @oops.
+  ///
+  /// In en, this message translates to:
+  /// **'Oops !'**
+  String get oops;
+
+  /// No description provided for @try_again.
+  ///
+  /// In en, this message translates to:
+  /// **'Try Again'**
+  String get try_again;
+
+  /// No description provided for @camera.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get camera;
+
+  /// No description provided for @domestic_service.
+  ///
+  /// In en, this message translates to:
+  /// **'Domestic Service'**
+  String get domestic_service;
+
+  /// No description provided for @sub_service_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Sub service Name'**
+  String get sub_service_name;
+
+  /// No description provided for @sub_service_short_description.
+  ///
+  /// In en, this message translates to:
+  /// **'sub service short description.'**
+  String get sub_service_short_description;
+
+  /// No description provided for @work_location.
+  ///
+  /// In en, this message translates to:
+  /// **'Work Location'**
+  String get work_location;
+
+  /// No description provided for @not_selected.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Selected'**
+  String get not_selected;
+
+  /// No description provided for @charge_by.
+  ///
+  /// In en, this message translates to:
+  /// **'Charge By'**
+  String get charge_by;
+
+  /// No description provided for @offer_to_vendor.
+  ///
+  /// In en, this message translates to:
+  /// **'Offer to Vendor'**
+  String get offer_to_vendor;
+
+  /// No description provided for @property_location.
+  ///
+  /// In en, this message translates to:
+  /// **'Property Location'**
+  String get property_location;
+
+  /// No description provided for @date_time.
+  ///
+  /// In en, this message translates to:
+  /// **'Date Time'**
+  String get date_time;
+
+  /// No description provided for @select_what_to_make_ads.
+  ///
+  /// In en, this message translates to:
+  /// **'Select What to make ads'**
+  String get select_what_to_make_ads;
+
+  /// No description provided for @select_ad_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Ad Type'**
+  String get select_ad_type;
+
+  /// No description provided for @password_change_successfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Password change successfully.'**
+  String get password_change_successfully;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close.'**
+  String get close;
+
+  /// No description provided for @material_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Material Type'**
+  String get material_type;
+
+  /// No description provided for @all_locations.
+  ///
+  /// In en, this message translates to:
+  /// **'All Locations'**
+  String get all_locations;
+
+  /// No description provided for @user_not_exist.
+  ///
+  /// In en, this message translates to:
+  /// **'All Locations'**
+  String get user_not_exist;
+
+  /// No description provided for @order_created_successfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Created Successfully'**
+  String get order_created_successfully;
+
+  /// No description provided for @write_a_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a description.'**
+  String get write_a_description;
+
+  /// No description provided for @invalid_credentials.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Credentials'**
+  String get invalid_credentials;
+
+  /// No description provided for @verified.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified'**
+  String get verified;
+
+  /// No description provided for @verify_your_number.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify your number?'**
+  String get verify_your_number;
+
+  /// No description provided for @area_range.
+  ///
+  /// In en, this message translates to:
+  /// **'Area Range'**
+  String get area_range;
+
+  /// No description provided for @id.
+  ///
+  /// In en, this message translates to:
+  /// **'ID:'**
+  String get id;
+
+  /// No description provided for @salary.
+  ///
+  /// In en, this message translates to:
+  /// **'Salary'**
+  String get salary;
+
+  /// No description provided for @employee.
+  ///
+  /// In en, this message translates to:
+  /// **'Employee'**
+  String get employee;
+
+  /// No description provided for @leader.
+  ///
+  /// In en, this message translates to:
+  /// **'Leader'**
+  String get leader;
+
+  /// No description provided for @select_a_service.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a service'**
+  String get select_a_service;
+
+  /// No description provided for @enter_your_verification_code_here.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your verification Code here'**
+  String get enter_your_verification_code_here;
+
+  /// No description provided for @wrong_email_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong Email/Password?'**
+  String get wrong_email_password;
+
+  /// No description provided for @total_amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Amount'**
+  String get total_amount;
+
+  /// No description provided for @enter_again.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Again?'**
+  String get enter_again;
+
+  /// No description provided for @credit_debit_card.
+  ///
+  /// In en, this message translates to:
+  /// **'Credit/Debit Card'**
+  String get credit_debit_card;
+
+  /// No description provided for @talk_id.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk ID'**
+  String get talk_id;
+
+  /// No description provided for @upload_pdf_file_images.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload PDf File / Images'**
+  String get upload_pdf_file_images;
+
+  /// No description provided for @verify_your_id.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify your ID?'**
+  String get verify_your_id;
+
+  /// No description provided for @property_deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Property Deleted'**
+  String get property_deleted;
+
+  /// No description provided for @need_help.
+  ///
+  /// In en, this message translates to:
+  /// **'need Help?'**
+  String get need_help;
+
+  /// No description provided for @contact_support.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Support'**
+  String get contact_support;
+
+  /// No description provided for @file.
+  ///
+  /// In en, this message translates to:
+  /// **'File'**
+  String get file;
+
+  /// No description provided for @profile_complete.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Complete'**
+  String get profile_complete;
+
+  /// No description provided for @upload_file_here.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload File Here'**
+  String get upload_file_here;
+
+  /// No description provided for @please_take_photo_of_your_id_card_from_front.
+  ///
+  /// In en, this message translates to:
+  /// **'Please Take photo of your ID Card from front.'**
+  String get please_take_photo_of_your_id_card_from_front;
+
+  /// No description provided for @please_take_photo_of_your_id_card_from_back.
+  ///
+  /// In en, this message translates to:
+  /// **'Please Take photo of your ID Card from Back.'**
+  String get please_take_photo_of_your_id_card_from_back;
+
+  /// No description provided for @verify_your_incorporation.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify your Incorporation?'**
+  String get verify_your_incorporation;
+
+  /// No description provided for @please_enter_your_number_to_receive_a_verification_code.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your Number to \\nreceive a verification code.'**
+  String get please_enter_your_number_to_receive_a_verification_code;
+
+  /// No description provided for @please_enter_your_email_phone_number_to_receive_a_verification_code.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your Email/Phone number to receive a verification code.'**
+  String get please_enter_your_email_phone_number_to_receive_a_verification_code;
+
+  /// No description provided for @you_can_received_your_new_password.
+  ///
+  /// In en, this message translates to:
+  /// **'You can received your new password at your email with in 2 to 3 minutes.You can change your new password from \"Edit\" section of your profile'**
+  String get you_can_received_your_new_password;
+
+  /// No description provided for @transport.
+  ///
+  /// In en, this message translates to:
+  /// **'Transport'**
+  String get transport;
+
+  /// No description provided for @vendor_offers.
+  ///
+  /// In en, this message translates to:
+  /// **'Transport'**
+  String get vendor_offers;
+
+  /// No description provided for @vendor_account_deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Vendor account deleted'**
+  String get vendor_account_deleted;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

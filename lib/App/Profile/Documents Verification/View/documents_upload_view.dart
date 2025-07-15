@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/extensions/localization_extension.dart';
 import '../../../../Utils/app_text.dart';
 import '../../../../Utils/appbar.dart';

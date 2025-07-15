@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:propertier/constant/colors.dart';
@@ -78,8 +79,11 @@ class TransportBidDetailController extends GetxController{
           'https://maps.googleapis.com/maps/api/directions/json?origin=${startLatLng.latitude},${startLatLng.longitude}&destination=${endLatLng.latitude},${endLatLng.longitude}&key=$apiKey';
 
       final response = await http.get(Uri.parse(url));
-      print(response.statusCode);
-      print(response.body);
+      if (kDebugMode) {
+        print(response.statusCode);
+        print(response.body);
+
+      }
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
         final String polyline = data['routes'][0]['overview_polyline']['points'];
@@ -92,7 +96,9 @@ class TransportBidDetailController extends GetxController{
     }
     catch(e){
       addPolyline();
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 

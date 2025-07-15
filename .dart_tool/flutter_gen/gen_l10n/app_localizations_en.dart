@@ -478,7 +478,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sign_out => 'Sign Out';
 
   @override
-  String get dont_have_an_account => 'Don\'t have an account?';
+  String get do_not_have_an_account => 'Don\'t have an account?';
 
   @override
   String get privacy_policy => 'Privacy Policy';
@@ -1088,4 +1088,535 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get please_enter_a_valid_number => 'Please enter a valid Number';
+
+  @override
+  String get linked_account => 'Linked Account';
+
+  @override
+  String get total_earning => 'Total Earning';
+
+  @override
+  String get deductions => 'Deductions';
+
+  @override
+  String get short_tour => 'Short Tour';
+
+  @override
+  String get description_detail => 'Description Detail';
+
+  @override
+  String get offer => 'Offer';
+
+  @override
+  String get filter => 'Filter';
+
+  @override
+  String get minimum => 'Minimum';
+
+  @override
+  String get maximum => 'Maximum';
+
+  @override
+  String get customer_id => 'Customer ID:';
+
+  @override
+  String get enter_your_amount => 'Enter Your Amount';
+
+  @override
+  String get availability_schedule => 'Availability Schedule';
+
+  @override
+  String get service_charges => 'Service Charges:';
+
+  @override
+  String get enter_service_charges => 'Enter Service Charges';
+
+  @override
+  String get upload_image => 'Upload Image:';
+
+  @override
+  String get please_enter_url => 'Upload Image:';
+
+  @override
+  String get upload_short_video_less_than => 'Upload Short Video Less Than 25MB';
+
+  @override
+  String get do_you_wanna_feature_your_ad => 'Do your wanna Feature your ad?';
+
+  @override
+  String get feature_ad => 'Feature Ad';
+
+  @override
+  String get save_post => 'Save Post';
+
+  @override
+  String get select_pricing_model => 'Select Pricing Model';
+
+  @override
+  String get pricing_model => 'Pricing Model:';
+
+  @override
+  String get select_visiting_charge => 'Select Visiting Charge';
+
+  @override
+  String get visiting_charges => 'Visiting Charges:';
+
+  @override
+  String get select_services_radius => 'Select Services Radius';
+
+  @override
+  String get services_radius => 'Services Radius';
+
+  @override
+  String get invalid_video_url => 'Invalid video URL';
+
+  @override
+  String get select_tools_provided => 'Select Tools Provided';
+
+  @override
+  String get tools_provided => 'Tools Provided:';
+
+  @override
+  String get select_water_type => 'Select Water Type';
+
+  @override
+  String get water_type => 'Water Types:';
+
+  @override
+  String get select_delivery_type => 'Select Delivery Type';
+
+  @override
+  String get delivery_type => 'Delivery Types:';
+
+  @override
+  String get enter_about_information => 'Enter about information';
+
+  @override
+  String get likes => 'Likes';
+
+  @override
+  String get license_card => 'License Card';
+
+  @override
+  String get renew_license_card => 'Renew License Card';
+
+  @override
+  String get license_valid_until => 'License valid until:';
+
+  @override
+  String get appreciations => 'Appreciations';
+
+  @override
+  String get uploaded_posts => 'Uploaded Posts';
+
+  @override
+  String get view_all => 'View All';
+
+  @override
+  String get no_image_selected => 'No Image Selected';
+
+  @override
+  String get featured => 'Featured';
+
+  @override
+  String get just_now => 'Just now';
+
+  @override
+  String get no_featured_service_available => 'No Featured Service Available';
+
+  @override
+  String get are_you_sure_you_want_to_delete_this_service => 'Are you sure you want to delete this service?';
+
+  @override
+  String get switch_to_client => 'Switch to Client';
+
+  @override
+  String get you_posted => 'you Posted';
+
+  @override
+  String get full_name => 'Full Name';
+
+  @override
+  String get your_name => 'Name Name';
+
+  @override
+  String get your_number => 'Your Number';
+
+  @override
+  String get search => 'Search';
+
+  @override
+  String get start_typing_to_search => 'Start typing to search';
+
+  @override
+  String get driving_license_front => 'Driving License Front';
+
+  @override
+  String get driving_License_back => 'Driving License Back';
+
+  @override
+  String get upload_images_for => 'Upload Images for';
+
+  @override
+  String get enter_service_here => 'Enter Service here..';
+
+  @override
+  String get offered_services => 'Offered Services';
+
+  @override
+  String get update_order_status => 'Update Order Status';
+
+  @override
+  String get submit_work => 'Submit Work';
+
+  @override
+  String get information_collected => 'Information Collected';
+
+  @override
+  String get purpose_of_Collecting_information => 'Purpose of Collecting Information';
+
+  @override
+  String get sharing_information => 'Sharing Information';
+
+  @override
+  String get access_and_control_of_your_information => 'Access and Control of Your Information';
+
+  @override
+  String get purpose_of_collecting_information => 'Purpose of Collecting Information';
+
+  @override
+  String get data_security => 'Data Security';
+
+  @override
+  String get comment => 'Comment';
+
+  @override
+  String get posts => 'Posts';
+
+  @override
+  String get only_me => 'Only Me';
+
+  @override
+  String get only_you_can_see_your_comments => 'Only you Can see your Comments';
+
+  @override
+  String get every_one_can_see_your_comments => 'Every one Can see your Comments';
+
+  @override
+  String get support_center => 'Support Center';
+
+  @override
+  String get type_here => 'Type here...';
+
+  @override
+  String get add_new_transport => 'Add New Transport';
+
+  @override
+  String get enter_vehicle_information => 'Enter Vehicle Information';
+
+  @override
+  String get make => 'Make';
+
+  @override
+  String get model => 'Model';
+
+  @override
+  String get year => 'Year';
+
+  @override
+  String get color => 'Color';
+
+  @override
+  String get registration_number => 'Registration Number';
+
+  @override
+  String get owner_name => 'Owner Name';
+
+  @override
+  String get capacity => 'Capacity';
+
+  @override
+  String get fuel_type => 'Capacity';
+
+  @override
+  String get transmission_type => 'Transmission Type';
+
+  @override
+  String get my_vehicles => 'My Vehicles';
+
+  @override
+  String get no_vehicle_found => 'No vehicle found!';
+
+  @override
+  String get edit_data => 'Edit Data';
+
+  @override
+  String get no_images_selected => 'No images selected';
+
+  @override
+  String get order_detail => 'Order Detail';
+
+  @override
+  String get work_overview => 'Work Overview';
+
+  @override
+  String get workplace_address => 'Workplace Address';
+
+  @override
+  String get customer_will_pay => 'Customer will pay';
+
+  @override
+  String get daily => 'Daily';
+
+  @override
+  String get domestic_service_bid_detail => 'Domestic Service Bid Detail';
+
+  @override
+  String get property_service_bid_detail => 'Property Service Bid Detail';
+
+  @override
+  String get property_address => 'Property Address';
+
+  @override
+  String get order_date_and_time => 'Order Date & Time';
+
+  @override
+  String get upload_service_info => 'Order Date & Time';
+
+  @override
+  String get vehicle_type => 'Vehicle Type';
+
+  @override
+  String get vehicle_registration_number => 'Vehicle Registration Number';
+
+  @override
+  String get max_load_capacity => 'Max Load capacity';
+
+  @override
+  String get driver_selfie => 'Driver Selfie';
+
+  @override
+  String get vehicle_front => 'Vehicle Front';
+
+  @override
+  String get vehicle_back => 'Vehicle Back';
+
+  @override
+  String get vehicle_left => 'Vehicle Left';
+
+  @override
+  String get vehicle_right => 'Vehicle Right';
+
+  @override
+  String get vehicle_interior => 'Vehicle Interior';
+
+  @override
+  String get vehicle_trunk => 'Vehicle Trunk';
+
+  @override
+  String get vehicle_registration => 'Vehicle Registration';
+
+  @override
+  String get insurance_document => 'Insurance Document';
+
+  @override
+  String get fitness_certificate => 'Insurance Document';
+
+  @override
+  String get years_of_experience => 'Years of Experience';
+
+  @override
+  String get upload_experience_files => 'Years of Experience';
+
+  @override
+  String get delivery_radius_km => 'Delivery Radius KM';
+
+  @override
+  String get water_quality_certificate => 'Water Quality Certificate';
+
+  @override
+  String get portfolio_url => 'Portfolio Url';
+
+  @override
+  String get certifications => 'Certifications';
+
+  @override
+  String get this_field_is_required => 'This field is required';
+
+  @override
+  String get top_up => 'Top Up';
+
+  @override
+  String get water_bid_detail => 'Water Bid Detail';
+
+  @override
+  String get delivery_service => 'Delivery Service';
+
+  @override
+  String get packing_type => 'Packing Type';
+
+  @override
+  String get verification_form => 'Verification Form';
+
+  @override
+  String get gallery => 'Gallery';
+
+  @override
+  String get oops => 'Oops !';
+
+  @override
+  String get try_again => 'Try Again';
+
+  @override
+  String get camera => 'Camera';
+
+  @override
+  String get domestic_service => 'Domestic Service';
+
+  @override
+  String get sub_service_name => 'Sub service Name';
+
+  @override
+  String get sub_service_short_description => 'sub service short description.';
+
+  @override
+  String get work_location => 'Work Location';
+
+  @override
+  String get not_selected => 'Not Selected';
+
+  @override
+  String get charge_by => 'Charge By';
+
+  @override
+  String get offer_to_vendor => 'Offer to Vendor';
+
+  @override
+  String get property_location => 'Property Location';
+
+  @override
+  String get date_time => 'Date Time';
+
+  @override
+  String get select_what_to_make_ads => 'Select What to make ads';
+
+  @override
+  String get select_ad_type => 'Select Ad Type';
+
+  @override
+  String get password_change_successfully => 'Password change successfully.';
+
+  @override
+  String get close => 'Close.';
+
+  @override
+  String get material_type => 'Material Type';
+
+  @override
+  String get all_locations => 'All Locations';
+
+  @override
+  String get user_not_exist => 'All Locations';
+
+  @override
+  String get order_created_successfully => 'Order Created Successfully';
+
+  @override
+  String get write_a_description => 'Write a description.';
+
+  @override
+  String get invalid_credentials => 'Invalid Credentials';
+
+  @override
+  String get verified => 'Verified';
+
+  @override
+  String get verify_your_number => 'Verify your number?';
+
+  @override
+  String get area_range => 'Area Range';
+
+  @override
+  String get id => 'ID:';
+
+  @override
+  String get salary => 'Salary';
+
+  @override
+  String get employee => 'Employee';
+
+  @override
+  String get leader => 'Leader';
+
+  @override
+  String get select_a_service => 'Select a service';
+
+  @override
+  String get enter_your_verification_code_here => 'Enter your verification Code here';
+
+  @override
+  String get wrong_email_password => 'Wrong Email/Password?';
+
+  @override
+  String get total_amount => 'Total Amount';
+
+  @override
+  String get enter_again => 'Enter Again?';
+
+  @override
+  String get credit_debit_card => 'Credit/Debit Card';
+
+  @override
+  String get talk_id => 'Talk ID';
+
+  @override
+  String get upload_pdf_file_images => 'Upload PDf File / Images';
+
+  @override
+  String get verify_your_id => 'Verify your ID?';
+
+  @override
+  String get property_deleted => 'Property Deleted';
+
+  @override
+  String get need_help => 'need Help?';
+
+  @override
+  String get contact_support => 'Contact Support';
+
+  @override
+  String get file => 'File';
+
+  @override
+  String get profile_complete => 'Profile Complete';
+
+  @override
+  String get upload_file_here => 'Upload File Here';
+
+  @override
+  String get please_take_photo_of_your_id_card_from_front => 'Please Take photo of your ID Card from front.';
+
+  @override
+  String get please_take_photo_of_your_id_card_from_back => 'Please Take photo of your ID Card from Back.';
+
+  @override
+  String get verify_your_incorporation => 'Verify your Incorporation?';
+
+  @override
+  String get please_enter_your_number_to_receive_a_verification_code => 'Please enter your Number to \\nreceive a verification code.';
+
+  @override
+  String get please_enter_your_email_phone_number_to_receive_a_verification_code => 'Please enter your Email/Phone number to receive a verification code.';
+
+  @override
+  String get you_can_received_your_new_password => 'You can received your new password at your email with in 2 to 3 minutes.You can change your new password from \"Edit\" section of your profile';
+
+  @override
+  String get transport => 'Transport';
+
+  @override
+  String get vendor_offers => 'Transport';
+
+  @override
+  String get vendor_account_deleted => 'Vendor account deleted';
 }

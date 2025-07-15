@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:propertier/Vendor/screens/dashboard/Posts/Feature_ad_payment/View/feature_ad_payment_screen.dart';
 import 'package:propertier/Vendor/screens/dashboard/Posts/add_post/Controller/add_post_controller.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../../../../App/Post Add/Add Properties/Components/video_tour.dart';
@@ -43,9 +44,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
             actions: [
               TextButton(
                 onPressed: () async {},
-                child: const Text(
-                  'Done',
-                  style: TextStyle(
+                child:  Text(
+                  context.local.done,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
@@ -53,9 +54,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 ),
               )
             ],
-            title: const Text(
-              'Post Ad',
-              style: TextStyle(
+            title:  Text(
+              context.local.post_ad,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
@@ -136,15 +137,15 @@ class _AddPostScreenState extends State<AddPostScreen> {
               CustomDropDown(
                   items: postController.toolsProvide,
                   observableSelectedValue: postController.toolProvideSelectedItem,
-                  hintText: 'Select Tools Provided',
-                  labelText: 'Tools Provided:',
+                  hintText: context.local.select_tools_provided,
+                  labelText: context.local.tools_provided,
                   itemToString: (s) => s
               ),
               const SizedBox(height: 18),
               customTextButton(
                   onTap: () {
                     postController.openAvailabilityDialog(context);},
-                  title: 'Availability Schedule'),
+                  title: context.local.availability_schedule),
               const SizedBox(height: 22),
               const Divider(color: Color(0xFFCFCFCF)),
               const SizedBox(height: 18),
@@ -188,16 +189,16 @@ class _AddPostScreenState extends State<AddPostScreen> {
               CustomDropDown(
                 items:  postController.waterTypes,
                 observableSelectedValue: postController.waterTypesSelectedItem,
-                hintText: 'Select Water Type',
-                labelText: 'Water Types:',
+                hintText: context.local.select_water_type,
+                labelText: context.local.water_type,
                 itemToString: (s) => s,
               ),
               const SizedBox(height: 18),
               CustomDropDown(
                 items:  postController.waterDeliveryTypes,
                 observableSelectedValue: postController.waterDeliverySelectedItem,
-                hintText: 'Select Delivery Type',
-                labelText: 'Delivery Types:',
+                hintText: context.local.select_delivery_type,
+                labelText: context.local.delivery_type,
                 itemToString: (s) => s,
               ),
               const SizedBox(height: 18),
@@ -287,7 +288,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
               customTextButton(
                   onTap: () {
                     postController.openAvailabilityDialog(context);},
-                  title: 'Availability Schedule'),
+                  title: context.local.availability_schedule),
               const SizedBox(height: 22),
               const Divider(color: Color(0xFFCFCFCF)),
               const SizedBox(height: 18),
@@ -320,7 +321,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
       BuildContext context, TextEditingController controller) {
     return customTextField(
       controller: controller,
-      hintText: 'Title',
+      hintText: context.local.title,
       fillColor: const Color(0x05131A22),
       isFilled: true,
     );
@@ -330,7 +331,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
       BuildContext context, TextEditingController controller) {
     return customTextField(
       controller: controller,
-      hintText: 'Description',
+      hintText: context.local.description,
       fillColor: const Color(0x05131A22),
       isFilled: true,
       maxLines: 5,
@@ -348,9 +349,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Service Charges:',
-          style: TextStyle(
+         Text(
+          context.local.service_charges,
+          style: const TextStyle(
             color: Color(0xFF131A22),
             fontSize: 12,
             fontWeight: FontWeight.w500,
@@ -360,7 +361,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
         isVisit
             ? customTextField(
                 controller: serviceChargesController,
-                hintText: 'Enter Service Charges',
+                hintText: context.local.enter_service_charges,
                 fillColor: const Color(0x05131A22),
                 isFilled: true,
               )
@@ -369,7 +370,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 observableSelectedValue: selectedServiceCharge,
                 otherFieldController: serviceChargesController,
                 itemToString: (s) => s,
-                hintText: 'Enter Service Charges',
+                hintText: context.local.enter_service_charges,
               ),
       ],
     );
@@ -390,9 +391,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Upload Image:',
-                style: TextStyle(
+               Text(
+                context.local.upload_image,
+                style: const TextStyle(
                   color: Color(0xFF272E36),
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
@@ -479,7 +480,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomText(
-          title: "Upload Video",
+          title: context.local.upload_video,
           fontSize: 18,
           fontWeight: FontWeight.normal,
         ),
@@ -494,7 +495,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
         CustomAddTextField(
           textEditingController: urlController,
           border: InputBorder.none,
-          labelText: "Paste Video Url here",
+          labelText: context.local.past_video_url_here,
           onChanged: (url) {
             try {
               final videoId = YoutubePlayerController.convertUrlToId(url);
@@ -528,7 +529,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
           ),
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'Please enter URL';
+              return context.local.please_enter_url;
             }
             return null;
           },
@@ -554,9 +555,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Upload Short Video:',
-            style: TextStyle(
+           Text(
+            context.local.upload_short_video,
+            style: const TextStyle(
               color: Color(0xFF272E36),
               fontSize: 14,
               fontWeight: FontWeight.w500,
@@ -578,18 +579,18 @@ class _AddPostScreenState extends State<AddPostScreen> {
                           ? Center(
                               child: GestureDetector(
                                 onTap: onPickVideo,
-                                child: const Column(
+                                child:  Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.video_call,
                                       size: 38,
                                       color: Color(0xFFB3B3B3),
                                     ),
-                                    SizedBox(height: 7),
+                                    const SizedBox(height: 7),
                                     Text(
-                                      'Upload Short Video Less Than 25MB',
-                                      style: TextStyle(
+                                      context.local.upload_short_video_less_than,
+                                      style: const TextStyle(
                                         color: Color(0xFFB3B3B3),
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -669,10 +670,10 @@ class _AddPostScreenState extends State<AddPostScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Center(
+         Center(
           child: Text(
-            'Do your wanna Feature your ad?',
-            style: TextStyle(
+            context.local.do_you_wanna_feature_your_ad,
+            style: const TextStyle(
               color: Color(0xFFB3B3B3),
               fontSize: 12,
               fontWeight: FontWeight.w400,
@@ -685,9 +686,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
             onTap: () {
               Get.to(() => const FeatureAdPaymentScreen());
             },
-            child: const Text(
-              'Feature Ad',
-              style: TextStyle(
+            child:  Text(
+              context.local.feature_ad,
+              style: const TextStyle(
                 color: Color(0xFF109B0E),
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
@@ -737,7 +738,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 ),
               ),
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              title: 'Clear All',
+              title: context.local.clear_all,
               onTap: onClearAll,
               textColor: AppColor.greenColor,
               fontSize: 14,
@@ -761,7 +762,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   borderRadius: BorderRadius.circular(30),
                 ),
               ),
-                title: 'Save Post',
+                title: context.local.save_post,
                 onTap: onSavePost,
               textColor: AppColor.blackColor,
               fontSize: 14,
@@ -795,8 +796,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
         CustomDropDown(
           items: pricingModelItems,
           observableSelectedValue: postController.priceModelSelectedItem,
-          hintText: 'Select Pricing Model',
-          labelText: 'Pricing Model:',
+          hintText: context.local.select_pricing_model,
+          labelText: context.local.pricing_model,
           itemToString: (s) => s,
         ),
         const SizedBox(height: 18),
@@ -826,9 +827,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
           observableSelectedValue: postController.visitingChargesSelectedItem,
           otherFieldController: postController.visitingChargesController,
           itemToString: (s) => s,
-          hintText: 'Select Visiting Charge',
-          labelText: 'Visiting Charges:',
-          otherHintText: 'Visiting Charges:',
+          hintText: context.local.select_visiting_charge,
+          labelText: context.local.visiting_charges,
+          otherHintText: context.local.visiting_charges,
           otherValue: 'Other',
           showOtherTextField: true,
         ),
@@ -837,8 +838,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
         CustomDropDown(
           items: postController.servicesRadiusItems,
           observableSelectedValue: postController.servicesRadiusSelectedItem,
-          hintText: 'Select Services Radius',
-          labelText: 'Services Radius:',
+          hintText: context.local.select_services_radius,
+          labelText:  context.local.services_radius,
           itemToString: (s) => s,
         ),
       ],
@@ -867,7 +868,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
           onThumbnailGenerated: (thumb) {
             updateThumbnail(thumb);
           },
-          showToast: () => toast(title: "Invalid video URL", context: context),
+          showToast: () => toast(title: context.local.invalid_video_url, context: context),
         ),
         const SizedBox(height: 44),
         _buildUploadShortVideo(

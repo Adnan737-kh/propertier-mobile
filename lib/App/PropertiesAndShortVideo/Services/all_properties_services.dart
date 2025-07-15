@@ -50,7 +50,7 @@ class AllPropertiesServices {
         print("🔥 Exception: $e");
       }
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: CustomText(
             title: 'Something went wrong.',
             color: AppColor.white,

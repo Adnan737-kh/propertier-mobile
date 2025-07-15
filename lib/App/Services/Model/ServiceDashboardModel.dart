@@ -31,7 +31,7 @@ class ServiceDashboardModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (randomServices != null) {
       data['random_services'] =
           randomServices!.map((v) => v.toJson()).toList();
@@ -74,7 +74,7 @@ class ServicePaginationModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  Map<String, dynamic>();
+    final Map<String, dynamic> data =  <String, dynamic>{};
     data['total'] = total;
     data['page'] = page;
     data['limit'] = limit;
@@ -124,7 +124,7 @@ class SubServices {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['title'] = title;
     data['description'] = description;
@@ -190,7 +190,7 @@ class SellingServices {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  Map<String, dynamic>();
+    final Map<String, dynamic> data =  <String, dynamic>{};
     data['id'] = id;
     if (vendor != null) {
       data['vendor'] = vendor!.toJson();
@@ -236,7 +236,7 @@ class Vendor {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  Map<String, dynamic>();
+    final Map<String, dynamic> data =  <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
     data['profile_picture_url'] = profilePictureUrl;
@@ -272,7 +272,7 @@ class Service {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  Map<String, dynamic>();
+    final Map<String, dynamic> data =  <String, dynamic>{};
     data['id'] = id;
     data['title'] = title;
     data['description'] = description;

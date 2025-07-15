@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/App/TeamEarning/View/component/lost_and_gain_indicator.dart';
 import 'package:propertier/App/TeamEarning/View/component/team_earning_circular_progress_indicator.dart';
 import 'package:propertier/Utils/app_text.dart';

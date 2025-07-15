@@ -76,7 +76,7 @@ Widget sPPrewardsAndAppricationTile(
                       );
                     },
                   ))
-              : CustomText(title: "No Awards",),
+              : const CustomText(title: "No Awards",),
         ],
       ));
 }

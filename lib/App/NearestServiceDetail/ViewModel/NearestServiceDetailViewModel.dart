@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 import '../../../RoutesAndBindings/app_routes.dart';
 import '../../../Utils/app_text.dart';
@@ -65,21 +66,21 @@ class NearestServiceDetailViewModel extends GetxController{
     if(imagesPath.isEmpty){
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: CustomText(
-              title: 'Upload images',
+              title:context.local.upload_image,
               color: AppColor.white)));
       return;
     }
     if(descriptionController.text == ""){
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: CustomText(
-              title: 'Write a description.',
+              title: context.local.write_a_description,
               color: AppColor.white)));
       return;
     }
     if(selectedServiceId == null){
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: CustomText(
-              title: 'Select a service',
+              title: context.local.select_a_service,
               color: AppColor.white)));
       return;
     }

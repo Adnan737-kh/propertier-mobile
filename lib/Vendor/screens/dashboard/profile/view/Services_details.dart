@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/Vendor/screens/dashboard/profile/model/service_model.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:video_player/video_player.dart';
 
 class ServiceAdsDetailScreen extends StatefulWidget {
@@ -23,17 +24,16 @@ class _ServiceAdsDetailScreenState extends State<ServiceAdsDetailScreen> {
     _initVideoPlayer();
   }
 
- void _initVideoPlayer() {
-  final shortVideoUrl = widget.service.shortVideoUrl;
-  if (shortVideoUrl != null && shortVideoUrl.isNotEmpty) {
-    _controller = VideoPlayerController.network(shortVideoUrl)
-      ..initialize().then((_) {
-        setState(() {});
-        _controller?.play();
-      });
+  void _initVideoPlayer() {
+    final shortVideoUrl = widget.service.shortVideoUrl;
+    if (shortVideoUrl != null && shortVideoUrl.isNotEmpty) {
+      _controller = VideoPlayerController.network(shortVideoUrl)
+        ..initialize().then((_) {
+          setState(() {});
+          _controller?.play();
+        });
+    }
   }
-}
-
 
   @override
   void dispose() {
@@ -292,12 +292,12 @@ class _ServiceAdsDetailScreenState extends State<ServiceAdsDetailScreen> {
                           const SizedBox(height: 2),
                           const Divider(),
                           const SizedBox(height: 2),
-                          const Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                'Description',
-                                style: TextStyle(
+                                context.local.description,
+                                style: const TextStyle(
                                   color: Color(0xB2131A22),
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,

@@ -86,7 +86,7 @@ class EmailOTPVerifyView extends StatelessWidget {
                         ),
                   getHeight(context, 0.07),
                   viewModel.isTimerStart == true
-                      ? CustomText(title: '', fontSize: 12)
+                      ? const CustomText(title: '', fontSize: 12)
                       : RichText(
                           text: TextSpan(
                               style: TextStyle(

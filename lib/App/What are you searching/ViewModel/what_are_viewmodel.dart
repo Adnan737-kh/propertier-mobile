@@ -209,10 +209,14 @@ class WhatAreYouSearchViewModel extends GetxController {
   Future getArrivalLatLang() async {
     List<geocode.Location> locations =
         await geocode.locationFromAddress(_selectedPlace.value);
-    print(locations.first.latitude);
+    if (kDebugMode) {
+      print(locations.first.latitude);
+    }
     _arrivallat.value = locations.first.latitude.toDouble();
     _arrivalLang.value = locations.first.longitude.toDouble();
-    print("LAttitude is this ${_arrivallat.value}, ${_arrivalLang.value}");
+    if (kDebugMode) {
+      print("LAttitude is this ${_arrivallat.value}, ${_arrivalLang.value}");
+    }
   }
 
   final RxDouble _latitude = (0.0).obs;
@@ -319,7 +323,9 @@ class WhatAreYouSearchViewModel extends GetxController {
 
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      print(response.statusCode);
+      if (kDebugMode) {
+        print(response.statusCode);
+      }
       final data = json.decode(response.body);
       if (kDebugMode) {
         print('Prediction $data');

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:propertier/App/Privacy/ViewModel/privacy_viewmodel.dart';
 import 'package:propertier/Utils/appbar.dart';
 import 'package:propertier/Utils/height_width_box.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 import '../../../Utils/app_text.dart';
@@ -53,7 +54,7 @@ class PrivacyView extends GetView<PrivacyViewModel> {
                         ),
                         getWidth(context, 0.005),
                         CustomText(
-                            title: "Private Account",
+                            title: context.local.private_account,
                             fontSize: 14,
                             colorOpecity: 0.6,
                             fontWeight: FontWeight.bold),

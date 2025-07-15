@@ -53,7 +53,9 @@ class ServiceOrderService{
       }
     }
     catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return null;
   }
@@ -62,7 +64,9 @@ class ServiceOrderService{
   Future<bool> acceptSubmition(String id)async{
     try{
       String url = "${API.createOrder}$id/";
-      print(url);
+      if (kDebugMode) {
+        print(url);
+      }
       var data = {
         "submission_status": "accepted",
         "status": "completed"
@@ -73,13 +77,17 @@ class ServiceOrderService{
           headers: <String, String>{'Content-Type': 'application/json'},
         body: encodedData
       );
-      print(response.statusCode);
+      if (kDebugMode) {
+        print(response.statusCode);
+      }
       if(response.statusCode == 200){
         return true;
       }
     }
     catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return false;
   }
@@ -88,7 +96,9 @@ class ServiceOrderService{
   Future<bool> rejectSubmition(String id)async{
     try{
       String url = "${API.createOrder}$id/";
-      print(url);
+      if (kDebugMode) {
+        print(url);
+      }
       var data = {
         "submission_status": "rejected",
       };
@@ -98,13 +108,17 @@ class ServiceOrderService{
           headers: <String, String>{'Content-Type': 'application/json'},
           body: encodedData
       );
-      print(response.statusCode);
+      if (kDebugMode) {
+        print(response.statusCode);
+      }
       if(response.statusCode == 200){
         return true;
       }
     }
     catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return false;
   }

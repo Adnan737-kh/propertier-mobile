@@ -180,7 +180,7 @@ class PropertiesAndVideosAppBar extends StatelessWidget {
                           child: Row(
                             children: [
                               CustomText(
-                                  title: "All Types",
+                                  title: context.local.all_types,
                                   fontSize: 10,
                                   color: AppColor.blackColor,
                                   fontWeight: FontWeight.normal)

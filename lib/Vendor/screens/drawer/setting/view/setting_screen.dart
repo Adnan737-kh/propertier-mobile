@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/Vendor/screens/drawer/edit_profile/view/edit_profile_screen.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -52,9 +53,9 @@ class _SettingScreenState extends State<SettingScreen> {
                   ),
                 ),
                 const SizedBox(width: 4),
-                const Text(
-                  'Setting',
-                  style: TextStyle(
+                 Text(
+                  context.local.settings,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 17,
                     fontWeight: FontWeight.w500,
@@ -65,33 +66,33 @@ class _SettingScreenState extends State<SettingScreen> {
           ),
           const SizedBox(height: 34),
           VerificationWidget(
-            text: 'Edit Profile',
+            text: context.local.edit_profile,
             onTap: () {
               Get.to(() => const EditProfileScreen());
             },
           ),
           VerificationWidget(
-            text: 'Verification',
+            text: context.local.verification,
             onTap: () {},
           ),
           VerificationWidget(
-            text: 'Earnings',
+            text: context.local.earnings,
             onTap: () {
               // Get.to(() => IdCardVerificationScreen());
             },
           ),
           VerificationWidget(
-            text: 'Reviews',
+            text:  context.local.review,
             onTap: () {
               // Get.to(() => IncorporationErrorScreen());
             },
           ),
           VerificationWidget(
-            text: 'Language',
+            text:  context.local.language,
             onTap: () {},
           ),
           VerificationWidget(
-            text: 'Payout',
+            text: context.local.payout,
             onTap: () {
               // Get.to(() => TextDocumentErrorScreen());
             },

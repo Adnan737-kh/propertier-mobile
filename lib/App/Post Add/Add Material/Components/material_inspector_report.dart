@@ -4,7 +4,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/Utils/divider.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 import '../../../../constant/colors.dart';
 import '../../../../Utils/app_text.dart';
@@ -46,7 +48,7 @@ class _MaterialInspectReportViewState extends State<MaterialInspectReportView> {
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomText(
-              title: "Inspection Report",
+              title: context.local.inspection_report,
               fontSize: 18,
               fontWeight: FontWeight.normal,
             ),
@@ -62,7 +64,7 @@ class _MaterialInspectReportViewState extends State<MaterialInspectReportView> {
               },
             ),
             getHeight(context, 0.015),
-            CustomText(
+            const CustomText(
               title: "Near By Ware House ",
               fontSize: 18,
               fontWeight: FontWeight.normal,
@@ -73,14 +75,14 @@ class _MaterialInspectReportViewState extends State<MaterialInspectReportView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomText(
-                    title: "Talk ID",
+                    title: context.local.talk_id,
                     fontSize: 14,
                     color: const Color(0xFF6D6E6F),
                     fontWeight: FontWeight.bold),
-                CustomText(
+                const CustomText(
                     title: "73648A467383",
                     fontSize: 14,
-                    color: const Color(0xFF6D6E6F),
+                    color: Color(0xFF6D6E6F),
                     fontWeight: FontWeight.bold),
               ],
             ),
@@ -121,7 +123,7 @@ Widget iDUploadTile({required bool isLoading, File? image, Function()? onTap}) {
                     size: 38,
                   ),
                   CustomText(
-                      title: "Upload PDf File / Images",
+                      title: context.local.upload_pdf_file_images,
                       fontSize: 16,
                       color: AppColor.white,
                       fontWeight: FontWeight.bold),

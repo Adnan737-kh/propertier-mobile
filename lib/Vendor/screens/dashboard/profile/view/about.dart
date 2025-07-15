@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:propertier/Vendor/screens/dashboard/profile/controller/profile_controller.dart';
 import 'package:propertier/Vendor/screens/dashboard/profile/model/profile_model.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 class AboutContent extends StatefulWidget {
   final String vendorUserId;
@@ -66,10 +67,10 @@ class _AboutContentState extends State<AboutContent> {
 
               TextField(
                 controller: _aboutController,
-                decoration: const InputDecoration(
-                  labelText: 'Enter about information',
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.symmetric(
+                decoration: InputDecoration(
+                  labelText: context.local.enter_about_information,
+                  border: const OutlineInputBorder(),
+                  contentPadding: const EdgeInsets.symmetric(
                     horizontal: 12,
                     vertical: 10,
                   ),
@@ -97,9 +98,9 @@ class _AboutContentState extends State<AboutContent> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 12),
                   ),
-                  child: const Text(
-                    'Save',
-                    style: TextStyle(fontSize: 16, color: Color(0xE5131A22)),
+                  child:  Text(
+                    context.local.save,
+                    style: const TextStyle(fontSize: 16, color: Color(0xE5131A22)),
                   ),
                 ),
               ),

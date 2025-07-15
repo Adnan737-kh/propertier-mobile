@@ -5,6 +5,7 @@ import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Vendor/screens/drawer/VendorForm/VendorFormController.dart';
 import 'package:propertier/Vendor/screens/drawer/VendorForm/model/VendorFormModal.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 class VendorForm extends GetView<VendorFormController> {
   const VendorForm({super.key});
@@ -59,7 +60,7 @@ class VendorForm extends GetView<VendorFormController> {
                                     ),
                                     vendorFormModal.value is List
                                         ? vendorFormModal.value.isEmpty
-                                            ? const Text("No images selected.")
+                                            ?  Text(context.local.no_images_selected)
                                             : Wrap(
                                                 spacing: 8,
                                                 runSpacing: 8,
@@ -117,10 +118,10 @@ class VendorForm extends GetView<VendorFormController> {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              child: const Center(
+              child:  Center(
                 child: Text(
-                  'Edit Data',
-                  style: TextStyle(
+                  context.local.edit_data,
+                  style: const TextStyle(
                     color: Color(0xFF131A22),
                     fontSize: 19,
                     fontWeight: FontWeight.w500,

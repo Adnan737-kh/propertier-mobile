@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/Utils/text_botton.dart';
 import 'package:propertier/constant/constant.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 doesNotExist({required BuildContext context, required String subtitle}) {
@@ -39,7 +41,7 @@ doesNotExist({required BuildContext context, required String subtitle}) {
                       const Spacer(),
                       CustomText(
                           fontWeight: FontWeight.w600,
-                          title: 'Oops !',
+                          title: context.local.oops,
                           color: const Color(0xffD13135),
                           fontSize: 17),
                       getHeight(context, 0.01),

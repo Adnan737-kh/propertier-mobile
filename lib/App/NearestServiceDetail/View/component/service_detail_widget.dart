@@ -14,6 +14,7 @@ import 'package:propertier/Utils/box_shadow.dart';
 import 'package:propertier/Utils/height_width_box.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 
@@ -141,7 +142,7 @@ PreferredSize serviceAppBar(BuildContext context, SellingServices service) {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CustomText(
-                              title: 'Likes',
+                              title: context.local.likes,
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
                               colorOpecity: 0.6,

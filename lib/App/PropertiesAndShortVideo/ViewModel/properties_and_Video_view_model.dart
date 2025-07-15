@@ -187,7 +187,9 @@ class PropertiesAndVideoViewModel extends GetxController {
     bool isAllLocations = currentLocation == "All Locations";
     bool isAllTypes = selectedTab == "All Types";
 
-    print('selected Type $selectedTab');
+    if (kDebugMode) {
+      print('selected Type $selectedTab');
+    }
     // Check if properties exist
     List<Property> properties = allPropertiesModel.value.properties ?? [];
 

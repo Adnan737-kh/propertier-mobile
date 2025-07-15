@@ -5,6 +5,7 @@ import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/constant/AppButton/text_button.dart';
 import 'package:propertier/constant/AppTextField/app_textfield.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 import '../../../../RoutesAndBindings/app_routes.dart';
 import '../../../../Utils/appbar.dart';
@@ -34,7 +35,7 @@ class BankPaymentMethodView extends GetView<BankPaymentMethodViewModel> {
                   },
                 ),
                 getHeight(context, 0.045),
-                CustomText(
+                const CustomText(
                     textAlign: TextAlign.start,
                     title:
                         "Lorem ipsum dolor sit amet consectetur. Diam scelerisque fermentum lectus turpis senectus. Eget sed auctor leo egestas.",
@@ -67,8 +68,8 @@ class BankPaymentMethodView extends GetView<BankPaymentMethodViewModel> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomText(title: "Total Amount",),
-                    CustomText(title: "100M", fontSize: 10),
+                    CustomText(title: context.local.total_amount,),
+                    const CustomText(title: "100M", fontSize: 10),
                   ],
                 ),
                 getHeight(context, 0.015),

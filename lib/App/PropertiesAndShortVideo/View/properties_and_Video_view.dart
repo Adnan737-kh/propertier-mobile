@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/App/Home/View/home_view.dart';
 import 'package:propertier/App/PropertiesAndShortVideo/View/component/inside_appbar_tile.dart';
 import 'package:propertier/App/PropertiesAndShortVideo/View/component/properties_and_video_app_bar.dart';
@@ -29,8 +28,6 @@ class PropertiesAndVideoView extends StatelessWidget {
     var selectedTile = data["PropertyEnum"];
     viewModel.setSelectTab(
         data["PropertiesType"] != "" ? data["PropertiesType"] : "All Types");
-
-    print('selectedTile ${data["PropertiesType"]}');
 
     return Scaffold(
       body: CustomScrollView(

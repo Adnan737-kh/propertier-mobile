@@ -3,6 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:propertier/Vendor/screens/drawer/review/Controller/review_controller.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 class ReviewScreen extends StatefulWidget {
   const ReviewScreen({super.key});
@@ -59,9 +60,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                       ),
                     ),
                     const SizedBox(width: 4),
-                    const Text(
-                      'Review',
-                      style: TextStyle(
+                     Text(
+                      context.local.review,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 12,
                         fontWeight: FontWeight.w500,

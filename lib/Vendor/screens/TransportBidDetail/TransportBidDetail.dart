@@ -6,6 +6,7 @@ import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Vendor/screens/TransportBidDetail/TransportBidDetailController.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../Utils/text_botton.dart';
@@ -26,7 +27,7 @@ class TransportBidDetail extends GetView<TransportBidDetailController> {
               Icons.arrow_back,
               color: AppColor.blackColor,
             )),
-        title: CustomText(
+        title: const CustomText(
             title: "Transport Bid Detail",
             fontSize: 16,
             fontWeight: FontWeight.w600),
@@ -104,23 +105,23 @@ class TransportBidDetail extends GetView<TransportBidDetailController> {
               Align(
                 alignment: Alignment.center,
                 child: CustomText(
-                    title: "Order Detail",
+                    title: context.local.order_detail,
                     fontWeight: FontWeight.w600,
                     fontSize: 16),
               ),
               ListTile(
                 title: CustomText(
-                    title: "Material Type",
+                    title: context.local.material_type,
                     fontWeight: FontWeight.w600,
                     fontSize: 14,
                     textAlign: TextAlign.start),
-                subtitle: CustomText(
+                subtitle: const CustomText(
                     title: "Iron frames for the piston dei.",
                     fontWeight: FontWeight.w500,
                     fontSize: 14,
                     textAlign: TextAlign.start),
               ),
-              ListTile(
+              const ListTile(
                 title: CustomText(
                     title: "Description",
                     fontWeight: FontWeight.w600,
@@ -133,7 +134,7 @@ class TransportBidDetail extends GetView<TransportBidDetailController> {
                     fontSize: 14,
                     textAlign: TextAlign.start),
               ),
-              ListTile(
+              const ListTile(
                 title: CustomText(
                     title: "Price",
                     fontWeight: FontWeight.w600,
@@ -145,7 +146,7 @@ class TransportBidDetail extends GetView<TransportBidDetailController> {
                     fontSize: 14,
                     textAlign: TextAlign.start),
               ),
-              ListTile(
+              const ListTile(
                 title: CustomText(
                     title: "Order Date & Time",
                     fontWeight: FontWeight.w600,

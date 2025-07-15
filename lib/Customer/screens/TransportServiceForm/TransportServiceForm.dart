@@ -55,7 +55,7 @@ class TransportServiceForm extends GetView<TransportServiceFormController> {
                   ),
                   getHeight(context, 0.01),
                   CustomText(
-                      title: "Transport",
+                      title: context.local.transport,
                       fontSize: 18,
                       colorOpecity: 0.6,
                       fontWeight: FontWeight.w500,
@@ -112,7 +112,7 @@ class TransportServiceForm extends GetView<TransportServiceFormController> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                CustomText(
+                                const CustomText(
                                     title: "Sub service Name",
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600),
@@ -150,7 +150,7 @@ class TransportServiceForm extends GetView<TransportServiceFormController> {
                               alignment: Alignment.centerLeft,
                               child: CustomText(
                                   colorOpecity: 0.6,
-                                  title: "sub service short description.",
+                                  title: context.local.sub_service_short_description,
                                   fontSize: 10,
                                   fontWeight: FontWeight.w600,
                                   ),
@@ -177,7 +177,7 @@ class TransportServiceForm extends GetView<TransportServiceFormController> {
                       getHeight(context, 0.008),
                       const UploadWorkPhotosTile(),
                       getHeight(context, 0.015),
-                      CustomText(
+                      const CustomText(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           title: "Material Type",),
@@ -198,7 +198,7 @@ class TransportServiceForm extends GetView<TransportServiceFormController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CustomText(title: "Pickup Location" ),
+                          const CustomText(title: "Pickup Location" ),
                           TextButton(
                               onPressed: () {
                                 controller.places.clear();
@@ -211,7 +211,7 @@ class TransportServiceForm extends GetView<TransportServiceFormController> {
                           ? CustomText(
                               title: controller.pickupLocation.value,
                       )
-                          : CustomText(
+                          : const CustomText(
                               title: "Not Selected",
                               fontSize: 12)),
                       getHeight(context, 0.008),
@@ -219,7 +219,7 @@ class TransportServiceForm extends GetView<TransportServiceFormController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CustomText(title: "Drop Location", ),
+                          const CustomText(title: "Drop Location", ),
                           TextButton(
                               onPressed: () {
                                 controller.places.clear();
@@ -232,7 +232,7 @@ class TransportServiceForm extends GetView<TransportServiceFormController> {
                           ? CustomText(
                               title: controller.dropLocation.value,
                               )
-                          : CustomText(
+                          : const CustomText(
                               title: "Not Selected",
                               fontSize: 12)),
                       getHeight(context, 0.008),
@@ -247,7 +247,7 @@ class TransportServiceForm extends GetView<TransportServiceFormController> {
                           ? Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                CustomText(
+                                const CustomText(
                                     title: "Select Price" ),
                                 SizedBox(
                                   height: 50,
@@ -297,7 +297,7 @@ class TransportServiceForm extends GetView<TransportServiceFormController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CustomText(title: "Date Time", ),
+                          const CustomText(title: "Date Time", ),
                           TextButton(
                               onPressed: () {
                                 controller.showDateTimePicker(context);
@@ -307,7 +307,7 @@ class TransportServiceForm extends GetView<TransportServiceFormController> {
                       ),
                       Obx(() => controller.dateTime.value != null
                           ? Text(controller.dateTime.value.toString())
-                          : CustomText(
+                          : const CustomText(
                               title: "Not Selected",
                               fontSize: 12)),
                       getHeight(context, 0.008),
@@ -389,7 +389,7 @@ class SelectLocation extends StatelessWidget {
                 ),
               ),
               getHeight(context, 0.020),
-              CustomText(
+              const CustomText(
                   title: "Locations:",
                   fontSize: 16,
                   fontWeight: FontWeight.bold,),

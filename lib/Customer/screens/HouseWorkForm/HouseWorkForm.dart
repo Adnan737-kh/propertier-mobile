@@ -55,7 +55,7 @@ class HouseWorkForm extends GetView<HouseWorkFormController> {
                   ),
                   getHeight(context, 0.01),
                   CustomText(
-                      title: "Domestic Service",
+                      title: context.local.domestic_service,
                       fontSize: 18,
                       colorOpecity: 0.6,
                       fontWeight: FontWeight.w500,
@@ -113,7 +113,7 @@ class HouseWorkForm extends GetView<HouseWorkFormController> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 CustomText(
-                                    title: "Sub service Name",
+                                    title: context.local.sub_service_name,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600),
                                 getWidth(context, 0.010),
@@ -150,7 +150,7 @@ class HouseWorkForm extends GetView<HouseWorkFormController> {
                               alignment: Alignment.centerLeft,
                               child: CustomText(
                                   colorOpecity: 0.6,
-                                  title: "sub service short description.",
+                                  title: context.local.sub_service_short_description,
                                   fontSize: 10,
                                   fontWeight: FontWeight.w600,),
                             ),
@@ -176,7 +176,7 @@ class HouseWorkForm extends GetView<HouseWorkFormController> {
                       getHeight(context, 0.008),
                       const UploadWorkPhotosTile(),
                       getHeight(context, 0.015),
-                      CustomText(
+                      const CustomText(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           title: "Brief Overview",
@@ -185,7 +185,7 @@ class HouseWorkForm extends GetView<HouseWorkFormController> {
                           controller: controller.overviewController),
                       getHeight(context, 0.008),
                       getHeight(context, 0.015),
-                      CustomText(
+                      const CustomText(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           title: "Address Detail (Street, House/Office No)",
@@ -196,13 +196,13 @@ class HouseWorkForm extends GetView<HouseWorkFormController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CustomText(title: "Work Location",  ),
+                          CustomText(title: context.local.work_location,  ),
                           TextButton(
                               onPressed: () {
                                 controller.places.clear();
-                                Get.to(SelectLocation(isPickup: false));
+                                Get.to(const SelectLocation(isPickup: false));
                               },
-                              child: const Text("Select"))
+                              child:  Text(context.local.select))
                         ],
                       ),
                       Obx(() => controller.dropLocation.value != null
@@ -210,7 +210,7 @@ class HouseWorkForm extends GetView<HouseWorkFormController> {
                               title: controller.dropLocation.value,
                               )
                           : CustomText(
-                              title: "Not Selected",
+                              title: context.local.not_selected,
                               fontSize: 12)),
                       getHeight(context, 0.008),
                       const Divider(),
@@ -219,7 +219,7 @@ class HouseWorkForm extends GetView<HouseWorkFormController> {
                       getHeight(context, 0.008),
                       Obx(() => DropdownButton<String>(
                             value: controller.selectedChargeBy.value,
-                            hint: const Text('Charge By'),
+                            hint:  Text(context.local.charge_by),
                             isExpanded:
                                 true, // Ensures dropdown takes full width
                             items: <String>[
@@ -249,20 +249,20 @@ class HouseWorkForm extends GetView<HouseWorkFormController> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              CustomText(
+                              const CustomText(
                                   title: "Work Start Date Time",
                                    ),
                               TextButton(
                                   onPressed: () {
                                     controller.showDateTimePicker(context);
                                   },
-                                  child: const Text("Select"))
+                                  child: Text(context.local.select))
                             ],
                           ),
                           Obx(() => controller.dateTime.value != null
                               ? Text(controller.dateTime.value.toString())
                               : CustomText(
-                                  title: "Not Selected",
+                                  title: context.local.not_selected,
                                   fontSize: 12)),
                         ],
                       ),
@@ -281,7 +281,7 @@ class HouseWorkForm extends GetView<HouseWorkFormController> {
                           textFontSize: 20,
                           textFontWeight: FontWeight.w500,
                           context: context,
-                          title: 'Offer to Vendor',
+                          title: context.local.offer_to_vendor,
                           onClick: () {
                             Get.toNamed(AppRoutes.vendorOffer);
                           })
@@ -300,8 +300,8 @@ class HouseWorkForm extends GetView<HouseWorkFormController> {
 }
 
 class SelectLocation extends StatelessWidget {
-  SelectLocation({super.key, required this.isPickup});
-  bool isPickup;
+  const SelectLocation({super.key, required this.isPickup});
+  final bool isPickup;
   @override
   Widget build(BuildContext context) {
     final FocusNode focusNode = FocusNode();
@@ -341,7 +341,7 @@ class SelectLocation extends StatelessWidget {
                               Icons.close,
                             ),
                           ),
-                    hintText: "Search here...",
+                    hintText: context.local.search_here,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                         borderSide: BorderSide.none),
@@ -355,7 +355,7 @@ class SelectLocation extends StatelessWidget {
               ),
               getHeight(context, 0.020),
               CustomText(
-                  title: "Locations:",
+                  title: context.local.location,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
               ),
@@ -374,12 +374,11 @@ class SelectLocation extends StatelessWidget {
 
 class DestinationSection extends StatelessWidget {
   DestinationSection({super.key, required this.isPickup});
-  bool isPickup;
-  HouseWorkFormController controller = Get.find();
+  final bool isPickup;
+  final HouseWorkFormController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    print("Places Length ${controller.places.length}");
     return Obx(
       () => ListView.builder(
         itemCount: controller.places.length,

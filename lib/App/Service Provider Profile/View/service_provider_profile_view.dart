@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -141,8 +142,10 @@ class ServiceProviderProfile extends GetView<ServiceProviderProfileViewModel> {
                     : 0
                 : 0,
         itemBuilder: (context, index) {
-          print(
+          if (kDebugMode) {
+            print(
               " property image ${controller.serviceProviderProfileModel.value.properties![index].image}");
+          }
           return propertiesTile(
               context: context,
               controller: controller,

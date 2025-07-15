@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -55,10 +56,14 @@ Future<void> _sendCnic() async {
     String type = profileController.profile.value.type ?? '';
 
     // Debugging: print to verify if all fields are being retrieved correctly
-    print('Vendor User ID: $vendorUserId');
-    print('Firebase ID: $firebaseId');
-    print('Email: $email');
-    print('Type: $type');
+    if (kDebugMode) {
+      print('Firebase ID: $firebaseId');
+      print('Email: $email');
+      print('Type: $type');
+      print('Vendor User ID: $vendorUserId');
+
+    }
+
     
     if (vendorUserId != null && vendorUserId.isNotEmpty && 
         firebaseId.isNotEmpty && email.isNotEmpty && type.isNotEmpty) {

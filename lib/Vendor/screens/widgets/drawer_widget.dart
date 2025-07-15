@@ -24,9 +24,9 @@ import 'package:propertier/Vendor/screens/drawer/support/view/support_screen.dar
 import 'package:propertier/Vendor/screens/drawer/verifications/select_verfication_screen.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 import '../drawer/vehicle_list/VehicleList.dart';
-
 
 class DrawerWidget extends StatefulWidget {
   final VoidCallback onToggleDrawer;
@@ -50,7 +50,6 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     super.initState();
     profileController.loadProfile();
   }
-
 
   Widget build(BuildContext context) {
     return Drawer(
@@ -122,9 +121,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               color: Colors.white,
               height: 18,
             ),
-            title: const Text(
-              'Profile',
-              style: TextStyle(
+            title: Text(
+              context.local.profile,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -148,9 +147,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               color: Colors.white,
               height: 18,
             ),
-            title: const Text(
-              'Wallet',
-              style: TextStyle(
+            title: Text(
+              context.local.wallet,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -172,9 +171,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               color: Colors.white,
               height: 18,
             ),
-            title: const Text(
-              'Verification Form',
-              style: TextStyle(
+            title: Text(
+              context.local.verification_form,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -196,9 +195,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               Constant.verifyIcon,
               color: Colors.white,
             ),
-            title: const Text(
-              'Verification',
-              style: TextStyle(
+            title: Text(
+              context.local.verification,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -215,11 +214,11 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ),
           divider(context: context),
           ListTile(
-            leading: SvgPicture.asset(Constant.editProfileIcon,
-                color: Colors.white),
-            title: const Text(
-              'Edit Profile',
-              style: TextStyle(
+            leading:
+                SvgPicture.asset(Constant.editProfileIcon, color: Colors.white),
+            title: Text(
+              context.local.edit_profile,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -235,36 +234,41 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             },
           ),
           divider(context: context),
-          if(profileController.profile.value.professionTypes != null && profileController.profile.value.professionTypes!.length == 2 && (profileController.profile.value.professionTypes![1] == "Driver" || profileController.profile.value.professionTypes![1] == "Transport"))
-          ListTile(
-            leading: SvgPicture.asset(
-              Constant.verifyIcon,
-              color: Colors.white,
-            ),
-            title: const Text(
-              'My Vehicles',
-              style: TextStyle(
+          if (profileController.profile.value.professionTypes != null &&
+              profileController.profile.value.professionTypes!.length == 2 &&
+              (profileController.profile.value.professionTypes![1] ==
+                      "Driver" ||
+                  profileController.profile.value.professionTypes![1] ==
+                      "Transport"))
+            ListTile(
+              leading: SvgPicture.asset(
+                Constant.verifyIcon,
                 color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                letterSpacing: 0.14,
               ),
+              title: const Text(
+                'My Vehicles',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  letterSpacing: 0.14,
+                ),
+              ),
+              trailing: const Icon(
+                Icons.arrow_forward_ios_rounded,
+                color: Colors.white,
+              ),
+              onTap: () {
+                Get.to(() => const VehicleList());
+              },
             ),
-            trailing: const Icon(
-              Icons.arrow_forward_ios_rounded,
-              color: Colors.white,
-            ),
-            onTap: () {
-              Get.to(() => const VehicleList());
-            },
-          ),
           divider(context: context),
           ListTile(
-            leading: SvgPicture.asset(Constant.analyticsIcon,
-                color: Colors.white),
-            title: const Text(
-              'Analytics',
-              style: TextStyle(
+            leading:
+                SvgPicture.asset(Constant.analyticsIcon, color: Colors.white),
+            title: Text(
+              context.local.analytics,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -279,11 +283,11 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ),
           divider(context: context),
           ListTile(
-            leading: SvgPicture.asset(Constant.settingIcon,
-                color: Colors.white),
-            title: const Text(
-              'Settings',
-              style: TextStyle(
+            leading:
+                SvgPicture.asset(Constant.settingIcon, color: Colors.white),
+            title: Text(
+              context.local.settings,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -300,11 +304,10 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ),
           divider(context: context),
           ListTile(
-            leading: SvgPicture.asset(Constant.adsIcon,
-                color: Colors.white),
-            title: const Text(
-              'Ads',
-              style: TextStyle(
+            leading: SvgPicture.asset(Constant.adsIcon, color: Colors.white),
+            title: Text(
+              context.local.ads,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -319,11 +322,10 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ),
           divider(context: context),
           ListTile(
-            leading: SvgPicture.asset(Constant.orderIcon,
-                color: Colors.white),
-            title: const Text(
-              'Orders',
-              style: TextStyle(
+            leading: SvgPicture.asset(Constant.orderIcon, color: Colors.white),
+            title: Text(
+              context.local.orders,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -340,11 +342,10 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ),
           divider(context: context),
           ListTile(
-            leading: SvgPicture.asset(Constant.reviewIcon,
-                color: Colors.white),
-            title: const Text(
-              'Reviews',
-              style: TextStyle(
+            leading: SvgPicture.asset(Constant.reviewIcon, color: Colors.white),
+            title: Text(
+              context.local.review,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -361,11 +362,10 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ),
           divider(context: context),
           ListTile(
-            leading: SvgPicture.asset(Constant.reviewIcon,
-                color: Colors.white),
-            title: const Text(
-              'Languages',
-              style: TextStyle(
+            leading: SvgPicture.asset(Constant.reviewIcon, color: Colors.white),
+            title: Text(
+              context.local.language,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -382,11 +382,11 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ),
           divider(context: context),
           ListTile(
-            leading: SvgPicture.asset(Constant.privacyIcon,
-                color: Colors.white),
-            title: const Text(
-              'Privacy',
-              style: TextStyle(
+            leading:
+                SvgPicture.asset(Constant.privacyIcon, color: Colors.white),
+            title: Text(
+              context.local.privacy,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -403,11 +403,10 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ),
           divider(context: context),
           ListTile(
-            leading: SvgPicture.asset(Constant.policyIcon,
-                color: Colors.white),
-            title: const Text(
-              'Policy',
-              style: TextStyle(
+            leading: SvgPicture.asset(Constant.policyIcon, color: Colors.white),
+            title: Text(
+              context.local.policy,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -424,11 +423,11 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ),
           divider(context: context),
           ListTile(
-            leading: SvgPicture.asset(Constant.supportIcon,
-                color: Colors.white),
-            title: const Text(
-              'Support',
-              style: TextStyle(
+            leading:
+                SvgPicture.asset(Constant.supportIcon, color: Colors.white),
+            title: Text(
+              context.local.support,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -445,11 +444,10 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ),
           divider(context: context),
           ListTile(
-            leading: SvgPicture.asset(Constant.infoIcon,
-                color: Colors.white),
-            title: const Text(
-              'Offered Services',
-              style: TextStyle(
+            leading: SvgPicture.asset(Constant.infoIcon, color: Colors.white),
+            title: Text(
+              context.local.offered_services,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -466,11 +464,11 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ),
           divider(context: context),
           ListTile(
-            leading: SvgPicture.asset(Constant.activityIcon,
-                color: Colors.white),
-            title: const Text(
-              'Activity',
-              style: TextStyle(
+            leading:
+                SvgPicture.asset(Constant.activityIcon, color: Colors.white),
+            title: Text(
+              context.local.activity,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -487,11 +485,10 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ),
           divider(context: context),
           ListTile(
-            leading: SvgPicture.asset(Constant.payoutIcon,
-                color: Colors.white),
-            title: const Text(
-              'Payout',
-              style: TextStyle(
+            leading: SvgPicture.asset(Constant.payoutIcon, color: Colors.white),
+            title: Text(
+              context.local.payout,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -506,11 +503,11 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ),
           divider(context: context),
           ListTile(
-            leading: SvgPicture.asset(Constant.analyticsIcon,
-                color: Colors.white),
-            title: const Text(
-              'Delete Account',
-              style: TextStyle(
+            leading:
+                SvgPicture.asset(Constant.analyticsIcon, color: Colors.white),
+            title: Text(
+              context.local.delete_account,
+              style: const TextStyle(
                 color: Colors.red,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -526,7 +523,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: const Text("Are you sure?"),
+                    title: Text(context.local.are_you_sure),
                     content: const Text(
                       "All data related to this account will be deleted. This action cannot be undone.",
                     ),
@@ -535,7 +532,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         onPressed: () {
                           Navigator.of(context).pop(); // Close the dialog
                         },
-                        child: const Text("Cancel"),
+                        child: Text(context.local.cancel),
                       ),
                       ElevatedButton(
                         onPressed: () {
@@ -545,7 +542,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red,
                         ),
-                        child: const Text("Delete"),
+                        child: Text(context.local.delete),
                       ),
                     ],
                   );
@@ -587,7 +584,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     ),
                   ),
                   CustomText(
-                    title: "Sign Out",
+                    title: context.local.sign_out,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   )

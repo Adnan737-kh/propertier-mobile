@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:propertier/App/Auth/Login/Model/login_response_model.dart';
@@ -49,7 +50,9 @@ class EditProfileServices  {
       if (address != '') {
         request.fields['longitude_position'] = longitudePosition;
       }
-      print("Password is $password");
+      if (kDebugMode) {
+        print("Password is $password");
+      }
       if (password != '') {
         request.fields['password'] = password;
       }

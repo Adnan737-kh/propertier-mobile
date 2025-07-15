@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ import 'package:propertier/Utils/text_botton.dart';
 import 'package:propertier/constant/AppTextField/app_textfield.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:propertier/constant/constant.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 // import '../../../../RoutesAndBindings/app_routes.dart';
@@ -57,8 +59,7 @@ class ForgotPasswordView extends StatelessWidget {
                   ),
                   CustomText(
                       textAlign: TextAlign.left,
-                      title:
-                          'Please enter your Email/Phone number to receive a verification code',
+                      title:context.local.please_enter_your_email_phone_number_to_receive_a_verification_code,
                       fontSize: 12,
                       color: const Color(0xFF6D6E6F),
                       fontWeight: FontWeight.bold),
@@ -72,7 +73,9 @@ class ForgotPasswordView extends StatelessWidget {
                     textInputType: TextInputType.emailAddress,
                     suffix: GestureDetector(
                       onTap: () {
-                        print("Start Listing");
+                        if (kDebugMode) {
+                          print("Start Listing");
+                        }
                         forgetPassVM.startListening(textFieldNo: 0);
                       },
                       child: Image.asset(

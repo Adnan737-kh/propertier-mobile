@@ -50,7 +50,7 @@ class ServicesSearchService{
 
       }
       if (response.statusCode == 201) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: CustomText(
                 title: 'Your Request is online, Please Wait...',
                 color: AppColor.white)));
@@ -58,7 +58,7 @@ class ServicesSearchService{
         var jsonDecodeBody = jsonDecode(responseBody);
         return jsonDecodeBody['id'].toString();
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: CustomText(
                 title: 'Something went wrong.',
                 color: AppColor.white)));
@@ -87,7 +87,9 @@ class ServicesSearchService{
       var request = http.MultipartRequest("PATCH", Uri.parse(url));
       request.fields['status'] = status;
       var response = await request.send();
-      print(response.statusCode);
+      if (kDebugMode) {
+        print(response.statusCode);
+      }
     }
     catch(e){
       if (kDebugMode) {
@@ -110,7 +112,9 @@ class ServicesSearchService{
       request.fields['status'] = status;
       request.fields['vendor'] = vendorId;
       var response = await request.send();
-      print(response.statusCode);
+      if (kDebugMode) {
+        print(response.statusCode);
+      }
     }
     catch(e){
       if (kDebugMode) {
@@ -140,12 +144,18 @@ class ServicesSearchService{
       request.fields['status'] = status;
       request.fields['payment_status'] = paymentStatus;
 
-      print(request.fields);
+      if (kDebugMode) {
+        print(request.fields);
+      }
 
       var response = await request.send();
-      print(response.statusCode);
+      if (kDebugMode) {
+        print(response.statusCode);
+      }
       var data = await response.stream.bytesToString();
-      print(data);
+      if (kDebugMode) {
+        print(data);
+      }
       if(response.statusCode == 201){
         return true;
       }
@@ -157,7 +167,9 @@ class ServicesSearchService{
       }
     }
     catch(e){
-      print("error: $e");
+      if (kDebugMode) {
+        print("error: $e");
+      }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: CustomText(
               title: e.toString(),

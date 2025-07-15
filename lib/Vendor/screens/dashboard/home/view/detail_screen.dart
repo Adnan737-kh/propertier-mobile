@@ -8,12 +8,13 @@ import 'package:propertier/App/Auth/Login/Model/login_response_model.dart';
 import 'package:propertier/Vendor/screens/dashboard/home/Controller/DetailScreenController.dart';
 import 'package:propertier/Vendor/screens/dashboard/home/Model/home_model.dart';
 import 'package:propertier/Vendor/screens/dashboard/home/view/component/amount.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 class DetailScreen extends StatefulWidget {
-  DetailScreen({super.key, required this.bid, this.userData});
-  Bid bid;
-  UserData? userData;
+  const DetailScreen({super.key, required this.bid, this.userData});
+  final Bid bid;
+  final UserData? userData;
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -24,7 +25,7 @@ class _DetailScreenState extends State<DetailScreen> {
   bool isMapSelected = true;
   bool isImageSelected = false;
 
-  final LatLng _initialPosition = const LatLng(33.6844, 73.0479);
+  // final LatLng _initialPosition = const LatLng(33.6844, 73.0479);
   
   // Variable to store the map style
   String? mapStyle;
@@ -191,7 +192,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                               : Colors.black),
                                       const SizedBox(width: 8),
                                       Text(
-                                        'Map',
+                                        context.local.map,
                                         style: TextStyle(
                                           color: isMapSelected
                                               ? Colors.white
@@ -372,9 +373,9 @@ class _DetailScreenState extends State<DetailScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              'Description Detail',
-                            style: TextStyle(
+                             Text(
+                              context.local.description_detail,
+                            style: const TextStyle(
                                 color: Color(0xFF1F0101),
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
@@ -448,9 +449,9 @@ class _DetailScreenState extends State<DetailScreen> {
                     ),
                     margin: const EdgeInsets.symmetric(horizontal: 2),
                     alignment: Alignment.center,
-                    child: const Text(
-                      'Offer',
-                      style: TextStyle(
+                    child:  Text(
+                      context.local.offer,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 18
@@ -486,20 +487,20 @@ class OptionButton extends StatelessWidget {
         style: const TextStyle(color: Colors.black),
       ),
     );
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFFFFFFFF),
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-      ),
-      onPressed: () {},
-      child: Text(
-        text,
-        style: const TextStyle(color: Colors.black),
-      ),
-    );
+    // return ElevatedButton(
+    //   style: ElevatedButton.styleFrom(
+    //     backgroundColor: const Color(0xFFFFFFFF),
+    //     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+    //     shape: RoundedRectangleBorder(
+    //       borderRadius: BorderRadius.circular(8.0),
+    //     ),
+    //   ),
+    //   onPressed: () {},
+    //   child: Text(
+    //     text,
+    //     style: const TextStyle(color: Colors.black),
+    //   ),
+    // );
   }
 }
 

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ import 'package:propertier/Features/SelectFeatuedType/Controller/select_featued_
 import 'package:propertier/Model/property.dart';
 import 'package:propertier/RoutesAndBindings/app_routes.dart';
 import 'package:propertier/Utils/divider.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 import '../../../App/What are you searching/View/Components/custom_botton_wryf.dart';
@@ -55,7 +57,7 @@ class SelectFeaturedTypeView extends GetView<SelectFeatuedTypeController> {
                       Row(
                         children: [
                           CustomText(
-                              title: "Select What to make ads",
+                              title:context.local.select_what_to_make_ads,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                               ),
@@ -201,7 +203,7 @@ class SelectFeaturedTypeView extends GetView<SelectFeatuedTypeController> {
                       Row(
                         children: [
                           CustomText(
-                              title: "Select Ad Type",
+                              title: context.local.select_ad_type,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                               ),
@@ -252,8 +254,11 @@ class SelectFeaturedTypeView extends GetView<SelectFeatuedTypeController> {
           child: CustomButton(
               title: "Next",
               onTap: () async {
-                print(controller.selectedPropertyID.value.id.toString());
-                print(controller.pickedImage);
+                if (kDebugMode) {
+                  print(controller.selectedPropertyID.value.id.toString());
+                  print(controller.pickedImage);
+
+                }
                 if (controller.featuredTypeList[2] ==
                     controller.selectedFeaturedType.value) {
                   if (controller.pickedImage != '') {

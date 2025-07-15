@@ -7,6 +7,7 @@ import 'package:propertier/Vendor/screens/dashboard/home/Controller/home_control
 import 'package:propertier/Vendor/screens/dashboard/home/Model/home_model.dart';
 import 'package:propertier/Vendor/screens/dashboard/home/view/detail_screen.dart';
 import 'package:propertier/Vendor/screens/widgets/tabbar_item.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import '../../../../../constant/colors.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -244,7 +245,7 @@ class _HomeScreenState extends State<HomeScreen>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Customer ID: ${bid.customer}',
+                    Text('${context.local.customer_id} ${bid.customer}',
                         style: const TextStyle(
                           color: Color(0xFF109B0E),
                           fontSize: 8,
@@ -328,10 +329,10 @@ class _HomeScreenState extends State<HomeScreen>
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
-                            child: const Center(
+                            child:  Center(
                               child: Text(
-                                'Detail',
-                                style: TextStyle(
+                                context.local.detail,
+                                style: const TextStyle(
                                   color: Color(0xFF109B0E),
                                   fontSize: 10,
                                   fontWeight: FontWeight.w500,
@@ -344,7 +345,6 @@ class _HomeScreenState extends State<HomeScreen>
                         // Cancel button
                         InkWell(
                           onTap: () {
-                            print("lskdjfls");
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(
@@ -355,9 +355,9 @@ class _HomeScreenState extends State<HomeScreen>
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
-                            child: const Text(
-                              'Cancel',
-                              style: TextStyle(
+                            child: Text(
+                              context.local.cancel,
+                              style: const TextStyle(
                                 color: Color(0xFF131A22),
                                 fontSize: 10,
                                 fontWeight: FontWeight.w500,

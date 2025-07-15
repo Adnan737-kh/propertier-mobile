@@ -48,7 +48,7 @@ class LoginServices {
         }
       } else if (response.statusCode == 404) {
         if (isLogin) {
-          ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(Get.context!).showSnackBar(const SnackBar(
               content: CustomText(
                   title: 'User not exist',
                   color: AppColor.white)));
@@ -58,7 +58,7 @@ class LoginServices {
 
         return null;
       } else {
-        ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(Get.context!).showSnackBar(const SnackBar(
             content: CustomText(
                 title: 'Something went wrong.',
                 color: AppColor.white)));

@@ -9,6 +9,7 @@ import 'package:propertier/Network/api_urls.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/constant/colors.dart';
 import 'package:http/http.dart' as http;
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/res/app_urls/app_url.dart';
 
 class ProfileService {
@@ -80,7 +81,7 @@ class ProfileService {
       if (response.statusCode == 204) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content:
-                CustomText(title: "Property Deleted", color: AppColor.white)));
+                CustomText(title: context.local.property_deleted, color: AppColor.white)));
         isSuccess = true;
         Get.back();
       } else {

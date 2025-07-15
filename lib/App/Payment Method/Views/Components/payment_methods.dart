@@ -32,7 +32,7 @@ Widget paymentMethod({required BuildContext context, void Function()? onTap}) {
                   height: 13.17,
                 ),
                 const Gap(8),
-                CustomText(
+                const CustomText(
                     title: "Bank alflah",
                     fontSize: 12,
                     fontWeight: FontWeight.normal)
@@ -63,7 +63,7 @@ Widget paymentMethod({required BuildContext context, void Function()? onTap}) {
                   height: 13.17,
                 ),
                 const Gap(8),
-                CustomText(
+                const CustomText(
                     title: "BitCoin",
                     fontSize: 12,
                     fontWeight: FontWeight.normal)

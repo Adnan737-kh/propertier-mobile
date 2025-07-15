@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:propertier/extensions/size_extension.dart';
 
 typedef OnChange = Function(String);
@@ -37,7 +38,7 @@ showLocationBottomSheet({
                   ),
                   child: CustomText(
                       textAlign: TextAlign.start,
-                      title: "All Locations",
+                      title: context.local.all_locations,
                       fontSize: 16,
                       ),
                 ),

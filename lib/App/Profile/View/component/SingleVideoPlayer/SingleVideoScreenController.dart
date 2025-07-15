@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
@@ -20,9 +21,13 @@ class SingleVideoScreenController extends GetxController {
       properties = Get.find<HomeViewModel>().homeModel.value.data!.shortVideos;
     }
     properties = shiftPropertyToFirst(properties, property);
-    print("*****properties:");
+    if (kDebugMode) {
+      print("*****properties:");
+    }
     for(Property p in properties){
-      print(p.id.toString());
+      if (kDebugMode) {
+        print(p.id.toString());
+      }
     }
     _initializeControllers();
   }
@@ -38,23 +43,35 @@ class SingleVideoScreenController extends GetxController {
     // Create a new list from the original list
     List<Property> newList = List.from(propertyList);
 
-    print("List before shift");
+    if (kDebugMode) {
+      print("List before shift");
+    }
     for(Property p in newList){
-      print(p.id.toString());
+      if (kDebugMode) {
+        print(p.id.toString());
+      }
     }
     // Remove the target property
     newList.remove(targetProperty);
 
-    print("List after remove");
+    if (kDebugMode) {
+      print("List after remove");
+    }
     for(Property p in newList){
-      print(p.id.toString());
+      if (kDebugMode) {
+        print(p.id.toString());
+      }
     }
     // Insert the target property at the first index
     newList.insert(0, targetProperty);
 
-    print("List after insert");
+    if (kDebugMode) {
+      print("List after insert");
+    }
     for(Property p in newList){
-      print(p.id.toString());
+      if (kDebugMode) {
+        print(p.id.toString());
+      }
     }
     return newList;
   }
@@ -117,7 +134,9 @@ class SingleVideoScreenController extends GetxController {
     // Dispose all video controllers
     for (var controller in videoControllers) {
       controller.dispose();
-      print("closed");
+      if (kDebugMode) {
+        print("closed");
+      }
     }
     super.onClose();
   }

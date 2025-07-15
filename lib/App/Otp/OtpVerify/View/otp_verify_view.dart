@@ -17,7 +17,7 @@ import '../ViewModel/otp_verify_view_model.dart';
 class OTPVerifyView extends StatelessWidget {
   OTPVerifyView({super.key});
   final viewModel = Get.find<OTPVerifyViewModel>();
-  final List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
+  // final List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
 
   // void _checkAndAutoVerify() {
   //   final code = viewModel.otpController.map((c) => c.text).join();

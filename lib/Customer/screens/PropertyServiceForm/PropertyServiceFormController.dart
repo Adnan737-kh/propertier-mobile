@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bottom_picker/bottom_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -38,7 +39,6 @@ class PropertyServiceFormController extends GetxController{
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       final predictions = data['predictions'] as List<dynamic>;
-      print("Predictions count: ${predictions.length}");
 
       // Fetch details for each place
       List<Place> placesList = [];
@@ -66,13 +66,17 @@ class PropertyServiceFormController extends GetxController{
             ),
           );
         } else {
-          print('Failed to fetch details for placeId: $placeId');
+          if (kDebugMode) {
+            print('Failed to fetch details for placeId: $placeId');
+          }
         }
       }
 
       places.value = placesList;
     } else {
-      print('Failed to fetch autocomplete predictions: ${response.statusCode}');
+      if (kDebugMode) {
+        print('Failed to fetch autocomplete predictions: ${response.statusCode}');
+      }
       places.value = [];
     }
   }
@@ -93,7 +97,9 @@ class PropertyServiceFormController extends GetxController{
         ),
       ),
       onSubmit: (date) {
-        print(date);
+        if (kDebugMode) {
+          print(date);
+        }
         dateTime.value = date;
       },
       onClose: () {

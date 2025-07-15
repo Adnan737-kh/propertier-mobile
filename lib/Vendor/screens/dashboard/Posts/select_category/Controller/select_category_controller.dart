@@ -36,7 +36,9 @@ class SelectCategoryController extends GetxController {
 
       parentServicesMap.value = servicesMap;
       errorMessage.value = null;
-      print('Parsed Parent Services Map: $parentServicesMap');
+      if (kDebugMode) {
+        print('Parsed Parent Services Map: $parentServicesMap');
+      }
     } catch (e) {
       errorMessage.value = 'An error occurred: $e';
     } finally {

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
@@ -16,7 +17,9 @@ class VendorFormController extends GetxController{
     try{
       var id = GetStorage().read('vendorUserId');
       String url = "${API.getVendorFormData}$id";
-      print(url);
+      if (kDebugMode) {
+        print(url);
+      }
       var response = await http.get(Uri.parse(url));
       if(response.statusCode == 200){
         items.clear();
@@ -27,7 +30,9 @@ class VendorFormController extends GetxController{
       }
     }
     catch(e){
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return items;
   }

@@ -31,7 +31,7 @@ class VendorFormModal {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     if (requirementDetails != null) {
       data['requirement_details'] = requirementDetails!.toJson();

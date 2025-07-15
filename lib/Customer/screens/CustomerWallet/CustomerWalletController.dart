@@ -45,7 +45,9 @@ class CustomerWalletController extends GetxController{
       };
       var encodedData = jsonEncode(data);
       String url = "${API.topUpWallet}$customerId/";
-      print(url);
+      if (kDebugMode) {
+        print(url);
+      }
       var response = await http.put(Uri.parse(url),
           headers: <String, String>{'Content-Type': 'application/json'},
           body: encodedData);

@@ -1,4 +1,5 @@
 import 'package:chewie/chewie.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -53,13 +54,13 @@ class ShortVideoPLayerWidget extends StatefulWidget {
 class _ShortVideoPLayerWidgetState extends State<ShortVideoPLayerWidget> {
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
-  final bool _isFullScreen = false;
+  // final bool _isFullScreen = false;
   final _isPlaying = false.obs;
 
   var isLikeFree = false.obs;
   var isLiked = 0.obs;
-  final _password = "".obs;
-  final _email = "".obs;
+  // final _password = "".obs;
+  // final _email = "".obs;
 
   var propertyDetail = IsLiked().obs;
   getSpecificPropertyDetail() async {
@@ -78,7 +79,9 @@ class _ShortVideoPLayerWidgetState extends State<ShortVideoPLayerWidget> {
     _isPlaying.value = widget.isBackButton;
     getSpecificPropertyDetail();
     _controller.addListener(() {
-      print('Video Url Ok');
+      if (kDebugMode) {
+        print('Video Url Ok');
+      }
     });
     super.initState();
   }
@@ -195,7 +198,9 @@ class _ShortVideoPLayerWidgetState extends State<ShortVideoPLayerWidget> {
                                                   arguments: widget
                                                       .property.agent!.id
                                                       .toString());
-                                              print("clicked profile");
+                                              if (kDebugMode) {
+                                                print("clicked profile");
+                                              }
                                             },
                                             child: CircleAvatar(
                                               radius:

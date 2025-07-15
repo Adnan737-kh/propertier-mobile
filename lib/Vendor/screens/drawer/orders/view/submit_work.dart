@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -13,8 +14,8 @@ import '../../../../../constant/colors.dart';
 import '../components/components.dart';
 
 class SubmitWork extends StatefulWidget {
-  SubmitWork({super.key, required this.id});
-  String id;
+  const SubmitWork({super.key, required this.id});
+  final String id;
   @override
   State<SubmitWork> createState() => _SubmitWorkState();
 }
@@ -61,7 +62,7 @@ class _SubmitWorkState extends State<SubmitWork> {
                     controller.descriptionController,
                   ),
                   getHeight(context, 0.015),
-                  CustomText(
+                  const CustomText(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       title: "Extra price",
@@ -79,10 +80,13 @@ class _SubmitWorkState extends State<SubmitWork> {
                       context: context,
                       title: 'Submit Work',
                       onClick: () {
-                        print(widget.id);
-                        print(controller.imageFileList.length);
-                        print(controller.descriptionController.text);
-                        print(controller.extraPriceC.text);
+                        if (kDebugMode) {
+                          print(widget.id);
+                          print(controller.imageFileList.length);
+                          print(controller.descriptionController.text);
+                          print(controller.extraPriceC.text);
+                        }
+
                         controller.submitWork(context, widget.id);
                       })
                 ],

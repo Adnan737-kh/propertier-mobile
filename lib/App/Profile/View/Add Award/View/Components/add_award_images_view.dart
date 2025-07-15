@@ -5,6 +5,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 import '../../../../../../Utils/app_text.dart';
 import '../../../../../../Utils/height_width_box.dart';
@@ -46,7 +47,7 @@ class _AddAwardImageViewState extends State<AddAwardImageView> {
         Row(
           children: [
             CustomText(
-              title: "File",
+              title: context.local.file,
               fontSize: 18,
               fontWeight: FontWeight.normal,
             ),
@@ -97,7 +98,7 @@ Widget iDUploadTile({required bool isLoading, File? image, Function()? onTap}) {
                       size: 38,
                     ),
                     CustomText(
-                        title: "Upload File Here",
+                        title: context.local.upload_file_here,
                         fontSize: 16,
                         colorOpecity: 0.5,
                         color: AppColor.darkGreyColor,

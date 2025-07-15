@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:propertier/App/About/View/about_view.dart';
 import 'package:propertier/App/Profile/ViewModel/profile_view_model.dart';
 import 'package:propertier/Utils/app_text.dart';
 import 'package:propertier/Utils/border.dart';

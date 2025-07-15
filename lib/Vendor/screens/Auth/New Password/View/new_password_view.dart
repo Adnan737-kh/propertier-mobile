@@ -9,6 +9,7 @@ import 'package:propertier/Utils/logo_tile.dart';
 import 'package:propertier/constant/AppButton/text_button.dart';
 import 'package:propertier/constant/AppTextField/app_textfield.dart';
 import 'package:propertier/constant/colors.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 
 // import '../../../../RoutesAndBindings/app_routes.dart';
 // import '../../../../Utils/appbar.dart';
@@ -51,8 +52,7 @@ class NewPasswordView extends StatelessWidget {
                   getHeight(context, 0.101),
                   CustomText(
                       textAlign: TextAlign.left,
-                      title:
-                          'Your new Password must be different from previously used Password.',
+                      title:context.local.your_new_password_must_be_different_from_previously_used_password,
                       fontSize: 14,
                       color: const Color(0xFF6D6E6F),
                       fontWeight: FontWeight.bold),

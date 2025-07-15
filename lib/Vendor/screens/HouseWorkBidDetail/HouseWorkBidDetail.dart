@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:propertier/Vendor/screens/HouseWorkBidDetail/HouseWorkBidDetailController.dart';
+import 'package:propertier/extensions/localization_extension.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../Utils/app_text.dart';
 import '../../../Utils/text_botton.dart';
 import '../../../constant/colors.dart';
 
-class HouseWorkBidDetail extends GetView<HouseWorkBidDetailController>{
+class HouseWorkBidDetail extends GetView<HouseWorkBidDetailController> {
   const HouseWorkBidDetail({super.key});
 
   @override
@@ -17,11 +18,21 @@ class HouseWorkBidDetail extends GetView<HouseWorkBidDetailController>{
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: (){Get.back();}, icon: const Icon(Icons.arrow_back,color: AppColor.blackColor,)),
-        title: CustomText(title: "Domestic Service Bid Detail",fontSize: 16,fontWeight: FontWeight.w600),
+        leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: AppColor.blackColor,
+            )),
+        title: CustomText(
+            title: context.local.domestic_service_bid_detail,
+            fontSize: 16,
+            fontWeight: FontWeight.w600),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,85 +41,133 @@ class HouseWorkBidDetail extends GetView<HouseWorkBidDetailController>{
                 alignment: Alignment.bottomCenter,
                 children: [
                   Obx(() => CarouselSlider(
-                    options: CarouselOptions(
-                      height: Get.height * 0.2,
-                      initialPage: controller.carousalIndex.value,
-                      autoPlay: false,
-                      viewportFraction: 1,
-                      enableInfiniteScroll: true,
-                      onPageChanged: (index, reason) {
-                        controller.carousalIndex.value = index;
-                      },
-                    ),
-                    items: controller.album.map<Widget>((i) {
-                      return Builder(
-                        builder: (BuildContext context) {
-                          return InkWell(
-                            onTap: (){
-
-                            },
-                            onDoubleTap: (){},
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: CachedNetworkImage(
-                                  imageUrl: i,
-                                  width: Get.width,
-                                  placeholder: (context, url) => const Center(
-                                    child: CircularProgressIndicator(),
+                        options: CarouselOptions(
+                          height: Get.height * 0.2,
+                          initialPage: controller.carousalIndex.value,
+                          autoPlay: false,
+                          viewportFraction: 1,
+                          enableInfiniteScroll: true,
+                          onPageChanged: (index, reason) {
+                            controller.carousalIndex.value = index;
+                          },
+                        ),
+                        items: controller.album.map<Widget>((i) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              return InkWell(
+                                onTap: () {},
+                                onDoubleTap: () {},
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: CachedNetworkImage(
+                                      imageUrl: i,
+                                      width: Get.width,
+                                      placeholder: (context, url) =>
+                                          const Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          SizedBox(
+                                        width: Get.width,
+                                        height: Get.height * 0.4,
+                                      ),
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                  errorWidget: (context, url, error) => SizedBox(width: Get.width,
-                                    height: Get.height * 0.4,),
-                                  fit: BoxFit.cover,
                                 ),
-                              ),
-                            ),
+                              );
+                            },
                           );
-                        },
-                      );
-                    }).toList(),
-                  )),
-                  Obx(() =>  Padding(
-                    padding: const EdgeInsets.only(bottom: 15),
-                    child: AnimatedSmoothIndicator(
-                      activeIndex: controller.carousalIndex.value,
-                      count: controller.album.length,  // Number of items in your slider
-                      effect: const WormEffect(
-                        dotHeight: 7,
-                        dotWidth: 7,
-                        spacing: 5,
-                        activeDotColor: Colors.white,
-                        dotColor: AppColor.blackColor,
-                      ),
-                    ),
-                  ))
+                        }).toList(),
+                      )),
+                  Obx(() => Padding(
+                        padding: const EdgeInsets.only(bottom: 15),
+                        child: AnimatedSmoothIndicator(
+                          activeIndex: controller.carousalIndex.value,
+                          count: controller
+                              .album.length, // Number of items in your slider
+                          effect: const WormEffect(
+                            dotHeight: 7,
+                            dotWidth: 7,
+                            spacing: 5,
+                            activeDotColor: Colors.white,
+                            dotColor: AppColor.blackColor,
+                          ),
+                        ),
+                      ))
                 ],
               ),
               const Divider(),
               Align(
                 alignment: Alignment.center,
-                child: CustomText(title: "Order Detail", fontWeight: FontWeight.w600,fontSize: 16),
+                child: CustomText(
+                    title: context.local.order_detail,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16),
               ),
               ListTile(
-                title: CustomText(title: "Work Overview",fontWeight: FontWeight.w600,fontSize: 14, textAlign: TextAlign.start),
-                subtitle: CustomText(title: "want to design an architecture for my form house.",fontWeight: FontWeight.w500,fontSize: 14, textAlign: TextAlign.start),
+                title: CustomText(
+                    title: context.local.work_overview,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    textAlign: TextAlign.start),
+                subtitle: const CustomText(
+                    title: "want to design an architecture for my form house.",
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    textAlign: TextAlign.start),
               ),
               ListTile(
-                title: CustomText(title: "Workplace Address",fontWeight: FontWeight.w600,fontSize: 14, textAlign: TextAlign.start),
-                subtitle: CustomText(title: "G7 street No 5, House No 11, Islamabad",fontWeight: FontWeight.w500,fontSize: 14, textAlign: TextAlign.start),
+                title: CustomText(
+                    title: context.local.workplace_address,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    textAlign: TextAlign.start),
+                subtitle: const CustomText(
+                    title: "G7 street No 5, House No 11, Islamabad",
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    textAlign: TextAlign.start),
               ),
               ListTile(
-                title: CustomText(title: "Description",fontWeight: FontWeight.w600,fontSize: 14, textAlign: TextAlign.start),
-                subtitle: CustomText(title: "Description Iron frames for the piston dei. dummy text for the order.",fontWeight: FontWeight.w500,fontSize: 14, textAlign: TextAlign.start),
+                title: CustomText(
+                    title: context.local.description,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    textAlign: TextAlign.start),
+                subtitle: const CustomText(
+                    title:
+                        "Description Iron frames for the piston dei. dummy text for the order.",
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    textAlign: TextAlign.start),
+              ),
+              const ListTile(
+                title: CustomText(
+                    title: "Work Start Date & Time",
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    textAlign: TextAlign.start),
+                subtitle: CustomText(
+                    title: "10-10-2025 12:30 pm",
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    textAlign: TextAlign.start),
               ),
               ListTile(
-                title: CustomText(title: "Work Start Date & Time",fontWeight: FontWeight.w600,fontSize: 14, textAlign: TextAlign.start),
-                subtitle: CustomText(title: "10-10-2025 12:30 pm",fontWeight: FontWeight.w500,fontSize: 14, textAlign: TextAlign.start),
-              ),
-              ListTile(
-                title: CustomText(title: "Customer will pay",fontWeight: FontWeight.w600,fontSize: 14, textAlign: TextAlign.start),
-                subtitle: CustomText(title: "Daily",fontWeight: FontWeight.w500,fontSize: 14, textAlign: TextAlign.start),
+                title: CustomText(
+                    title: context.local.customer_will_pay,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    textAlign: TextAlign.start),
+                subtitle: CustomText(
+                    title: context.local.daily,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    textAlign: TextAlign.start),
               ),
               const Divider(),
               SizedBox(
@@ -126,7 +185,9 @@ class HouseWorkBidDetail extends GetView<HouseWorkBidDetailController>{
                   ),
                 ),
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               Row(
                 children: [
                   Expanded(
@@ -136,7 +197,7 @@ class HouseWorkBidDetail extends GetView<HouseWorkBidDetailController>{
                           textFontSize: 20,
                           textFontWeight: FontWeight.w500,
                           context: context,
-                          title: 'Reject',
+                          title: context.local.reject,
                           textColor: AppColor.white,
                           buttonColor: AppColor.googleColor,
                           onClick: () {
@@ -151,10 +212,8 @@ class HouseWorkBidDetail extends GetView<HouseWorkBidDetailController>{
                           textFontSize: 20,
                           textFontWeight: FontWeight.w500,
                           context: context,
-                          title: 'Accept',
-                          onClick: () {
-
-                          }),
+                          title: context.local.accept,
+                          onClick: () {}),
                     ),
                   )
                 ],
